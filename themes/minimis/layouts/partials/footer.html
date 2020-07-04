@@ -1,0 +1,12 @@
+<footer class="footer fixed-bottom">
+  <hr>
+  <div class="container">
+    {{ with .Site.Params.social }}
+      {{ range sort . "weight" }}
+        <a href="{{ .url }}" title="{{ .name }}" aria-label="{{ .name }}">
+          <i class="{{ .icon }}" aria-hidden="true"></i>
+        </a>
+      {{ end }}
+    {{ end }}
+  </div>
+</footer>

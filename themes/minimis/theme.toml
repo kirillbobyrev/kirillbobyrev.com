@@ -1,0 +1,20 @@
+name = "Minimis"
+license = "Apache 2.0"
+licenselink = "https://github.com/kirillbobyrev/minimis/blob/master/LICENSE"
+description = "Minimalistic Hugo blog theme"
+homepage = "https://github.com/kirillbobyrev/minimis"
+tags = ["blog", "minimalistic"]
+features = [
+  "google-analytics",
+  "syntax-highlighting",
+  "reading-time",
+]
+min_version = "0.73"
+
+pygmentsStyle = "github"
+pygmentsCodefences = true
+pygmentsCodefencesguesssyntax = true
+
+[author]
+  name = "Kirill Bobyrev"
+  homepage = "https://kirillbobyrev.com"

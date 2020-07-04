@@ -1,0 +1,38 @@
+<meta charset="utf-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+{{ with .Site.Params.author }}
+  <meta name="author" content="{{ . }}">
+{{ end }}
+{{ with .Site.Params.description }}
+  <meta name="description" content="{{ . }}">
+{{ end }}
+{{ with .Site.Params.keywords }}
+  <meta name="keywords" content={{ delimit . "," }}>
+{{ end }}
+
+{{ template "_internal/twitter_cards.html" . }}
+{{ template "_internal/opengraph.html" . }}
+
+{{ range .AlternativeOutputFormats -}}
+  {{ printf `<link rel="%s" type="%s" href="%s" title="%s">` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+{{ end -}}
+
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto">
+
+<!--TODO: Move to a separate CSS file-->
+<style>
+body {
+  font-family: "Roboto";
+  padding-top: 5rem;
+}
+</style>
+
+<link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/b86caeed9d.js"
+        crossorigin="anonymous"></script>

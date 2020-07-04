@@ -1,0 +1,77 @@
+baseURL = "https://kirillbobyrev.com/"
+languageCode = "en-us"
+title = "Kirill Bobyrev"
+theme = "minimis"
+
+googleAnalytics = "G-BT4F7CFZ13"
+
+# TODO: Add resume and my GSoC paper to static resources.
+# TODO: Add favicon.
+# TODO: Add nice image of myself.
+
+# TODO: Add image for Twitter cards preview.
+# https://gohugo.io/templates/internal/#configure-twitter-cards
+[params]
+  author = "Kirill Bobyrev"
+  info = "Software Engineer"
+  description = "Kirill Bobyrev's blog"
+  keywords = [
+    "blog",
+    "developer",
+    "personal",
+    "startups",
+    "coding",
+    "programming",
+  ]
+
+# TODO: Add "series".
+# https://gohugo.io/content-management/taxonomies/#example-adding-a-custom-taxonomy-named-series
+[taxonomies]
+  tag = "tags"
+
+# Social links
+[[params.social]]
+  name = "Github"
+  icon = "fab fa-github fa-2x"
+  weight = 0
+  url = "https://github.com/kirillbobyrev/"
+[[params.social]]
+  name = "Twitter"
+  icon = "fab fa-twitter fa-2x"
+  weight = 1
+  url = "https://twitter.com/kirillbobyrev/"
+[[params.social]]
+  name = "LinkedIn"
+  icon = "fab fa-linkedin fa-2x"
+  weight = 2
+  url = "https://linkedin.com/in/kirillbobyrev/"
+[[params.social]]
+  name = "Facebook"
+  icon = "fab fa-facebook fa-2x"
+  weight = 3
+  url = "https://facebook.com/cybobyrev"
+[[params.social]]
+  name = "Instagram"
+  icon = "fab fa-instagram fa-2x"
+  weight = 4
+  url = "https://instagram.com/cybobyrev"
+[[params.social]]
+  name = "Telegram"
+  icon = "fab fa-telegram fa-2x"
+  weight = 5
+  url = "https://t.me/kirillbobyrev"
+[[params.social]]
+  name = "VK"
+  icon = "fab fa-vk fa-2x"
+  weight = 6
+  url = "https://vk.com/kirillbobyrev"
+[[params.social]]
+  name = "Goodreads"
+  icon = "fab fa-goodreads fa-2x"
+  weight = 7
+  url = "https://goodreads.com/kirillbobyrev"
+[[params.social]]
+  name = "Chess"
+  icon = "fas fa-chess-rook fa-2x"
+  weight = 8
+  url = "https://chess.com/member/kirillbobyrev"

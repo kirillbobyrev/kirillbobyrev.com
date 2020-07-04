@@ -1,0 +1,18 @@
+{{ define "main" }}
+  <!--TODO: Add navigation buttons.-->
+  <!--TODO: Add structure from here: https://dsheiko.github.io/h5i/-->
+  <!--TODO: Add date and tags.-->
+  {{ template "_internal/pagination.html" . }}
+  {{ range where .Paginator.Pages "Params.hidden" "ne" true }}
+  <article>
+    <div class="row">
+      <div class="col-lg-8">
+        <div>
+          <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+          {{ .Summary }}
+        </div>
+      </div>
+    </div>
+  </article>
+  {{ end }}
+{{ end }}

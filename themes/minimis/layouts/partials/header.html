@@ -1,0 +1,15 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <div class="container">
+    {{ with .Site.Params.description }}
+      <a class="navbar-brand" href="/">{{ . }}</a>
+    {{ end }}
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto">
+        {{ range .Site.Menus.main }}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ .URL }}">{{- .Name -}}</a>
+          </li>
+        {{ end }}
+    </div>
+  </div>
+</nav>
