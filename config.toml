@@ -1,9 +1,9 @@
 baseURL = "https://kirillbobyrev.com/"
 languageCode = "en-us"
-title = "Kirill Bobyrev"
 theme = "minimis"
+title = "Kirill Bobyrev"
 
-googleAnalytics = "G-BT4F7CFZ13"
+googleAnalytics = "UA-171076606-1"
 
 # TODO: Add resume and my GSoC paper to static resources.
 # TODO: Add favicon.
@@ -14,7 +14,6 @@ googleAnalytics = "G-BT4F7CFZ13"
 [params]
   author = "Kirill Bobyrev"
   info = "Software Engineer"
-  description = "Kirill Bobyrev's blog"
   keywords = [
     "blog",
     "developer",
@@ -31,47 +30,53 @@ googleAnalytics = "G-BT4F7CFZ13"
 
 # Social links
 [[params.social]]
-  name = "Github"
   icon = "fab fa-github fa-2x"
-  weight = 0
+  name = "Github"
   url = "https://github.com/kirillbobyrev/"
+  weight = 0
 [[params.social]]
-  name = "Twitter"
   icon = "fab fa-twitter fa-2x"
-  weight = 1
+  name = "Twitter"
   url = "https://twitter.com/kirillbobyrev/"
+  weight = 1
 [[params.social]]
-  name = "LinkedIn"
   icon = "fab fa-linkedin fa-2x"
-  weight = 2
+  name = "LinkedIn"
   url = "https://linkedin.com/in/kirillbobyrev/"
+  weight = 2
 [[params.social]]
-  name = "Facebook"
   icon = "fab fa-facebook fa-2x"
-  weight = 3
+  name = "Facebook"
   url = "https://facebook.com/cybobyrev"
+  weight = 3
 [[params.social]]
-  name = "Instagram"
   icon = "fab fa-instagram fa-2x"
-  weight = 4
+  name = "Instagram"
   url = "https://instagram.com/cybobyrev"
+  weight = 4
 [[params.social]]
-  name = "Telegram"
   icon = "fab fa-telegram fa-2x"
-  weight = 5
+  name = "Telegram"
   url = "https://t.me/kirillbobyrev"
+  weight = 5
 [[params.social]]
-  name = "VK"
   icon = "fab fa-vk fa-2x"
-  weight = 6
+  name = "VK"
   url = "https://vk.com/kirillbobyrev"
+  weight = 6
 [[params.social]]
-  name = "Goodreads"
   icon = "fab fa-goodreads fa-2x"
-  weight = 7
+  name = "Goodreads"
   url = "https://goodreads.com/kirillbobyrev"
+  weight = 7
 [[params.social]]
-  name = "Chess"
   icon = "fas fa-chess-rook fa-2x"
-  weight = 8
+  name = "Chess"
   url = "https://chess.com/member/kirillbobyrev"
+  weight = 8
+
+[menu]
+  [[menu.main]]
+    name = "Blog"
+    url = "/blog/"
+    weight = -1

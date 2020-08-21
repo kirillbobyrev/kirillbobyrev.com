@@ -42,7 +42,9 @@ TODO: GitHub Project skeleton (?)
 
 ### OSS Fuzz
 
-## Finding bottlenecks
+## Measuring performance and finding bottlenecks
+
+### Benchmarks
 
 ### Chandler's Cache hits tools and talk?
 
@@ -52,6 +54,6 @@ TODO: GitHub Project skeleton (?)
 
 ## Outro
 
-There are many other tools not covered in this post, including
-[Valgrind](http://valgrind.org/), ... . However, I decided to cover tools that I
-use myself
+There are other tools not covered in this post, including
+[Valgrind](http://valgrind.org/), ... . However, I decided to cover tools
+that I use myself
