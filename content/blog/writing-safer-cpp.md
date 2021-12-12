@@ -1,12 +1,13 @@
-+++
-title = "Writing Safer and Faster C++"
-date = 2019-09-20T14:23:43+03:00
-draft = true
-description = ""
-slug = ""
-tags = []
-series = []
-+++
+---
+title: "Writing Safer and Faster C++"
+date: 2019-09-20T14:23:43+03:00
+draft: true
+description: ""
+slug: ""
+tags: []
+series: []
+math: false
+---
 
 C++ is notoriously difficult. There are software problems related to memory
 leaks, undefined behavior and concurrency issues that are easy to miss in C++

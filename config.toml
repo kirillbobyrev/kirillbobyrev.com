@@ -1,9 +1,7 @@
 baseURL = "https://kirillbobyrev.com/"
-languageCode = "en-us"
-theme = "minimis"
-title = "Kirill Bobyrev"
-
+languageCode = "en"
 googleAnalytics = "UA-171076606-1"
+enableRobotsTXT = true
 
 # TODO: Add resume and my GSoC paper to static resources.
 # TODO: Add favicon.
@@ -13,14 +11,15 @@ googleAnalytics = "UA-171076606-1"
 # https://gohugo.io/templates/internal/#configure-twitter-cards
 [params]
   author = "Kirill Bobyrev"
-  info = "Software Engineer"
+  title = "Kirill Bobyrev"
+  description = "Kirill Bobyrev personal blog"
   keywords = [
     "blog",
+    "programming",
+    "computer-science",
     "developer",
     "personal",
     "startups",
-    "coding",
-    "programming",
   ]
 
 # TODO: Add "series".
