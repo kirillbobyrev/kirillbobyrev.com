@@ -3,9 +3,8 @@ title: "{{ replace .Name "-" " " | title }}"
 date: {{ .Date }}
 draft: true
 description: ""
-slug: ""
 tags: []
-series: []
+slug: ""
 math: false
 ---
 

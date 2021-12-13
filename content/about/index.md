@@ -1,3 +1,14 @@
+---
+title: "About me"
+date: ""
+draft: false
+description: ""
+tags: []
+slug: ""
+math: false
+hidden: true
+---
+
 Hi, I'm Kirill — a Software Engineer at Google working on Clangd, C++ Language
 Server implementation that helps you write better code in Visual Studio Code,
 Vim and other editors. I specialize in Compilers and Machine Learning. C++ and

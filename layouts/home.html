@@ -1,0 +1,15 @@
+{{ define "main" }}
+  {{/* Add metadata (date, tags) */}}
+  {{/* Group by year. */}}
+  {{/* range where .Site.Pages "Kind" "page" */}}
+  {{ range where .Pages "Params.hidden" true }}
+    <article>
+      <div>
+        <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        ReadingTime: {{ .ReadingTime }}
+        <br>
+        {{ .Summary }}
+      </div>
+    </article>
+  {{ end }}
+{{ end }}

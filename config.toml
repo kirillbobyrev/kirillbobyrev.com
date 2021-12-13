@@ -4,11 +4,10 @@ googleAnalytics = "G-296464358"
 enableRobotsTXT = true
 
 # TODO: Add resume and my GSoC paper to static resources.
-# TODO: Add favicon.
 # TODO: Add nice image of myself.
-
 # TODO: Add image for Twitter cards preview.
 # https://gohugo.io/templates/internal/#configure-twitter-cards
+
 [params]
   author = "Kirill Bobyrev"
   description = "Kirill Bobyrev personal blog"
@@ -21,13 +20,12 @@ enableRobotsTXT = true
     "startups",
   ]
 
+# Configure Chroma with sensible defaults.
 [markup]
   [markup.highlight]
     style = 'github'
     codeFenses = true
 
-# TODO: Add "series".
-# https://gohugo.io/content-management/taxonomies/#example-adding-a-custom-taxonomy-named-series
 [taxonomies]
   tag = "tags"
 
@@ -50,36 +48,40 @@ enableRobotsTXT = true
 [[params.social]]
   icon = "fab fa-facebook fa-2x"
   name = "Facebook"
-  url = "https://facebook.com/cybobyrev"
+  url = "https://facebook.com/cybobyrev/"
   weight = 3
 [[params.social]]
   icon = "fab fa-instagram fa-2x"
   name = "Instagram"
-  url = "https://instagram.com/cybobyrev"
+  url = "https://instagram.com/cybobyrev/"
   weight = 4
 [[params.social]]
   icon = "fab fa-telegram fa-2x"
   name = "Telegram"
-  url = "https://t.me/kirillbobyrev"
+  url = "https://t.me/kirillbobyrev/"
   weight = 5
 [[params.social]]
   icon = "fab fa-vk fa-2x"
   name = "VK"
-  url = "https://vk.com/kirillbobyrev"
+  url = "https://vk.com/kirillbobyrev/"
   weight = 6
 [[params.social]]
   icon = "fab fa-goodreads fa-2x"
   name = "Goodreads"
-  url = "https://goodreads.com/kirillbobyrev"
+  url = "https://goodreads.com/kirillbobyrev/"
   weight = 7
 [[params.social]]
   icon = "fas fa-chess-rook fa-2x"
   name = "Chess"
-  url = "https://chess.com/member/kirillbobyrev"
+  url = "https://lichess.org/@/kirillbobyrev/"
   weight = 8
 
 [menu]
   [[menu.main]]
-    name = "Blog"
-    url = "/blog/"
+    name = "Projects"
+    url = "/projects/"
+    weight = -2
+  [[menu.main]]
+    name = "About"
+    url = "/about/"
     weight = -1
