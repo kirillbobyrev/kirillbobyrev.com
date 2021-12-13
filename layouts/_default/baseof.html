@@ -6,8 +6,10 @@
   <body>
     <!--TODO: Add head, body, footer from HTML5: https://ru.code-basics.com/languages/html/modules/semantics/lessons/semantic-elements-->
     <!--TODO: Also: https://css-tricks.com/snippets/html/html5-page-structure/-->
-    {{- partial "header.html" . -}}
-    <main role="main" class="container">
+    <div class="header">
+      {{- partial "header.html" . -}}
+    </div>
+    <main role="main">
         {{- block "main" . }}{{- end }}
     </main>
     {{- partial "footer.html" . -}}

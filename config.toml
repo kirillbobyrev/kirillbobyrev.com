@@ -1,6 +1,6 @@
 baseURL = "https://kirillbobyrev.com/"
 languageCode = "en"
-googleAnalytics = "UA-171076606-1"
+googleAnalytics = "G-296464358"
 enableRobotsTXT = true
 
 # TODO: Add resume and my GSoC paper to static resources.
@@ -11,7 +11,6 @@ enableRobotsTXT = true
 # https://gohugo.io/templates/internal/#configure-twitter-cards
 [params]
   author = "Kirill Bobyrev"
-  title = "Kirill Bobyrev"
   description = "Kirill Bobyrev personal blog"
   keywords = [
     "blog",
@@ -21,6 +20,11 @@ enableRobotsTXT = true
     "personal",
     "startups",
   ]
+
+[markup]
+  [markup.highlight]
+    style = 'github'
+    codeFenses = true
 
 # TODO: Add "series".
 # https://gohugo.io/content-management/taxonomies/#example-adding-a-custom-taxonomy-named-series

@@ -23,6 +23,14 @@ style guides and ensure stability.
 
 ## Sanitizers
 
+```c++
+int main(int argc, char **argv) {
+  int *array = new int[100];
+  delete [] array;
+  return array[argc];  // BOOM
+}
+```
+
 ### Address Sanitizer
 
 ### Memory Sanitizer

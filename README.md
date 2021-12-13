@@ -1,5 +1,5 @@
 # [Personal website](https://kirillbobyrev.com)
 
-![Build website and deploy to GitHub Pages](https://github.com/kirillbobyrev/kirillbobyrev.com/workflows/Build%20website%20and%20deploy%20to%20GitHub%20Pages/badge.svg)
+![Build and deploy](https://github.com/kirillbobyrev/kirillbobyrev.com/workflows/Build%20and%20deploy/badge.svg)
 
-My personal static website built with Hugo.
+My personal static website built with [Hugo](https://gohugo.io).

@@ -29,18 +29,18 @@
 {{ template "_internal/twitter_cards.html" . }}
 {{ template "_internal/opengraph.html" . }}
 
-{{/* Enable KaTeX only when explicitly required for speed .*/}}
+{{/* Enable KaTeX only when explicitly required for reduce loading time. */}}
 {{ if .Params.math }}
   {{ partial "helpers/katex.html" . }}
 {{ end }}
 
 {{ range .AlternativeOutputFormats -}}
-  {{ printf `<link rel="%s" type="%s" href="%s" title="%s">` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+  {{ printf `<link rel="%s" type="%s" href="%s" title="%s">` .Rel .MediaType.Type .RelPermalink $.Site.Title | safeHTML }}
 {{ end -}}
 
+{{/* TODO: Maybe prefer using local fonts over CDN for speed. */}}
 <link rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Roboto">
-
 <script src="https://kit.fontawesome.com/b86caeed9d.js"
         crossorigin="anonymous"></script>
 

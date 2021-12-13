@@ -1,11 +1,11 @@
-name: Build website and deploy to GitHub Pages
+name: Build and deploy
 on:
   push:
     branches:
       - main
 jobs:
   build:
-    name: Build & deploy
+    name: Build & deploy to GitHub Pages
     runs-on: ubuntu-20.04
     steps:
 
