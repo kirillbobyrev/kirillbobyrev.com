@@ -3,9 +3,9 @@ on:
   push:
     branches:
       - main
+concurrency: 
+  group: "Build and deploy"
 jobs:
-  concurrency: 
-    group: "Build and deploy"
   build:
     name: Build & deploy to GitHub Pages
     runs-on: ubuntu-latest
