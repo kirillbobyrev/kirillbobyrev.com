@@ -4,25 +4,23 @@ on:
     branches:
       - main
 jobs:
+  concurrency: 
+    group: "Build and deploy"
   build:
     name: Build & deploy to GitHub Pages
     runs-on: ubuntu-latest
     steps:
-
     - name: Check out code
       uses: actions/checkout@v3
       with:
         submodules: recursive
         fetch-depth: 0
-
     - name: Setup Hugo
       uses: peaceiris/actions-hugo@v2
       with:
         hugo-version: 'latest'
-
     - name: Build website
       run: hugo --minify
-
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
