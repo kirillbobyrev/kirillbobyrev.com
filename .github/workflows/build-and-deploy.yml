@@ -25,11 +25,7 @@ jobs:
         hugo-version: 'latest'
     - name: Download the resume
       run: |
-        curl -s "https://api.github.com/repos/kirillbobyrev/resume/releases/latest"
-        curl -s "https://api.github.com/repos/kirillbobyrev/resume/releases/latest" | grep "Kirill-Bobyrev-Resume.pdf"
-        curl -s "https://api.github.com/repos/kirillbobyrev/resume/releases/latest" | grep "Kirill-Bobyrev-Resume.pdf" | cut -d : -f 2,3
-        curl -s "https://api.github.com/repos/kirillbobyrev/resume/releases/latest" | grep "Kirill-Bobyrev-Resume.pdf" | cut -d : -f 2,3 | tr -d \"
-        curl -s "https://api.github.com/repos/kirillbobyrev/resume/releases/latest" | grep "Kirill-Bobyrev-Resume.pdf" | cut -d : -f 2,3 | tr -d \" | wget -qi -
+        curl -s "https://api.github.com/repos/kirillbobyrev/resume/releases/latest" | grep "Kirill-Bobyrev-Resume.pdf" | cut -d : -f 2,3 | tr -d \" | wget -i -
         mv Kirill-Bobyrev-Resume.pdf static/
     - name: Build website
       run: hugo --minify
