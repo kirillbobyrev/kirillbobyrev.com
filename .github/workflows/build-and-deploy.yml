@@ -6,8 +6,7 @@ on:
   # Regenerate the website every day: this will update the resume that is hosted
   # and generated in a different repository.
   schedule:
-    cron:
-      - '0 0 * * *'
+      - cron: '0 0 * * *'
 concurrency: 
   group: 'Build and deploy'
 jobs:
