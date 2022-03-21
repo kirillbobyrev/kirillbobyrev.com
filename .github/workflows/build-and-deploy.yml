@@ -19,21 +19,14 @@ jobs:
       with:
         submodules: recursive
         fetch-depth: 0
-    - name: Download the resume
-      run: |
-        sudo apt-get install -y coreutils grep curl wget
-
-        curl -s https://api.github.com/repos/kirillbobyrev/resume/releases/latest \
-        | grep 'Kirill-Bobyrev-Resume.pdf' \
-        | cut -d : -f 2,3 \
-        | tr -d \" \
-        | wget -qi -
-
-        mv Kirill-Bobyrev-Resume.pdf static/
     - name: Setup Hugo
       uses: peaceiris/actions-hugo@v2
       with:
         hugo-version: 'latest'
+    - name: Download the resume
+      run: |
+        curl -s "https://api.github.com/repos/kirillbobyrev/resume/releases/latest" | grep "Kirill-Bobyrev-Resume.pdf" | cut -d : -f 2,3  | tr -d \" | wget -qi -
+        mv Kirill-Bobyrev-Resume.pdf static/
     - name: Build website
       run: hugo --minify
     - name: Deploy
