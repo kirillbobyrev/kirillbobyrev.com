@@ -21,6 +21,8 @@ jobs:
         fetch-depth: 0
     - name: Download the resume
       run: |
+        sudo apt-get install -y coreutils grep curl wget
+
         curl -s https://api.github.com/repos/kirillbobyrev/resume/releases/latest \
         | grep 'Kirill-Bobyrev-Resume.pdf' \
         | cut -d : -f 2,3 \
