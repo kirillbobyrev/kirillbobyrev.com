@@ -1,6 +1,6 @@
 baseURL = "https://kirillbobyrev.com/"
 languageCode = "en"
-googleAnalytics = "G-296464358"
+googleAnalytics = "G-RHCZGDQQJR"
 enableRobotsTXT = true
 
 # TODO: Add resume and my GSoC paper to static resources.
@@ -10,7 +10,7 @@ enableRobotsTXT = true
 
 [params]
   author = "Kirill Bobyrev"
-  description = "Kirill Bobyrev personal blog"
+  description = "Kirill Bobyrev blog about programming and other things"
   keywords = [
     "blog",
     "programming",
@@ -23,7 +23,7 @@ enableRobotsTXT = true
 # Configure Chroma with sensible defaults.
 [markup]
   [markup.highlight]
-    style = 'github'
+    style = "github"
     codeFenses = true
 
 [taxonomies]
@@ -75,13 +75,3 @@ enableRobotsTXT = true
   name = "Chess"
   url = "https://lichess.org/@/kirillbobyrev/"
   weight = 8
-
-[menu]
-  [[menu.main]]
-    name = "Projects"
-    url = "/projects/"
-    weight = -2
-  [[menu.main]]
-    name = "About"
-    url = "/about/"
-    weight = -1

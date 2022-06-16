@@ -1,8 +1,16 @@
 {{ define "main" }}
-  <h1>
-    {{ .Title }}
-  </h1>
-  <!--TODO: Add article tag?-->
-  <!--TODO: Put article name into the tab title?-->
+  <article>
+  <header>
+    <h1>
+      {{ .Title }}
+    </h1>
+    <time datetime="{{ .Date.Format "2006-01-02" }}">
+      {{ .Date.Format "January 2, 2006" }}
+    </time>
+  </header>
+  <br>
+  Reading time: {{ .ReadingTime }} minute{{ if (ne .ReadingTime 1) }}s{{ end }}
+  {{/* TODO: Add tags. */}}
   {{ .Content }}
+  </article>
 {{ end }}

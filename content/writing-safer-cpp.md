@@ -1,6 +1,6 @@
 ---
 title: "Writing Safer and Faster C++"
-date: 2019-09-20T14:23:43+03:00
+date: 2022-05-14T13:20:52+02:00
 draft: true
 description: ""
 slug: ""

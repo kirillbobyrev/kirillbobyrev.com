@@ -1,15 +1,14 @@
 {{ define "main" }}
-  {{/* Add metadata (date, tags) */}}
-  {{/* Group by year. */}}
-  {{/* range where .Site.Pages "Kind" "page" */}}
-  {{ range where .Pages "Params.hidden" true }}
-    <article>
-      <div>
-        <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
-        ReadingTime: {{ .ReadingTime }}
-        <br>
-        {{ .Summary }}
-      </div>
-    </article>
+  {{/* TODO: Add tags. */}}
+  {{/* TODO: range .Pages.GroupByDate "2022" */}}
+  {{ range .Pages }}
+    <div>
+      <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+      <time datetime="{{ .Date.Format "2006-01-02" }}">
+        {{ .Date.Format "January 2, 2006" }}
+      </time>
+      <br>
+      {{ .Summary }}
+    </div>
   {{ end }}
 {{ end }}

@@ -1,5 +1,5 @@
 ---
-title: "Front page Lorem Ipsum"
+title: "Lorem Ipsum"
 date: 2021-12-13T13:16:31+01:00
 draft: false
 description: ""
@@ -21,9 +21,11 @@ orci purus eu urna. Nam mi orci, fermentum sed arcu vel, porttitor rutrum odio.
 
 <!--more-->
 
-\begin{equation}
+## H2
+
+$$
   i \hbar \frac{\partial}{\partial t}\Psi(\mathbf{r},t) = \hat H \Psi(\mathbf{r},t)
-\end{equation}
+$$
 
 In hac habitasse platea dictumst. Aliquam justo erat, lobortis ac ultrices in,
 commodo eget ex. Donec pharetra, nisi ac volutpat blandit, lacus turpis
@@ -34,6 +36,8 @@ cursus, molestie vel tellus. Fusce ac varius ligula. Vivamus quis gravida
 risus. Sed posuere placerat eleifend. Praesent et tempor nulla. Sed tristique
 interdum laoreet. Phasellus efficitur bibendum facilisis. Curabitur feugiat
 metus sed feugiat porta.
+
+### H3
 
 In vitae efficitur urna. Fusce condimentum commodo dui vitae venenatis. Nam
 varius ex at tempus faucibus. Vivamus iaculis nulla enim, ut porttitor ex

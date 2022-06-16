@@ -7,12 +7,10 @@
 {{ end }}
 
 <title>
-  {{ if .IsHome }}
-    {{ .Site.Params.author }}
-  {{ else if .IsSection }}
-    {{ humanize .Section }}
-  {{ else if .IsPage }}
+  {{ if .IsPage }}
     {{ .Title }}
+  {{ else }}
+    {{ .Site.Params.author }}
   {{ end }}
 </title>
 
@@ -29,7 +27,7 @@
 {{ template "_internal/twitter_cards.html" . }}
 {{ template "_internal/opengraph.html" . }}
 
-{{/* Enable KaTeX only when explicitly required for reduce loading time. */}}
+{{/* Enable KaTeX only when explicitly required to reduce loading time. */}}
 {{ if .Params.math }}
   {{ partial "helpers/katex.html" . }}
 {{ end }}
