@@ -1,12 +1,8 @@
-<footer class="footer fixed-bottom">
-  <hr />
-  {{/* TODO: Add something here, move socials into the profile.
-  <div class="container">
-    {{ with .Site.Params.social }} {{ range sort . "weight" }}
-    <a href="{{ .url }}" title="{{ .name }}" aria-label="{{ .name }}">
-      <i class="{{ .icon }}" aria-hidden="true"></i>
-    </a>
-    {{ end }} {{ end }}
-  </div>
-  */}}
-</footer>
+<hr />
+<div class="container center">
+  {{ with .Site.Params.social }} {{ range sort . "weight" }}
+  <a href="{{ .url }}" title="{{ .name }}" aria-label="{{ .name }}">
+    <i class="{{ .icon }}" aria-hidden="true"></i>
+  </a>
+  {{ end }} {{ end }}
+</div>

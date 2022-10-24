@@ -46,32 +46,12 @@ enableRobotsTXT = true
   url = "https://linkedin.com/in/kirillbobyrev/"
   weight = 2
 [[params.social]]
-  icon = "fab fa-facebook fa-2x"
-  name = "Facebook"
-  url = "https://facebook.com/cybobyrev/"
-  weight = 3
-[[params.social]]
   icon = "fab fa-instagram fa-2x"
   name = "Instagram"
   url = "https://instagram.com/cybobyrev/"
-  weight = 4
+  weight = 3
 [[params.social]]
   icon = "fab fa-telegram fa-2x"
   name = "Telegram"
   url = "https://t.me/kirillbobyrev/"
-  weight = 5
-[[params.social]]
-  icon = "fab fa-vk fa-2x"
-  name = "VK"
-  url = "https://vk.com/kirillbobyrev/"
-  weight = 6
-[[params.social]]
-  icon = "fab fa-goodreads fa-2x"
-  name = "Goodreads"
-  url = "https://goodreads.com/kirillbobyrev/"
-  weight = 7
-[[params.social]]
-  icon = "fas fa-chess-rook fa-2x"
-  name = "Chess"
-  url = "https://lichess.org/@/kirillbobyrev/"
-  weight = 8
+  weight = 4

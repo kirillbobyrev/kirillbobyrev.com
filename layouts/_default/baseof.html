@@ -4,14 +4,14 @@
     {{- partial "head.html" . -}}
   </head>
   <body>
-    <!--TODO: Add head, body, footer from HTML5: https://ru.code-basics.com/languages/html/modules/semantics/lessons/semantic-elements-->
-    <!--TODO: Also: https://css-tricks.com/snippets/html/html5-page-structure/-->
     <div class="header">
       {{- partialCached "header.html" . -}}
     </div>
     <main role="main">
         {{- block "main" . }}{{- end }}
     </main>
-    {{- partialCached "footer.html" . -}}
+    <footer class="footer fixed-bottom">
+      {{- partialCached "footer.html" . -}}
+    </footer>
   </body>
 </html>
