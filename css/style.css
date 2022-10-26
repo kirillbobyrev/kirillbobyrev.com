@@ -1,4 +1,6 @@
-body {
+main {
+  margin: 0 auto;
+  max-width: 80ch;
   font-family: "Roboto";
 }
 
