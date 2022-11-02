@@ -7,9 +7,9 @@
     <time datetime="{{ .Date.Format "2006-01-02" }}">
       {{ .Date.Format "January 2, 2006" }}
     </time>
+    <br>
+    Reading time: {{ .ReadingTime }} minute{{ if (ne .ReadingTime 1) }}s{{ end }}
   </header>
-  <br>
-  Reading time: {{ .ReadingTime }} minute{{ if (ne .ReadingTime 1) }}s{{ end }}
   {{/* TODO: Add tags. */}}
   {{ .Content }}
   </article>
