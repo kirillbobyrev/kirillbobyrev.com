@@ -7,8 +7,4 @@ slug: ""
 math: false
 ---
 
-Summary.
-
-<!--more-->
-
-Expanded text.
+Content

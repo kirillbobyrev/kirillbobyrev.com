@@ -4,9 +4,9 @@
     {{- partial "head.html" . -}}
   </head>
   <body>
-    <div class="header">
+    <header>
       {{- partialCached "header.html" . -}}
-    </div>
+    </header>
     <main role="main">
         {{- block "main" . }}{{- end }}
     </main>

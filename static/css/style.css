@@ -1,5 +1,5 @@
 html {
-  font-family: -apple-system, system-ui, "Roboto", sans-serif;
+  font-family: system-ui, "Roboto", sans-serif;
 }
 
 main {
@@ -14,5 +14,18 @@ main {
 }
 
 .footer {
-  margin-top: 1ch;
+  margin-top: 2ch;
+}
+
+a {
+  text-decoration: none;
+}
+
+time {
+  font-family: ui-monospace, "Roboto Mono";
+}
+
+.mono {
+  font-family: ui-monospace, "Roboto Mono";
+  font-weight: bold;
 }

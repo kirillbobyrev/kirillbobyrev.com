@@ -15,8 +15,6 @@ will cover some that you can use in your projects to find existing bugs and
 prevent new ones, track performance regressions and find bottlenecks, enforce
 style guides and ensure stability.
 
-<!--more-->
-
 ## Clang-Tidy
 
 ## Sanitizers

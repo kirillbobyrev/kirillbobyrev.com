@@ -18,8 +18,6 @@ Maecenas libero enim, placerat eget purus placerat, tincidunt porta sem. Sed
 auctor, sem id pretium ornare, augue metus sollicitudin dolor, non malesuada
 orci purus eu urna. Nam mi orci, fermentum sed arcu vel, porttitor rutrum odio.
 
-<!--more-->
-
 ## H2
 
 $$
