@@ -18,23 +18,55 @@ Maecenas libero enim, placerat eget purus placerat, tincidunt porta sem. Sed
 auctor, sem id pretium ornare, augue metus sollicitudin dolor, non malesuada
 orci purus eu urna. Nam mi orci, fermentum sed arcu vel, porttitor rutrum odio.
 
-## H2
+## Markup
+
+### Code
+
+```python{hl_lines=[2, 4]}
+def fib(n):    # write Fibonacci series up to n
+    """Print a Fibonacci series up to n."""
+    a, b = 0, 1
+    while a < n:
+        print(a, end=' ')
+        a, b = b, a+b
+    print()
+
+# Now call the function we just defined:
+fib(2000)
+```
+
+### Math
 
 $$
   i \hbar \frac{\partial}{\partial t}\Psi(\mathbf{r},t) = \hat H \Psi(\mathbf{r},t)
 $$
 
-In hac habitasse platea dictumst. Aliquam justo erat, lobortis ac ultrices in,
-commodo eget ex. Donec pharetra, nisi ac volutpat blandit, lacus turpis
-venenatis dui, ac porttitor sapien velit eu metus. Nam consequat felis erat,
-sed faucibus arcu feugiat ut. In vulputate diam et venenatis porta. Quisque
-viverra porta metus vitae aliquet. Vivamus enim nisi, hendrerit quis maximus
-cursus, molestie vel tellus. Fusce ac varius ligula. Vivamus quis gravida
-risus. Sed posuere placerat eleifend. Praesent et tempor nulla. Sed tristique
-interdum laoreet. Phasellus efficitur bibendum facilisis. Curabitur feugiat
-metus sed feugiat porta.
+## Diagrams
 
-### H3
+### Mermaid
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+
+### GoaT
+
+```goat
+   .---.       .-.        .-.       .-.                                       .-.
+   | A +----->| 1 +<---->| 2 |<----+ 4 +------------------.                  | 8 |
+   '---'       '-'        '+'       '-'                    |                  '-'
+                           |         ^                     |                   ^
+                           v         |                     v                   |
+                          .-.      .-+-.        .-.      .-+-.      .-.       .+.       .---.
+                         | 3 +---->| B |<----->| 5 +---->| C +---->| 6 +---->| 7 |<---->| D |
+                          '-'      '---'        '-'      '---'      '-'       '-'       '---'
+```
+
+## Text
 
 In vitae efficitur urna. Fusce condimentum commodo dui vitae venenatis. Nam
 varius ex at tempus faucibus. Vivamus iaculis nulla enim, ut porttitor ex

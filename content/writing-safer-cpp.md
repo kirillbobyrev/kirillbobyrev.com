@@ -19,7 +19,7 @@ style guides and ensure stability.
 
 ## Sanitizers
 
-```c++
+```c++{hl_lines=[2, 4]}
 int main(int argc, char **argv) {
   int *array = new int[100];
   delete [] array;

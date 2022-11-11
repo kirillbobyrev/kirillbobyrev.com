@@ -7,11 +7,7 @@
 {{ end }}
 
 <title>
-  {{ if .IsPage }}
-    {{ .Title }}
-  {{ else }}
-    {{ .Site.Params.author }}
-  {{ end }}
+  {{ .Title }}
 </title>
 
 {{ with .Site.Params.description }}
@@ -32,12 +28,19 @@
   {{ partial "helpers/katex.html" . }}
 {{ end }}
 
+{{ if .Page.Store.Get "hasMermaid" }}
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: true });
+  </script>
+{{ end }}
+
 {{ range .AlternativeOutputFormats -}}
   {{ printf `<link rel="%s" type="%s" href="%s" title="%s">` .Rel .MediaType.Type .RelPermalink $.Site.Title | safeHTML }}
 {{ end -}}
 
 <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Mono">
+      href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Mono|Fira+Code">
 <script src="https://kit.fontawesome.com/b86caeed9d.js"
         crossorigin="anonymous"></script>
 

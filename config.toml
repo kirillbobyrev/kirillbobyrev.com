@@ -1,7 +1,8 @@
 baseURL = "https://kirillbobyrev.com/"
-languageCode = "en"
-googleAnalytics = "G-RHCZGDQQJR"
 enableRobotsTXT = true
+googleAnalytics = "G-RHCZGDQQJR"
+languageCode = "en"
+title = "Kirill Bobyrev blog"
 
 # TODO: Add resume and my GSoC paper to static resources.
 # TODO: Add nice image of myself.
@@ -23,8 +24,12 @@ enableRobotsTXT = true
 # Configure Chroma with sensible defaults.
 [markup]
   [markup.highlight]
-    style = "github"
     codeFenses = true
+    guessSyntax = true
+    lineNoStart = 0
+    lineNos = true
+    style = "github"
+    tabWidth = 2
 
 # Social links
 [[params.social]]
