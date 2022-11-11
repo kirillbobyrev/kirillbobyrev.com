@@ -4,16 +4,14 @@ date: 2022-05-14T13:20:52+02:00
 draft: true
 description: ""
 slug: ""
-tags: []
-series: []
 math: false
 ---
 
 C++ is notoriously difficult. There are software problems related to memory
 leaks, undefined behavior and concurrency issues that are easy to miss in C++
-code. Noticing these problems and debugging them later on is hard.
-Fortunately, there are tools that save the day! In this post I will cover
-LLVM-based tools that you can use in your projects to find existing bugs and
+code. Noticing these problems and debugging them later on is hard. But there are
+instruments that make writing C++ code faster, easier and safer! In this post I
+will cover some that you can use in your projects to find existing bugs and
 prevent new ones, track performance regressions and find bottlenecks, enforce
 style guides and ensure stability.
 

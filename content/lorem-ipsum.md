@@ -3,7 +3,6 @@ title: "Lorem Ipsum"
 date: 2021-12-13T13:16:31+01:00
 draft: false
 description: ""
-tags: []
 slug: ""
 math: true
 ---

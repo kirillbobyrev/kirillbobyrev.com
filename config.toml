@@ -26,9 +26,6 @@ enableRobotsTXT = true
     style = "github"
     codeFenses = true
 
-[taxonomies]
-  tag = "tags"
-
 # Social links
 [[params.social]]
   icon = "fab fa-github fa-2x"
