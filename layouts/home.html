@@ -2,12 +2,12 @@
   {{/* TODO: Add tags. */}}
   {{/* TODO: range .Pages.GroupByDate "2022" */}}
   {{ range .Pages }}
-    <div>
+    <div class="article-ol">
+      <a href="{{ .RelPermalink }}" class="mono">{{ .Title }}</a>
+      &nbsp;
       <time datetime="{{ .Date | time.Format "2006-01-02" }}">
         {{ .Date | time.Format "2006-01-02" }}
       </time>
-      &nbsp;
-      <a href="{{ .RelPermalink }}" class="mono">{{ .Title }}</a>
     </div>
   {{ end }}
 {{ end }}

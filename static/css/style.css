@@ -13,6 +13,8 @@ main {
 
 code {
   font-family: "Fira Code";
+  border-style: dotted;
+  border-width: thin;
 }
 
 blockquote {
@@ -36,4 +38,8 @@ a {
 
 .mono, time {
   font-family: ui-monospace, "Roboto Mono";
+}
+
+.article-ol > time {
+  float: right;
 }

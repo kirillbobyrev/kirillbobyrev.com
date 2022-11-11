@@ -40,6 +40,12 @@ def fib(n):    # write Fibonacci series up to n
 fib(2000)
 ```
 
+### List
+
+- Element
+- Another one
+  - Nested
+
 ### Math
 
 $$
