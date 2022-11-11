@@ -3,10 +3,8 @@ html {
 }
 
 main {
-  margin-left: 1ch;
-  margin-right: 1ch;
   margin: 0 auto;
-  width: 600px;
+  max-width: 80ch;
 }
 
 .center {
