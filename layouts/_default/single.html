@@ -3,13 +3,17 @@
   <h1 class="mono">
     {{ .Title }}
   </h1>
-  <time datetime="{{ .Date.Format "2006-01-02" }}">
-    {{ .Date.Format "January 2, 2006" }}
+  <span class="fa-regular fa-calendar"></span>
+  &nbsp;
+  <time datetime="{{ .Date | time.Format ":date_medium" }}">
+    {{ .Date | time.Format ":date_medium" }}
   </time>
   <br>
-  <div class="mono">
-    {{ .ReadingTime }} minute{{ if (ne .ReadingTime 1) }}s{{ end }} to read
-  </div>
+  <span class="fa-regular fa-clock"></span>
+  &nbsp;
+  <span class="mono">
+    {{ .ReadingTime }} min{{ if (ne .ReadingTime 1) }}s{{ end }} to read
+  </span>
   {{/* TODO: Add tags. */}}
   {{ .Content }}
   </article>

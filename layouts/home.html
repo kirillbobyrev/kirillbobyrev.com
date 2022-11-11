@@ -3,8 +3,8 @@
   {{/* TODO: range .Pages.GroupByDate "2022" */}}
   {{ range .Pages }}
     <div>
-      <time datetime="{{ .Date | time.Format ":date_medium" }}">
-        {{ .Date.Format "2006-01-02" }}
+      <time datetime="{{ .Date | time.Format "2006-01-02" }}">
+        {{ .Date | time.Format "2006-01-02" }}
       </time>
       <a href="{{ .RelPermalink }}" class="mono">{{ .Title }}</a>
     </div>

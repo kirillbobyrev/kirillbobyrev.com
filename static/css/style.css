@@ -7,27 +7,33 @@ main {
   max-width: 80ch;
 }
 
-.center {
-  text-align: center;
+.footer {
+  margin-top: 1em;
 }
 
-.footer {
-  margin-top: 2ch;
+code {
+  font-family: "Fira Code";
+}
+
+blockquote {
+  background: #f9f9f9;
+  border-left: .5em solid #ccc;
+  margin: 1em;
+  padding: .5em;
+}
+
+blockquote p {
+  display: inline;
 }
 
 a {
   text-decoration: none;
 }
 
-time {
-  font-family: ui-monospace, "Roboto Mono";
+.center {
+  text-align: center;
 }
 
-.mono {
+.mono, time {
   font-family: ui-monospace, "Roboto Mono";
-  font-weight: bold;
-}
-
-code {
-  font-family: "Fira Code";
 }
