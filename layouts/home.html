@@ -6,6 +6,7 @@
       <time datetime="{{ .Date | time.Format "2006-01-02" }}">
         {{ .Date | time.Format "2006-01-02" }}
       </time>
+      &nbsp;
       <a href="{{ .RelPermalink }}" class="mono">{{ .Title }}</a>
     </div>
   {{ end }}

@@ -22,6 +22,11 @@ orci purus eu urna. Nam mi orci, fermentum sed arcu vel, porttitor rutrum odio.
 
 ### Code
 
+In vitae efficitur urna. Fusce condimentum commodo dui vitae venenatis. Nam
+varius ex at tempus faucibus. Vivamus iaculis nulla enim, ut porttitor ex
+condimentum in. Curabitur dignissim tellus dictum, consequat lorem id,
+convallis risus. Suspendisse nec varius ligula.
+
 ```python{hl_lines=[2, 4]}
 def fib(n):    # write Fibonacci series up to n
     """Print a Fibonacci series up to n."""

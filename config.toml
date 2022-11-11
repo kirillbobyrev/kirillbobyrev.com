@@ -27,7 +27,6 @@ title = "Kirill Bobyrev blog"
     codeFenses = true
     guessSyntax = true
     lineNoStart = 0
-    lineNos = true
     style = "github"
     tabWidth = 2
 
