@@ -6,5 +6,3 @@ description: ""
 slug: ""
 math: false
 ---
-
-Content

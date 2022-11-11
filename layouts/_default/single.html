@@ -1,20 +1,20 @@
 {{ define "main" }}
   <article>
-  <h1 class="mono">
-    {{ .Title }}
-  </h1>
-  <span class="fa-regular fa-calendar"></span>
-  &nbsp;
-  <time datetime="{{ .Date | time.Format ":date_medium" }}">
-    {{ .Date | time.Format ":date_medium" }}
-  </time>
-  <br>
-  <span class="fa-regular fa-clock"></span>
-  &nbsp;
-  <span class="mono">
-    {{ .ReadingTime }} min to read
-  </span>
-  {{/* TODO: Add tags. */}}
-  {{ .Content }}
+    <h1 class="monospaced">
+      {{ .Title }}
+    </h1>
+    <span class="fa-regular fa-calendar fa-fw"></span>
+    &nbsp;
+    <time datetime='{{ .Date | time.Format ":date_medium" }}'>
+      {{ .Date | time.Format ":date_medium" }}
+    </time>
+    <br>
+    <span class="fa-regular fa-clock fa-fw"></span>
+    &nbsp;
+    <span class="monospaced">
+      {{ .ReadingTime }} min to read
+    </span>
+    {{/* TODO: Add tags. */}}
+    {{ .Content }}
   </article>
 {{ end }}

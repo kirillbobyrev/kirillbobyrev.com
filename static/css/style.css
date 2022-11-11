@@ -1,3 +1,8 @@
+:root {
+  --dark: #002395;
+  --light: #496598;
+}
+
 html {
   font-family: system-ui, "Roboto", sans-serif;
 }
@@ -19,7 +24,7 @@ code {
 
 blockquote {
   background: #f9f9f9;
-  border-left: .5em solid #ccc;
+  border-left: .5em solid var(--light);
   margin: 1em;
   padding: .5em;
 }
@@ -30,16 +35,21 @@ blockquote p {
 
 a {
   text-decoration: none;
+  color: var(--light);
 }
 
 .center {
   text-align: center;
 }
 
-.mono, time {
+.monospaced, time {
   font-family: ui-monospace, "Roboto Mono";
 }
 
 .article-ol > time {
   float: right;
+}
+
+.imperial-blue {
+  color: var(--dark);
 }
