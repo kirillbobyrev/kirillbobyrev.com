@@ -4,10 +4,10 @@ googleAnalytics = "G-RHCZGDQQJR"
 languageCode = "en"
 title = "Kirill Bobyrev blog"
 
-# TODO: Add resume and my GSoC paper to static resources.
 # TODO: Add nice image of myself.
 # TODO: Add image for Twitter cards preview.
 # https://gohugo.io/templates/internal/#configure-twitter-cards
+# TODO: Add favicon with my surname initial.
 
 [params]
   author = "Kirill Bobyrev"
@@ -21,19 +21,18 @@ title = "Kirill Bobyrev blog"
     "startups",
   ]
 
-# Configure Chroma with sensible defaults.
+# Configure Chroma syntax highlighting.
 [markup]
   [markup.highlight]
     codeFenses = true
     guessSyntax = true
-    lineNoStart = 0
     style = "github"
     tabWidth = 2
 
-# Social links
+# Social links.
 [[params.social]]
   icon = "fab fa-github fa-2x"
-  name = "Github"
+  name = "GitHub"
   url = "https://github.com/kirillbobyrev/"
   weight = 0
 [[params.social]]

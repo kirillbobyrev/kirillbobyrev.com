@@ -1,8 +1,10 @@
 ---
 title: "Lorem Ipsum"
-date: 2021-12-13T13:16:31+01:00
-draft: true
+date: 2021-12-13
 description: ""
+kind: idea
+tags: []
+draft: true
 slug: ""
 math: true
 ---
@@ -105,3 +107,13 @@ molestie laoreet. Pellentesque scelerisque augue blandit sem finibus, vel
 egestas nisi aliquam. Vestibulum nulla felis, lacinia eu fermentum vel, semper
 eget risus. Aenean porta volutpat lacus, ut fermentum justo bibendum et. Nam
 nec tincidunt tortor, iaculis porta massa.
+
+## Misc
+
+### YouTube video
+
+{{< youtube dNCWe_6HAM8 >}}
+
+### GitHub gist
+
+{{< gist kirillbobyrev 3acb1f32d9333d91c12046df7672bf4b >}}

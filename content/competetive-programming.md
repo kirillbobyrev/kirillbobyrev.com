@@ -1,8 +1,10 @@
 ---
 title: "Competitive Programming"
-date: 2022-05-14T13:20:52+02:00
-draft: true
+date: 2022-05-14
 description: ""
+kind: idea
+tags: []
+draft: true
 slug: ""
 math: false
 ---

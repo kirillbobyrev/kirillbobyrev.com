@@ -1,18 +1,37 @@
 {{ define "main" }}
   {{/* TODO: Add tags. */}}
-  {{/* TODO: range .Pages.GroupByDate "2022" */}}
   {{ range .Pages }}
     <div class="article-ol">
-      <a href="{{ .RelPermalink }}" class="monospaced" style="color: black; text-decoration: underline; text-decoration-thickness: .01rem;">{{ .Title }}</a>
-      &nbsp;
-      <time datetime='{{ .Date | time.Format "2006-01-02" }}' style="color: #73798B;">
+      <span class="material-symbols-rounded">
+        {{ if eq .Params.kind "book" }}
+          library_books
+        {{ else if eq .Params.kind "idea" }}
+          bolt
+        {{ else if eq .Params.kind "learning" }}
+          school
+        {{ else if eq .Params.kind "engineering" }}
+          terminal
+        {{ else }}
+          {{/* Do not show any icon for posts without a kind at all? This might
+               make the interface cleaner. */}}
+          feed
+        {{ end }}
+      </span>
+      <a href="{{ .RelPermalink }}" class="monospaced">
+        {{/* TODO: Add categories and FA icons? E.g. idea/TIL (lightbulb),
+            gamepad, story (pencil), book review etc. */}}
+        {{ .Title }}
+      </a>
+      <time datetime='{{ .Date | time.Format "2006-01-02" }}'>
         {{ .Date | time.Format "2006-01-02" }}
       </time>
     </div>
   {{ end }}
   <br>
   <a href="/index.xml">
-    <span class="fa-solid fa-rss fa-fw"></span>
+    <span class="material-symbols-rounded">
+      rss_feed
+    </span>
     RSS
   </a>
 {{ end }}

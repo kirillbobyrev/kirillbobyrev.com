@@ -1,8 +1,10 @@
 ---
-title: "Building PC"
-date: 2022-05-14T13:20:52+02:00
-draft: true
+title: "Building a PC"
+date: 2022-05-14
 description: ""
+kind: ""
+tags: []
+draft: true
 slug: ""
 math: false
 ---
@@ -14,3 +16,5 @@ math: false
 ## Reddit
 
 [r/buildapc](https://www.reddit.com/r/buildapc/)
+
+## Linus Tech Tips

@@ -1,7 +1,9 @@
 <div class="container center">
-  {{ with .Site.Params.social }} {{ range sort . "weight" }}
-  <a href="{{ .url }}" title="{{ .name }}" aria-label="{{ .name }}">
-    <i class="{{ .icon }}" aria-hidden="true"></i>
-  </a>
-  {{ end }} {{ end }}
+  {{ with .Site.Params.social }}
+    {{ range sort . "weight" }}
+      <a href="{{ .url }}" title="{{ .name }}" aria-label="{{ .name }}">
+        <div class="{{ .icon }} fa-icon" aria-hidden="true"></div>
+      </a>
+    {{ end }}
+  {{ end }}
 </div>

@@ -3,13 +3,17 @@
     <h1 class="monospaced">
       {{ .Title }}
     </h1>
-    <span class="fa-regular fa-calendar fa-fw"></span>
+    <span class="material-symbols-rounded">
+      event
+    </span>
     &nbsp;
     <time datetime='{{ .Date | time.Format ":date_medium" }}'>
       {{ .Date | time.Format ":date_medium" }}
     </time>
     <br>
-    <span class="fa-regular fa-clock fa-fw"></span>
+    <span class="material-symbols-rounded">
+      timer
+    </span>
     &nbsp;
     <span class="monospaced">
       {{ .ReadingTime }} min to read

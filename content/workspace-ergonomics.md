@@ -1,8 +1,10 @@
 ---
 title: "Workspace ergonomics"
-date: 2022-11-11T01:27:27-08:00
-draft: true
+date: 2022-11-11
 description: ""
+kind: ""
+tags: []
+draft: true
 slug: ""
 math: false
 ---
