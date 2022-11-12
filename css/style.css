@@ -1,10 +1,11 @@
 :root {
   --dark: #002395;
   --light: #496598;
+  --bleak: gray;
 }
 
 html {
-  font-family: system-ui, "Roboto", sans-serif;
+  font-family: Roboto;
 }
 
 main {
@@ -42,14 +43,39 @@ a {
   text-align: center;
 }
 
-.monospaced, time {
-  font-family: ui-monospace, "Roboto Mono";
+.monospaced,
+time,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Roboto Mono";
 }
 
-.article-ol > time {
+.article-ol>time {
   float: right;
 }
 
 .imperial-blue {
   color: var(--dark);
+}
+
+.fa-icon {
+  color: var(--bleak);
+}
+
+.material-symbols-rounded {
+  font-size: 1.3em;
+  color: var(--bleak);
+  vertical-align: bottom;
+}
+
+a>.material-symbols-rounded {
+  color: var(--light);
+}
+
+ul {
+  padding: 0 2ch;
 }
