@@ -43,6 +43,8 @@ At its core, ECS is simple. There are three main concepts:
   the entities that were hit by projectiles, positions of the entities will be
   updated according to game physics. In Bevy, systems are Rust functions.
 
+<https://github.com/SanderMertens/ecs-faq>
+
 #### Example
 
 Let's take an imaginary game as an example. Here is how what components we might

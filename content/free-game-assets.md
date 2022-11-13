@@ -49,6 +49,10 @@ Here are some of my favorites from exploring the collection:
 - [King and Pigs](https://pixelfrog-assets.itch.io/kings-and-pigs)
 - [Tech Dungeon Roguelite](https://trevor-pupkin.itch.io/tech-dungeon-roguelite)
 
+This is how amazing one of them looks like!
+
+![Kings and Pigs game assets](/images/kings_and_pigs.gif)
+
 There's also an option to donate to the artist whose work you're using, so it's
 a great way to support them while simultaneously trying out different ideas. A
 lot of these sets focus on precisely what I am looking for: 2D environments for

@@ -79,3 +79,8 @@ a>.material-symbols-rounded {
 ul {
   padding: 0 2ch;
 }
+
+img {
+  max-width: 100%;
+  height: auto;
+}

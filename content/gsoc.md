@@ -1,6 +1,6 @@
 ---
 title: "Google Summer of Code"
-date: 2022-11-12
+date: 2022-11-13
 description: ""
 kind: ""
 tags: []
