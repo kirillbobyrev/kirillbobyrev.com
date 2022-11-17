@@ -11,6 +11,8 @@
           school
         {{ else if eq .Params.kind "engineering" }}
           terminal
+        {{ else if eq .Params.kind "finance" }}
+          attach_money
         {{ else }}
           {{/* Do not show any icon for posts without a kind at all? This might
                make the interface cleaner. */}}

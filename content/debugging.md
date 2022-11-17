@@ -43,7 +43,7 @@ find the right chunk of the log where the problem appears. Navigating large
 log files requires text search and filtering tooling and can be a challenge on
 its own.
 
-### Inferring program flow from the log is hard
+### Understanding program flow from the log is hard
 
 But even after I find the piece of log where there is a problem, it's often hard
 to understand what path execution path leads to the bug. Tracing is a view of
@@ -71,6 +71,8 @@ tools for understanding the program.
 
 At a first glance, debuggers seem far more superior for finding and fixing the
 problem, but in reality using them also leads to serious problems.
+
+#### TUI
 
 ## Why tracing may be better than debuggers
 

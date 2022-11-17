@@ -11,7 +11,7 @@ title = "Kirill Bobyrev blog"
 
 [params]
   author = "Kirill Bobyrev"
-  description = "Kirill Bobyrev blog about programming and other things"
+  description = "Kirill Bobyrev's blog about software engineering and my hobbies"
   keywords = [
     "blog",
     "programming",
@@ -28,6 +28,7 @@ title = "Kirill Bobyrev blog"
     guessSyntax = true
     style = "github"
     tabWidth = 2
+    linenos = true
 
 # Social links.
 [[params.social]]
@@ -36,22 +37,12 @@ title = "Kirill Bobyrev blog"
   url = "https://github.com/kirillbobyrev/"
   weight = 0
 [[params.social]]
-  icon = "fab fa-twitter fa-2x"
-  name = "Twitter"
-  url = "https://twitter.com/kirillbobyrev/"
-  weight = 1
-[[params.social]]
   icon = "fab fa-linkedin fa-2x"
   name = "LinkedIn"
   url = "https://linkedin.com/in/kirillbobyrev/"
+  weight = 1
+[[params.social]]
+  icon = "fab fa-twitter fa-2x"
+  name = "Twitter"
+  url = "https://twitter.com/kirillbobyrev/"
   weight = 2
-[[params.social]]
-  icon = "fab fa-instagram fa-2x"
-  name = "Instagram"
-  url = "https://instagram.com/cybobyrev/"
-  weight = 3
-[[params.social]]
-  icon = "fab fa-telegram fa-2x"
-  name = "Telegram"
-  url = "https://t.me/kirillbobyrev/"
-  weight = 4
