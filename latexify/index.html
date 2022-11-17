@@ -64,13 +64,13 @@ render of the <code>foo</code> function.</p><div class=highlight><div style=back
 </span></span><span style=display:flex><span>  <span style=color:#000;font-weight:700>\mathrm</span><span style=color:#0086b3>{</span>if<span style=color:#0086b3>}</span> <span style=color:#000;font-weight:700>\ </span><span style=color:#0086b3>{{{</span>0<span style=color:#0086b3>}</span> <span style=color:#000;font-weight:700>\le</span> x<span style=color:#0086b3>}</span> <span style=color:#000;font-weight:700>\land</span> <span style=color:#0086b3>{</span>x &lt; <span style=color:#0086b3>{</span>3<span style=color:#0086b3>}}}</span> <span style=color:#000;font-weight:700>\\</span>
 </span></span><span style=display:flex><span>  <span style=color:#000;font-weight:700>\frac</span><span style=color:#0086b3>{</span><span style=color:#000;font-weight:700>\sin</span><span style=color:#0086b3>{</span><span style=color:#000;font-weight:700>\left</span>(<span style=color:#0086b3>{</span>x<span style=color:#0086b3>}</span><span style=color:#000;font-weight:700>\right</span>)<span style=color:#0086b3>}}{</span>x<span style=color:#0086b3>}</span>,
 </span></span><span style=display:flex><span>  <span style=color:#0086b3>&amp;</span> <span style=color:#000;font-weight:700>\mathrm</span><span style=color:#0086b3>{</span>otherwise<span style=color:#0086b3>}</span> <span style=color:#000;font-weight:700>\end</span><span style=color:#0086b3>{</span>array<span style=color:#0086b3>}</span> <span style=color:#000;font-weight:700>\right</span>.
-</span></span></code></pre></td></tr></table></div></div><p>Unfortunately, this isn&rsquo;t formatted LaTeX code which makes it hard to edit
+</span></span></code></pre></td></tr></table></div></div><p>Unfortunately, this isn&rsquo;t well formatted LaTeX code. It&rsquo;s hard to edit this code
 manually (it also uses <code>array</code> instead of <code>cases</code> which is suspicious). The
 other problem is that it renders with <a href=https://www.mathjax.org/>MathJax</a>, but I
-had to manually edit LaTeX code above to make render it here in my blog where
-I&rsquo;m using <a href=https://katex.org/>KaTeX</a>. MathJax looks to be more popular but
-KaTeX is much faster, so not being able to use it with <code>latexify</code> out of the box
-can be a problem.</p><h2 id=conclusion>Conclusion</h2><p><code>latexify</code> is a fun library to play with and it&rsquo;s certainly useful when building
+had to change it so that <a href=https://katex.org/>KaTeX</a> could render it. While
+MathJax is very popular, it&rsquo;s much slower than KaTeX. So that could be a problem
+if you&rsquo;d like to insert the generated LaTeX code into your website which uses
+KaTeX (like my blog does).</p><h2 id=conclusion>Conclusion</h2><p><code>latexify</code> is a fun library to play with and it&rsquo;s certainly useful when building
 Jupyter notebooks, but given low readability of generated code it&rsquo;s probably not
 very useful beyond that. It won&rsquo;t make it into the toolbox of libraries I use
 every day, but it&rsquo;s still an interesting example of using Python AST library.</p></article></main><footer class="footer fixed-bottom"><div class="container center"><a href=https://github.com/kirillbobyrev/ title=GitHub aria-label=GitHub><div class="fab fa-github fa-2x fa-icon fa-fw" aria-hidden=true></div></a><a href=https://linkedin.com/in/kirillbobyrev/ title=LinkedIn aria-label=LinkedIn><div class="fab fa-linkedin fa-2x fa-icon fa-fw" aria-hidden=true></div></a><a href=https://twitter.com/kirillbobyrev/ title=Twitter aria-label=Twitter><div class="fab fa-twitter fa-2x fa-icon fa-fw" aria-hidden=true></div></a></div></footer></body></html>
