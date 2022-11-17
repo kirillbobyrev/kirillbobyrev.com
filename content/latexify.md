@@ -73,13 +73,13 @@ render of the `foo` function.
   & \mathrm{otherwise} \end{array} \right.
 ```
 
-Unfortunately, this isn't formatted LaTeX code which makes it hard to edit
+Unfortunately, this isn't well formatted LaTeX code. It's hard to edit this code
 manually (it also uses `array` instead of `cases` which is suspicious). The
 other problem is that it renders with [MathJax](https://www.mathjax.org/), but I
-had to manually edit LaTeX code above to make render it here in my blog where
-I'm using [KaTeX](https://katex.org/).  MathJax looks to be more popular but
-KaTeX is much faster, so not being able to use it with `latexify` out of the box
-can be a problem.
+had to change it so that [KaTeX](https://katex.org/) could render it. While
+MathJax is very popular, it's much slower than KaTeX. So that could be a problem
+if you'd like to insert the generated LaTeX code into your website which uses
+KaTeX (like my blog does).
 
 ## Conclusion
 
