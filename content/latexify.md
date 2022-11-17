@@ -4,7 +4,7 @@ date: 2022-11-16
 description: ""
 kind: idea
 tags: []
-draft: true
+draft: false
 slug: ""
 math: true
 ---
