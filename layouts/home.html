@@ -13,6 +13,8 @@
           terminal
         {{ else if eq .Params.kind "finance" }}
           attach_money
+        {{ else if eq .Params.kind "travel" }}
+          flight_takeoff
         {{ else }}
           {{/* Do not show any icon for posts without a kind at all? This might
                make the interface cleaner. */}}

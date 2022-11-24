@@ -1,5 +1,5 @@
 ---
-title: "TIL: Latexify translates Python into LaTeX"
+title: "Latexify translates Python into LaTeX"
 date: 2022-11-16
 description: ""
 kind: idea

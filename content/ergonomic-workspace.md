@@ -1,8 +1,8 @@
 ---
-title: "Workspace ergonomics"
+title: "Ergonomic workspace"
 date: 2022-11-11
 description: ""
-kind: ""
+kind: idea
 tags: []
 draft: true
 slug: ""

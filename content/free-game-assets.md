@@ -1,5 +1,5 @@
 ---
-title: "TIL: Free assets for making games"
+title: "Free game assets"
 date: 2022-11-12
 description: ""
 kind: idea
