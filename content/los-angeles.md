@@ -9,14 +9,20 @@ slug: ""
 math: false
 ---
 
+This holiday season I have
+
 ## Wide range of experiences
 
-### Landscape
+### Landscape & architecture
 
-### Architecture
+### Events
 
 ### Food
+
+### Culture
 
 ## Weather
 
 ## Driving
+
+## Aftermath

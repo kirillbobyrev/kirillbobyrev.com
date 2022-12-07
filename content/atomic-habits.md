@@ -25,9 +25,14 @@ flowchart LR
   reward --> cue
 ```
 
-- Habit loop
-- Make it easier to do the habit
-- Focus on the process rather than the goal
-  - Quantity => Quality
-- Identity <-> Habit feeding loop
-- Actionable takeaways
+## Make it easier to do the habit
+
+## Focus on the process rather than the goal
+
+### Quantity => Quality
+
+## Identity <-> Habit feeding loop
+
+## All-or-nothing cycle
+
+## Actionable takeaways
