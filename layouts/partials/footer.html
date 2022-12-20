@@ -1,9 +1,11 @@
 <div class="container center">
   {{ with .Site.Params.social }}
     {{ range sort . "weight" }}
-      <a rel="me" href="{{ .url }}" title="{{ .name }}" aria-label="{{ .name }}">
+      <a href="{{ .url }}" title="{{ .name }}" aria-label="{{ .name }}">
         <div class="fab fa-2x fa-{{ .icon }} fa-icon fa-fw" aria-hidden="true"></div>
       </a>
     {{ end }}
   {{ end }}
+  {{/* Backlink to Mastodon for ownership confirmation. */}}
+  <a rel="me" href="https://mstdn.social/@kirillbobyrev"></a>
 </div>
