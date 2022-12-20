@@ -1,8 +1,8 @@
 <div class="container center">
   {{ with .Site.Params.social }}
     {{ range sort . "weight" }}
-      <a href="{{ .url }}" title="{{ .name }}" aria-label="{{ .name }}">
-        <div class="{{ .icon }} fa-icon fa-fw" aria-hidden="true"></div>
+      <a rel="me" href="{{ .url }}" title="{{ .name }}" aria-label="{{ .name }}">
+        <div class="fab fa-2x fa-{{ .icon }} fa-icon fa-fw" aria-hidden="true"></div>
       </a>
     {{ end }}
   {{ end }}

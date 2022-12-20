@@ -4,10 +4,10 @@ googleAnalytics = "G-RHCZGDQQJR"
 languageCode = "en"
 title = "Kirill Bobyrev blog"
 
-# TODO: Add nice image of myself.
-# TODO: Add image for Twitter cards preview.
+# TODO: extra_tag nice image of myself.
+# TODO: extra_tag image for Twitter cards preview.
 # https://gohugo.io/templates/internal/#configure-twitter-cards
-# TODO: Add favicon with my surname initial.
+# TODO: extra_tag favicon with my surname initial.
 
 [params]
   author = "Kirill Bobyrev"
@@ -32,17 +32,22 @@ title = "Kirill Bobyrev blog"
 
 # Social links.
 [[params.social]]
-  icon = "fab fa-github fa-2x"
+  icon = "github"
   name = "GitHub"
   url = "https://github.com/kirillbobyrev/"
   weight = 0
 [[params.social]]
-  icon = "fab fa-linkedin fa-2x"
+  icon = "linkedin"
   name = "LinkedIn"
   url = "https://linkedin.com/in/kirillbobyrev/"
   weight = 1
 [[params.social]]
-  icon = "fab fa-twitter fa-2x"
+  icon = "mastodon"
+  name = "Mastodon"
+  url = "https://mstdn.social/@kirillbobyrev"
+  weight = 2
+[[params.social]]
+  icon = "twitter"
   name = "Twitter"
   url = "https://twitter.com/kirillbobyrev/"
-  weight = 2
+  weight = 3
