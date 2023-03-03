@@ -16,17 +16,17 @@ LaTeX-rendered definitions of the functions and integrating them into the
 textual.</li><li>Using the LaTeX output to generate parts of scientific papers, thesis or any
 human-readable text.</li></ul><p>Let&rsquo;s see what it can do!</p><h2 id=using-latexify>Using <code>latexify</code></h2><p>Using <code>latexify</code> is easy: choose a function you would like to render in LaTeX
 and use <code>@latexify.latexify</code> Python
-<a href=https://docs.python.org/3/glossary.html#term-decorator>decorator</a>:</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+<a href=https://docs.python.org/3/glossary.html#term-decorator>decorator</a>:</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
 </span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#000;font-weight:700>import</span> <span style=color:#555>latexify</span>
 </span></span><span style=display:flex><span><span style=color:#000;font-weight:700>import</span> <span style=color:#555>math</span>
 </span></span><span style=display:flex><span>
@@ -54,11 +54,11 @@ library is the Abstract Syntax Tree visitor, which is a common pattern in
 program analysis. The library code is rather straightforward and easy to
 understand, supplemented by well-written documentation, so it&rsquo;s not hard to
 understand how it works if you&rsquo;re familiar with Python.</p><p>If you&rsquo;re in the terminal, something like this will be the printed out as LaTeX
-render of the <code>foo</code> function.</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+render of the <code>foo</code> function.</p><div class=highlight><div style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
 </span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-latex data-lang=latex><span style=display:flex><span><span style=color:#000;font-weight:700>\mathrm</span><span style=color:#0086b3>{</span>foo<span style=color:#0086b3>}</span>(x) = <span style=color:#000;font-weight:700>\left\{</span> <span style=color:#000;font-weight:700>\begin</span><span style=color:#0086b3>{</span>array<span style=color:#0086b3>}{</span>ll<span style=color:#0086b3>}</span> <span style=color:#000;font-weight:700>\left\lfloor</span><span style=color:#0086b3>{</span>x - <span style=color:#0086b3>{</span>5<span style=color:#0086b3>}}</span>
 </span></span><span style=display:flex><span>  <span style=color:#000;font-weight:700>\right</span> <span style=color:#000;font-weight:700>\rfloor</span>,<span style=color:#0086b3>&amp;</span> <span style=color:#000;font-weight:700>\mathrm</span><span style=color:#0086b3>{</span>if<span style=color:#0086b3>}</span> <span style=color:#000;font-weight:700>\ </span><span style=color:#0086b3>{</span>x &lt; <span style=color:#0086b3>{</span>0<span style=color:#0086b3>}}</span> <span style=color:#000;font-weight:700>\\</span> <span style=color:#0086b3>{</span>2<span style=color:#0086b3>}</span>, <span style=color:#0086b3>&amp;</span>
 </span></span><span style=display:flex><span>  <span style=color:#000;font-weight:700>\mathrm</span><span style=color:#0086b3>{</span>if<span style=color:#0086b3>}</span> <span style=color:#000;font-weight:700>\ </span><span style=color:#0086b3>{{{</span>0<span style=color:#0086b3>}</span> <span style=color:#000;font-weight:700>\le</span> x<span style=color:#0086b3>}</span> <span style=color:#000;font-weight:700>\land</span> <span style=color:#0086b3>{</span>x &lt; <span style=color:#0086b3>{</span>3<span style=color:#0086b3>}}}</span> <span style=color:#000;font-weight:700>\\</span>
