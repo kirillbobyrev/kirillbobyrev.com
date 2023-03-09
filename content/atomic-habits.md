@@ -2,7 +2,6 @@
 title: "Book review: Atomic Habits"
 date: 2022-11-11
 description: ""
-kind: book
 tags: []
 draft: true
 slug: ""

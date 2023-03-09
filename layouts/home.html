@@ -2,28 +2,7 @@
   {{/* TODO: Add tags. */}}
   {{ range .Pages }}
     <div class="article-ol">
-      <span class="material-symbols-rounded">
-        {{ if eq .Params.kind "book" }}
-          library_books
-        {{ else if eq .Params.kind "idea" }}
-          bolt
-        {{ else if eq .Params.kind "learning" }}
-          school
-        {{ else if eq .Params.kind "engineering" }}
-          terminal
-        {{ else if eq .Params.kind "finance" }}
-          attach_money
-        {{ else if eq .Params.kind "travel" }}
-          flight_takeoff
-        {{ else }}
-          {{/* Do not show any icon for posts without a kind at all? This might
-               make the interface cleaner. */}}
-          feed
-        {{ end }}
-      </span>
       <a href="{{ .RelPermalink }}" class="monospaced">
-        {{/* TODO: Add categories and FA icons? E.g. idea/TIL (lightbulb),
-            gamepad, story (pencil), book review etc. */}}
         {{ .Title }}
       </a>
       <!--time datetime='{{ .Date | time.Format "2006-01-02" }}'>
