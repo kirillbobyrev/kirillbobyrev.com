@@ -9,10 +9,10 @@ slug: ""
 math: false
 ---
 
-# Keyboards
+## Keyboards
 
-## Layouts
+### Layouts
 
-# Mice
+## Mice
 
-# Monitor
+## Monitor arm

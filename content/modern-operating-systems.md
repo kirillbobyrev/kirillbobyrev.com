@@ -1,8 +1,7 @@
 ---
-title: "Simple vs easy"
-date: 2022-05-14
+title: "Modern Operating Systems"
+date: 2023-03-11
 description: ""
-kind: idea
 tags: []
 draft: true
 slug: ""

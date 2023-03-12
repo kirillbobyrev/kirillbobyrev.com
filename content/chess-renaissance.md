@@ -1,8 +1,8 @@
 ---
-title: "Simple vs easy"
-date: 2022-05-14
+title: "Chess Renaissance"
+date: 2022-11-01
 description: ""
-kind: idea
+kind: ""
 tags: []
 draft: true
 slug: ""
