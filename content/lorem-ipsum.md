@@ -22,6 +22,14 @@ orci purus eu urna. Nam mi orci, fermentum sed arcu vel, porttitor rutrum odio.
 
 ## Markup
 
+### Table
+
+| Tables   |      Are      |  Cool |
+|----------|:-------------:|------:|
+| col 1 is |  left-aligned | $1600 |
+| col 2 is |    centered   |   $12 |
+| col 3 is | right-aligned |    $1 |
+
 ### Code
 
 In vitae efficitur urna. Fusce condimentum commodo dui vitae venenatis. Nam
@@ -29,13 +37,13 @@ varius ex at tempus faucibus. Vivamus iaculis nulla enim, ut porttitor ex
 condimentum in. Curabitur dignissim tellus dictum, consequat lorem id,
 convallis risus. Suspendisse nec varius ligula.
 
-```python{hl_lines=[2, 4]}
+```python{hl_lines=[2, 7]}
 def fib(n):    # write Fibonacci series up to n
     """Print a Fibonacci series up to n."""
     a, b = 0, 1
     while a < n:
         print(a, end=' ')
-        a, b = b, a+b
+        a, b = b, a + b
     print()
 
 # Now call the function we just defined:
@@ -53,31 +61,6 @@ fib(2000)
 $$
   i \hbar \frac{\partial}{\partial t}\Psi(\mathbf{r},t) = \hat H \Psi(\mathbf{r},t)
 $$
-
-## Diagrams
-
-### Mermaid
-
-```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
-```
-
-### GoaT
-
-```goat
-   .---.       .-.        .-.       .-.                                       .-.
-   | A +----->| 1 +<---->| 2 |<----+ 4 +------------------.                  | 8 |
-   '---'       '-'        '+'       '-'                    |                  '-'
-                           |         ^                     |                   ^
-                           v         |                     v                   |
-                          .-.      .-+-.        .-.      .-+-.      .-.       .+.       .---.
-                         | 3 +---->| B |<----->| 5 +---->| C +---->| 6 +---->| 7 |<---->| D |
-                          '-'      '---'        '-'      '---'      '-'       '-'       '---'
-```
 
 ## Text
 

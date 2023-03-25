@@ -3,18 +3,10 @@
     <h1>
       {{ .Title }}
     </h1>
-    <span class="material-symbols-rounded">
-      event
-    </span>
-    &nbsp;
     <time datetime='{{ .Date | time.Format ":date_medium" }}'>
       {{ .Date | time.Format ":date_medium" }}
     </time>
     <br>
-    <span class="material-symbols-rounded">
-      timer
-    </span>
-    &nbsp;
     <span class="monospaced">
       {{ .ReadingTime }} min to read
     </span>
