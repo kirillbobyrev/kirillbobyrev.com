@@ -1,53 +1,18 @@
+author = "Kirill Bobyrev"
 baseURL = "https://kirillbobyrev.com/"
 enableRobotsTXT = true
 googleAnalytics = "G-RHCZGDQQJR"
 languageCode = "en"
-title = "Kirill Bobyrev blog"
+theme = "hugo-bearblog"
+title = "Kirill Bobyrev"
+# copyright = "Kirill Bobyrev"
 
-# TODO: extra_tag nice image of myself.
-# TODO: extra_tag image for Twitter cards preview.
-# https://gohugo.io/templates/internal/#configure-twitter-cards
-# TODO: extra_tag favicon with my surname initial.
+[permalinks]
+  blog = "/:slug"
+  tags = "/blog/:slug"
 
 [params]
-  author = "Kirill Bobyrev"
   description = "Kirill Bobyrev's blog about software engineering and my hobbies"
-  keywords = [
-    "blog",
-    "programming",
-    "computer-science",
-    "developer",
-    "personal",
-    "startups",
-  ]
-
-# Configure Chroma syntax highlighting.
-[markup]
-  [markup.highlight]
-    codeFenses = true
-    guessSyntax = true
-    style = "github"
-    tabWidth = 2
-    linenos = true
-
-# Social links.
-[[params.social]]
-  icon = "github"
-  name = "GitHub"
-  url = "https://github.com/kirillbobyrev/"
-  weight = 0
-[[params.social]]
-  icon = "linkedin"
-  name = "LinkedIn"
-  url = "https://linkedin.com/in/kirillbobyrev/"
-  weight = 1
-[[params.social]]
-  icon = "mastodon"
-  name = "Mastodon"
-  url = "https://mstdn.social/@kirillbobyrev"
-  weight = 2
-[[params.social]]
-  icon = "twitter"
-  name = "Twitter"
-  url = "https://twitter.com/kirillbobyrev/"
-  weight = 3
+  favicon = "images/favicon.png"
+  title = "Kirill Bobyrev blog"
+  hideMadeWithLine = true
