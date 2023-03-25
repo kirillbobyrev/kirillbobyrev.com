@@ -1,4 +1,5 @@
 :root {
+  /* Imperial Blue */
   --dark: #002395;
   --light: #496598;
   --bleak: gray;
@@ -10,7 +11,7 @@ html {
 
 main {
   margin: 0 auto;
-  max-width: 80ch;
+  max-width: 100ch;
 }
 
 .footer {
@@ -25,8 +26,7 @@ code {
 
 blockquote {
   background: #f9f9f9;
-  border-left: .5em solid var(--light);
-  margin: 1em;
+  border-left: .3em solid var(--light);
   padding: .5em;
 }
 
@@ -44,36 +44,16 @@ a {
 }
 
 .monospaced,
-time,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+time {
   font-family: "Roboto Mono";
 }
 
-.article-ol>time {
+.article-ol > time {
   float: right;
-}
-
-.imperial-blue {
-  color: var(--dark);
 }
 
 .fa-icon {
   color: var(--bleak);
-}
-
-.material-symbols-rounded {
-  font-size: 1.3em;
-  color: var(--bleak);
-  vertical-align: bottom;
-}
-
-a>.material-symbols-rounded {
-  color: var(--light);
 }
 
 ul {
@@ -83,4 +63,13 @@ ul {
 img {
   max-width: 100%;
   height: auto;
+}
+
+table {
+  width: 100%;
+}
+
+.navbar {
+  font-size: 1.3em;
+  font-weight: bolder;
 }
