@@ -1,1 +1,2 @@
-User-agent: *
+User-Agent: *
+Sitemap: https://kirillbobyrev.com/sitemap.xml
