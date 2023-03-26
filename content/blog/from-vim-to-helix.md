@@ -1,7 +1,21 @@
 +++
 title = "From Vim to Helix"
-date = "2023-03-25T15:26:55-07:00"
-tags = ["tools"]
+date = "2023-03-26"
+tags = []
 +++
 
-My path from Vim to Helix
+I've been using Vim for almost 10 years now, and I think it's time to move on.
+
+## Vim successors
+
+## Starting to use Helix
+
+## The power of defaults
+
+## Issues with Helix
+
+### Lack of features
+
+### Differences in key bindings
+
+### Traction

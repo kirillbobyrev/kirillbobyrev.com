@@ -13,6 +13,6 @@ title = "Kirill Bobyrev"
 
 [params]
   description = "Kirill Bobyrev's blog about software engineering and my hobbies"
-  favicon = "images/favicon.png"
+  favicon = "icons/favicon.ico"
   title = "Kirill Bobyrev blog"
   hideMadeWithLine = true
