@@ -10,11 +10,11 @@ menu = "main"
 I graduated from [Moscow Institute of Physics and
 Technology](https://en.wikipedia.org/wiki/Moscow_Institute_of_Physics_and_Technology)
 (which has a long history of producing world-class physicists and Nobel prize
-winners) with a Bachelor's degree in Applied Mathematics and Physics. In the
-first year I became interested in Computer Science. I enjoyed doing competitive
+winners) with a Bachelor's degree in applied mathematics and physics. In the
+first year I became interested in computer science. I enjoyed doing competitive
 programming and then participated in [Google Summer of
-Code](https://summerofcode.withgoogle.com/). In GSoC I have built a [Clang-based
-tool for detecting copy-pasted
+Code](https://summerofcode.withgoogle.com/). In GSoC I have built a Clang-based
+[tool for detecting copy-pasted
 code](https://github.com/kirillbobyrev/code-clone-detection-llvm-devmtg15-poster)
 in open-source projects over the summer and got an offer for an internship at
 Google to work on static analysis tooling. I worked on C++ tools such as
@@ -31,10 +31,10 @@ carefully documented the project's
 and [presented it](https://www.youtube.com/watch?v=VhxrFor3VyQ) at the LLVM
 Developers Meeting.
 
-I also did Machine Learning for a while, starting as a researcher at the
-university and studying Convex Optimization and joining
-[Handl](https://handl.ai/), a Y-Combinator-backed startup to work on Optical
-Character Recognition.
+I also worked in the Machine Learning field for a while, starting as a
+researcher at the university and studying convex optimization and joining
+[Handl](https://handl.ai/), a Y-Combinator-backed startup to work on optical
+character recognition.
 
 After I graduated the university, I joined the same team at Google in Munich and
 spent almost three years there improving clangd. Among other things, I have
@@ -46,7 +46,7 @@ the most pressing issues. I previously studied in Yandex School of Management
 ([ШМЯ](https://academy.yandex.ru/schools/management)) which helped me develop
 enough expertise to take on Product Manager or Project Manager responsibilities.
 
-In 2022 I have transferred to Waymo, Google's Self-Driving Cars unit, and moved
+In 2022 I have transferred to Waymo, Google's self-driving Cars unit, and moved
 to California. At Waymo I work on
 [Simulation](https://blog.waymo.com/2021/06/SimulationCity.html) which helps us
 ensure safety for our vehicles and the public, and allows rapid experimentation
@@ -62,4 +62,4 @@ chess online
 
 I'm also getting back to participating in competitive programming tournaments on
 Codeforces ([my profile](https://codeforces.com/profile/kirillbobyrev)) and
-studying Computer Science.
+studying computer science.
