@@ -68,9 +68,41 @@ like to use, these are the things I want out of it:
   tools I am using, but I can't be an expert in every component of the system
   I am using. I would much rather have something that mostly works out of the box
   without much configuration.
-- Simple at its core: I think most succesful projects are doomed 
+- Simple at its core: most succesful projects are doomed to accumulate features
+  over time, succumbing to numerous user requests and becoming increasingly
+  complex. However, some projects avoid the feature bloat by having clear goals
+  from the start. Having a tool that doesn't try to do everything at once is
+  what I find most useful.
+
+I've tried many IDEs, both proprietary and open source, but most of them
+fail don't do well in at least one of these categories. Most IDEs are good at
+supporting one language, are very slow and take gigabytes of disk space upon
+installation. Also, most of them have an astonishing number of features that
+assume the user wants to do everything (run tests, refactor the code, triage
+bugs, open pull requests) from the IDE. I'm comfortable with the terminal, so I
+don't really need these features. I'd like something simple and yet powerful.
+
+### Visual Studio Code
+
+A notable exception is Visual Studio Code. It's somewhat in the gray zone
+between an IDE and text editor, it's an amazing product supported by a very
+large community of developers across multiple companies, and the plugins
+are amazing. I've started using VSCode a lot and I probably spend around
+30% of my coding time using it depending on the mood. I'm not particularly
+happy with it being implemented on top of Electron which makes it quite slow
+at times. But feature-wise, it's amazing. I love [Settings Sync](https://
+code.visualstudio.com/docs/editor/settings-sync) feature and the configuration
+is quite easy to edit.
+
+One of the main reasons behind VSCode success is the invention of [Language
+Server Protocol](https://microsoft.github.io/language-server-protocol/) (LSP).
+LSP is an amazing idea, because it specifies a unified way for an editor to talk
+to the "Language Server" (plugin). This means that developers working on tools
+for a specific language only have to 
 
 ## Back to Vim
+
+On the other side of the spectrum
 
 ## Starting to use Helix
 

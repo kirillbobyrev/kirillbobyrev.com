@@ -60,6 +60,8 @@ When I'm not working, I enjoy training jiu-jitsu and Muay Thai, playing blitz
 chess online
 ([lichess.org/@/kirillbobyrev](https://lichess.org/@/kirillbobyrev)) and travel.
 
-I'm also getting back to participating in competitive programming tournaments on
-Codeforces ([my profile](https://codeforces.com/profile/kirillbobyrev)) and
-studying computer science.
+I'm also getting back to participating in competitive programming tournaments
+on Codeforces ([my profile](https://codeforces.com/profile/kirillbobyrev))
+and studying computer science (here's my [collection](https://github.com/
+kirillbobyrev/computer-science-resources) of courses, books and papers I want
+to study).
