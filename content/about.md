@@ -58,7 +58,7 @@ My programming language of choice is usually C++, Rust or Python.
 
 When I'm not working, I enjoy training jiu-jitsu and Muay Thai, playing blitz
 chess online
-(:chess:) [lichess.org/@/kirillbobyrev](https://lichess.org/@/kirillbobyrev)) and travel.
+([lichess.org/@/kirillbobyrev](https://lichess.org/@/kirillbobyrev)) and travel.
 
 I'm also getting back to participating in competitive programming tournaments on
 Codeforces ([my profile](https://codeforces.com/profile/kirillbobyrev)) and
