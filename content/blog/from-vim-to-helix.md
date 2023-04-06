@@ -20,10 +20,10 @@ learning good tools is indeed important.
 
 Vim is amazing, but it certainly isn't perfect. Over the years, I have developed
 a love-hate relationship with it, often oscillating between minimalistic
-`.vimrc` config under a hundred of Vimscript lines and ambitious attemps to craft the
-perfect environemnt that will have all the tools I ever need. I think my biggest
-mistake was not seeing Vim for what it really is -- a wonderful text editor that
-has a lot of flexibility, but not a very good IDE.
+`.vimrc` config under a hundred of Vimscript lines and ambitious attempts to
+craft the perfect environment that will have all the tools I ever need. I think
+my biggest mistake was not seeing Vim for what it really is -- a wonderful text
+editor that has a lot of flexibility, but not a very good IDE.
 
 Keeping up with a dozen Vim plugins, configuring them, making sure nothing
 breaks on updates and is compatible is almost a full-time job. This is obvious
@@ -33,7 +33,7 @@ everyone uses different operating systems, software versions and combinations.
 Almost inevitably, something breaks. Understanding what went wrong and fixing
 it often results in going very deep into the rabbit hole and spending a lot of
 time. This often results in a lot of frustration, because most of plugins' code
-is not very well-written and docuemented, and Vimscript or Lua being some of
+is not very well-written and documented, and Vimscript or Lua being some of
 the most popular languages for plugins doesn't make it better. Of course, the
 maintainers of these plugins aren't *responsible* for user experience because
 most of them write plugins to make their lives easier and just for fun, but as a
@@ -59,16 +59,16 @@ like to use, these are the things I want out of it:
 - Language-agnostic: I would like to use a single tool to edit different
   filetypes - C++, Rust, Python, Haskell code, Markdown and HTML for my blog,
   LaTeX for scientific papers and my resume, and occasionally some other
-  languages. I don't need much in each of them but syntax highligting, code
+  languages. I don't need much in each of them but syntax highlighting, code
   completion, navigation (go to definition, find references), basic refactoring
   (rename a symbol) and diagnostics (show warnings and errors from the compiler,
   linter)
 - Good defaults: having spent so much time configuring Vim, I just don't think
   that's a very good use of my time anymore. I'm curious to learn more about the
-  tools I am using, but I can't be an expert in every component of the system
-  I am using. I would much rather have something that mostly works out of the box
+  tools I am using, but I can't be an expert in every component of the system I
+  am using. I would much rather have something that mostly works out of the box
   without much configuration.
-- Simple at its core: most succesful projects are doomed to accumulate features
+- Simple at its core: most successful projects are doomed to accumulate features
   over time, succumbing to numerous user requests and becoming increasingly
   complex. However, some projects avoid the feature bloat by having clear goals
   from the start. Having a tool that doesn't try to do everything at once is
@@ -98,7 +98,11 @@ One of the main reasons behind VSCode success is the invention of [Language
 Server Protocol](https://microsoft.github.io/language-server-protocol/) (LSP).
 LSP is an amazing idea, because it specifies a unified way for an editor to talk
 to the "Language Server" (plugin). This means that developers working on tools
-for a specific language only have to 
+for a specific language only have to implement a single language server and it
+will be plugged into every editor that has LSP integration. This is a win-win
+for both editor and language tooling developers. VSCode was the first editor to
+implement the LSP protocol and it still has a de-facto standard implementation
+that is often leveraged by other editors as a library.
 
 ## Back to Vim
 

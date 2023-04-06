@@ -5,7 +5,7 @@ googleAnalytics = "G-RHCZGDQQJR"
 languageCode = "en"
 theme = "hugo-bearblog"
 title = "Kirill Bobyrev"
-# copyright = "Kirill Bobyrev"
+enableEmoji = true
 
 [permalinks]
   blog = "/:slug"
