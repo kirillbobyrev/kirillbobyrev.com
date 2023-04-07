@@ -25,8 +25,8 @@ into Clang and the compiler's internals.
 I enjoyed my time at Google and another internship at the same team in :de:
 Munich.  This time I have worked on [clangd](https://clangd.llvm.org/),
 Clang-based language server for C++. During the summer, I have built the code
-completion search engine which resulted in up to **100x performance
-improvement**! I carefully documented the project's
+completion search engine which resulted in up to **100x** performance
+improvement! I carefully documented the project's
 [design](https://docs.google.com/document/d/1C-A6PGT6TynyaX4PXyExNMiGmJ2jL1UwV91Kyx11gOI/)
 and [presented it](https://www.youtube.com/watch?v=VhxrFor3VyQ) at the LLVM
 Developers Meeting.
@@ -46,7 +46,7 @@ the most pressing issues. I previously studied in Yandex School of Management
 ([ШМЯ](https://academy.yandex.ru/schools/management)) which helped me develop
 enough expertise to take on Product Manager or Project Manager responsibilities.
 
-In 2022 I have transferred to Waymo, Google's self-driving Cars unit, and moved
+In 2022 I have transferred to Waymo, Google's self-driving cars unit, and moved
 to :us: California. At Waymo I work on
 [Simulation](https://blog.waymo.com/2021/06/SimulationCity.html) which helps us
 ensure safety for our vehicles and the public, and allows rapid experimentation
@@ -66,5 +66,5 @@ studying computer science (here's my
 [collection](https://github.com/kirillbobyrev/computer-science-resources) of
 courses, books and papers I want to study).
 
-I'm also living with two crazy Abyssinian cats now :cat:, check out [their
+I'm also living with two crazy Abyssinian kittens :cat:, check out [their
 Instagram](https://instagram.com/dixie_pixie_cats/).
