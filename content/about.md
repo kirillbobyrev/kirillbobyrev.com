@@ -7,13 +7,12 @@ menu = "main"
 
 ## Work and education
 
-I graduated from :ru: [Moscow Institute of Physics and
+I graduated from [Moscow Institute of Physics and
 Technology](https://en.wikipedia.org/wiki/Moscow_Institute_of_Physics_and_Technology)
-(which has a long history of producing world-class physicists and Nobel prize
-winners) with a Bachelor's degree in applied mathematics and physics. In the
+with a Bachelor's degree in applied mathematics and physics. In the
 first year I became interested in computer science. I enjoyed doing competitive
-programming and then participated in [Google Summer of
-Code](https://summerofcode.withgoogle.com/). In GSoC I have built a Clang-based
+programming and later participated in [Google Summer of
+Code](https://summerofcode.withgoogle.com/). During GSoC I have built a Clang-based
 [tool for detecting copy-pasted
 code](https://github.com/kirillbobyrev/code-clone-detection-llvm-devmtg15-poster)
 in open-source projects over the summer and got an offer for an internship at
@@ -31,13 +30,13 @@ improvement! I carefully documented the project's
 and [presented it](https://www.youtube.com/watch?v=VhxrFor3VyQ) at the LLVM
 Developers Meeting.
 
-I also worked in the Machine Learning field for a while, starting as a
-researcher at the university and studying convex optimization and joining
+I also worked in the Machine Learning field for a while, studying and researching convex
+optimization at the university and then joining
 [Handl](https://handl.ai/), a Y-Combinator-backed startup to work on optical
 character recognition.
 
-After I graduated the university, I joined the same team at Google in Munich and
-spent almost three years there improving clangd. Among other things, I have
+After I graduated the university, I joined the at Google in Munich I did an internship in
+and spent almost three years there improving clangd. Among other things, I have
 built [Remote Index](https://clangd.llvm.org/design/remote-index) and [Include
 Cleaner](https://clangd.llvm.org/design/include-cleaner). In the absence of a
 Product Manager in our team, I acted as one - learning what features our users
@@ -60,11 +59,11 @@ When I'm not working, I enjoy training jiu-jitsu and Muay Thai, playing blitz
 chess online
 ([lichess.org/@/kirillbobyrev](https://lichess.org/@/kirillbobyrev)) and travel.
 
-I'm also getting back to participating in competitive programming tournaments on
-Codeforces ([my profile](https://codeforces.com/profile/kirillbobyrev)) and
-studying computer science (here's my
+I like doing competitive programming tournaments on
+Codeforces ([profile](https://codeforces.com/profile/kirillbobyrev)) and
+studying computer science (here's a
 [collection](https://github.com/kirillbobyrev/computer-science-resources) of
-courses, books and papers I want to study).
+resources I want to study).
 
 I'm also living with two crazy Abyssinian kittens :cat:, check out [their
 Instagram](https://instagram.com/dixie_pixie_cats/).
