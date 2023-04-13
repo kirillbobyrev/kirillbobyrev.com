@@ -5,6 +5,7 @@ googleAnalytics = "G-RHCZGDQQJR"
 languageCode = "en"
 theme = "hugo-bearblog"
 title = "Kirill Bobyrev"
+unsafe = true
 enableEmoji = true
 
 [permalinks]
@@ -16,3 +17,10 @@ enableEmoji = true
   favicon = "icons/favicon.ico"
   title = "Kirill Bobyrev blog"
   hideMadeWithLine = true
+
+# Configure Chroma syntax highlighting.
+[markup]
+  [markup.highlight]
+    guessSyntax = true
+    style = "github"
+    tabWidth = 2

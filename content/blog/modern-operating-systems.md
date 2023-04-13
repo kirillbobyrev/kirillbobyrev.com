@@ -18,3 +18,9 @@ Add on for an MIT course
 - Printing quality
 - Online exercises
 - Dull writing style
+
+```c++
+int main() {
+  int x = 42;
+}
+```
