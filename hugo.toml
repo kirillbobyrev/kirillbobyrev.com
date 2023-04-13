@@ -20,8 +20,8 @@ title = "Kirill Bobyrev"
   [[menu.main]]
     name = "Resume"
     url = "https://kirillbobyrev.com/resume.pdf"
-    weight = 2
+    weight = 3
   [[menu.main]]
     name = "Blog"
     pageRef = "/blog"
-    weight = 3
+    weight = 4
