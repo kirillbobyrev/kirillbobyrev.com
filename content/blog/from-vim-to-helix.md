@@ -1,12 +1,14 @@
 +++
 title = "From Vim to Helix"
 date = "2023-03-26"
-tags = ["Today I Learned"]
+tags = []
+draft = true
 +++
 
 I recently learned about [Helix editor](https://helix-editor.com/) --- a modern
-modal text editor for terminal. After almost 10 years of using Vim and Neovim it
-feels like it's finally time to move on to something else!
+modal text editor for terminal. After almost 10 years of using Vim and
+[Neovim](https://neovim.io/) it feels like it's finally time to move on to
+something else!
 
 Vim's philosophy, key bindings and motions became ingrained in my consciousness
 over time, but I've had numerous problems with it, too. Most notably, I was
@@ -29,14 +31,13 @@ Few things I love about Helix compared to Vim:
   with plugins). Helix, on the other hand, doesn't force me to learn Vimscript
   or Lua, install a dozen plugins and care about everything working well
   together.
-- Modern language and development environment:
-
+- Modern language and development environment: Vim was written a long time ago.
+  At the time, using C was natural and it was a modern programming language, but
+  it doesn't hold anymore. Reading the code and navigating the codebase is
+  challenging,
 
 In the end, I don't want my editor to be extensible in every way, I want the one
 that works for me very well in a limited number of scenarios, and Helix is
 exactly that. It is still very fresh and, just like any successful project, it
 can become a victim of the feature bloat over time, but I hope it stays focused
 on the niche it can shine in and continue improving. I look forward to using it
-more and enjoying a hassle-free modal text editor in my terminal!
-
-<kbd>Ctrl</kbd> + <kbd>d</kbd>

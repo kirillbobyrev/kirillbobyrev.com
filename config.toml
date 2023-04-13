@@ -1,22 +1,14 @@
-author = "Kirill Bobyrev"
 baseURL = "https://kirillbobyrev.com/"
 enableRobotsTXT = true
 googleAnalytics = "G-RHCZGDQQJR"
 languageCode = "en"
-theme = "hugo-bearblog"
-title = "Kirill Bobyrev"
-unsafe = true
+theme = "minimis"
 enableEmoji = true
-
-[permalinks]
-  blog = "/:slug"
-  tags = "/blog/:slug"
+title = "Kirill Bobyrev personal website"
 
 [params]
-  description = "Kirill Bobyrev's blog about software engineering and my hobbies"
-  favicon = "icons/favicon.ico"
-  title = "Kirill Bobyrev blog"
-  hideMadeWithLine = true
+  author = "Kirill Bobyrev"
+  description = "Kirill Bobyrev's blog about software engineering and hobbies"
 
 # Configure Chroma syntax highlighting.
 [markup]

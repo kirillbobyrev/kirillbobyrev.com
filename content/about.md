@@ -3,8 +3,6 @@ title = "About"
 menu = "main"
 +++
 
-# About
-
 ## Work and education
 
 I graduated from [Moscow Institute of Physics and
