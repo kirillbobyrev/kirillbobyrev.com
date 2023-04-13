@@ -4,15 +4,24 @@ googleAnalytics = "G-RHCZGDQQJR"
 languageCode = "en"
 theme = "minimis"
 enableEmoji = true
-title = "Kirill Bobyrev personal website"
+title = "Kirill Bobyrev"
 
 [params]
   author = "Kirill Bobyrev"
   description = "Kirill Bobyrev's blog about software engineering and hobbies"
 
-# Configure Chroma syntax highlighting.
 [markup]
   [markup.highlight]
     guessSyntax = true
     style = "github"
     tabWidth = 2
+
+[menu]
+  [[menu.main]]
+    name = "Resume"
+    url = "https://kirillbobyrev.com/resume.pdf"
+    weight = 2
+  [[menu.main]]
+    name = "Blog"
+    pageRef = "/blog"
+    weight = 3
