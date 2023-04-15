@@ -10,17 +10,11 @@ Add on for an MIT course
 ### Upsides
 
 - Seminal work
-- Modern (real OS case study)
+- Modern (real OS case study: Android, Linux, Windows)
 - Author (MINIX influenced Linux, well known)
 
 ### Downsides
 
 - Printing quality
 - Online exercises
-- Dull writing style
-
-```c++
-int main() {
-  int x = 42;
-}
-```
+- Length

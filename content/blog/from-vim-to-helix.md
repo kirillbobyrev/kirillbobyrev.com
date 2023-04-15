@@ -37,7 +37,7 @@ Few things I love about Helix compared to Vim:
   challenging,
 
 In the end, I don't want my editor to be extensible in every way, I want the one
-that works for me very well in a limited number of scenarios, and Helix is
-exactly that. It is still very fresh and, just like any successful project, it
-can become a victim of the feature bloat over time, but I hope it stays focused
-on the niche it can shine in and continue improving. I look forward to using it
+that works for me very well in few scenarios, and Helix is exactly that. It is
+still very fresh and, just like any successful project, it can become a victim
+of the feature bloat over time, but I hope it stays focused on the niche it can
+shine in and continue improving. I look forward to using it
