@@ -20,11 +20,10 @@ I worked on developing static analysis tools for C++ like
 [Clang-Tidy](https://clang.llvm.org/extra/clang-tidy/index.html). It was super
 fun, and I learned a lot about how Clang and compilers work behind the scenes.
 
-I enjoyed my time at Google and another internship at the same team in :de:
-Munich. This time I have worked on [clangd](https://clangd.llvm.org/),
-Clang-based language server for C++. During the summer, I have built the code
-completion search engine which resulted in up to **100x** performance
-improvement! I carefully documented project's
+My second internship was also in Google Munich. This time I have worked on
+[clangd](https://clangd.llvm.org/), Clang-based language server for C++. During
+the summer, I have built the code completion search engine which resulted in up
+to **100x** performance improvement! I carefully documented project's
 [design](https://docs.google.com/document/d/1C-A6PGT6TynyaX4PXyExNMiGmJ2jL1UwV91Kyx11gOI/)
 and [presented the results](https://www.youtube.com/watch?v=VhxrFor3VyQ) at the
 LLVM Developers Meeting.
@@ -34,8 +33,8 @@ researching convex optimization at the university and then joining
 [Handl](https://handl.ai/), a Y-Combinator-backed startup to work on optical
 character recognition.
 
-After I graduated the university, I joined the team at Google Munich where I was
-an intern. At Google I was working on clangd, Clang and LLVM. Among other
+After I graduated the university, I joined the team at :de: Google Munich where
+I was an intern. At Google I was working on clangd, Clang and LLVM. Among other
 things, I have built [Remote Index](https://clangd.llvm.org/design/remote-index)
 and [Include Cleaner](https://clangd.llvm.org/design/include-cleaner). In the
 absence of a Product Manager in our team, I acted as one - learning what

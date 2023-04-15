@@ -1,6 +1,9 @@
 +++
 title = "Blog"
+menu = "main"
+weight = 5
 +++
 
-<!-- This blank file is necessary in order for the Page to be created by Hugo
-  and linked by menu.main entry through pageRef in config.toml -->
+Follow me on Mastodon
+([@kirillbobyrev@mstdn.social](https://mstdn.social/@kirillbobyrev)) or
+subscribe to the [RSS feed](./index.xml) to get notifications about new posts.

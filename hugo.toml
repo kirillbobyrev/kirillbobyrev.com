@@ -9,6 +9,7 @@ title = "Kirill Bobyrev"
 [params]
   author = "Kirill Bobyrev"
   description = "Kirill Bobyrev's blog about software engineering and hobbies"
+  mastodon = "kirillbobyrev"
 
 [markup]
   [markup.highlight]
@@ -21,7 +22,3 @@ title = "Kirill Bobyrev"
     name = "Resume"
     url = "https://kirillbobyrev.com/resume.pdf"
     weight = 3
-  [[menu.main]]
-    name = "Blog"
-    pageRef = "/blog"
-    weight = 4
