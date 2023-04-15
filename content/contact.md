@@ -1,7 +1,7 @@
 +++
 title = "Contact"
 menu = "main"
-weight = 2
+weight = 3
 +++
 
 If you want to reach out, here are few options:

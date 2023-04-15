@@ -20,5 +20,5 @@ title = "Kirill Bobyrev"
 [menu]
   [[menu.main]]
     name = "Resume"
-    url = "https://kirillbobyrev.com/resume.pdf"
-    weight = 3
+    url = "/resume.pdf"
+    weight = 4
