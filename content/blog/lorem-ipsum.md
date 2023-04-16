@@ -1,15 +1,22 @@
 +++
 title = "Lorem Ipsum"
-date = 2023-04-14
+date = 2020-01-11
 tags = ["test", "draft"]
 draft = true
 +++
+
+This page is for debugging purposes and to see how the Markdown rendering looks
+like.
 
 ## H2
 
 ### H3
 
 #### H4
+
+## Footnote
+
+Here is a simple footnote[^1]. With some additional text after it.
 
 ## Table
 
@@ -40,3 +47,5 @@ int main() {
 ## YouTube
 
 {{< youtube VhxrFor3VyQ >}}
+
+[^1]: My reference.

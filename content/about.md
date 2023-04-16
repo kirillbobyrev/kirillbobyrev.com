@@ -44,8 +44,8 @@ Yandex School of Management
 ([ШМЯ](https://academy.yandex.ru/schools/management)) which helped me develop
 enough expertise to take on Product Manager or Project Manager responsibilities.
 
-In 2022 I have transferred to Waymo, Google's self-driving cars unit, and moved
-to :us: California. At Waymo I work on
+In 2022 I have transferred to [Waymo](https://waymo.com/), Google's self-driving
+cars unit, and moved to :us: California. At Waymo I work on
 [Simulation](https://blog.waymo.com/2021/06/SimulationCity.html) which helps us
 ensure safety for our vehicles and the public, and allows rapid experimentation
 with our software.
