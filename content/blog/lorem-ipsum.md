@@ -3,6 +3,7 @@ title = "Lorem Ipsum"
 date = 1996-09-25
 tags = ["test", "draft"]
 draft = true
+math = true
 +++
 
 This page is for debugging purposes and to see how the Markdown rendering looks
@@ -39,6 +40,12 @@ int main() {
   return 0;
 }
 ```
+
+## Math
+
+$$
+i \hbar \frac{\partial}{\partial t}\Psi(\mathbf{r},t) = \hat H \Psi(\mathbf{r},t)
+$$
 
 ## Gist
 
