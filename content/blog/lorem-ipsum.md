@@ -1,6 +1,6 @@
 +++
 title = "Lorem Ipsum"
-date = 2020-01-11
+date = 1996-09-25
 tags = ["test", "draft"]
 draft = true
 +++
