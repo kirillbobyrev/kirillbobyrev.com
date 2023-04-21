@@ -11,7 +11,8 @@ Add on for an MIT course
 
 - Seminal work
 - Modern (real OS case study: Android, Linux, Windows)
-- Author (MINIX influenced Linux, well known)
+- Author ([MINIX](https://en.wikipedia.org/wiki/Minix) influenced Linux, well
+  known)
 
 ### Downsides
 
