@@ -10,6 +10,7 @@ title = "Kirill Bobyrev"
   author = "Kirill Bobyrev"
   description = "Kirill Bobyrev's blog about software engineering and hobbies"
   mastodon = "kirillbobyrev"
+  favicon = "/icons/favicon.ico"
 
 [markup]
   [markup.highlight]

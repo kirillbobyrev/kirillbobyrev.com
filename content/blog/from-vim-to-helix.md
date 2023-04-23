@@ -31,6 +31,7 @@ Few things I love about Helix compared to Vim:
   with plugins). Helix, on the other hand, doesn't force me to learn Vimscript
   or Lua, install a dozen plugins and care about everything working well
   together.
+TODO: Paste a link to my config.
 - Modern language and development environment: Vim was written a long time ago.
   At the time, using C was natural and it was a modern programming language, but
   it doesn't hold anymore. Reading the code and navigating the codebase is
