@@ -56,3 +56,7 @@ $$
 {{< youtube VhxrFor3VyQ >}}
 
 [^1]: My reference.
+
+## Emoji
+
+😀😸🤡💃💅💥⚡✏⚠⤴⤵
