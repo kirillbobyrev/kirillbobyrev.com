@@ -8,9 +8,9 @@ title = "Kirill Bobyrev"
 
 [params]
   author = "Kirill Bobyrev"
-  description = "Kirill Bobyrev's blog about software engineering and hobbies"
+  description = "Kirill Bobyrev's blog about Software Engineering and hobbies"
   mastodon = "kirillbobyrev"
-  favicon = "/icons/favicon.ico"
+  icons = true
 
 [markup]
   [markup.highlight]
