@@ -4,7 +4,6 @@ menu = "main"
 weight = 5
 +++
 
-Follow me on Mastodon
-([@kirillbobyrev@mstdn.social](https://mstdn.social/@kirillbobyrev)), Twitter
-([@kirillbobyrev](https://twitter.com/kirillbobyrev)) or subscribe to the [RSS
+Follow me on [Mastodon](https://mstdn.social/@kirillbobyrev),
+[Twitter](https://twitter.com/kirillbobyrev) or subscribe to the [RSS
 feed](./index.xml) for announcements about new posts.
