@@ -5,8 +5,9 @@ weight = 1
 +++
 
 Hi, my name is **Kirill Bobyrev**. I'm a **Software Engineer** working at
-**Waymo** and living in the **Silicon Valley**. I'm passionate about algorithms,
-high-performance code, distributed systems and low-level programming.
+**Waymo** and living in the :us: **Silicon Valley**. I'm passionate about
+algorithms, high-performance code, distributed systems and low-level
+programming.
 
 The following is a short overview of my career and hobbies.
 
@@ -29,7 +30,7 @@ fun, and I learned a lot about how Clang and compilers work behind the scenes.
 My second internship was also in Google Munich. This time I have worked on
 [clangd](https://clangd.llvm.org/), Clang-based language server for C++. During
 the summer, I have built the code completion search engine which resulted in up
-to **100x** performance improvement! I carefully documented project's
+to 100x performance improvement! I carefully documented project's
 [design](https://docs.google.com/document/d/1C-A6PGT6TynyaX4PXyExNMiGmJ2jL1UwV91Kyx11gOI/)
 and [presented the results](https://www.youtube.com/watch?v=VhxrFor3VyQ) at the
 LLVM Developers Meeting.
