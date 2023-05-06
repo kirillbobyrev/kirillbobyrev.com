@@ -4,10 +4,9 @@ menu = "main"
 weight = 1
 +++
 
-Hi, my name is **Kirill Bobyrev**. I'm a **Software Engineer** working at
-**Waymo** and living in the :us: **Silicon Valley**. I'm passionate about
-algorithms, high-performance code, distributed systems and low-level
-programming.
+Hi, my name is Kirill Bobyrev. I'm a Software Engineer working at Waymo and
+living in the :us: Silicon Valley. I'm passionate about algorithms,
+high-performance code, distributed systems and low-level programming.
 
 The following is a short overview of my career and hobbies.
 
