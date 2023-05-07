@@ -12,8 +12,8 @@ The following is a short overview of my career and hobbies.
 
 ## Work and education
 
-I graduated from [Moscow Institute of Physics and
-Technology](https://en.wikipedia.org/wiki/Moscow_Institute_of_Physics_and_Technology)
+I graduated from
+[MIPT](https://en.wikipedia.org/wiki/Moscow_Institute_of_Physics_and_Technology)
 with a Bachelor’s degree in applied mathematics and physics. During my first
 year, I discovered my interest in computer science and started competing in
 programming challenges. Later, I got the chance to participate in [Google Summer
