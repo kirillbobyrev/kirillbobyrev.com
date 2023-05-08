@@ -24,8 +24,11 @@ Goals
 - Medium
 - bearblog
 
+<!-- Minimalistic things. -->
+
 - bearblog
 - hugo bearblog
+- yihui/hugo-xmin
 
 - https://maciejglowka.com/blog/
 - https://www.moderndescartes.com/

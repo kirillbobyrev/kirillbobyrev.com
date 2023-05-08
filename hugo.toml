@@ -2,7 +2,7 @@ baseURL = "https://kirillbobyrev.com/"
 enableRobotsTXT = true
 googleAnalytics = "G-RHCZGDQQJR"
 languageCode = "en"
-theme = "minimis"
+theme = "github.com/kirillbobyrev/minimis"
 enableEmoji = true
 title = "Kirill Bobyrev"
 
