@@ -1,19 +1,47 @@
 +++
-title = "Lorem Ipsum"
+title = "Sample post"
 date = 1996-09-25
 tags = ["test", "draft"]
 draft = true
 math = true
 +++
 
-This page is for debugging purposes and to see how the Markdown rendering looks
-like.
+{{< toc >}}
+
+Use `{{</* toc */>}}` shortcode to generate a table of contents.
+
+## Headings
 
 ## H2
 
 ### H3
 
 #### H4
+
+##### H5
+
+## Text styling
+
+**Bold** and *italic*.
+
+## Lists
+
+### Unordered
+
+- Dogs
+- Cats
+  - Abyssinian
+  - Siamese
+- Cows
+
+### Ordered
+
+1. Build a blog.
+    1. Find good static site generator.
+    2. Select a theme.
+        - Shouldn't be too complicated.
+        - Shouldn't take too long to setup.
+2. Congrats!
 
 ## Footnote
 
@@ -67,6 +95,22 @@ func GetTitleFunc(style string) func(s string) string {
   }
 }
 ```
+
+## Quotes
+
+> This is a single quote.
+
+Some text in-between.
+
+> This is a
+> multi line
+> quote
+
+And nested quotes.
+
+> Dorothy followed her through many of the beautiful rooms in her castle.
+>
+>> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
 
 ## Math
 
