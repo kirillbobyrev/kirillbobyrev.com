@@ -1,25 +1,25 @@
-baseURL = "https://kirillbobyrev.com/"
+baseURL = 'https://kirillbobyrev.com/'
 enableRobotsTXT = true
-googleAnalytics = "G-RHCZGDQQJR"
-languageCode = "en"
-theme = "github.com/kirillbobyrev/minimis"
+googleAnalytics = 'G-RHCZGDQQJR'
+languageCode = 'en'
+theme = 'github.com/kirillbobyrev/minimis'
 enableEmoji = true
-title = "Kirill Bobyrev"
+title = 'Kirill Bobyrev'
 
 [params]
-  author = "Kirill Bobyrev"
-  description = "Kirill Bobyrev's blog about Software Engineering and hobbies"
-  mastodon = "kirillbobyrev"
+  author = 'Kirill Bobyrev'
+  description = 'Blog about Software Engineering and hobbies by Kirill Bobyrev'
+  mastodon = 'kirillbobyrev'
   icons = true
 
 [markup]
   [markup.highlight]
     guessSyntax = true
-    style = "github"
+    style = 'github'
     tabWidth = 2
 
 [menu]
   [[menu.main]]
-    name = "Resume"
-    url = "/resume.pdf"
+    name = 'Resume'
+    url = '/resume.pdf'
     weight = 4
