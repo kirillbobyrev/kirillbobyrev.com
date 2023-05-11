@@ -1,5 +1,5 @@
 +++
-title = "Building personal website with Hugo and GitHub Pages"
+title = "Building personal site with Hugo and GitHub Pages"
 date = 2023-04-26
 tags = []
 math = false
@@ -15,9 +15,9 @@ Goals
 - Fun
 
 - Karpathy's [blog](https://karpathy.github.io) and
-  [website](https://karpathy.ai)
-- Eli Bendersky's [website](https://eli.thegreenplace.net)
-- Paul Graham's [website]
+  [site](https://karpathy.ai)
+- Eli Bendersky's [site](https://eli.thegreenplace.net)
+- Paul Graham's [site]
 - [Blobs in Games](https://simblob.blogspot.com/)
 
 - Substack
