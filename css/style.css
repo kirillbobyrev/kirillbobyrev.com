@@ -57,10 +57,10 @@ blockquote {
 code {
   font-family:
     ui-monospace,
-    "SFMono-Regular",
+    SFMono-Regular,
     "SF Mono",
-    "Menlo",
-    "Consolas",
+    Menlo,
+    Consolas,
     "Liberation Mono",
     monospace;
   font-size: 0.9rem;
