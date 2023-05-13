@@ -1,6 +1,6 @@
 +++
-title = "Projects"
-menu = "main"
+title = 'Projects'
+menu = 'main'
 weight = 3
 draft = true
 +++

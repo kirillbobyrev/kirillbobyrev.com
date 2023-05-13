@@ -1,5 +1,5 @@
 +++
-title = "Modern command line toolbox"
+title = 'Modern command line toolbox'
 date = 2023-04-28
 tags = []
 math = false

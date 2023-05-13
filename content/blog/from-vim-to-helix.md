@@ -1,7 +1,7 @@
 +++
-title = "From Vim to Helix"
-date = "2023-04-24"
-tags = ["tools", "programming"]
+title = 'From Vim to Helix'
+date = 2023-04-24
+tags = ['tools', 'programming']
 +++
 
 I recently came across [Helix editor](https://helix-editor.com/), a modern modal

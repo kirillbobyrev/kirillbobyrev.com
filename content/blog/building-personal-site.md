@@ -1,5 +1,5 @@
 +++
-title = "Building personal site with Hugo and GitHub Pages"
+title = 'Building personal site with Hugo and GitHub Pages'
 date = 2023-04-26
 tags = []
 math = false

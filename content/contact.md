@@ -1,6 +1,6 @@
 +++
-title = "Contact"
-menu = "main"
+title = 'Contact'
+menu = 'main'
 weight = 2
 +++
 

@@ -1,6 +1,6 @@
 +++
-title = "Home"
-menu = "main"
+title = 'Home'
+menu = 'main'
 weight = 1
 +++
 
