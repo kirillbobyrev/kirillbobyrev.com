@@ -1,14 +1,4 @@
-github.com/kirillbobyrev/minimis v0.0.0-20230508070544-6a5a35e90552 h1:jpMrqv3D4xTc3S4J9V2iO8e8lpktSp8ntJoazcKVJgs=
-github.com/kirillbobyrev/minimis v0.0.0-20230508070544-6a5a35e90552/go.mod h1:c8AT7Osdm0eUJm9QfscCgl44tAlC7BaCjxU3jIasKLg=
-github.com/kirillbobyrev/minimis v0.0.0-20230509185849-f789a39f0261 h1:2EC3+KSRVAv7Y6oXpu0c/0c+0+ikdGfNMAampOn5bHs=
-github.com/kirillbobyrev/minimis v0.0.0-20230509185849-f789a39f0261/go.mod h1:c8AT7Osdm0eUJm9QfscCgl44tAlC7BaCjxU3jIasKLg=
-github.com/kirillbobyrev/minimis v0.0.0-20230511191821-94338a375069 h1:14jDcpvf8+QZXqWw/sX8b3bpyUaVLfroWJeC6F22N6w=
-github.com/kirillbobyrev/minimis v0.0.0-20230511191821-94338a375069/go.mod h1:c8AT7Osdm0eUJm9QfscCgl44tAlC7BaCjxU3jIasKLg=
-github.com/kirillbobyrev/minimis v0.0.0-20230511233309-8e2c73ad1b83 h1:ljoEJ30GXPCkDoYsrBlofwwu5+iIEJVMGd+9BCwTBWM=
-github.com/kirillbobyrev/minimis v0.0.0-20230511233309-8e2c73ad1b83/go.mod h1:c8AT7Osdm0eUJm9QfscCgl44tAlC7BaCjxU3jIasKLg=
-github.com/kirillbobyrev/minimis v0.0.0-20230513200745-27dc53d0efda h1:A+GRGZii7R+U9onTdUBrncfWKdl47HBFzDQON9534iM=
-github.com/kirillbobyrev/minimis v0.0.0-20230513200745-27dc53d0efda/go.mod h1:c8AT7Osdm0eUJm9QfscCgl44tAlC7BaCjxU3jIasKLg=
-github.com/kirillbobyrev/minimis v0.0.0-20230513213119-903c75580acb h1:Gqc4fSkNUJaDeqH5un5BF0uyfTta3gfMvVnMtxRu7+w=
-github.com/kirillbobyrev/minimis v0.0.0-20230513213119-903c75580acb/go.mod h1:c8AT7Osdm0eUJm9QfscCgl44tAlC7BaCjxU3jIasKLg=
 github.com/kirillbobyrev/minimis v0.0.0-20230516013323-392526bc6bbf h1:FLBULzTnPWTNfH6xRm7GVxkexR7lJlHiIWZX3szDJlo=
 github.com/kirillbobyrev/minimis v0.0.0-20230516013323-392526bc6bbf/go.mod h1:c8AT7Osdm0eUJm9QfscCgl44tAlC7BaCjxU3jIasKLg=
+github.com/kirillbobyrev/minimis v0.0.0-20230516181322-7c9920c37b23 h1:66CdnI4cJV74FB3Bj5VpMJv4k6r6eJXBciUCSY6x4+o=
+github.com/kirillbobyrev/minimis v0.0.0-20230516181322-7c9920c37b23/go.mod h1:c8AT7Osdm0eUJm9QfscCgl44tAlC7BaCjxU3jIasKLg=
