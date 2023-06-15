@@ -7,3 +7,5 @@ draft = true
 +++
 
 - Got cats
+- Started therapy again (?)
+- Started training at AKA consistently (?)
