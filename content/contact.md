@@ -18,7 +18,6 @@ And here are my accounts on other platforms:
 - [Threads](https://www.threads.net/@cybobyrev)
 - [Mastodon](https://mstdn.social/@kirillbobyrev)
 - [Instagram](https://instagram.com/cybobyrev)
-- [Twitter](https://twitter.com/kirillbobyrev)
 - [Lichess](https://lichess.org/@/kirillbobyrev)
 - [Chess.com](https://www.chess.com/member/kirillbobyrev)
 - [Codeforces](https://codeforces.com/profile/kirillbobyrev)
