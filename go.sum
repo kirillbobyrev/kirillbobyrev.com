@@ -8,3 +8,5 @@ github.com/kirillbobyrev/minimis v0.0.0-20230605225753-8e3822f78945 h1:PKpLpGX+R
 github.com/kirillbobyrev/minimis v0.0.0-20230605225753-8e3822f78945/go.mod h1:c8AT7Osdm0eUJm9QfscCgl44tAlC7BaCjxU3jIasKLg=
 github.com/kirillbobyrev/minimis v0.0.0-20230615060958-d01503a31440 h1:4y13owP6n9RhtQm3kgQo4BRV8qcOo57OIKu7F5Lxj3E=
 github.com/kirillbobyrev/minimis v0.0.0-20230615060958-d01503a31440/go.mod h1:c8AT7Osdm0eUJm9QfscCgl44tAlC7BaCjxU3jIasKLg=
+github.com/kirillbobyrev/minimis v0.0.0-20231031194833-9de1602b53c7 h1:tLD/nvtp1omHhXhzCP/qAu6UZUx92b60Un+xYmLQ/qQ=
+github.com/kirillbobyrev/minimis v0.0.0-20231031194833-9de1602b53c7/go.mod h1:c8AT7Osdm0eUJm9QfscCgl44tAlC7BaCjxU3jIasKLg=
