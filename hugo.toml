@@ -7,10 +7,11 @@ enableEmoji = true
 title = 'Kirill Bobyrev'
 
 [params]
-  author = 'Kirill Bobyrev'
   description = 'Blog about Software Engineering and hobbies by Kirill Bobyrev'
   mastodon = 'kirillbobyrev'
   icons = true
+  [params.author]
+    name = 'Kirill Bobyrev'
 
 [markup]
   [markup.highlight]
