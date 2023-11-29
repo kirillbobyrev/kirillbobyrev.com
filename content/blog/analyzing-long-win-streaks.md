@@ -41,8 +41,8 @@ Nakamura has exceptionally long winning streaks against skilled opponents. This
 has sparked numerous discussions online and attracted a lot of interest from
 chess community.
 
-The [22:09](https://youtu.be/2u-DKBSzJ1s?si=IhLJu9kqChzYtHhk&t=1328) are
-presented as the following table:
+In his [recent video](https://youtu.be/2u-DKBSzJ1s?si=IhLJu9kqChzYtHhk&t=1328)
+Kramnik points out the following findings:
 
 | Avg opponent rating |  Results  | Performance rating |
 | :-----------------: | :-------: | :----------------: |
