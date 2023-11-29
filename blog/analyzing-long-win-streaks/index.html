@@ -102,8 +102,8 @@ best suited for FIDE classical ratings, which have a slightly different range
 (with the top players never getting above 2900 whereas on Chess.com Hikaru and
 Magnus Carlsen have achieved a rating over 3300). Blitz and classical are quite
 different, too.</p><p>For Elo, we can use the same formulas from <a href=https://wismuth.com/elo/calculator.html>Wismuth Elo
-calculator</a> that is mentioned by
-Pawnalyze article:</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#000;font-weight:700>def</span> <span style=color:#900;font-weight:700>expected_score</span>(elo_difference):
+calculator</a> (Pawnalyze post also
+mentions these formulas as a decent starting point):</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#000;font-weight:700>def</span> <span style=color:#900;font-weight:700>expected_score</span>(elo_difference):
 </span></span><span style=display:flex><span>  <span style=color:#000;font-weight:700>return</span> scipy<span style=color:#000;font-weight:700>.</span>special<span style=color:#000;font-weight:700>.</span>erfc(<span style=color:#000;font-weight:700>-</span>elo_difference <span style=color:#000;font-weight:700>/</span> ((<span style=color:#099>2000.0</span> <span style=color:#000;font-weight:700>/</span> <span style=color:#099>7</span>) <span style=color:#000;font-weight:700>*</span> np<span style=color:#000;font-weight:700>.</span>sqrt(<span style=color:#099>2</span>))) <span style=color:#000;font-weight:700>/</span> <span style=color:#099>2</span>
 </span></span></code></pre></div><p>There &ldquo;full&rdquo; formula that takes into account draws in chess (Note 7 on Wismuth)
 does not give good results for our rating ranges and is not reliable. Also,
