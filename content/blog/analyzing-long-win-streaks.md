@@ -215,17 +215,17 @@ him.
 
 Let's look at some statistics for all these players for 2023:
 
-|   Statistics   | Carlsen | Nakamura |  Sarin  | Naroditsky |
-| :------------: | :-----: | :------: | :-----: | :--------: |
-|     Games      |   908   |   3032   |  2767   |    5123    |
-|     Points     |  716.5  |  2558.5  | 1970.5  |   3964.0   |
-|   % of total   |  78.9   |  84.38   |  71.9   |    77.3    |
-|   Avg rating   | 3227.60 | 3216.22  | 3142.38 |  3130.88   |
-|  Avg opponent  | 2984.50 | 2897.95  | 2976.46 |  2901.46   |
-|  10+ streaks   |   15    |    79    |   23    |     62     |
-|  15+ streaks   |    3    |    35    |    3    |     21     |
-|  20+ streaks   |    1    |    17    |    1    |     6      |
-| Longest streak |   32    |    55    |   22    |     33     |
+|   Statistics    | Carlsen | Nakamura |  Sarin  | Naroditsky |
+| :-------------: | :-----: | :------: | :-----: | :--------: |
+|      Games      |   908   |   3032   |  2767   |    5123    |
+|     Points      |  716.5  |  2558.5  | 1970.5  |   3964.0   |
+| Scored of total |  78.9%  |  84.38%  |  71.9%  |   77.3%    |
+|   Avg rating    | 3227.60 | 3216.22  | 3142.38 |  3130.88   |
+|  Avg opponent   | 2984.50 | 2897.95  | 2976.46 |  2901.46   |
+|   10+ streaks   |   15    |    79    |   23    |     62     |
+|   15+ streaks   |    3    |    35    |    3    |     21     |
+|   20+ streaks   |    1    |    17    |    1    |     6      |
+| Longest streak  |   32    |    55    |   22    |     33     |
 
 These statistics indeed look very surprising. As Hikaru mentioned, I think it's
 a fair assumption that Narodistky is probable a better comparison than Carlsen,
