@@ -6,13 +6,29 @@ images = ['/images/analyzing-long-win-streaks/cover.png']
 math = true
 +++
 
-**TL;DR** In-depth analysis of recent data suggests a high likelihood of Hikaru
+**TL;DR**: In-depth analysis of recent data suggests a high likelihood of Hikaru
 Nakamura achieving a 55-game winning streak in online blitz, based on thousands
 of his games played this year. Similarly, longest streaks by Magnus Carlsen (32
 wins), Nihal Sarin (22 wins), and Daniel Naroditsky (33 wins) align with
 statistical expectations. The occurrence of both short (10+ wins) and long (15+
 wins) streaks among these elite players is also found to be probable and not out
 of the ordinary.
+
+---
+
+**Update**: Chess.com team has published a
+[statement](https://www.chess.com/blog/CHESScom/regarding-recent-accusations)
+the next day reinforcing that they do not find the long win streaks and
+exceptional performances of Hikaru Nakamura to be very likely.
+
+> We have confirmed these results with external statisticians, including a professor of statistics at a top-10 university.
+
+Unfortunately, they have not shared any calculations and analysis. I would be
+very interested to see the methods and tools that were used, but I guess they
+might not want to publish much information to prevent bypassing some of the
+anti-cheating and analysis methods.
+
+---
 
 I've conducted basic analysis using Elo win probability estimations and
 Monte-Carlo simulation to estimate the likelihood of Hikaru Nakamura (and his
@@ -37,7 +53,17 @@ these two scripts run with different parameters that I describe in the post. I
 hope to address some of these limitations in a consequent study which I want to
 publish soon.
 
-Should you find any errors or inconsistencies, please feel free to contact me at
+In addition, this post does not consider and study the "hot hand" effect in
+detail (a belief that a player who has just won is more likely to win again and
+generate a streak). The "hot hand" fallacy is extensively studied in statistics:
+e.g. here's an interesting
+[post](https://statmodeling.stat.columbia.edu/2015/07/09/hey-guess-what-there-really-is-a-hot-hand/)
+and a [paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2627354) (from
+Econometrica, one of the top journals in Statistics and Economics). The research
+suggests that "hot hand" phenomenon exists despite prevalent beliefs that were
+dominant for many decades in Statistics.
+
+If you find any errors or errors, please feel free to contact me at
 <kbobyrev.opensource@gmail.com>.
 
 ![Cover](/images/analyzing-long-win-streaks/cover.png)
