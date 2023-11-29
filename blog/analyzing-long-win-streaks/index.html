@@ -166,11 +166,14 @@ game data and opponent ratings should yield more precise results. I look forward
 to refining my analysis and welcome any thoughts or suggestions from the
 community.</p><h3 id=side-note>Side note</h3><p>Even though the simulated probabilities are incredibly high for all events I
 found, this isn&rsquo;t conclusive. My method isn&rsquo;t perfect and the results would
-drastically change under different assumptions. For example, if I use the full
-Elo win probability formulas from Wismuth mentioned before, then
-<code>win_probability(3176, 2736) = 70%</code>. Even though that is for classical, it&rsquo;s
-consistent with what I would personally guess before looking at the data. And,
-with that, simulating 3000 games with win probability of 70% in each of them
-would give 0% chance of accumulating a win streak of 55 games. This isn&rsquo;t as
-clear-cut as the calculations above suggest, so I look forward to improving the
-probability estimation with more robust methods such as machine learning.</p></article></main><footer class="footer fixed-bottom"></footer></body></html>
+drastically change under different assumptions. The key factor is likely the win
+probability estimation (which is very naive in this study). Simulation appears
+to be really sensitive to different probabilities and the results would change
+if I chose a different win probability estimation strategy.</p><p>For example, if I use the full Elo win probability formulas from Wismuth
+mentioned before, then <code>win_probability(3176, 2736) = 70%</code>. Even though that is
+for classical, it&rsquo;s consistent with what I would personally guess before looking
+at the data. And, with that, simulating 3000 games with win probability of 70%
+in each of them would give 0% chance of accumulating a win streak of 55 games.
+This isn&rsquo;t as clear-cut as the calculations above suggest. I look forward to
+improving the probability estimation with more robust methods such as machine
+learning.</p></article></main><footer class="footer fixed-bottom"></footer></body></html>
