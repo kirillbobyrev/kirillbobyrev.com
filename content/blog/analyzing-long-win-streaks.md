@@ -415,9 +415,9 @@ if I chose a different win probability estimation strategy.
 
 For example, if I use the full Elo win probability formulas from Wismuth
 mentioned before, then `win_probability(3176, 2736) = 70%`. Even though that is
-for classical, it's consistent with what I would personally guess before looking
-at the data. And, with that, simulating 3000 games with win probability of 70%
-in each of them would give 0% chance of accumulating a win streak of 55 games.
-This isn't as clear-cut as the calculations above suggest. I look forward to
-improving the probability estimation with more robust methods such as machine
-learning.
+for classical time control, it's consistent with what I would personally
+initially guess before looking at the data. And, with that, simulating 3000
+games with win probability of 70% in each of them would give 0% chance of
+accumulating a win streak of 55 games.  This isn't as clear-cut as the
+calculations above suggest.  I look forward to improving the probability
+estimation with more robust methods such as machine learning.
