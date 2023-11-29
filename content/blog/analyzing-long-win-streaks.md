@@ -6,20 +6,19 @@ images = ['/images/analyzing-long-win-streaks/cover.png']
 math = true
 +++
 
-I've conducted a simple analysis using Elo win probability estimation and
+I've conducted a simple analysis using Elo win probability estimations and
 Monte-Carlo simulation to estimate the likelihood of Hikaru Nakamura achieving
-long win streaks, such as the one recently highlighted by Vladimir Kramnik. My
-findings suggest these streaks are not statistical anomalies indicative of
-cheating and are likely over an extended period (e.g., a year).  See
-[Monte-Carlo simulation](#monte-carlo-simulations) tables and
+long winning streaks, as recently highlighted by Vladimir Kramnik. My findings
+suggest these streaks are not statistically anomalous and indicative of
+cheating. See [Monte-Carlo simulation](#monte-carlo-simulations) tables and
 [conclusion](#conclusion) below.
 
-This post doesn't aim to determine whether Hikaru Nakamura or other players have
-engaged in cheating. Instead, my goal is to critically examine historical data
-from Chess.com games, focusing on the probability of long win streaks and
-exceptional performances. It's important to note that this analysis primarily
-involves significant outliers, both regarding the players and their
-performances, which makes general-case judgments challenging.
+This post does not aim to determine whether Hikaru Nakamura or other players
+have engaged in any form cheating. Instead, my goal is to critically examine
+historical data from Chess.com games, focusing on the probability of long win
+streaks and exceptional performances. It's important to note that this analysis
+primarily involves significant outliers, both in terms of the players and their
+performances.
 
 Should you find any errors or inconsistencies, please feel free to contact me at
 <kbobyrev.opensource@gmail.com>. For those interested in the technical aspects,
@@ -30,16 +29,16 @@ the scripts I used for this analysis are available
 
 ## Prelude
 
-Cheating is a huge problem in modern chess and it has been discussed a lot in
-the last couple of years. Among many other voices, Vladimir Kramnik (14th World
-Chess Champion) frequents [Levitov Chess](https://www.youtube.com/@LevitovChess)
-YouTube channel and shares his views on the topic. He has recently implied that
-Hikaru Nakamura, a renowned chess player known for his exceptional skills in
-online blitz and streaming presence, might be cheating and asked Chess.com to
-investigate the case. The main finding that he has presented so far is that
-Nakamura has exceptionally long winning streaks against skilled opponents. This
-has sparked numerous discussions online and attracted a lot of interest from
-chess community.
+Cheating is a huge problem in modern chess and it has been extensively discussed
+a lot in the last couple of years. Among many other voices, Vladimir Kramnik
+(14th World Chess Champion) frequents [Levitov
+Chess](https://www.youtube.com/@LevitovChess) YouTube channel and shares his
+views on the topic. He recently implied that Hikaru Nakamura, a renowned chess
+player, known for his exceptional skills in online blitz and streaming presence,
+might be cheating and asked Chess.com to investigate the case. The main finding
+that he has presented so far is that Nakamura has exceptionally long winning
+streaks against skilled opponents. This has sparked numerous discussions online
+and attracted a lot of interest from the chess community.
 
 In his [recent video](https://youtu.be/2u-DKBSzJ1s?si=IhLJu9kqChzYtHhk&t=1328)
 Kramnik points out the following findings:
@@ -187,7 +186,7 @@ Sarin also plays a lot, but it looks like he mostly plays against very
 high-rated opponents and is likely mostly interested in training rather than
 gaining rating points and creating content.
 
-Now, let's get to figuring out how probable it is to get these streaks.
+Now, let's get to figuring out the probability of achieving these streaks.
 
 ## Analysis
 
@@ -196,7 +195,7 @@ long winning streaks against opponents of the rating groups that I found?
 
 Let's discuss some limitations: we will consider win probability in each game to
 be independent of adjacent games. This is not strictly true in real life:
-factors such as fatigue, tilt, time of day and many others certainly have
+factors such as fatigue, tilt, time of day, and many others, certainly have
 impact.
 
 I will also consider that Hikaru's rating (and his opponents' ratings) is
@@ -291,7 +290,7 @@ opposition of each player. As a result, win probability is significantly higher.
 Let's spin up Monte-Carlo simulations and finally see if the win streaks we
 found make sense!
 
-The simulation I use is very crude, because it basically assumes:
+The simulation I use is quite basic, as it essentially assumes:
 
 - Each game is independent (which is certainly not true: I would imagine an
   opponent who lost a number of games to be demoralized)
@@ -395,8 +394,9 @@ long win streaks but also about understanding how different the outcomes are
 from the simple Elo model used in this study. If time permits, I'll share these
 enhanced findings in a future post.
 
-Additionally, having access to Chess.com's historical data allows me to simulate
-the actual game sequences players have experienced this year. Instead of relying
-on win probabilities against an 'average opponent,' using individual game data
-and opponent ratings should yield more precise results. I look forward to
-refining my analysis and welcome any thoughts or suggestions from the community.
+Additionally, having access to Chess.com's historical data will allow me to
+simulate the actual game sequences players have experienced this year. Instead
+of relying on win probabilities against an 'average opponent,' using individual
+game data and opponent ratings should yield more precise results. I look forward
+to refining my analysis and welcome any thoughts or suggestions from the
+community.
