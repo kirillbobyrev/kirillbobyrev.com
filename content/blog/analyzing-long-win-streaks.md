@@ -6,7 +6,7 @@ images = ['/images/analyzing-long-win-streaks/cover.png']
 math = true
 +++
 
-TL;DR: In-depth analysis of recent data suggests a high likelihood of Hikaru
+**TL;DR** In-depth analysis of recent data suggests a high likelihood of Hikaru
 Nakamura achieving a 55-game winning streak in online blitz, based on thousands
 of his games played this year. Similarly, longest streaks by Magnus Carlsen (32
 wins), Nihal Sarin (22 wins), and Daniel Naroditsky (33 wins) align with
@@ -33,7 +33,9 @@ My analysis does not require extensive computation and anyone interested can run
 the
 [code](https://gist.github.com/kirillbobyrev/c16ef00e01370e9789d1d6b91fe63442)
 within seconds on a most computers. All graphs and calculations are produced by
-these two scripts run with different parameters that I describe in the post.
+these two scripts run with different parameters that I describe in the post. I
+hope to address some of these limitations in a consequent study which I want to
+publish soon.
 
 Should you find any errors or inconsistencies, please feel free to contact me at
 <kbobyrev.opensource@gmail.com>.
