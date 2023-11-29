@@ -229,8 +229,8 @@ Magnus Carlsen have achieved a rating over 3300). Blitz and classical are quite
 different, too.
 
 For Elo, we can use the same formulas from [Wismuth Elo
-calculator](https://wismuth.com/elo/calculator.html) that is mentioned by
-Pawnalyze article:
+calculator](https://wismuth.com/elo/calculator.html) (Pawnalyze post also
+mentions these formulas as a decent starting point):
 
 ```python
 def expected_score(elo_difference):
@@ -419,5 +419,5 @@ for classical time control, it's consistent with what I would personally
 initially guess before looking at the data. And, with that, simulating 3000
 games with win probability of 70% in each of them would give 0% chance of
 accumulating a win streak of 55 games.  This isn't as clear-cut as the
-calculations above suggest.  I look forward to improving the probability
+calculations above suggest. I look forward to improving the probability
 estimation with more robust methods such as machine learning.
