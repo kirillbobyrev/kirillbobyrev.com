@@ -8,11 +8,12 @@ math = true
 
 **TL;DR**: In-depth analysis of recent data suggests a high likelihood of Hikaru
 Nakamura achieving a 55-game winning streak in online blitz, based on thousands
-of his games played this year. Similarly, longest streaks by Magnus Carlsen (32
-wins), Nihal Sarin (22 wins), and Daniel Naroditsky (33 wins) align with
-statistical expectations. The occurrence of both short (10+ wins) and long (15+
-wins) streaks among these elite players is also found to be probable and not out
-of the ordinary.
+of his games played this year (and even more likely given that Hikaru just
+crossed 35,000 blitz games mark on Chess.com alone). Similarly, longest streaks
+by Magnus Carlsen (32 wins), Nihal Sarin (22 wins), and Daniel Naroditsky (33
+wins) align with statistical expectations. The occurrence of both short (10+
+wins) and long (15+ wins) streaks among these elite players is also found to be
+probable and not out of the ordinary.
 
 ---
 
@@ -196,11 +197,11 @@ Let's look at some statistics for all these players for the year of 2023 (from
 |   20+ streaks   |    1    |    17    |    1    |     6      |
 | Longest streak  |   32    |    55    |   22    |     33     |
 
-These statistics indeed look very surprising. As Hikaru mentioned, I think it's
-a fair assumption that Narodistky is probably a better comparison than Carlsen,
-Sarin or other players, because Daniel is an incredibly strong player himself
-and has similar goals to create content through streams and videos. Naroditsky
-also excels in short time controls without an increment.
+These statistics indeed look very surprising at the first glance. As Hikaru
+mentioned, I think it's a fair assumption that Narodistky is probably a better
+comparison than Carlsen, Sarin or other players, because Daniel is an incredibly
+strong player himself and has similar goals to create content through streams
+and videos. Naroditsky also excels in short time controls without an increment.
 
 Another interesting observation is that Carlsen and Sarin are nowhere close to
 both Nakamura and Naroditsky in terms of win streaks count. Carlsen has played
