@@ -408,11 +408,16 @@ community.
 
 Even though the simulated probabilities are incredibly high for all events I
 found, this isn't conclusive. My method isn't perfect and the results would
-drastically change under different assumptions. For example, if I use the full
-Elo win probability formulas from Wismuth mentioned before, then
-`win_probability(3176, 2736) = 70%`. Even though that is for classical, it's
-consistent with what I would personally guess before looking at the data. And,
-with that, simulating 3000 games with win probability of 70% in each of them
-would give 0% chance of accumulating a win streak of 55 games. This isn't as
-clear-cut as the calculations above suggest, so I look forward to improving the
-probability estimation with more robust methods such as machine learning.
+drastically change under different assumptions. The key factor is likely the win
+probability estimation (which is very naive in this study). Simulation appears
+to be really sensitive to different probabilities and the results would change
+if I chose a different win probability estimation strategy.
+
+For example, if I use the full Elo win probability formulas from Wismuth
+mentioned before, then `win_probability(3176, 2736) = 70%`. Even though that is
+for classical, it's consistent with what I would personally guess before looking
+at the data. And, with that, simulating 3000 games with win probability of 70%
+in each of them would give 0% chance of accumulating a win streak of 55 games.
+This isn't as clear-cut as the calculations above suggest. I look forward to
+improving the probability estimation with more robust methods such as machine
+learning.
