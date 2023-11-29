@@ -397,9 +397,9 @@ long win streaks but also about understanding how different the outcomes are
 from the simple Elo model used in this study. If time permits, I'll share these
 enhanced findings in a future post.
 
-Additionally, having access to Chess.com's historical data will allow me to
+Additionally, fully leveraging Chess.com's historical data would allow me to
 simulate the actual game sequences players have experienced this year. Instead
-of relying on win probabilities against an 'average opponent,' using individual
+of relying on win probabilities against an "average opponent", using individual
 game data and opponent ratings should yield more precise results. I look forward
 to refining my analysis and welcome any thoughts or suggestions from the
 community.
