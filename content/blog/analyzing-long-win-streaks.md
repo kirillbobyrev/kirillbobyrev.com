@@ -183,7 +183,18 @@ MVL only played 94 games in 3+0 format this year, so I won't use his data for
 calculations.
 
 Let's look at some statistics for all these players for the year of 2023 (from
-2023-01-01 to 2023-11-28):
+2023-01-01 to 2023-11-28).
+
+**N.B.** I decided to use this year instead of lifetime statistics in order to
+make the calculations comparable between players. Magnus Carlsen didn't play
+much on Chess.com until the Magnus Group merger and has only started playing
+actively recently (e.g. API call for games of July 2022 and most of the last
+year [returns](https://api.chess.com/pub/player/magnuscarlsen/games/2022/07) no
+games at all). Of course, if I have considered lifetime statistics of each
+player, then the results would be different. Additionally, there is a prevalent
+belief that ratings were on a different scale and the activity was an order of
+magnitude lower before the online chess boom in 2020. Therefore, even if I want
+to consider more data, I would probably only check last few years.
 
 |   Statistics    | Carlsen | Nakamura |  Sarin  | Naroditsky |
 | :-------------: | :-----: | :------: | :-----: | :--------: |
