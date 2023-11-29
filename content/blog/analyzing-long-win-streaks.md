@@ -1,5 +1,5 @@
 +++
-title = 'Analyzing long win streaks in online chess'
+title = 'Analyzing abnormally long win streaks in online chess'
 date = 2023-11-28
 tags = []
 images = ['/images/analyzing-long-win-streaks/cover.png']
@@ -207,10 +207,10 @@ I will use Monte-Carlo simulation to simulate a large number of games being
 played between each player and his opponents and check how often we find similar
 win streak patterns. The key here is knowing an approximate probability of each
 game outcome. We can use win probability formula based on players Elo rating or
-a Machine Learning model. This approach is similar to one used on
+a machine learning model. This approach is similar to one used on
 [Pawnalyze](https://pawnalyze.com/tournament/2022/02/27/Elo-Rating-Accuracy-Is-Machine-Learning-Better.html).
 
-### Using Elo to estimate the outcome probabilities
+### Using Elo to estimate win probabilities
 
 Elo is a good starting model, because it's simple, is studied well and has been
 long applied to chess. Chess.com uses Glicko, but it is also a crude
@@ -260,6 +260,9 @@ controls:
 |     1+0      |  11.2%  |   6.9%   | 7.6%  |    8.3%    |
 |     3+0      |  11.5%  |   7.8%   | 11.4% |   13.5%    |
 |     3+1      |  14.9%  |  13.8%   | 12.3% |   23.1%    |
+
+Note: I could probably adjust win probabilities using sampled draw probabilities
+since `expected_score = win_probability + draw_probability / 2`.
 
 Even when the difference is just a second of increment, for professional chess
 players that is enough to make a huge difference.
@@ -400,3 +403,16 @@ of relying on win probabilities against an 'average opponent,' using individual
 game data and opponent ratings should yield more precise results. I look forward
 to refining my analysis and welcome any thoughts or suggestions from the
 community.
+
+### Side note
+
+Even though the simulated probabilities are incredibly high for all events I
+found, this isn't conclusive. My method isn't perfect and the results would
+drastically change under different assumptions. For example, if I use the full
+Elo win probability formulas from Wismuth mentioned before, then
+`win_probability(3176, 2736) = 70%`. Even though that is for classical, it's
+consistent with what I would personally guess before looking at the data. And,
+with that, simulating 3000 games with win probability of 70% in each of them
+would give 0% chance of accumulating a win streak of 55 games. This isn't as
+clear-cut as the calculations above suggest, so I look forward to improving the
+probability estimation with more robust methods such as machine learning.
