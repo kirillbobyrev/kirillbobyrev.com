@@ -96,7 +96,7 @@ Let's look at Hikaru's opponents rating distribution:
 
 ![Hikaru's opponents rating distribution](/images/analyzing-long-win-streaks/hikaru_opponent_ratings.png)
 
-Here are top 5 win streaks:
+Here are top 6 win streaks:
 
 | Length | Avg opponent rating | Starting rating |                  First game                   |
 | :----: | :-----------------: | :-------------: | :-------------------------------------------: |
