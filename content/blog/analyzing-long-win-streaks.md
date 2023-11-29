@@ -1,30 +1,42 @@
 +++
-title = 'Analyzing abnormally long win streaks in online chess'
+title = 'Analyzing long win streaks in online chess'
 date = 2023-11-28
 tags = []
 images = ['/images/analyzing-long-win-streaks/cover.png']
 math = true
 +++
 
-I've conducted a simple analysis using Elo win probability estimations and
-Monte-Carlo simulation to estimate the likelihood of Hikaru Nakamura achieving
-long winning streaks, as recently highlighted by Vladimir Kramnik. My findings
-suggest these streaks are not statistically anomalous and indicative of
-cheating. See [Monte-Carlo
+TL;DR: In-depth analysis of recent data suggests a high likelihood of Hikaru
+Nakamura achieving a 55-game winning streak in online blitz, based on thousands
+of his games played this year. Similarly, longest streaks by Magnus Carlsen (32
+wins), Nihal Sarin (22 wins), and Daniel Naroditsky (33 wins) align with
+statistical expectations. The occurrence of both short (10+ wins) and long (15+
+wins) streaks among these elite players is also found to be probable and not out
+of the ordinary.
+
+I've conducted basic analysis using Elo win probability estimations and
+Monte-Carlo simulation to estimate the likelihood of Hikaru Nakamura (and his
+peers) achieving long winning streaks, as recently highlighted by Vladimir
+Kramnik. For results and calculations, see [Monte-Carlo
 simulation](/blog/analyzing-long-win-streaks/#monte-carlo-simulations) tables
 and [conclusion](/blog/analyzing-long-win-streaks/#conclusion) below.
 
 This post does not aim to determine whether Hikaru Nakamura or other players
 have engaged in any form cheating. Instead, my goal is to critically examine
 historical data from Chess.com games, focusing on the probability of long win
-streaks and exceptional performances. It's important to note that this analysis
-primarily involves significant outliers, both in terms of the players and their
-performances.
+streaks and exceptional performances. Even though the tools I use are reasonably
+robust, the preliminary analysis studies significant outliers, both in terms of
+the players and their performances. It also has some limitations and uses
+assumptions which are explained in detail.
+
+My analysis does not require extensive computation and anyone interested can run
+the
+[code](https://gist.github.com/kirillbobyrev/c16ef00e01370e9789d1d6b91fe63442)
+within seconds on a most computers. All graphs and calculations are produced by
+these two scripts run with different parameters that I describe in the post.
 
 Should you find any errors or inconsistencies, please feel free to contact me at
-<kbobyrev.opensource@gmail.com>. For those interested in the technical aspects,
-the scripts I used for this analysis are available
-[here](https://gist.github.com/kirillbobyrev/c16ef00e01370e9789d1d6b91fe63442).
+<kbobyrev.opensource@gmail.com>.
 
 ![Cover](/images/analyzing-long-win-streaks/cover.png)
 
@@ -229,6 +241,10 @@ best suited for FIDE classical ratings, which have a slightly different range
 Magnus Carlsen have achieved a rating over 3300). Blitz and classical are quite
 different, too.
 
+Another issue is that Elo is known to work poorly when the rating gaps are large
+(which is the case most of the time when someone rated online as high as Hikaru
+or Magnus plays blitz).
+
 For Elo, we can use the same formulas from [Wismuth Elo
 calculator](https://wismuth.com/elo/calculator.html) (Pawnalyze post also
 mentions these formulas as a decent starting point):
@@ -422,3 +438,8 @@ games with win probability of 70% in each of them would give 0% chance of
 accumulating a win streak of 55 games.  This isn't as clear-cut as the
 calculations above suggest. I look forward to improving the probability
 estimation with more robust methods such as machine learning.
+
+Another significant issue is that I'm calculating the probabilities by making
+each player's rating and their opponents' rating to be constant throughout the
+whole simulation. In the next step, I will change that to reflect actual ratings
+of examined player and their opponent in each game.
