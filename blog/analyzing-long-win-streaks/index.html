@@ -19,140 +19,90 @@ involves significant outliers, both regarding the players and their
 performances, which makes general-case judgments challenging.</p><p>Should you find any errors or inconsistencies, please feel free to contact me at
 <a href=mailto:kbobyrev.opensource@gmail.com>kbobyrev.opensource@gmail.com</a>. For those interested in the technical aspects,
 the scripts I used for this analysis are available
-<a href=https://gist.github.com/kirillbobyrev/c16ef00e01370e9789d1d6b91fe63442>here</a>.</p><p><img src=/images/analyzing-long-win-streaks/cover.png alt=Cover></p><h2 id=prelude>Prelude</h2><p>Vladimir Kramnik, a renowned name in the chess world, has recently sparked a
-significant conversation about cheating in both online and offline chess. This
-topic has been a hot subject on chess news platforms and online forums. If
-you&rsquo;re curious, check out Kramnik&rsquo;s videos on the <a href=https://www.youtube.com/@LevitovChess>Levitov
-Chess</a>YouTube channel where he shares his
-insights and some intriguing findings.</p><p>The advent of powerful chess engines like Stockfish, AlphaGo, and Leela Chess
-Zero, which can outperform humans, has brought the issue of cheating in chess
-into the spotlight. These tools are easily accessible, amplifying concerns in
-the chess community. High-profile incidents such as the Carlsen-Niemann saga and
-Kramnik’s own allegations highlight the severity of the situation. The ease with
-which players can cheat online is a significant challenge, and many top players
-view it as a threat to the integrity of the game.</p><p>Opinions vary on how widespread cheating really is. For example, Fabiano Caruana
-mentioned on the <a href=https://www.youtube.com/@csqpod>C-Squared</a> that he believes a
-significant portion (~50%) of titled players may have cheated online at some
-point. It’s a consensus in the chess community that cheating is a prevalent
-issue and a barrier to ensuring fair play.</p><p>From my own experience as a chess player around the 2000 Elo blitz level on
-platforms like Lichess and Chess.com, I&rsquo;ve encountered opponents who likely play
-better than they should. And at the top level, where there&rsquo;s more at stake, the
-issue of cheating becomes even more critical.</p><p>As someone with a background in software engineering, data science, and
+<a href=https://gist.github.com/kirillbobyrev/c16ef00e01370e9789d1d6b91fe63442>here</a>.</p><p><img src=/images/analyzing-long-win-streaks/cover.png alt=Cover></p><h2 id=prelude>Prelude</h2><p>Cheating is a huge problem in modern chess and it has been discussed a lot in
+the last couple of years. Among many other voices, Vladimir Kramnik (14th World
+Chess Champion) frequents <a href=https://www.youtube.com/@LevitovChess>Levitov Chess</a>
+YouTube channel and shares his views on the topic. He has recently implied that
+Hikaru Nakamura, a renowned chess player known for his exceptional skills in
+online blitz and streaming presence, might be cheating and asked Chess.com to
+investigate the case. The main finding that he has presented so far is that
+Nakamura has exceptionally long winning streaks against skilled opponents. This
+has sparked numerous discussions online and attracted a lot of interest from
+chess community.</p><p>The <a href="https://youtu.be/2u-DKBSzJ1s?si=IhLJu9kqChzYtHhk&amp;t=1328">22:09</a> are
+presented as the following table:</p><table><thead><tr><th style=text-align:center>Avg opponent rating</th><th style=text-align:center>Results</th><th style=text-align:center>Performance rating</th></tr></thead><tbody><tr><td style=text-align:center>2950</td><td style=text-align:center>45.5 / 46</td><td style=text-align:center>3627</td></tr><tr><td style=text-align:center>2912</td><td style=text-align:center>34.5 / 35</td><td style=text-align:center>3589</td></tr><tr><td style=text-align:center>2737</td><td style=text-align:center>55 / 55</td><td style=text-align:center>∞</td></tr><tr><td style=text-align:center>2949</td><td style=text-align:center>46 / 48</td><td style=text-align:center>3450</td></tr><tr><td style=text-align:center>2792</td><td style=text-align:center>47.5 / 48</td><td style=text-align:center>3469</td></tr></tbody></table><p>Vladimir believes that this performance is unusual and warrants a thorough
+investigation by Chess.com, although he explicitly mentions that he does not
+accuse Hikaru Nakamura of cheating.</p><p>As someone with a background in software engineering, data science, and
 mathematics, and a passion for chess, I&rsquo;m interested in exploring Vladimir
 Kramnik&rsquo;s recent statements. My aim is to sift through the data and see if
-there&rsquo;s substance to these claims. Let&rsquo;s dive into the analysis and see what we
-find.</p><h2 id=kramnik-vs-hikaru>Kramnik vs Hikaru</h2><p>The latest arc of the cheating drama is featuring Vladimir Kramnik posting an
-entry in his Chess.com blog that later got reposted by 2-time World Chess
-Championship challenger Ian Nepomniachtchi:</p><blockquote class=twitter-tweet><p lang=en dir=ltr>Because he's the hero Gotham deserves, but not the one it needs right now. <a href=https://t.co/trtvxDuJw5>pic.twitter.com/trtvxDuJw5</a></p>&mdash; Ian Nepomniachtchi (@lachesisq) <a href="https://twitter.com/lachesisq/status/1726710420415889762?ref_src=twsrc%5Etfw">November 20, 2023</a></blockquote><script async src=https://platform.twitter.com/widgets.js></script><p>The focus of these allegations is Hikaru Nakamura, a renowned chess player known
-for his exceptional skills in blitz chess and his popular online presence. The
-claim is that Nakamura might have used unfair means to win games on Chess.com,
-an assertion that has raised eyebrows due to the statistical improbability of
-his success against skilled opponents.</p><p>Vladimir Kramnik, <a href=https://youtu.be/2u-DKBSzJ1s>discussing these findings</a> on
-the Levitov Chess channel, made it clear that he isn&rsquo;t directly accusing
-Nakamura of cheating. However, he expressed his belief that Nakamura&rsquo;s recent
-game results are unusual and warrant further investigation by Chess.com.
-Kramnik&rsquo;s call for an investigation and his stance have sparked significant
-discussions, especially on online forums like r/chess, highlighting the
-community&rsquo;s deep interest and concern over this issue.</p><h3 id=claim>Claim</h3><p>Let&rsquo;s look at the data that Kramnik has presented in detail. At
-<a href="https://youtu.be/2u-DKBSzJ1s?si=IhLJu9kqChzYtHhk&amp;t=1328">22:09</a> there is a
-table with few game sequences that Vladimir finds suspicious:</p><table><thead><tr><th style=text-align:center>Avg opponent rating</th><th style=text-align:center>Results</th><th style=text-align:center>Performance rating</th></tr></thead><tbody><tr><td style=text-align:center>2950</td><td style=text-align:center>45.5 / 46</td><td style=text-align:center>3627</td></tr><tr><td style=text-align:center>2912</td><td style=text-align:center>34.5 / 35</td><td style=text-align:center>3589</td></tr><tr><td style=text-align:center>2737</td><td style=text-align:center>55 / 55</td><td style=text-align:center>∞</td></tr><tr><td style=text-align:center>2949</td><td style=text-align:center>46 / 48</td><td style=text-align:center>3450</td></tr><tr><td style=text-align:center>2792</td><td style=text-align:center>47.5 / 48</td><td style=text-align:center>3469</td></tr></tbody></table><p>Vladimir has mentioned many times that he is working with a group of
-(enthusiast) mathematicians who are looking at the data critically and are
-calculating probabilities of the abnormal events that Kramnik finds. It sounds
-like Kramnik is mostly examining the games and data manually, although I am not
-sure about it.</p><h3 id=motivation>Motivation</h3><p>I thought that these findings are interesting and decided to take a closer look.
-I think it&rsquo;s important to divide the discussion that I have summarized above and
-choose specific parts where I can use my skills. I would like to have an
-unbiased critical look at the data and get some conclusions of whether the
-presented data is really a statistical anomaly.</p><p>First, I believe the claim that cheating is a huge problem and that the chess
-world should fight against fair play violations is absolutely valid. I think
-that it is important to separate this particular issue from the rest of what
-Vladimir is claiming in his videos.</p><p>Second, I think that while Hikaru Nakamura is unlikely to cheat, these game
-series seem to be very low-probability and the fact that there are 5 of them
-over the short span of 60 days is probably worth looking into. I don&rsquo;t have
-biases for or against either Hikaru Nakamura or Vladimir Kramnik, and I&rsquo;m
-willing to study the data and avoid cherry-picking it to fit my beliefs.</p><h2 id=looking-into-data>Looking into data</h2><p>I have decided to use few different techniques and tools to study the data and
-investigate Kramnik&rsquo;s claims. I will mostly focus on a relatively simple
-question: how probable is it for Hikaru Nakamura to have the performances like
-the ones in the table that Kramnik has presented?</p><p>Luckily, Chess.com provides <a href=https://www.chess.com/news/view/published-data-api>Published-Data
+there&rsquo;s substance to these claims.</p><h2 id=looking-into-data>Looking into data</h2><p>My goal is to answer a relatively simple question: how statistically probable is
+it for someone rated as high as Hikaru in online chess to have the win streaks
+and high performances like the one mentioned in Vladimir Kramnik&rsquo;s table.</p><p>Luckily, I can easily get plenty of data with online chess games and study it.
+Chess.com provides <a href=https://www.chess.com/news/view/published-data-api>Published-Data
 API</a> that I can use to
-gather more data and look at more aggregated statistics. I want to understand
-how many games he has played in general and whether there could be more
-statistical anomalies among these games. I will use <a href=https://www.chess.com/news/view/published-data-api#pubapi-endpoint-games-archive>monthly
+gather more data and look at more aggregated statistics. <a href=https://www.chess.com/news/view/published-data-api#pubapi-endpoint-games-archive>Monthly
 archives</a>
-endpoint to the games.</p><p>The dataset I have collected has the following properties:</p><ul><li>Games are rated</li><li>Games are played in 3+0 blitz time control: Hikaru goes into detail on why
+endpoints offer a way to collect data on any player.</p><p>The dataset I have collected is as follows:</p><ul><li>Games are rated</li><li>Time control is 3+0 blitz games: Hikaru goes into detail on why
 blitz with and without increment are very different in a <a href="https://youtu.be/sr6gBCG_hb4?t=731">recent
 video</a> and shouldn&rsquo;t be compared directly</li><li>Games are played between <code>2023-09-26</code> and <code>2023-11-26</code> (60 days period that is
-consistent with Kramnik&rsquo;s analysis)</li><li>Played in the standard chess format (as opposed to Fischer Random Chess)</li></ul><p>Here are my findings:</p><ul><li>Hikaru has played a total of 600 games in the last couple of months</li><li>Hikaru won 518 of these games</li><li>Hikaru drew 26 of these games</li><li>Hikaru scored 531 out 600 points in total or 88.5% of total points</li><li>Hikaru&rsquo;s average rating was 3248.42</li><li>The average opponent rating is 2873.43, median opponent rating is 2919.5</li></ul><p>That is quite astonishing and I did not expect Hikaru to win that much against
-skilled opposition. Losing only 69 points out of 600 is indeed very impressive.</p><p>Let&rsquo;s look at Hikaru&rsquo;s opponents rating distribution:</p><p><img src=/images/analyzing-long-win-streaks/hikaru_opponent_ratings.png alt="Hikaru&rsquo;s opponents rating distribution"></p><p>Here are top 5 win streaks:</p><table><thead><tr><th style=text-align:center>Length</th><th style=text-align:center>Avg opponent rating</th><th style=text-align:center>Starting rating</th><th style=text-align:center>First game</th></tr></thead><tbody><tr><td style=text-align:center>55</td><td style=text-align:center>2736.64</td><td style=text-align:center>3176</td><td style=text-align:center><a href=https://www.chess.com/game/live/89602740099>https://www.chess.com/game/live/89602740099</a></td></tr><tr><td style=text-align:center>45</td><td style=text-align:center>2772.89</td><td style=text-align:center>3231</td><td style=text-align:center><a href=https://www.chess.com/game/live/94493554773>https://www.chess.com/game/live/94493554773</a></td></tr><tr><td style=text-align:center>35</td><td style=text-align:center>2864.83</td><td style=text-align:center>3226</td><td style=text-align:center><a href=https://www.chess.com/game/live/89994571321>https://www.chess.com/game/live/89994571321</a></td></tr><tr><td style=text-align:center>34</td><td style=text-align:center>2744.71</td><td style=text-align:center>3222</td><td style=text-align:center><a href=https://www.chess.com/game/live/90353334085>https://www.chess.com/game/live/90353334085</a></td></tr><tr><td style=text-align:center>28</td><td style=text-align:center>2930.96</td><td style=text-align:center>3287</td><td style=text-align:center><a href=https://www.chess.com/game/live/93637696397>https://www.chess.com/game/live/93637696397</a></td></tr><tr><td style=text-align:center>26</td><td style=text-align:center>2958.46</td><td style=text-align:center>3256</td><td style=text-align:center><a href=https://www.chess.com/game/live/93912033813>https://www.chess.com/game/live/93912033813</a></td></tr></tbody></table><p>These streaks are quite impressive, and I think I have found the streak that
+consistent with Kramnik&rsquo;s analysis)</li><li>Played in the standard chess format (as opposed to Fischer Random Chess)</li></ul><p>Here are my findings:</p><ul><li>Hikaru has played a total of 600 games in the last couple of months</li><li>Hikaru won 518 of these games</li><li>Hikaru drew 26 of these games</li><li>Hikaru scored 531 out 600 points in total or 88.5% of total points</li><li>Hikaru&rsquo;s average rating was 3248.42</li><li>The average opponent rating is 2873.43, median opponent rating is 2919.5</li></ul><p>Let&rsquo;s look at Hikaru&rsquo;s opponents rating distribution:</p><p><img src=/images/analyzing-long-win-streaks/hikaru_opponent_ratings.png alt="Hikaru&rsquo;s opponents rating distribution"></p><p>Here are top 5 win streaks:</p><table><thead><tr><th style=text-align:center>Length</th><th style=text-align:center>Avg opponent rating</th><th style=text-align:center>Starting rating</th><th style=text-align:center>First game</th></tr></thead><tbody><tr><td style=text-align:center>55</td><td style=text-align:center>2736.64</td><td style=text-align:center>3176</td><td style=text-align:center><a href=https://www.chess.com/game/live/89602740099>https://www.chess.com/game/live/89602740099</a></td></tr><tr><td style=text-align:center>45</td><td style=text-align:center>2772.89</td><td style=text-align:center>3231</td><td style=text-align:center><a href=https://www.chess.com/game/live/94493554773>https://www.chess.com/game/live/94493554773</a></td></tr><tr><td style=text-align:center>35</td><td style=text-align:center>2864.83</td><td style=text-align:center>3226</td><td style=text-align:center><a href=https://www.chess.com/game/live/89994571321>https://www.chess.com/game/live/89994571321</a></td></tr><tr><td style=text-align:center>34</td><td style=text-align:center>2744.71</td><td style=text-align:center>3222</td><td style=text-align:center><a href=https://www.chess.com/game/live/90353334085>https://www.chess.com/game/live/90353334085</a></td></tr><tr><td style=text-align:center>28</td><td style=text-align:center>2930.96</td><td style=text-align:center>3287</td><td style=text-align:center><a href=https://www.chess.com/game/live/93637696397>https://www.chess.com/game/live/93637696397</a></td></tr><tr><td style=text-align:center>26</td><td style=text-align:center>2958.46</td><td style=text-align:center>3256</td><td style=text-align:center><a href=https://www.chess.com/game/live/93912033813>https://www.chess.com/game/live/93912033813</a></td></tr></tbody></table><p>These streaks are quite impressive, and I think I have found the streak that
 Vladimir Kramnik has mentioned in his video! The longest win streak does feature
 2736.64 average opponent rating, which is exactly 2737 after rounding up. It
 looks like I&rsquo;m using a similar methodology so far.</p><p>Another thing I wanted to consider is Hikaru&rsquo;s starting rating. The ratings
 often vary for players and can go up and down by 200-300 points depending on
-mood, fatigue, tilt and other factors. I decided to point out Hikaru&rsquo;s rating at
-the start of the streak as a simple snapshot of his shape in that particular
-time frame.</p><h2 id=looking-at-other-players>Looking at other players</h2><p>Hikaru mentioned the concept of &ldquo;farming&rdquo; in <a href="https://youtu.be/sr6gBCG_hb4?t=900">his recent
+mood, fatigue, tilt and other factors. I decided to store Hikaru&rsquo;s rating at the
+start of the streak as a simple snapshot of his shape in that particular time
+frame.</p><h2 id=looking-at-other-players>Looking at other players</h2><p>Hikaru mentioned the concept of &ldquo;farming&rdquo; in <a href="https://youtu.be/sr6gBCG_hb4?t=900">his recent
 video</a> in response to the winning
 streak data found by Kramnik. &ldquo;Farming&rdquo; is beating the opponent consistently to
 &ldquo;create content&rdquo; and gain rating. Hikaru claims that he and Daniel Narodisky are
 particularly strong in winning against lower-ranked opponents many times in a
 row and that statistics would be different for Magnus Carlsen or Fabiano
-Caruana.</p><p>I think Hikaru and Daniel certainly have an aura of being incredible blitz
-players that are incredibly hard to win against online. This certainly creates
-more opportunities for them and puts psychological pressure on their opponents.
-I&rsquo;m curious to see how much this affects the winning streaks and other
-dimensions we have explored so far. I&rsquo;ll take games over the whole 2023 so far
-(up until 2023-11-28) and few players. Let&rsquo;s take top 5 players from Chess.com
+Caruana.</p><p>Let&rsquo;s take top 5 players from Chess.com
 blitz <a href=https://www.chess.com/leaderboard/live>leaderboard</a> from today:</p><p><img src=/images/analyzing-long-win-streaks/top_5_blitz.jpeg alt="Top 5 blitz players on Chess.com"></p><p>Hikaru Nakamura and Daniel Narodistky have by far most games, which is expected
 since both of them are streaming a lot and play online almost exclusively (with
-the exception of Hikaru recently having awesome live classical performances).</p><p>MVL only played 94 games in 3+0 format this year, so I won&rsquo;t calculate data for
-him.</p><p>Let&rsquo;s look at some statistics for all these players for 2023:</p><table><thead><tr><th style=text-align:center>Statistics</th><th style=text-align:center>Carlsen</th><th style=text-align:center>Nakamura</th><th style=text-align:center>Sarin</th><th style=text-align:center>Naroditsky</th></tr></thead><tbody><tr><td style=text-align:center>Games</td><td style=text-align:center>908</td><td style=text-align:center>3032</td><td style=text-align:center>2767</td><td style=text-align:center>5123</td></tr><tr><td style=text-align:center>Points</td><td style=text-align:center>716.5</td><td style=text-align:center>2558.5</td><td style=text-align:center>1970.5</td><td style=text-align:center>3964.0</td></tr><tr><td style=text-align:center>Scored of total</td><td style=text-align:center>78.9%</td><td style=text-align:center>84.38%</td><td style=text-align:center>71.9%</td><td style=text-align:center>77.3%</td></tr><tr><td style=text-align:center>Avg rating</td><td style=text-align:center>3227.60</td><td style=text-align:center>3216.22</td><td style=text-align:center>3142.38</td><td style=text-align:center>3130.88</td></tr><tr><td style=text-align:center>Avg opponent</td><td style=text-align:center>2984.50</td><td style=text-align:center>2897.95</td><td style=text-align:center>2976.46</td><td style=text-align:center>2901.46</td></tr><tr><td style=text-align:center>10+ streaks</td><td style=text-align:center>15</td><td style=text-align:center>79</td><td style=text-align:center>23</td><td style=text-align:center>62</td></tr><tr><td style=text-align:center>15+ streaks</td><td style=text-align:center>3</td><td style=text-align:center>35</td><td style=text-align:center>3</td><td style=text-align:center>21</td></tr><tr><td style=text-align:center>20+ streaks</td><td style=text-align:center>1</td><td style=text-align:center>17</td><td style=text-align:center>1</td><td style=text-align:center>6</td></tr><tr><td style=text-align:center>Longest streak</td><td style=text-align:center>32</td><td style=text-align:center>55</td><td style=text-align:center>22</td><td style=text-align:center>33</td></tr></tbody></table><p>These statistics indeed look very surprising. As Hikaru mentioned, I think it&rsquo;s
-a fair assumption that Narodistky is probable a better comparison than Carlsen,
+the exception of Hikaru recently having awesome live classical performances).</p><p>MVL only played 94 games in 3+0 format this year, so I won&rsquo;t use his data for
+calculations.</p><p>Let&rsquo;s look at some statistics for all these players for the year of 2023 (from
+2023-01-01 to 2023-11-28):</p><table><thead><tr><th style=text-align:center>Statistics</th><th style=text-align:center>Carlsen</th><th style=text-align:center>Nakamura</th><th style=text-align:center>Sarin</th><th style=text-align:center>Naroditsky</th></tr></thead><tbody><tr><td style=text-align:center>Games</td><td style=text-align:center>908</td><td style=text-align:center>3032</td><td style=text-align:center>2767</td><td style=text-align:center>5123</td></tr><tr><td style=text-align:center>Points</td><td style=text-align:center>716.5</td><td style=text-align:center>2558.5</td><td style=text-align:center>1970.5</td><td style=text-align:center>3964.0</td></tr><tr><td style=text-align:center>Scored of total</td><td style=text-align:center>78.9%</td><td style=text-align:center>84.38%</td><td style=text-align:center>71.9%</td><td style=text-align:center>77.3%</td></tr><tr><td style=text-align:center>Avg rating</td><td style=text-align:center>3227.60</td><td style=text-align:center>3216.22</td><td style=text-align:center>3142.38</td><td style=text-align:center>3130.88</td></tr><tr><td style=text-align:center>Avg opponent</td><td style=text-align:center>2984.50</td><td style=text-align:center>2897.95</td><td style=text-align:center>2976.46</td><td style=text-align:center>2901.46</td></tr><tr><td style=text-align:center>10+ streaks</td><td style=text-align:center>15</td><td style=text-align:center>79</td><td style=text-align:center>23</td><td style=text-align:center>62</td></tr><tr><td style=text-align:center>15+ streaks</td><td style=text-align:center>3</td><td style=text-align:center>35</td><td style=text-align:center>3</td><td style=text-align:center>21</td></tr><tr><td style=text-align:center>20+ streaks</td><td style=text-align:center>1</td><td style=text-align:center>17</td><td style=text-align:center>1</td><td style=text-align:center>6</td></tr><tr><td style=text-align:center>Longest streak</td><td style=text-align:center>32</td><td style=text-align:center>55</td><td style=text-align:center>22</td><td style=text-align:center>33</td></tr></tbody></table><p>These statistics indeed look very surprising. As Hikaru mentioned, I think it&rsquo;s
+a fair assumption that Narodistky is probably a better comparison than Carlsen,
 Sarin or other players, because Daniel is an incredibly strong player himself
-and has similar goals to create content through streams and videos. Daniel
-Naroditsky also has amazing blitz skills, especially when it comes to time
-controls without increment. I believe, this heavily influences the outcomes.</p><p>Carlsen and Sarin are nowhere close to both Nakamura and Naroditsky in terms of
-win streaks count. Carlsen has played much less, but Sarin played almost as much
-as Nakamura. However, it&rsquo;s worth noting that an average opponent of Sarin is
-almost 100 rating points higher than for Nakamura. That, coupled with the fact
-that Sarin&rsquo;s average rating is 70 points lower than Nakamura&rsquo;s probably explains
-a lot. In that regard, Naroditsky is again very close to Hikaru in terms of
-average opponent, even though his average rating is also 86 points lower than
-Nakamura&rsquo;s. Let&rsquo;s take a look at the average rating gap between each player and
-their opponent:</p><table><thead><tr><th style=text-align:center>Player</th><th style=text-align:center>Average rating gap</th></tr></thead><tbody><tr><td style=text-align:center>Carlsen</td><td style=text-align:center>243</td></tr><tr><td style=text-align:center>Nakamura</td><td style=text-align:center>318.3</td></tr><tr><td style=text-align:center>Sarin</td><td style=text-align:center>166</td></tr><tr><td style=text-align:center>Naroditsky</td><td style=text-align:center>229.4</td></tr></tbody></table><p>Here, it is clear that Nakamura plays a lot against much lower-rated opponents.
-That is likely due to the fact that he plays a lot and is very high-rated
+and has similar goals to create content through streams and videos. Naroditsky
+also excels in short time controls without an increment.</p><p>Another interesting observation is that Carlsen and Sarin are nowhere close to
+both Nakamura and Naroditsky in terms of win streaks count. Carlsen has played
+much less, but Sarin played almost as much as Nakamura. However, it&rsquo;s worth
+noting that an average opponent of Sarin is almost 100 rating points higher than
+for Nakamura. That, coupled with the fact that Sarin&rsquo;s average rating is 70
+points lower than Nakamura&rsquo;s probably explains a lot. In that regard, Naroditsky
+is again very close to Hikaru in terms of average opponent, even though his
+average rating is also 86 points lower than Nakamura&rsquo;s. Let&rsquo;s take a look at the
+average rating gap between each player and their opponent:</p><table><thead><tr><th style=text-align:center>Player</th><th style=text-align:center>Average rating gap</th></tr></thead><tbody><tr><td style=text-align:center>Carlsen</td><td style=text-align:center>243</td></tr><tr><td style=text-align:center>Nakamura</td><td style=text-align:center>318.3</td></tr><tr><td style=text-align:center>Sarin</td><td style=text-align:center>166</td></tr><tr><td style=text-align:center>Naroditsky</td><td style=text-align:center>229.4</td></tr></tbody></table><p>Here, it is clear that Nakamura plays a lot against much lower-rated opponents.
+That is likely due to the fact that he just plays more and is very high-rated
 himself. If Naroditsky&rsquo;s average rating was much higher, then the gap would be
-very similar, so again it makes much sense to compare Nakamura and Naroditsky
-here. Sarin also plays a lot, but it looks like he mostly plays against very
+similar, so again it makes much sense to compare Nakamura and Naroditsky here.
+Sarin also plays a lot, but it looks like he mostly plays against very
 high-rated opponents and is likely mostly interested in training rather than
-gaining rating points and creating content.</p><p>I think it&rsquo;s important to note that Nakamura and Naroditsky likely have very
-high motivation to play for the sake of gaining rating points and having long
-winning streaks. Nakamura is arguable &ldquo;the face of Chess.com&rdquo; and a large
-streamer, so being ranked number 1 means a lot to him.</p><p>Now, let&rsquo;s get to figuring out how probable it is to get these streaks.</p><h2 id=analysis>Analysis</h2><p>My main question is: what would be a probability of Hikaru having these very
+gaining rating points and creating content.</p><p>Now, let&rsquo;s get to figuring out how probable it is to get these streaks.</p><h2 id=analysis>Analysis</h2><p>My main question is: what would be a probability of Hikaru having these very
 long winning streaks against opponents of the rating groups that I found?</p><p>Let&rsquo;s discuss some limitations: we will consider win probability in each game to
-independent of adjacent games. This is not strictly true in real life: factors
-such as fatigue, tilt, time of day and many others certainly have some impact on
-player&rsquo;s ability to win.</p><p>I will also consider that Hikaru&rsquo;s rating (and his opponents&rsquo; ratings) is
-&ldquo;true&rdquo;, i.e. he has not cheated while achieving it. He is a top-2 ranked blitz
+be independent of adjacent games. This is not strictly true in real life:
+factors such as fatigue, tilt, time of day and many others certainly have
+impact.</p><p>I will also consider that Hikaru&rsquo;s rating (and his opponents&rsquo; ratings) is
+&ldquo;fair&rdquo;, i.e. he has not cheated while achieving it. He is a top-2 ranked blitz
 player in the world and top-3 classical (according to today&rsquo;s
-<a href=https://2700chess.com/>2700chess</a> leaderboard).</p><p>It&rsquo;s not trivial to calculate the probabilities directly. I will use Monte-Carlo
-simulation to simulate a large number of games being played between each player
-and his opponents and check how often we find similar win streak patterns. The
-key here is knowing an approximate probability of each game outcome. We can use
-win probability formula based on players Elo rating or a Machine Learning model.
-This approach is similar to one used on
-<a href=https://pawnalyze.com/tournament/2022/02/27/Elo-Rating-Accuracy-Is-Machine-Learning-Better.html>Pawnalyze</a>.</p><p>I will try to use a very simple model (Elo) and a more complicated Machine
-Learning model that will require gathering dataset for the model training.</p><h3 id=using-elo-to-estimate-the-outcome-probabilities>Using Elo to estimate the outcome probabilities</h3><p>Elo is a good model, because it&rsquo;s simple, is studied well and has been long
-applied to chess. It&rsquo;s a great starting point. It has, however, a number of
-problems.</p><p>A common issue with Elo system is that it doesn&rsquo;t take into account White&rsquo;s
-first move advantage and it also doesn&rsquo;t work very well with large Elo
-differences. Also, constants used here are some widely used ones and they are
+<a href=https://2700chess.com/>2700chess</a> leaderboard).</p><p>I will use Monte-Carlo simulation to simulate a large number of games being
+played between each player and his opponents and check how often we find similar
+win streak patterns. The key here is knowing an approximate probability of each
+game outcome. We can use win probability formula based on players Elo rating or
+a Machine Learning model. This approach is similar to one used on
+<a href=https://pawnalyze.com/tournament/2022/02/27/Elo-Rating-Accuracy-Is-Machine-Learning-Better.html>Pawnalyze</a>.</p><h3 id=using-elo-to-estimate-the-outcome-probabilities>Using Elo to estimate the outcome probabilities</h3><p>Elo is a good starting model, because it&rsquo;s simple, is studied well and has been
+long applied to chess. Chess.com uses Glicko, but it is also a crude
+approximation when it comes to win probabilities, so we&rsquo;ll stick with the
+simpler Elo system. It has, however, a number of drawbacks.</p><p>A common issue with Elo system is that it doesn&rsquo;t take into account White&rsquo;s
+first move advantage (which is not good, but we&rsquo;re mostly considering the win
+probabilities on average) and it also doesn&rsquo;t work very well with large Elo
+differences.</p><p>Also, constants in probability formulas are some widely used ones and they are
 best suited for FIDE classical ratings, which have a slightly different range
 (with the top players never getting above 2900 whereas on Chess.com Hikaru and
 Magnus Carlsen have achieved a rating over 3300). Blitz and classical are quite
-different, too.</p><p>In addition, Chess.com appears to be using Glicko rating system which would have
-different formulas for win probabilities but for the sake of simplicity we&rsquo;ll
-still use Elo which should be close enough anyway.</p><p>Nonetheless, it will be used as a crude approximation for the first attempt to
-calculate probabilities.</p><p>For Elo, we can use the same formulas from <a href=https://wismuth.com/elo/calculator.html>Wismuth Elo
+different, too.</p><p>For Elo, we can use the same formulas from <a href=https://wismuth.com/elo/calculator.html>Wismuth Elo
 calculator</a> that is mentioned by
 Pawnalyze article:</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#000;font-weight:700>def</span> <span style=color:#900;font-weight:700>expected_score</span>(elo_difference):
 </span></span><span style=display:flex><span>  <span style=color:#000;font-weight:700>return</span> scipy<span style=color:#000;font-weight:700>.</span>special<span style=color:#000;font-weight:700>.</span>erfc(<span style=color:#000;font-weight:700>-</span>elo_difference <span style=color:#000;font-weight:700>/</span> ((<span style=color:#099>2000.0</span> <span style=color:#000;font-weight:700>/</span> <span style=color:#099>7</span>) <span style=color:#000;font-weight:700>*</span> np<span style=color:#000;font-weight:700>.</span>sqrt(<span style=color:#099>2</span>))) <span style=color:#000;font-weight:700>/</span> <span style=color:#099>2</span>
