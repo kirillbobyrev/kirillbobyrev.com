@@ -10,8 +10,9 @@ I've conducted a simple analysis using Elo win probability estimations and
 Monte-Carlo simulation to estimate the likelihood of Hikaru Nakamura achieving
 long winning streaks, as recently highlighted by Vladimir Kramnik. My findings
 suggest these streaks are not statistically anomalous and indicative of
-cheating. See [Monte-Carlo simulation](#monte-carlo-simulations) tables and
-[conclusion](#conclusion) below.
+cheating. See [Monte-Carlo
+simulation](/blog/analyzing-long-win-streaks/#monte-carlo-simulations) tables
+and [conclusion](/blog/analyzing-long-win-streaks/#conclusion) below.
 
 This post does not aim to determine whether Hikaru Nakamura or other players
 have engaged in any form cheating. Instead, my goal is to critically examine
