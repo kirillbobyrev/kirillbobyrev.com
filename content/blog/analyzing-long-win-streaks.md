@@ -28,9 +28,8 @@ cheating.
 > We have confirmed these results with external statisticians, including a professor of statistics at a top-10 university.
 
 Unfortunately, they have not shared any calculations and analysis. I would be
-very interested to see the methods and tools that were used, but I guess they
-might not want to publish much information to prevent bypassing some of the
-anti-cheating and analysis methods.
+very interested to see the methods and tools that were used and compare them to
+mine.
 
 ---
 
