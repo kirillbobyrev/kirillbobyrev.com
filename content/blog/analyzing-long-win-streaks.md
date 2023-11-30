@@ -13,9 +13,11 @@ crossed 35,000 blitz games mark on Chess.com alone). Similarly, longest streaks
 by Magnus Carlsen (32 wins), Nihal Sarin (22 wins), and Daniel Naroditsky (33
 wins) align with statistical expectations. The occurrence of both short (10+
 wins) and long (15+ wins) streaks among these elite players is also found to be
-probable and not out of the ordinary. A simple possible explanation of Hikaru's
+probable and not out of the ordinary. A simple explanation of Hikaru's
 performance is that he plays an enormous number of games online, is highly
-skilled and (on average) has much weaker opponents than his peers.
+skilled and (on average) has much weaker opponents than his peers (moreover, he
+specifically [mentions](https://www.youtube.com/watch?v=wDUCMEgYKrE&t=435s)
+cherry-picking opponents in order to score many points and create good content).
 
 ---
 
