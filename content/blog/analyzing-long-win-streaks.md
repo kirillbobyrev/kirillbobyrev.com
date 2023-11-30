@@ -13,14 +13,17 @@ crossed 35,000 blitz games mark on Chess.com alone). Similarly, longest streaks
 by Magnus Carlsen (32 wins), Nihal Sarin (22 wins), and Daniel Naroditsky (33
 wins) align with statistical expectations. The occurrence of both short (10+
 wins) and long (15+ wins) streaks among these elite players is also found to be
-probable and not out of the ordinary.
+probable and not out of the ordinary. A simple possible explanation of Hikaru's
+performance is that he plays an enormous number of games online, is highly
+skilled and (on average) has much weaker opponents than his peers.
 
 ---
 
 **Update**: Chess.com team has published a
 [statement](https://www.chess.com/blog/CHESScom/regarding-recent-accusations)
-the next day reinforcing that they do not find the long win streaks and
-exceptional performances of Hikaru Nakamura to be very likely.
+the next day reinforcing that they do not think long win streaks and individual
+performances of Hikaru Nakamura are suspicious and hint at the possibility of
+cheating.
 
 > We have confirmed these results with external statisticians, including a professor of statistics at a top-10 university.
 
@@ -136,7 +139,7 @@ Here are my findings:
 
 Let's look at Hikaru's opponents rating distribution:
 
-![Hikaru's opponents rating distribution](/images/analyzing-long-win-streaks/hikaru_opponent_ratings.png)
+![Hikaru's opponents rating distribution](/images/analyzing-long-win-streaks/hikaru_opponent_ratings_60d.png)
 
 Here are top 6 win streaks:
 
@@ -208,11 +211,16 @@ to consider more data, I would probably only check last few years.
 |   20+ streaks   |    1    |    17    |    1    |     6      |
 | Longest streak  |   32    |    55    |   22    |     33     |
 
-These statistics indeed look very surprising at the first glance. As Hikaru
-mentioned, I think it's a fair assumption that Narodistky is probably a better
-comparison than Carlsen, Sarin or other players, because Daniel is an incredibly
-strong player himself and has similar goals to create content through streams
-and videos. Naroditsky also excels in short time controls without an increment.
+These statistics do look surprising at the first glance, but let's look deeper
+into the data. As Hikaru mentioned, I think it's a fair assumption that
+Narodistky is better comparison than Carlsen, Sarin and other players. This is
+because Daniel is an incredibly strong player himself and has similar goals to
+create content through streams and videos. Long win streaks _are the content_ in
+many cases. For example, when I looked at the distribution of win streaks, there
+is a clear spike around 10 wins, which is unsurprising because this is called
+"adoption" in online chess and usually means that the player who scored 10-0 on
+their opponent dominated the match. Naroditsky also excels in short time
+controls without an increment.
 
 Another interesting observation is that Carlsen and Sarin are nowhere close to
 both Nakamura and Naroditsky in terms of win streaks count. Carlsen has played
@@ -221,8 +229,15 @@ noting that an average opponent of Sarin is almost 100 rating points higher than
 for Nakamura. That, coupled with the fact that Sarin's average rating is 70
 points lower than Nakamura's probably explains a lot. In that regard, Naroditsky
 is again very close to Hikaru in terms of average opponent, even though his
-average rating is also 86 points lower than Nakamura's. Let's take a look at the
-average rating gap between each player and their opponent:
+average rating is also 86 points lower than Nakamura's.
+
+### Looking at each player's opposition
+
+It is clear that on average, Hikaru plays against weaker opposition than
+everyone else in the list. But how different is each player's opposition?
+
+First, what are the average rating gaps between average rating of the player and
+their opposition?
 
 |   Player   | Average rating gap |
 | :--------: | :----------------: |
@@ -231,22 +246,51 @@ average rating gap between each player and their opponent:
 |   Sarin    |        166         |
 | Naroditsky |       229.4        |
 
-Here, it is clear that Nakamura plays a lot against much lower-rated opponents.
-That is likely due to the fact that he just plays more and is very high-rated
-himself. If Naroditsky's average rating was much higher, then the gap would be
-similar, so again it makes much sense to compare Nakamura and Naroditsky here.
-Sarin also plays a lot, but it looks like he mostly plays against very
+Again, Hikaru is in the clear first in terms of playing much weaker opposition.
+If Naroditsky himself would be rated higher, then the gap would be similar to
+Nakamura's, so again it makes much sense to compare Nakamura and Naroditsky
+here. Sarin also plays a lot, but it looks like he mostly plays against very
 high-rated opponents and is likely mostly interested in training rather than
-gaining rating points and creating content.
+playing for the sake of rating and creating content.
 
-Now, let's get to figuring out the probability of achieving these streaks.
+In addition to averages, let's also look at the quantiles of each player's
+opponents:
+
+| Quantile | Carlsen | Nakamura | Sarin | Naroditsky |
+| :------: | :-----: | :------: | :---: | :--------: |
+|   25%    |  2967   |   2846   | 2932  |    2816    |
+|   50%    |  3019   |   2920   | 2991  |    2904    |
+|   75%    |  3054   |   2994   | 3041  |    2997    |
+|   90%    |  3088   |   3054   | 3074  |    3052    |
+
+Again, the statistics for Nakamura and Naroditsky are very similar here. Now
+that we see this data, it's much easier to understand why Hikaru has these long
+win streaks:
+
+- Hikaru plays a lot of games, so the sample size is large
+- Hikaru is rated very highly, similarly to Carlsen
+- Hikaru plays against much weaker opposition (on average) than his peers, which
+  is similar to Daniel Naroditsky, but then again he is ranked much higher
+
+It might be easier to look at the rating distributions visually:
+
+![Carlsen's opponents rating distribution](/images/analyzing-long-win-streaks/MagnusCarlsen_opponent_ratings.png)
+
+![Nakamura's opponents rating distribution](/images/analyzing-long-win-streaks/Hikaru_opponent_ratings.png)
+
+![Sarin's opponents rating distribution](/images/analyzing-long-win-streaks/nihalsarin_opponent_ratings.png)
+
+![Naroditsky's opponents rating distribution](/images/analyzing-long-win-streaks/DanielNaroditsky_opponent_ratings.png)
+
+Now, let's get to figuring out the probability of achieving the streaks we
+found.
 
 ## Analysis
 
 My main question is: what would be a probability of Hikaru having these very
 long winning streaks against opponents of the rating groups that I found?
 
-Let's discuss some limitations: we will consider win probability in each game to
+Let's discuss some limitations: we will consider/oppo win probability in each game to
 be independent of adjacent games. This is not strictly true in real life:
 factors such as fatigue, tilt, time of day, and many others, certainly have
 impact.
