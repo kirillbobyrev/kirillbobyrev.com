@@ -369,7 +369,7 @@ since `expected_score = win_probability + draw_probability / 2`.
 Even when the difference is just a second of increment, for professional chess
 players that is enough to make a huge difference.
 
-Let's take a look at the projected *average* win probabilities of each player
+Let's take a look at the projected _average_ win probabilities of each player
 throughout the year.
 
 |   Statistics    | Carlsen | Nakamura |  Sarin  | Naroditsky |
