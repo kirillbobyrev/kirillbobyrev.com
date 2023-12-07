@@ -1,8 +1,8 @@
 +++
-title = 'Analyzing long win streaks in online chess'
+title = "Analyzing long win streaks in online chess"
 date = 2023-11-28
-tags = []
-images = ['/images/analyzing-long-win-streaks/cover.png']
+tags = ["chess", "data-science"]
+images = ["/images/analyzing-long-win-streaks/cover.png"]
 math = true
 +++
 
@@ -67,9 +67,6 @@ and a [paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2627354) (from
 Econometrica, one of the top journals in Statistics and Economics). The research
 suggests that "hot hand" phenomenon exists despite prevalent beliefs that were
 dominant for many decades in Statistics.
-
-If you find any errors or errors, please feel free to contact me at
-<kbobyrev.opensource@gmail.com>.
 
 ![Cover](/images/analyzing-long-win-streaks/cover.png)
 
@@ -341,7 +338,7 @@ def expected_score(elo_difference):
 
 There "full" formula that takes into account draws in chess (Note 7 on Wismuth)
 does not give good results for our rating ranges and is not reliable. Also,
-draws are *very* common in high-level classical chess. In fact, draws are often
+draws are _very_ common in high-level classical chess. In fact, draws are often
 the default result of these games. In online blitz without an increment that is
 not the case, because of flagging. The difference in "expected score" and
 adjusted probabilities is quite large. For example, in case of Hikaru's 55-win
@@ -492,19 +489,16 @@ seems quite unlikely. Considering his consistent performance both in
 over-the-board and online chess, Nakamura's results appear to be within the
 realm of possibility.
 
-There's room for improvement in my analysis. Primarily, I plan to move from a
-basic Elo-based estimation to a more refined machine learning model trained on
-Chess.com's historical data. This isn't just about verifying the probability of
-long win streaks but also about understanding how different the outcomes are
-from the simple Elo model used in this study. If time permits, I'll share these
-enhanced findings in a future post.
+There's room for improvement in my analysis. Primarily, it would be interesting
+to move from a basic Elo-based estimation to a more refined machine learning
+model trained on Chess.com's historical data. This isn't just about verifying
+the probability of long win streaks but also about understanding how different
+the outcomes are from the simple Elo model used in this study.
 
 Additionally, fully leveraging Chess.com's historical data would allow me to
 simulate the actual game sequences players have experienced this year. Instead
 of relying on win probabilities against an "average opponent", using individual
-game data and opponent ratings should yield more precise results. I look forward
-to refining my analysis and welcome any thoughts or suggestions from the
-community.
+game data and opponent ratings should yield more precise results.
 
 ### Side note
 
@@ -526,5 +520,5 @@ estimation with more robust methods such as machine learning.
 
 Another significant issue is that I'm calculating the probabilities by making
 each player's rating and their opponents' rating to be constant throughout the
-whole simulation. In the next step, I will change that to reflect actual ratings
-of examined player and their opponent in each game.
+whole simulation. It would be great to change that and reflect actual ratings of
+each examined player and their opponent in each game.
