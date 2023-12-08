@@ -9,6 +9,7 @@ title = 'Kirill Bobyrev'
 [params]
   description = 'Blog about Software Engineering and hobbies by Kirill Bobyrev'
   icons = true
+  mastodon = "kirillbobyrev"
   [params.author]
     name = 'Kirill Bobyrev'
 
