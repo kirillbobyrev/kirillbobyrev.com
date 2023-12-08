@@ -8,13 +8,9 @@ draft = true
 
 ## Background
 
+### ECS and Bevy
+
 ## Godot
-
-## Unity
-
-## Bevy
-
-## Rise of the ECS
 
 ### Godot approach
 

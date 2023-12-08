@@ -9,6 +9,6 @@ Last Saturday I won my first Jiu-Jitsu tournament! Jiu-Jitsu has been my hobby
 for quite a while, and this is only my second competition ever, so I'm very
 happy.
 
-![podium](./podium.jpg)
+![podium](/images/winning-first-jiu-jitsu-tournament/podium.jpg)
 
-![medal](./medal.jpg)
+![medal](/images/winning-first-jiu-jitsu-tournament/medal.jpg)
