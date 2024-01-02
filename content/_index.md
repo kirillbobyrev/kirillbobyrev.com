@@ -60,11 +60,11 @@ My programming language of choice is usually C++, Rust or Python.
 
 ## Outside of work
 
-- When I'm not working, I enjoy training jiu-jitsu and Muay Thai, playing chess
-  online and travel.
+- When I'm not working, I enjoy training Jiu Jitsu, playing chess and
+  traveling.
 - I like doing competitive programming and studying computer science (here's a
   [collection](https://github.com/kirillbobyrev/computer-science-resources) of
   resources I want to study).
 - I speak English, Russian and German.
 - I'm also living with two crazy Abyssinian kittens :cat:, check out [their
-  Instagram](https://instagram.com/dixie_pixie_cats/).
+  Instagram](https://instagram.com/dixie_pixie_cats).

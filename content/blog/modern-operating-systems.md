@@ -1,8 +1,9 @@
 +++
 title = "Modern Operating Systems"
 date = "2023-04-05T20:19:02-07:00"
+tags = ["reviews", "edu", "book", "software-engineering"]
+math = false
 draft = true
-tags = ["reviews", "educational-book", "programming"]
 +++
 
 Add on for an MIT course
