@@ -18,6 +18,13 @@ title = 'Kirill Bobyrev'
     guessSyntax = true
     style = 'github'
     tabWidth = 2
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+          block = [['\[', '\]'], ['$$', '$$']]
+          inline = [['\(', '\)']]
 
 [menu]
   [[menu.main]]
