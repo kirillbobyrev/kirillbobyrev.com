@@ -15,7 +15,6 @@ And here are my accounts on other platforms:
 
 - [LinkedIn](https://linkedin.com/in/kirillbobyrev)
 - [GitHub](https://github.com/kirillbobyrev)
-- [Threads](https://www.threads.net/@cybobyrev)
 - [Mastodon](https://mstdn.social/@kirillbobyrev)
 - [Instagram](https://instagram.com/cybobyrev)
 - [Lichess](https://lichess.org/@/kirillbobyrev)
