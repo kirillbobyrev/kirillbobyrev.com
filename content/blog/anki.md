@@ -27,6 +27,11 @@ is to memorize the fundamental definitions and ideas from some topic, from
 which I can usually derive most of the results. It's also ideal for students,
 because the app is very easy to use and powerful as is.
 
+While probably not as useful for Mathematics and Computer Science, there are
+plenty of features that enhance cards generation, such as [cloze
+deletion](https://docs.ankiweb.net/editing.html#cloze-deletion) or [image
+occlusion](https://docs.ankiweb.net/editing.html#image-occlusion).
+
 What's surprising to me is that many people I know (even those in Software
 Engineering field) have never heard of Anki, despite knowing (and possibly even
 using) apps like Duolingo. An obvious drawback of Anki is that it doesn't have
