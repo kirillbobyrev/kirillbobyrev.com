@@ -3,7 +3,6 @@ title = "Anki"
 date = 2025-01-02
 tags = []
 math = false
-draft = false
 +++
 
 [Anki](https://apps.ankiweb.net/) is a very useful system that I wish I used

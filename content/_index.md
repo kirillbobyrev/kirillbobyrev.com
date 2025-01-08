@@ -4,21 +4,20 @@ menu = 'main'
 weight = 1
 +++
 
-Hi, my name is Kirill Bobyrev. I'm a Software Engineer working at Waymo and
-living in the :us: Silicon Valley. I'm passionate about algorithms,
-high-performance code, distributed systems and low-level programming.
-
-The following is a short overview of my career and hobbies.
+Hi, my name is Kirill Bobyrev. I'm a Software Engineer working at Waymo in the
+:us: Silicon Valley. I'm passionate about machine learning and reinforcement
+learning, efficient algorithms, high-performance code, distributed systems and
+low-level programming.
 
 ## Work and education
 
 I graduated from
 [MIPT](https://en.wikipedia.org/wiki/Moscow_Institute_of_Physics_and_Technology)
 with a Bachelor’s degree in applied mathematics and physics. During my first
-year, I discovered my interest in computer science and started competing in
-programming challenges. Later, I got the chance to participate in [Google Summer
-of Code](https://summerofcode.withgoogle.com/), where I built a tool using Clang
-to find copy-pasted code in open-source projects (see
+year, I discovered my interest in computer science and started participating in
+competitive programming contests. Later, I got the chance to participate in
+[Google Summer of Code](https://summerofcode.withgoogle.com/), where I built a
+tool using Clang to find copy-pasted code in open-source projects (see
 [poster](https://github.com/kirillbobyrev/code-clone-detection-llvm-devmtg15-poster)
 with results). This led to an internship offer at Google. During my internship,
 I worked on developing static analysis tools for C++ like
@@ -53,18 +52,17 @@ enough expertise to take on Product Manager or Project Manager responsibilities.
 In 2022 I have joined [Waymo](https://waymo.com/), Google's self-driving
 cars unit, and moved to :us: California. At Waymo I work on
 [Simulation](https://blog.waymo.com/2021/06/SimulationCity.html) which helps us
-ensure safety for our vehicles and the public, and allows rapid experimentation
-with our software.
+ensure safety for our vehicles and the public.
 
-My programming language of choice is usually C++, Rust or Python.
+My favorite languages are C++, Rust and Python.
 
 ## Outside of work
 
 - When I'm not working, I enjoy training Jiu Jitsu, playing chess and
   traveling.
-- I like doing competitive programming and studying computer science (here's a
+- I like competitive programming and studying computer science (here's a
   [collection](https://github.com/kirillbobyrev/computer-science-resources) of
-  resources I want to study).
+  resources I found for myself).
 - I speak English, Russian and German.
 - I'm also living with two crazy Abyssinian kittens :cat:, check out [their
   Instagram](https://instagram.com/dixie_pixie_cats).
