@@ -1,8 +1,8 @@
 baseURL = 'https://kirillbobyrev.com/'
+enableEmoji = true
 enableRobotsTXT = true
 googleAnalytics = 'G-RHCZGDQQJR'
 languageCode = 'en'
-enableEmoji = true
 title = 'Kirill Bobyrev'
 
 [params]

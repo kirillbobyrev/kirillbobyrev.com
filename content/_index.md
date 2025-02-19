@@ -14,13 +14,14 @@ low-level programming.
 I grew up in :ru: Moscow and graduated from
 [MIPT](https://en.wikipedia.org/wiki/Moscow_Institute_of_Physics_and_Technology)
 with a Bachelor’s degree in applied mathematics and physics. During my first
-year, I discovered my interest in computer science and started participating in
-competitive programming contests. Later, I got the chance to participate in
-[Google Summer of Code](https://summerofcode.withgoogle.com/), where I built a
-tool using Clang to find copy-pasted code in open-source projects (see
-[poster](https://github.com/kirillbobyrev/code-clone-detection-llvm-devmtg15-poster)
-with results). This led to an internship offer at Google. During my internship,
-I worked on developing static analysis tools for C++ like
+year at the university, I discovered my interest in computer science and started
+participating in competitive programming contests. Later, I got the chance to
+take part in [Google Summer of Code](https://summerofcode.withgoogle.com/),
+where I built a tool using Clang to find copypasted code in open-source projects
+(see
+[poster](https://github.com/kirillbobyrev/code-clone-detection-llvm-devmtg15-poster)).
+This led to an internship offer at Google. During my internship, I worked on
+developing static analysis tools for C++ like
 [clang-rename](https://clang.llvm.org/extra/clang-rename.html) and
 [Clang-Tidy](https://clang.llvm.org/extra/clang-tidy/index.html). It was super
 fun, and I learned a lot about how Clang and compilers work behind the scenes.
@@ -33,11 +34,6 @@ improvement! I carefully documented project's
 and [presented the results](https://www.youtube.com/watch?v=VhxrFor3VyQ) at the
 LLVM Developers Meeting.
 
-I also worked in the Machine Learning field for a while, studying and
-researching convex optimization at the university and then joining
-[Handl](https://handl.ai/), a Y-Combinator-backed startup to work on optical
-character recognition.
-
 After graduation I joined the team at :de: Google Munich where
 I was an intern. At Google I was working on clangd, Clang and LLVM. Among other
 things, I have built [Remote Index](https://clangd.llvm.org/design/remote-index)
@@ -49,10 +45,10 @@ Yandex School of Management
 ([ШМЯ](https://academy.yandex.ru/schools/management)) which helped me develop
 enough expertise to take on Product Manager or Project Manager responsibilities.
 
-In 2022 I have joined [Waymo](https://waymo.com/), Google's self-driving
-cars unit, and moved to :us: California. At Waymo I work on
-[Simulation](https://blog.waymo.com/2021/06/SimulationCity.html) which helps us
-ensure safety for our vehicles and the public.
+In 2022 I have joined [Waymo](https://waymo.com/), Google's self-driving cars
+unit, and moved to :us: California. At Waymo I build Machine Learning models
+that improve [Simulation](https://waymo.com/blog/2021/07/simulation-city)
+realism and ensure safety of our self-driving system.
 
 My favorite languages are C++, Rust and Python.
 
