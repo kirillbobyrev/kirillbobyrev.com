@@ -1,6 +1,6 @@
 +++
 title = "Anki: The Ultimate Tool for Long-Term Learning"
-date = 2025-01-02
+publishDate = 2025-01-02
 +++
 
 Being a Software Engineer means constantly learning new things, and streamlining

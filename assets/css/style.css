@@ -107,9 +107,7 @@ p>code {
 }
 
 time {
-  display: inline-block;
-  width: 7rem;
-  vertical-align: top;
+  font-style: italic;
 }
 
 /* Title and menu. */

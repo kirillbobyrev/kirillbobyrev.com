@@ -7,9 +7,16 @@
 
   {{ if .Date }}
   <p>
-    <time datetime="{{ .Date }}" pubdate>
+    <time datetime="{{ .PublishDate }}" pubdate>
       {{ .Date | dateFormat site.Params.dateDisplayFormat }}
     </time>
+    {{ if not (eq .Lastmod .PublishDate) }}
+      &mdash; Updated: <time datetime="{{ .Lastmod }}" pubdate>{{ .Lastmod | dateFormat site.Params.dateDisplayFormat
+        }}</time>
+    {{ end }}
+    {{ if gt .ReadingTime 5 }}
+      &mdash; {{ .ReadingTime }} minutes to read
+    {{ end }}
   </p>
   {{ end }}
 

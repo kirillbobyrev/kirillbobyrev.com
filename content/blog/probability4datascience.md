@@ -1,6 +1,6 @@
 +++
 title = 'Best book on Probability and Statistics'
-date = 2025-01-11
+publishDate = 2025-01-11
 draft = true
 +++
 

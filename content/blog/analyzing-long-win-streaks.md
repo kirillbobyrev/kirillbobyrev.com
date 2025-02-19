@@ -1,6 +1,6 @@
 +++
 title = "Analyzing long win streaks in online chess"
-date = 2023-11-28
+publishDate = 2023-11-28
 images = ["/images/analyzing-long-win-streaks/cover.png"]
 +++
 

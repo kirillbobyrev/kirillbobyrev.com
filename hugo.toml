@@ -5,6 +5,7 @@ googleAnalytics = 'G-RHCZGDQQJR'
 languageCode = 'en'
 title = 'Kirill Bobyrev'
 disableKinds = ['taxonomy', 'term']
+enableGitInfo = true
 
 [params]
   description = 'Blog about Software Engineering and hobbies by Kirill Bobyrev'

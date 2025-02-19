@@ -1,6 +1,6 @@
 +++
 title = "Creating beautiful visualizations in Python"
-date = 2025-01-08
+publishDate = 2025-01-08
 +++
 
 I recently started watching a lot of educational videos on YouTube and was
