@@ -3,5 +3,4 @@
 [![Build and deploy](https://github.com/kirillbobyrev/kirillbobyrev.com/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/kirillbobyrev/kirillbobyrev.com/actions/workflows/build-and-deploy.yml)
 
 My [personal website](https://kirillbobyrev.com/) built with
-[Hugo](https://gohugo.io) and
-[minimis](https://github.com/kirillbobyrev/minimis) theme.
+[Hugo](https://gohugo.io).

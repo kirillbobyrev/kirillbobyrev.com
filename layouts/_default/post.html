@@ -1,0 +1,10 @@
+<li>
+  <article>
+    {{ if .Date }}
+    <time datetime="{{ .Date }}" pubdate>
+      {{ .Date | dateFormat site.Params.dateDisplayFormat }}
+    </time>
+    {{ end }}
+    <a href="{{ .Permalink }}">{{ .Title }}</a>
+  </article>
+</li>

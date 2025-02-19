@@ -1,8 +1,6 @@
 +++
 title = "Creating beautiful visualizations in Python"
 date = 2025-01-08
-tags = []
-math = false
 +++
 
 I recently started watching a lot of educational videos on YouTube and was

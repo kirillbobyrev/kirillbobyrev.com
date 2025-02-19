@@ -1,0 +1,9 @@
+<a href="{{ site.BaseURL }}" class="blog-title">
+  {{ site.Title }}
+</a>
+
+<nav class="menu">
+  {{ range site.Menus.main }}
+    <a href="{{ .URL }}" class="menu-link">{{ .Name }}</a>
+  {{ end }}
+</nav>

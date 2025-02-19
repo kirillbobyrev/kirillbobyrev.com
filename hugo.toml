@@ -2,13 +2,15 @@ baseURL = 'https://kirillbobyrev.com/'
 enableRobotsTXT = true
 googleAnalytics = 'G-RHCZGDQQJR'
 languageCode = 'en'
-theme = 'github.com/kirillbobyrev/minimis'
 enableEmoji = true
 title = 'Kirill Bobyrev'
 
 [params]
   description = 'Blog about Software Engineering and hobbies by Kirill Bobyrev'
   icons = true
+  twitterCards = true
+  opengraph = true
+  dateDisplayFormat = "2 Jan, 2006"
   [params.author]
     name = 'Kirill Bobyrev'
   [params.social]
