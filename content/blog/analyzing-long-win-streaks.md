@@ -38,7 +38,7 @@ Monte-Carlo simulation to estimate the likelihood of Hikaru Nakamura (and his
 peers) achieving long winning streaks, as recently highlighted by Vladimir
 Kramnik. For results and calculations, see [Monte-Carlo
 simulation](/blog/analyzing-long-win-streaks/#monte-carlo-simulations) tables
-and [conclusion](/blog/analyzing-long-win-streaks/#conclusion) below.
+and [conclusion](/posts/analyzing-long-win-streaks/#conclusion) below.
 
 This post does not aim to determine whether Hikaru Nakamura or other players
 have engaged in any form cheating. Instead, my goal is to critically examine
