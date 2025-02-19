@@ -4,14 +4,14 @@ menu = 'main'
 weight = 1
 +++
 
-Hi, my name is Kirill Bobyrev. I'm a Software Engineer working at Waymo in the
-:us: Silicon Valley. I'm passionate about machine learning and reinforcement
+My name is Kirill Bobyrev. I'm a Software Engineer working at Waymo in the :us:
+Silicon Valley. I'm passionate about machine learning and reinforcement
 learning, efficient algorithms, high-performance code, distributed systems and
 low-level programming.
 
 ## Work and education
 
-I graduated from
+I grew up in :ru: Moscow and graduated from
 [MIPT](https://en.wikipedia.org/wiki/Moscow_Institute_of_Physics_and_Technology)
 with a Bachelor’s degree in applied mathematics and physics. During my first
 year, I discovered my interest in computer science and started participating in

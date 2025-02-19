@@ -34,10 +34,3 @@ Engineering field) have never heard of Anki, despite knowing (and possibly even
 using) apps like Duolingo. An obvious drawback of Anki is that it doesn't have
 a very high quality curated list of decks for at least few topics and it has
 "DIY" flavor but that's probably also the reason the app is so useful, too.
-
-\[
-\begin{aligned}
-KL(\hat{y} || y) &= \sum_{c=1}^{M}\hat{y}_c \log{\frac{\hat{y}_c}{y_c}} \\
-JS(\hat{y} || y) &= \frac{1}{2}(KL(y||\frac{y+\hat{y}}{2}) + KL(\hat{y}||\frac{y+\hat{y}}{2}))
-\end{aligned}
-\]
