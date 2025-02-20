@@ -50,8 +50,6 @@ unit, and moved to :us: California. At Waymo I build Machine Learning models
 that improve [Simulation](https://waymo.com/blog/2021/07/simulation-city)
 realism and ensure safety of our self-driving system.
 
-My favorite languages are C++, Rust and Python.
-
 ## Outside of work
 
 - When I'm not working, I enjoy training Jiu Jitsu, playing chess and

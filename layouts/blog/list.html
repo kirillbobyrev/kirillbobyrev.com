@@ -3,12 +3,15 @@
 {{ .Content }}
 
 <ul class="blog-posts">
-  {{ range .Pages }}
+  {{ range .Pages.GroupByDate "2006" }}
+    <h2 class="year-heading">{{ .Key }}</h2>
+    {{ range .Pages }}
     <li>
       <article>
         <a href="{{ .Permalink }}">{{ .Title }}</a>
       </article>
     </li>
+    {{ end }}
   {{ end }}
 </ul>
 
