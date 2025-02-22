@@ -20,15 +20,14 @@ documentation and better user experience. The community also has active Discord
 and a bunch of impressive
 [examples](https://docs.manim.community/en/stable/examples.html).
 
-But what was even more surprising to me is that apparently `matplotlib` also
-has [animation
-functionality](https://matplotlib.org/stable/api/animation_api.html). Even
-though I have used `matplotlib` for a very long time, I have apparently not
+But what was even more surprising to me is that apparently Matplotlib also has
+[animation functionality](https://matplotlib.org/stable/api/animation_api.html).
+Even though I have used Matplotlib for a very long time, I have apparently not
 explored it well enough since it has so many features I had no idea about. I
-learned about `matlotlib` animations from a
+learned about Matlotlib animations from a
 [video](https://youtu.be/yaa13eehgzo?si=rGuqQRDhVvZiOdY0) on Artem Kirsanov's
-channel. He explains that he does _most_ of his animations in `matlotlib`
-becuase it offers a more low-level API that can be leveraged to create advanced
+channel. He explains that he does _most_ of his animations in Matlotlib
+because it offers a more low-level API that can be leveraged to create advanced
 animations.
 
 It's also quite easy to embed animations into Jupyter notebooks, which is

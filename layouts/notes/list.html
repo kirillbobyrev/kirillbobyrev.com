@@ -4,10 +4,10 @@
 
 <ul class="notes">
   {{ range .Pages }}
-    <li>
+    <li class="note">
       <!-- TODO: Add a date and make sure it renders well on mobile devices. -->
+      <h3>{{ .Title }}</h3>
       <article>
-        <a href="{{ .Permalink }}">{{ .Title }}</a>
       </article>
     </li>
   {{ end }}
