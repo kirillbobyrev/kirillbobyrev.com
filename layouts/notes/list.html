@@ -5,11 +5,11 @@
 <div class="notes-feed">
   {{ $totalNotes := sub (len .Pages) 1 }}
   {{ range $index, $page := .Pages.ByDate.Reverse }}
-  <div id="note-{{ sub $totalNotes $index }}" class="note-card">
+  <div id="{{ sub $totalNotes $index }}" class="note-card">
     <div class="note-header">
       <div class="note-header-left">
         <span class="note-number">
-          <a href="{{ $.Permalink }}#note-{{ sub $totalNotes $index }}">#{{ sub $totalNotes $index }}</a>
+          <a href="{{ $.Permalink }}#{{ sub $totalNotes $index }}">#{{ sub $totalNotes $index }}</a>
         </span>
         <h3 class="note-title">{{ .Title }}</h3>
       </div>
