@@ -100,6 +100,7 @@ time {
 
 .year-heading {
   font-size: 1.2rem;
+  font-weight: 700;
 }
 
 .muted {
@@ -109,14 +110,14 @@ time {
 .site-title {
   color: var(--heading-color);
   text-decoration: none;
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 1.8rem;
+  font-weight: 700;
   letter-spacing: -0.01em;
 }
 
 .menu {
-  padding-bottom: 1rem;
-  margin-bottom: 2rem;
+  padding: 1rem 0 1.5rem;
+  margin-bottom: 2.5rem;
   border-bottom: 1px solid var(--border-color);
   display: flex;
   align-items: center;
@@ -125,40 +126,37 @@ time {
 
 .menu-nav {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .menu-link {
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   color: var(--heading-color);
-  font-weight: 450;
-  letter-spacing: 0.02em;
-  opacity: 0.85;
-  transition: opacity 0.2s ease;
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 .menu-link:hover {
   color: var(--heading-color);
-  opacity: 1;
 }
 
 .social-icons {
   display: flex;
-  gap: 1rem;
+  gap: 1.25rem;
   align-items: center;
 }
 
 .social-icons a {
   color: var(--muted);
-  font-size: 0.95rem;
-  opacity: 0.75;
-  transition: opacity 0.2s ease;
+  font-size: 1.1rem;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
 }
 
 .social-icons a:hover {
   color: var(--muted);
-  opacity: 1;
+  opacity: 0.95;
   border-bottom: none;
 }
 
@@ -223,6 +221,8 @@ th {
 /* Twitter-like Notes Feed Styling */
 .notes-title {
   margin-bottom: 1.5rem;
+  font-weight: 700;
+  font-size: 2rem;
 }
 
 .notes-feed {
@@ -469,7 +469,7 @@ th {
   font-size: 2rem;
   color: var(--heading-color);
   margin-bottom: 1rem;
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.2;
   letter-spacing: -0.02em;
 }
@@ -494,7 +494,7 @@ th {
 
 .post-content p,
 .post-content ul,
-.post-content ol {
+post-content ol {
   margin-bottom: 1.25rem;
 }
 
@@ -693,18 +693,19 @@ th {
   }
 
   .menu {
+    padding: 0.75rem 0 1.25rem;
     flex-direction: column;
     align-items: flex-start;
-    gap: 1rem;
+    gap: 1.25rem;
   }
 
   .menu-nav {
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 1.25rem;
   }
 
   .social-icons {
-    margin-top: 0.5rem;
+    margin-top: 0.75rem;
   }
 }
 

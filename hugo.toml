@@ -8,43 +8,33 @@ disableKinds = ['taxonomy', 'term']
 enableGitInfo = true
 
 [params]
-  description = 'Blog about Software Engineering and hobbies by Kirill Bobyrev'
-  icons = true
-  twitterCards = true
-  opengraph = true
-  dateDisplayFormat = "2 Jan, 2006"
-  images = ['images/twitter.png']
-  [params.author]
-    name = 'Kirill Bobyrev'
-  # This is needed for _internal/twitter_cards.html
-  [params.social]
-    twitter = 'kirillbobyrev'
+description = 'Blog about Software Engineering and hobbies by Kirill Bobyrev'
+icons = true
+twitterCards = true
+opengraph = true
+dateDisplayFormat = "2 Jan, 2006"
+images = ['images/twitter.png']
+[params.author]
+name = 'Kirill Bobyrev'
+# This is needed for _internal/twitter_cards.html
+[params.social]
+twitter = 'kirillbobyrev'
 
 [markup]
-  [markup.highlight]
-    guessSyntax = true
-    style = 'github'
-    tabWidth = 2
-  [markup.goldmark]
-    [markup.goldmark.extensions]
-      [markup.goldmark.extensions.passthrough]
-        enable = true
-        [markup.goldmark.extensions.passthrough.delimiters]
-          block = [['\[', '\]'], ['$$', '$$']]
-          inline = [['\(', '\)']]
+[markup.highlight]
+guessSyntax = true
+style = 'github'
+tabWidth = 2
+[markup.goldmark]
+[markup.goldmark.extensions]
+[markup.goldmark.extensions.passthrough]
+enable = true
+[markup.goldmark.extensions.passthrough.delimiters]
+block = [['\[', '\]'], ['$$', '$$']]
+inline = [['\(', '\)']]
 
 [menu]
-  [[menu.main]]
-    name = 'Resume'
-    url = '/resume.pdf'
-    weight = 4
-
-
-# [Telegram](https://telegram.me/kirillbobyrev)
-# <kbobyrev.opensource@gmail.com>
-
-# [LinkedIn](https://linkedin.com/in/kirillbobyrev)
-# [GitHub](https://github.com/kirillbobyrev)
-# [Instagram](https://instagram.com/cybobyrev)
-# [Lichess](https://lichess.org/@/kirillbobyrev)
-# [Codeforces](https://codeforces.com/profile/kirillbobyrev)
+[[menu.main]]
+name = 'Resume'
+url = '/resume.pdf'
+weight = 4

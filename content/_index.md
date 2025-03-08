@@ -57,8 +57,6 @@ programming and diving deeper into computer science — feel free to browse my
 [collection of
 resources](https://github.com/kirillbobyrev/computer-science-resources). I’m
 fluent in English, Russian, and German, and I share my life with two mischievous
-Abyssinian kittens :cat:. Check out [their
-Instagram](https://instagram.com/dixie_pixie_cats) for a peek into our
-fun-filled days.
+Abyssinian kittens :cat:.
 
 Welcome to my blog — I’m excited to share my journey and insights with you!

@@ -8,9 +8,9 @@
 {{ $pages := .Pages.ByDate.Reverse }}
 {{ $allTags := slice }}
 {{ range $pages }}
-  {{ range .Params.tags }}
-    {{ $allTags = $allTags | append . }}
-  {{ end }}
+{{ range .Params.tags }}
+{{ $allTags = $allTags | append . }}
+{{ end }}
 {{ end }}
 {{ $uniqueTags := $allTags | uniq | sort }}
 
@@ -18,17 +18,15 @@
 <div class="tag-container">
   <button class="tag-filter tag-filter-all active" data-tag="all">All</button>
   {{ range $uniqueTags }}
-    <button class="tag-filter" data-tag="{{ . }}">{{ . }}</button>
+  <button class="tag-filter" data-tag="{{ . }}">{{ . }}</button>
   {{ end }}
 </div>
 {{ end }}
 
 <div class="notes-feed">
   {{ range $index, $page := $pages }}
-  <div id="note-{{ add $index 1 }}" class="note-card"
-      {{ if $page.Params.tags }}
-      data-tags="{{ delimit $page.Params.tags "," }}"
-      {{ end }}>
+  <div id="note-{{ add $index 1 }}" class="note-card" {{ if $page.Params.tags }}
+    data-tags="{{ delimit $page.Params.tags " ," }}" {{ end }}>
     <div class="note-header">
       <div class="note-header-left">
         <span class="note-number">
@@ -36,9 +34,7 @@
         </span>
         <h3 class="note-title">{{ .Title }}</h3>
       </div>
-      {{ if not .Date.IsZero }}
-      <span class="note-date">{{ .Date.Format "Jan 2, 2006" }}</span>
-      {{ end }}
+      <!-- Removed duplicate date display from here -->
     </div>
     <div class="note-content">
       {{ .Content }}
@@ -47,7 +43,7 @@
     {{ if .Params.tags }}
     <div class="note-tags">
       {{ range .Params.tags }}
-        <a href="#" class="note-tag" data-tag="{{ . }}">{{ . }}</a>
+      <a href="#" class="note-tag" data-tag="{{ . }}">{{ . }}</a>
       {{ end }}
     </div>
     {{ end }}
