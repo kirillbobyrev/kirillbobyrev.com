@@ -1,16 +1,39 @@
 {{ define "main" }}
 
+<h1 class="notes-title">{{ .Title }}</h1>
+
 {{ .Content }}
 
-<ul class="notes">
-  {{ range .Pages }}
-    <li class="note">
-      <!-- TODO: Add a date and make sure it renders well on mobile devices. -->
-      <h3>{{ .Title }}</h3>
-      <article>
-      </article>
-    </li>
+<div class="notes-feed">
+  {{ $pages := .Pages.ByDate.Reverse }}
+  {{ range $index, $page := $pages }}
+  <div id="note-{{ add $index 1 }}" class="note-card">
+    <div class="note-header">
+      <div class="note-header-left">
+        <span class="note-number">
+          <a href="#note-{{ add $index 1 }}">#{{ add $index 1 }}</a>
+        </span>
+        <h3 class="note-title">{{ .Title }}</h3>
+      </div>
+      {{ if not .Date.IsZero }}
+      <span class="note-date">{{ .Date | dateFormat site.Params.dateDisplayFormat }}</span>
+      {{ end }}
+    </div>
+    <div class="note-content">
+      {{ .Content }}
+    </div>
+    {{ if and (not .Date.IsZero) (gt .Date.Unix 0) }}
+    <div class="note-timestamp">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="note-icon">
+        <circle cx="12" cy="12" r="10"></circle>
+        <polyline points="12 6 12 12 16 14"></polyline>
+      </svg>
+      <span>{{ .Date.Format "3:04 PM · Jan 2, 2006" }}</span>
+    </div>
+    {{ end }}
+  </div>
   {{ end }}
-</ul>
+</div>
 
 {{ end }}
