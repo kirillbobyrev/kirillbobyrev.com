@@ -5,41 +5,41 @@
 
 <title>
   {{ if .Title }}
-    {{ .Title }} |
+  {{ .Title }} |
   {{ end }}
 
   {{ site.Title }}
 </title>
 
 {{ with site.Params }}
-  {{ with .author }}
-    <meta name="author" content="{{ . }}">
-  {{ end }}
-  {{ with .description }}
-    <meta name="description" content="{{ . }}">
-  {{ end }}
-  {{ with .keywords }}
-    <meta name="keywords" content={{ delimit . "," }}>
-  {{ end }}
+{{ with .author }}
+<meta name="author" content="{{ . }}">
+{{ end }}
+{{ with .description }}
+<meta name="description" content="{{ . }}">
+{{ end }}
+{{ with .keywords }}
+<meta name="keywords" content={{ delimit . "," }}>
+{{ end }}
 {{ end }}
 
 {{ if site.Params.icons }}
-  {{ partialCached "icons.html" . }}
+{{ partialCached "icons.html" . }}
 {{ end }}
 
 {{ template "_internal/google_analytics.html" . }}
 
 {{ if site.Params.twitterCards }}
-  {{ template "_internal/twitter_cards.html" . }}
+{{ template "_internal/twitter_cards.html" . }}
 {{ end }}
 
 {{ if site.Params.opengraph }}
-  {{ template "_internal/opengraph.html" . }}
+{{ template "_internal/opengraph.html" . }}
 {{ end }}
 
 {{ range .AlternativeOutputFormats -}}
-  {{ printf `
-  <link rel="%s" type="%s" href="%s" title="%s">` .Rel .MediaType.Type .RelPermalink site.Title | safeHTML }}
+{{ printf `
+<link rel="%s" type="%s" href="%s" title="%s">` .Rel .MediaType.Type .RelPermalink site.Title | safeHTML }}
 {{ end -}}
 
 {{ partialCached "math.html" . }}
@@ -48,11 +48,9 @@
 {{ $style := resources.Get "css/style.css" }}
 
 {{ if hugo.IsProduction }}
-  {{ $style = $style | minify | fingerprint }}
-  <link rel="stylesheet" href="{{ $style.Permalink }}" integrity="{{ $style.Data.Integrity }}">
+{{ $style = $style | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $style.Permalink }}" integrity="{{ $style.Data.Integrity }}">
 {{ else }}
-  {{ $style := resources.Get "css/style.css" }}
-  <link rel="stylesheet" href="{{ $style.Permalink }}">
+{{ $style := resources.Get "css/style.css" }}
+<link rel="stylesheet" href="{{ $style.Permalink }}">
 {{ end }}
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap">

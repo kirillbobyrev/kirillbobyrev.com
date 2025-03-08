@@ -2,6 +2,8 @@
 
 <h1 class="notes-title">{{ .Title }}</h1>
 
+{{ $currentPage := . }}
+
 {{ .Content }}
 
 <div class="notes-feed">
@@ -11,12 +13,13 @@
     <div class="note-header">
       <div class="note-header-left">
         <span class="note-number">
-          <a href="#note-{{ add $index 1 }}">#{{ add $index 1 }}</a>
+          <a href="{{ $currentPage.Permalink }}#note-{{ add $index 1 }}">#{{ add $index 1 }}</a>
         </span>
         <h3 class="note-title">{{ .Title }}</h3>
       </div>
       {{ if not .Date.IsZero }}
-      <span class="note-date">{{ .Date | dateFormat site.Params.dateDisplayFormat }}</span>
+      <span class="note-date">{{ .Date.Format "Jan 2, 2006" }}{{ if gt .Date.Hour 0 }} at {{ .Date.Format "3:04 PM" }}{{
+        end }}</span>
       {{ end }}
     </div>
     <div class="note-content">

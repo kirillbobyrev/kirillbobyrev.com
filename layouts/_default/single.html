@@ -11,12 +11,12 @@
     </time>
 
     {{ if not (eq .Lastmod .PublishDate) }}
-      &mdash; Updated: <time datetime="{{ .Lastmod }}" pubdate>{{ .Lastmod | dateFormat site.Params.dateDisplayFormat
-        }}</time>
+    &mdash; Updated: <time datetime="{{ .Lastmod }}" pubdate>{{ .Lastmod | dateFormat site.Params.dateDisplayFormat
+      }}</time>
     {{ end }}
 
     {{ if gt .ReadingTime 5 }}
-      &mdash; {{ .ReadingTime }} minutes to read
+    &mdash; {{ .ReadingTime }} minutes to read
     {{ end }}
   </p>
 

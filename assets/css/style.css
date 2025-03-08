@@ -4,6 +4,7 @@
 
   /* Colors */
   --accent: #4285f4;
+  --accent-rgb: 66, 133, 244;
   --accent-light: #93a9d1;
   --background: #fff;
   --muted: #6c757d;
@@ -214,10 +215,10 @@ th {
 }
 
 .note-title {
-  font-size: 1.1rem;
+  font-size: 1rem;
   margin: 0;
-  color: var(--heading-color);
-  font-weight: 600;
+  color: var(--muted);
+  font-weight: 500;
 }
 
 .note-date {
@@ -288,21 +289,21 @@ th {
 }
 
 .note-number {
-  font-size: 0.8rem;
-  color: var(--muted);
-  font-weight: 500;
-  position: relative;
+  font-size: 1rem;
+  color: var(--accent);
+  font-weight: 600;
 }
 
 .note-number a {
-  color: inherit;
+  color: var(--accent);
   text-decoration: none;
-  position: relative;
-  padding-right: 0.2rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s;
 }
 
 .note-number a:hover {
-  color: var(--accent);
+  background-color: var(--muted-background);
 }
 
 .note-timestamp {
@@ -332,7 +333,7 @@ th {
   }
 
   .note-title {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   .note-content {
@@ -371,6 +372,14 @@ th {
     width: 14px;
     height: 14px;
   }
+
+  .note-number {
+    font-size: 0.95rem;
+  }
+
+  .note-number a {
+    padding: 0.1rem 0.35rem;
+  }
 }
 
 /* Ensure anchor links have proper scroll positioning */
@@ -380,16 +389,23 @@ th {
 
 /* Add subtle highlight effect for targeted note */
 .note-card:target {
-  box-shadow: 0 0 0 2px var(--accent-light);
-  animation: target-fade 2s 1;
+  animation: target-fade 2s;
+  border-color: var(--accent);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 @keyframes target-fade {
-  from {
-    background-color: var(--accent-light);
+  0% {
+    background-color: rgba(var(--accent-rgb), 0.1);
   }
 
-  to {
+  100% {
     background-color: var(--background);
   }
+}
+
+.note-card.highlight {
+  background-color: rgba(var(--accent-rgb), 0.1);
+  border-color: var(--accent);
+  transition: background-color 2s;
 }
