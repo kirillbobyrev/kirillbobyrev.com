@@ -3,7 +3,7 @@
 {{ .Content }}
 
 <!-- Tag filtering system -->
-{{ $pages := .Pages.ByDate.Reverse }}
+{{ $pages := .Pages.ByDate }}
 {{ $allTags := slice }}
 {{ range $pages }}
 {{ range .Params.tags }}
@@ -22,13 +22,14 @@
 {{ end }}
 
 <div class="notes-feed">
+  {{ $noteNumber := sub (len $pages) 1 }}
   {{ range $index, $page := $pages }}
-  <div id="note-{{ add $index 1 }}" class="note-card" {{ if $page.Params.tags }}
+  <div id="note-{{ sub $noteNumber $index }}" class="note-card" {{ if $page.Params.tags }}
     data-tags="{{ delimit $page.Params.tags " ," }}" {{ end }}>
     <div class="note-header">
       <div class="note-header-left">
         <span class="note-number">
-          <a href="{{ $.Permalink }}#note-{{ add $index 1 }}">#{{ add $index 1 }}</a>
+          <a href="{{ $.Permalink }}#note-{{ sub $noteNumber $index }}">#{{ sub $noteNumber $index }}</a>
         </span>
         <h3 class="note-title">{{ .Title }}</h3>
       </div>
