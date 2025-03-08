@@ -18,6 +18,14 @@
       {{ .Content }}
     </div>
 
+    {{ if .Params.tags }}
+    <div class="note-tags">
+      {{ range .Params.tags }}
+      <div class="note-tag"></div>
+      {{ end }}
+    </div>
+    {{ end }}
+
     {{ if and (not .Date.IsZero) (gt .Date.Unix 0) }}
     <div class="note-timestamp">
       <i class="far fa-clock note-icon"></i>
