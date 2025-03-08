@@ -2,50 +2,21 @@
 
 {{ .Content }}
 
-<!-- Tag filtering system -->
-{{ $pages := .Pages.ByDate.Reverse }}
-{{ $allTags := slice }}
-{{ range $pages }}
-{{ range .Params.tags }}
-{{ $allTags = $allTags | append . }}
-{{ end }}
-{{ end }}
-{{ $uniqueTags := $allTags | uniq | sort }}
-
-{{ if gt (len $uniqueTags) 0 }}
-<div class="tag-container">
-  <button class="tag-filter tag-filter-all active" data-tag="all">All</button>
-  {{ range $uniqueTags }}
-  <button class="tag-filter" data-tag="{{ . }}">{{ . }}</button>
-  {{ end }}
-</div>
-{{ end }}
-
 <div class="notes-feed">
-  {{ $noteNumber := sub (len $pages) 1 }}
-  {{ range $index, $page := $pages }}
-  <div id="note-{{ sub $noteNumber $index }}" class="note-card" {{ if $page.Params.tags }}
-    data-tags="{{ delimit $page.Params.tags " ," }}" {{ end }}>
+  {{ $totalNotes := sub (len .Pages) 1 }}
+  {{ range $index, $page := .Pages.ByDate.Reverse }}
+  <div id="note-{{ sub $totalNotes $index }}" class="note-card">
     <div class="note-header">
       <div class="note-header-left">
         <span class="note-number">
-          <a href="{{ $.Permalink }}#note-{{ sub $noteNumber $index }}">#{{ sub $noteNumber $index }}</a>
+          <a href="{{ $.Permalink }}#note-{{ sub $totalNotes $index }}">#{{ sub $totalNotes $index }}</a>
         </span>
         <h3 class="note-title">{{ .Title }}</h3>
       </div>
-      <!-- Removed duplicate date display from here -->
     </div>
     <div class="note-content">
       {{ .Content }}
     </div>
-
-    {{ if .Params.tags }}
-    <div class="note-tags">
-      {{ range .Params.tags }}
-      <a href="#" class="note-tag" data-tag="{{ . }}">{{ . }}</a>
-      {{ end }}
-    </div>
-    {{ end }}
 
     {{ if and (not .Date.IsZero) (gt .Date.Unix 0) }}
     <div class="note-timestamp">
