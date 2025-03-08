@@ -23,7 +23,32 @@ principles of &lt;a href="https://en.wikipedia.org/wiki/Spaced_repetition">space
 repetition&lt;/a>. This approach
 optimizes your study sessions by spacing out reviews of material just before
 you’re likely to forget, making your learning process both efficient and
-effective.&lt;/p></description></item><item><title>Analyzing long win streaks in online chess</title><link>https://kirillbobyrev.com/blog/analyzing-long-win-streaks/</link><pubDate>Tue, 28 Nov 2023 00:00:00 +0000</pubDate><guid>https://kirillbobyrev.com/blog/analyzing-long-win-streaks/</guid><description>&lt;p>&lt;strong>TL;DR&lt;/strong>: In-depth analysis of recent data suggests a high likelihood of Hikaru
+effective.&lt;/p></description></item><item><title>Lorem Ipsum Abba</title><link>https://kirillbobyrev.com/notes/anki/</link><pubDate>Thu, 02 Jan 2025 00:00:00 +0000</pubDate><guid>https://kirillbobyrev.com/notes/anki/</guid><description>&lt;p>asdassda asd a&lt;/p>
+&lt;p>asdsa&lt;/p>
+&lt;p>asda&lt;/p></description></item><item><title>CSS Variables Reminder</title><link>https://kirillbobyrev.com/notes/css-variables/</link><pubDate>Thu, 22 Feb 2024 00:00:00 +0000</pubDate><guid>https://kirillbobyrev.com/notes/css-variables/</guid><description>&lt;p>CSS variables are defined with two dashes:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code class="language-css" data-lang="css">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#1f2328">:&lt;/span>&lt;span style="color:#0550ae">root&lt;/span> &lt;span style="color:#1f2328">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#953800">--primary-color&lt;/span>&lt;span style="color:#1f2328">:&lt;/span> &lt;span style="color:#0550ae">#3182ce&lt;/span>&lt;span style="color:#1f2328">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#1f2328">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>And used with the var() function:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2;">&lt;code class="language-css" data-lang="css">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#1f2328">.&lt;/span>&lt;span style="color:#1f2328">button&lt;/span> &lt;span style="color:#1f2328">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#cf222e">background-color&lt;/span>&lt;span style="color:#1f2328">:&lt;/span> &lt;span style="color:#6639ba">var&lt;/span>&lt;span style="color:#1f2328">(&lt;/span>&lt;span style="color:#0550ae">--&lt;/span>primary&lt;span style="color:#0550ae">-&lt;/span>&lt;span style="color:#cf222e">color&lt;/span>&lt;span style="color:#1f2328">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#1f2328">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This enables easy theming and maintenance!&lt;/p></description></item><item><title>Mobile Development Tips</title><link>https://kirillbobyrev.com/notes/mobile-development/</link><pubDate>Thu, 15 Feb 2024 00:00:00 +0000</pubDate><guid>https://kirillbobyrev.com/notes/mobile-development/</guid><description>&lt;p>When developing for mobile, always test on real devices. Simulators can miss many real-world issues related to performance, touch sensitivity, and network behavior.&lt;/p>
+&lt;p>Remember that for iOS, the safe area insets are crucial for modern devices with notches!&lt;/p></description></item><item><title>Design Resources I've Been Using Lately</title><link>https://kirillbobyrev.com/notes/design-resources/</link><pubDate>Sat, 10 Feb 2024 00:00:00 +0000</pubDate><guid>https://kirillbobyrev.com/notes/design-resources/</guid><description>&lt;p>Three design resources I&amp;rsquo;ve been enjoying:&lt;/p>
+&lt;ol>
+&lt;li>&lt;a href="https://heroicons.com/">Heroicons&lt;/a> - Beautiful hand-crafted SVG icons&lt;/li>
+&lt;li>&lt;a href="https://tailwindcss.com/">Tailwind CSS&lt;/a> - Utility-first CSS framework&lt;/li>
+&lt;li>&lt;a href="https://www.refactoringui.com/">Refactoring UI&lt;/a> - Learn UI design from developers&amp;rsquo; perspective&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>Good design is as little design as possible.
+– Dieter Rams&lt;/p>&lt;/blockquote></description></item><item><title>Git Branching Strategy</title><link>https://kirillbobyrev.com/notes/git-branching/</link><pubDate>Tue, 30 Jan 2024 00:00:00 +0000</pubDate><guid>https://kirillbobyrev.com/notes/git-branching/</guid><description>&lt;p>For new projects, consider a simplified Git workflow:&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>main&lt;/code> - Production code&lt;/li>
+&lt;li>&lt;code>develop&lt;/code> - Integration branch&lt;/li>
+&lt;li>Feature branches - Named with &lt;code>feature/name-of-feature&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;p>This keeps things clean while still providing isolation for new features.&lt;/p></description></item><item><title>Analyzing long win streaks in online chess</title><link>https://kirillbobyrev.com/blog/analyzing-long-win-streaks/</link><pubDate>Tue, 28 Nov 2023 00:00:00 +0000</pubDate><guid>https://kirillbobyrev.com/blog/analyzing-long-win-streaks/</guid><description>&lt;p>&lt;strong>TL;DR&lt;/strong>: In-depth analysis of recent data suggests a high likelihood of Hikaru
 Nakamura achieving a 55-game winning streak in online blitz, based on thousands
 of his games played this year (and even more likely given that Hikaru just
 crossed 35,000 blitz games mark on Chess.com alone). Similarly, longest streaks
