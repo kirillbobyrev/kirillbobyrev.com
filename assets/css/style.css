@@ -1,6 +1,7 @@
 :root {
   --text-color: #333;
   --max-width: 48rem;
+  --post-max-width: 54rem;
 
   /* Colors */
   --accent: #4285f4;
@@ -11,12 +12,19 @@
   --muted-background: #f8f9fa;
   --border-color: #e2e8f0;
   --heading-color: #1a202c;
+  --code-bg: #f5f7fa;
+  --inline-code-bg: rgba(0, 0, 0, 0.05);
 
   /* Typography */
   --line-height: 1.6;
+  --post-line-height: 1.8;
   --font-size: 105%;
+  --post-font-size: 1.05rem;
+  --letter-spacing: -0.01em;
 
   --body-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --heading-font: var(--body-font);
+  --mono-font: "JetBrains Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 body {
@@ -217,7 +225,7 @@ th {
 .note-title {
   font-size: 1rem;
   margin: 0;
-  color: var(--muted);
+  color: var(--heading-color);
   font-weight: 500;
 }
 
@@ -289,9 +297,9 @@ th {
 }
 
 .note-number {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--accent);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .note-number a {
@@ -408,4 +416,300 @@ th {
   background-color: rgba(var(--accent-rgb), 0.1);
   border-color: var(--accent);
   transition: background-color 2s;
+}
+
+/* Improved Blog Post Styling for Technical Content */
+.post-single {
+  max-width: var(--post-max-width);
+  margin: 0 auto;
+  font-size: var(--post-font-size);
+  line-height: var(--post-line-height);
+  letter-spacing: var(--letter-spacing);
+}
+
+.post-header {
+  margin-bottom: 2.5rem;
+}
+
+.post-title {
+  font-size: 2rem;
+  color: var(--heading-color);
+  margin-bottom: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.post-meta {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.post-content {
+  font-size: var(--post-font-size);
+  line-height: var(--post-line-height);
+}
+
+.post-content p,
+.post-content ul,
+.post-content ol {
+  margin-bottom: 1.75rem;
+}
+
+.post-content h2 {
+  font-size: 1.6rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  font-weight: 600;
+  color: var(--heading-color);
+  letter-spacing: -0.02em;
+}
+
+.post-content h3 {
+  font-size: 1.35rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: var(--heading-color);
+  letter-spacing: -0.01em;
+}
+
+.post-content h4 {
+  font-size: 1.15rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  color: var(--heading-color);
+}
+
+.post-content ul,
+.post-content ol {
+  padding-left: 1.75rem;
+}
+
+.post-content li {
+  margin-bottom: 0.5rem;
+}
+
+.post-content img {
+  margin: 1.5rem auto;
+  display: block;
+  border-radius: 0.5rem;
+  max-width: 100%;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post-content figure {
+  margin: 2rem 0;
+}
+
+.post-content figcaption {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: 0.75rem;
+  font-style: italic;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.post-content a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.post-content a:hover {
+  border-bottom-color: var(--accent);
+}
+
+.post-content code {
+  font-family: var(--mono-font);
+  font-size: 0.875em;
+  padding: 0.1em 0.4em;
+  background-color: var(--inline-code-bg);
+  border-radius: 0.2rem;
+  white-space: nowrap;
+}
+
+.post-content pre {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background-color: var(--code-bg);
+  border-radius: 0.4rem;
+  overflow-x: auto;
+  font-size: 0.9em;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.post-content pre code {
+  padding: 0;
+  background-color: transparent;
+  white-space: pre;
+  font-size: 0.9em;
+  line-height: 1.6;
+}
+
+.post-content blockquote {
+  margin: 1.75rem 0;
+  padding: 0.75rem 1.5rem;
+  border-left: 3px solid var(--accent-light);
+  background-color: var(--muted-background);
+  border-radius: 0 0.3rem 0.3rem 0;
+  font-style: italic;
+  color: var(--heading-color);
+}
+
+.post-content blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.post-content .math {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  padding: 0.5rem 0;
+}
+
+.post-content table {
+  width: 100%;
+  margin: 1.75rem 0;
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+
+.post-content th {
+  background-color: var(--muted-background);
+  font-weight: 600;
+  text-align: left;
+}
+
+.post-content th,
+.post-content td {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-color);
+}
+
+.post-content tr:nth-child(even) {
+  background-color: var(--muted-background);
+}
+
+.post-content hr {
+  margin: 2.5rem 0;
+  border: 0;
+  height: 1px;
+  background-color: var(--border-color);
+}
+
+.post-timestamp {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.post-icon {
+  color: var(--muted);
+}
+
+/* Mobile optimizations for both notes and posts */
+@media (max-width: 768px) {
+  .post-single {
+    font-size: 1rem;
+  }
+
+  .post-title {
+    font-size: 1.75rem;
+  }
+
+  .post-content {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .post-content h2 {
+    font-size: 1.4rem;
+  }
+
+  .post-content h3 {
+    font-size: 1.25rem;
+  }
+
+  .post-content p,
+  .post-content ul,
+  .post-content ol {
+    margin-bottom: 1.5rem;
+  }
+
+  .post-timestamp {
+    margin-top: 2rem;
+  }
+}
+
+/* Note Tag System */
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.note-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+
+.note-tag {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  background-color: var(--muted-background);
+  border-radius: 0.25rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.note-tag:hover {
+  background-color: rgba(var(--accent-rgb), 0.1);
+  color: var(--accent);
+}
+
+.note-tag.active {
+  background-color: var(--accent);
+  color: white;
+}
+
+.tag-filter {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.9rem;
+  border-radius: 0.25rem;
+  background-color: var(--muted-background);
+  border: 1px solid var(--border-color);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tag-filter:hover {
+  background-color: rgba(var(--accent-rgb), 0.1);
+  color: var(--accent);
+}
+
+.tag-filter.active {
+  background-color: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.tag-filter-all {
+  margin-right: 0.5rem;
 }

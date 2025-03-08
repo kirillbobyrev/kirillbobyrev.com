@@ -1,26 +1,31 @@
 {{ define "main" }}
 
-<article>
-  <h1>
-    {{ .Title }}
-  </h1>
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      {{ .Title }}
+    </h1>
 
-  <p class="muted">
-    <time datetime="{{ .PublishDate }}" pubdate>
-      {{ .Date | dateFormat site.Params.dateDisplayFormat }}
-    </time>
+    <div class="post-meta">
+      <time datetime="{{ .PublishDate }}" pubdate>
+        {{ .Date.Format "Jan 2, 2006" }}
+      </time>
 
-    {{ if not (eq .Lastmod .PublishDate) }}
-    &mdash; Updated: <time datetime="{{ .Lastmod }}" pubdate>{{ .Lastmod | dateFormat site.Params.dateDisplayFormat
-      }}</time>
-    {{ end }}
+      {{ if not (eq .Lastmod .PublishDate) }}
+      &mdash; Updated: <time datetime="{{ .Lastmod }}" pubdate>
+        {{ .Lastmod.Format "Jan 2, 2006" }}
+      </time>
+      {{ end }}
 
-    {{ if gt .ReadingTime 5 }}
-    &mdash; {{ .ReadingTime }} minutes to read
-    {{ end }}
-  </p>
+      {{ if gt .ReadingTime 0 }}
+      &mdash; {{ .ReadingTime }} minute read
+      {{ end }}
+    </div>
+  </header>
 
-  {{ .Content }}
+  <div class="post-content">
+    {{ .Content }}
+  </div>
 
 </article>
 
