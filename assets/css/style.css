@@ -9,8 +9,6 @@
   --accent-light: #93a9d1;
   --background: #fff;
   --muted: #6c757d;
-  --muted-background: #f8f9fa;
-  --border-color: #e2e8f0;
   --heading-color: #1a202c;
   --code-bg: #f5f7fa;
   --inline-code-bg: rgba(0, 0, 0, 0.05);
@@ -219,12 +217,6 @@ th {
 }
 
 /* Twitter-like Notes Feed Styling */
-.notes-title {
-  margin-bottom: 1.5rem;
-  font-weight: 700;
-  font-size: 2rem;
-}
-
 .notes-feed {
   display: flex;
   flex-direction: column;
