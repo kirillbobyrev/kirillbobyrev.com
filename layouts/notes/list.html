@@ -21,7 +21,7 @@
     {{ if .Params.tags }}
     <div class="note-tags">
       {{ range .Params.tags }}
-      <div class="note-tag"></div>
+      <div class="note-tag">{{ . }}</div>
       {{ end }}
     </div>
     {{ end }}
