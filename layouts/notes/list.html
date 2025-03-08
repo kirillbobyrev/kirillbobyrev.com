@@ -3,7 +3,7 @@
 {{ .Content }}
 
 <!-- Tag filtering system -->
-{{ $pages := .Pages.ByDate }}
+{{ $pages := .Pages.ByDate.Reverse }}
 {{ $allTags := slice }}
 {{ range $pages }}
 {{ range .Params.tags }}
