@@ -1,7 +1,6 @@
 +++
 title = "Trying-Console-Gaming"
 publishDate = 2025-03-08T00:49:32-08:00
-tags = ["gaming"]
 +++
 
 I've been a PC gamer my whole life, but I recently picked up PS5 Pro (mostly in

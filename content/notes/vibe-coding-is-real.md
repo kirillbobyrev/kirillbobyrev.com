@@ -1,7 +1,6 @@
 +++
 title = "Vibe coding is real"
 publishDate = 2025-03-07T22:47:39-08:00
-tags = ["llm"]
 +++
 
 I've long been skeptical of "vibe coding" and AI-driven tools like Cursor and
