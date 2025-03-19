@@ -23,17 +23,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: "latest"
-      - name: Download the resume
-        run: |
-          curl -s "https://api.github.com/repos/kirillbobyrev/resume/releases/latest" \
-            | grep "Kirill-Bobyrev-Resume.pdf" \
-            | cut -d : -f 2,3 \
-            | tr -d \" \
-            | tail -n 1 \
-            | wget -i -
-
-          mv Kirill-Bobyrev-Resume.pdf static/resume.pdf
+          hugo-version: "0.145.0"
       - name: Build website
         run: hugo --gc --minify
       - name: Deploy

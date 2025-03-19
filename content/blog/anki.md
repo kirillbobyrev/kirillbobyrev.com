@@ -1,5 +1,5 @@
 +++
-title = "Anki: The Ultimate Tool for Long-Term Learning"
+title = "Anki: the ultimate tool for learning"
 publishDate = 2025-01-02
 +++
 

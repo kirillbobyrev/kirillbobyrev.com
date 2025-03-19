@@ -4,7 +4,7 @@ publishDate = 2023-11-28
 images = ["/images/analyzing-long-win-streaks/cover.png"]
 +++
 
-**TL;DR**: In-depth analysis of recent data suggests a high likelihood of Hikaru
+In-depth analysis of recent data suggests a high likelihood of Hikaru
 Nakamura achieving a 55-game winning streak in online blitz, based on thousands
 of his games played this year (and even more likely given that Hikaru just
 crossed 35,000 blitz games mark on Chess.com alone). Similarly, longest streaks

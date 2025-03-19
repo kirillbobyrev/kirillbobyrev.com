@@ -7,7 +7,6 @@
     </h1>
 
     <div class="post-meta">
-      <i class="far fa-clock post-icon"></i>
       <time datetime="{{ .PublishDate }}" pubdate>
         {{ .Date.Format "Jan 2, 2006" }}
       </time>
@@ -16,10 +15,6 @@
       &mdash; Updated: <time datetime="{{ .Lastmod }}" pubdate>
         {{ .Lastmod.Format "Jan 2, 2006" }}
       </time>
-      {{ end }}
-
-      {{ if gt .ReadingTime 0 }}
-      &mdash; {{ .ReadingTime }} minute read
       {{ end }}
     </div>
   </header>

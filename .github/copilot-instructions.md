@@ -1,3 +1,5 @@
+# Copilot instructions
+
 ## Overall project context
 
 The user's GitHub repository
@@ -37,7 +39,7 @@ elegant, emphasizing readability and ease of content updates.
   language should be clear, concise, and engaging for a technically inclined
   audience.
 
-# Specific instructions by file type
+## Specific instructions by file type
 
 - **HTML (.html):**
   - Generate well-structured and semantic HTML5.
@@ -57,7 +59,7 @@ elegant, emphasizing readability and ease of content updates.
   - Write efficient and well-commented JavaScript if necessary.
   - Ensure compatibility with modern browsers.
 
-# Examples
+## Examples
 
 - **Good Example (HTML):**  Generating a simple, semantic HTML structure for a
   blog post with clear content sections.
@@ -73,7 +75,7 @@ elegant, emphasizing readability and ease of content updates.
 - **Bad Example (JavaScript):**  Adding JavaScript for non-essential features or
   writing convoluted and poorly commented JavaScript.
 
-# Tone and Style
+## Tone and Style
 
 - **Technical and Thoughtful:**  Adopt a tone that is both technically informed
   and reflective, suitable for a personal blog sharing thoughts and ideas.
