@@ -1,19 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Home on Kirill Bobyrev</title><link>https://kirillbobyrev.com/</link><description>Recent content in Home on Kirill Bobyrev</description><generator>Hugo</generator><language>en</language><atom:link href="https://kirillbobyrev.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Trying-Console-Gaming</title><link>https://kirillbobyrev.com/notes/trying-console-gaming/</link><pubDate>Sat, 08 Mar 2025 00:49:32 -0800</pubDate><guid>https://kirillbobyrev.com/notes/trying-console-gaming/</guid><description>&lt;p>I&amp;rsquo;ve been a PC gamer my whole life, but I recently picked up PS5 Pro (mostly in
-anticipation of the GTA 6 release later this year) to try out console gaming.
-The experience is noticeably different. The UI/UX feels a bit outdated, the
-controller isn’t as comfortable, and the pricing model (with mandatory PS Plus
-for some features like online play in many games) is more aggressive than
-Steam’s. Still, the plug‐and‐play convenience is a big plus if you’d rather skip
-building, setting up and maintaining your own PC.&lt;/p></description></item><item><title>Vibe coding is real</title><link>https://kirillbobyrev.com/notes/vibe-coding-is-real/</link><pubDate>Fri, 07 Mar 2025 22:47:39 -0800</pubDate><guid>https://kirillbobyrev.com/notes/vibe-coding-is-real/</guid><description>&lt;p>I&amp;rsquo;ve long been skeptical of &amp;ldquo;vibe coding&amp;rdquo; and AI-driven tools like Cursor and
-GitHub Copilot. However, the recent Agents updates completely changed my
-perspective. After giving them a genuine try, I was able to quickly build a
-clean, &amp;ldquo;Twitter-like&amp;rdquo; feed for my personal blog notes in just a few minutes.
-Impressively, Claude 3.7 Sonnet Thinking nailed the implementation in a single
-go, and I&amp;rsquo;m genuinely pleased with the outcome.&lt;/p>
-&lt;p>While crafting blog posts and personal notes brings me joy, coding HTML and
-wrestling with CSS rarely does. Tools like Copilot and Cursor have significantly
-boosted my productivity, letting me focus more on writing and less on tedious
-styling.&lt;/p></description></item><item><title>Creating beautiful visualizations in Python</title><link>https://kirillbobyrev.com/blog/python-visualizations/</link><pubDate>Wed, 08 Jan 2025 00:00:00 +0000</pubDate><guid>https://kirillbobyrev.com/blog/python-visualizations/</guid><description>&lt;p>I recently started watching a lot of educational videos on YouTube and was
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Home on Kirill Bobyrev</title><link>https://kirillbobyrev.com/</link><description>Recent content in Home on Kirill Bobyrev</description><generator>Hugo</generator><language>en</language><atom:link href="https://kirillbobyrev.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Creating beautiful visualizations in Python</title><link>https://kirillbobyrev.com/blog/python-visualizations/</link><pubDate>Wed, 08 Jan 2025 00:00:00 +0000</pubDate><guid>https://kirillbobyrev.com/blog/python-visualizations/</guid><description>&lt;p>I recently started watching a lot of educational videos on YouTube and was
 fascinated by the quality of both explanations and the accompanying
 visualizations. Animations and visual explanations both help keep the attention
 and also improve my understanding a lot, since I&amp;rsquo;m definitely a visual learner.&lt;/p>
@@ -27,7 +12,7 @@ was forked into
 features an enhanced version of the package with more thorough testing,
 documentation and better user experience. The community also has active Discord
 and a bunch of impressive
-&lt;a href="https://docs.manim.community/en/stable/examples.html">examples&lt;/a>.&lt;/p></description></item><item><title>Anki: The Ultimate Tool for Long-Term Learning</title><link>https://kirillbobyrev.com/blog/anki/</link><pubDate>Thu, 02 Jan 2025 00:00:00 +0000</pubDate><guid>https://kirillbobyrev.com/blog/anki/</guid><description>&lt;p>Being a Software Engineer means constantly learning new things, and streamlining
+&lt;a href="https://docs.manim.community/en/stable/examples.html">examples&lt;/a>.&lt;/p></description></item><item><title>Anki: the ultimate tool for learning</title><link>https://kirillbobyrev.com/blog/anki/</link><pubDate>Thu, 02 Jan 2025 00:00:00 +0000</pubDate><guid>https://kirillbobyrev.com/blog/anki/</guid><description>&lt;p>Being a Software Engineer means constantly learning new things, and streamlining
 the learning process while making sure I don&amp;rsquo;t forget things I already learned
 along the way is an important topic for me. &lt;a href="https://apps.ankiweb.net/">Anki&lt;/a> is
 one of the best tools I found for myself to make the learning process enjoyable
@@ -38,7 +23,7 @@ principles of &lt;a href="https://en.wikipedia.org/wiki/Spaced_repetition">space
 repetition&lt;/a>. This approach
 optimizes your study sessions by spacing out reviews of material just before
 you’re likely to forget, making your learning process both efficient and
-effective.&lt;/p></description></item><item><title>Analyzing long win streaks in online chess</title><link>https://kirillbobyrev.com/blog/analyzing-long-win-streaks/</link><pubDate>Tue, 28 Nov 2023 00:00:00 +0000</pubDate><guid>https://kirillbobyrev.com/blog/analyzing-long-win-streaks/</guid><description>&lt;p>&lt;strong>TL;DR&lt;/strong>: In-depth analysis of recent data suggests a high likelihood of Hikaru
+effective.&lt;/p></description></item><item><title>Analyzing long win streaks in online chess</title><link>https://kirillbobyrev.com/blog/analyzing-long-win-streaks/</link><pubDate>Tue, 28 Nov 2023 00:00:00 +0000</pubDate><guid>https://kirillbobyrev.com/blog/analyzing-long-win-streaks/</guid><description>&lt;p>In-depth analysis of recent data suggests a high likelihood of Hikaru
 Nakamura achieving a 55-game winning streak in online blitz, based on thousands
 of his games played this year (and even more likely given that Hikaru just
 crossed 35,000 blitz games mark on Chess.com alone). Similarly, longest streaks
