@@ -6,13 +6,15 @@
 </head>
 
 <body>
-  <header>
-    {{ partialCached "header.html" . }}
-  </header>
-  <main role="main">
-    {{ block "main" . }}
-    {{ end }}
-  </main>
+  <div class="container">
+    <header class="site-header">
+      {{ partialCached "header.html" . }}
+    </header>
+    <main id="content" class="site-main" role="main">
+      {{ block "main" . }}
+      {{ end }}
+    </main>
+  </div>
 </body>
 
 </html>

@@ -10,3 +10,19 @@ draft = true
 - inspiration
   - bearblog
   - karpathy
+
+```c++
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+itn main() {
+  std::vector<int> a = {1, 2, 3};
+  return 0;
+}
+```
+
+---
+
+Hehe?
