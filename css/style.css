@@ -1,18 +1,17 @@
-/* Base styles */
+/* Base */
 :root {
-  /* Color scheme - Light mode default */
-  --text-color: #333;
-  --background-color: #fff;
-  --link-color: #2563eb;
-  --link-hover-color: #1d4ed8;
+  /* Colors - Light mode */
+  --text: #333;
+  --bg: #fff;
+  --link: #2563eb;
+  --link-hover: #1d4ed8;
+  --border: #e5e7eb;
+  --muted: #6b7280;
   --code-bg: #f8f9fa;
-  --border-color: #e5e7eb;
-  --muted-text: #6b7280;
-  --inline-code-border: #e5e7eb;
 
   /* Typography */
-  --base-font: 'Roboto', system-ui, -apple-system, sans-serif;
-  --code-font: 'Fira Code', 'SFMono-Regular', Consolas, monospace;
+  --font: 'Roboto', system-ui, -apple-system, sans-serif;
+  --mono: 'Fira Code', 'SFMono-Regular', Consolas, monospace;
 
   /* Spacing */
   --space-xs: 0.25rem;
@@ -22,21 +21,19 @@
   --space-xl: 2rem;
 }
 
-/* Dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
-    --text-color: #e6edf3;
-    --background-color: #0d1117;
-    --link-color: #58a6ff;
-    --link-hover-color: #79c0ff;
+    --text: #e6edf3;
+    --bg: #0d1117;
+    --link: #58a6ff;
+    --link-hover: #79c0ff;
+    --border: #30363d;
+    --muted: #8b949e;
     --code-bg: #161b22;
-    --border-color: #30363d;
-    --muted-text: #8b949e;
-    --inline-code-border: #30363d;
   }
 }
 
-/* Core layout */
+/* Layout */
 html {
   scrollbar-gutter: stable;
   min-height: 100%;
@@ -44,11 +41,11 @@ html {
 }
 
 body {
-  font-family: var(--base-font);
+  font-family: var(--font);
   font-size: 1.125rem;
   line-height: 1.6;
-  color: var(--text-color);
-  background: var(--background-color);
+  color: var(--text);
+  background: var(--bg);
   max-width: 750px;
   margin: 0 auto;
   padding: var(--space-xl) max(var(--space-md), env(safe-area-inset-right, var(--space-md))) var(--space-xl) max(var(--space-md), env(safe-area-inset-left, var(--space-md)));
@@ -74,8 +71,7 @@ h5,
 h6 {
   font-weight: 600;
   line-height: 1.3;
-  margin-top: var(--space-xl);
-  margin-bottom: var(--space-md);
+  margin: var(--space-xl) 0 var(--space-md);
 }
 
 h1 {
@@ -102,18 +98,18 @@ ol {
 
 /* Links */
 a {
-  color: var(--link-color);
+  color: var(--link);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.2s;
 }
 
 a:hover,
 a:focus {
-  color: var(--link-hover-color);
+  color: var(--link-hover);
   text-decoration: underline;
 }
 
-/* Header and Navigation */
+/* Header */
 .site-header {
   padding-bottom: var(--space-md);
 }
@@ -123,11 +119,11 @@ a:focus {
   font-weight: 500;
   display: block;
   margin-bottom: var(--space-sm);
-  color: var(--text-color);
+  color: var(--text);
 }
 
 .site-title:hover {
-  color: var(--text-color);
+  color: var(--text);
   text-decoration: none;
 }
 
@@ -145,7 +141,7 @@ a:focus {
   position: relative;
 }
 
-/* Images */
+/* Content elements */
 img {
   max-width: 100%;
   height: auto;
@@ -154,27 +150,22 @@ img {
   margin: var(--space-lg) 0;
 }
 
-/* Horizontal rule */
 hr {
-  border: none;
-  border-top: 1px solid var(--border-color);
+  border: 0;
+  border-top: 1px solid var(--border);
   margin: var(--space-xl) 0;
 }
 
-/* Blockquote */
 blockquote {
-  border-left: 4px solid var(--border-color);
+  border-left: 4px solid var(--border);
   padding-left: var(--space-lg);
   margin: var(--space-lg) 0;
   font-style: italic;
-  color: var(--muted-text);
+  color: var(--muted);
 }
 
-/* Blog post list */
-.blog-list {
-  margin-bottom: var(--space-xl);
-}
-
+/* Blog listings */
+.blog-list,
 .section-content {
   margin-bottom: var(--space-xl);
 }
@@ -193,7 +184,7 @@ blockquote {
 }
 
 .post-date {
-  color: var(--muted-text);
+  color: var(--muted);
   font-size: 1rem;
   min-width: 7.5rem;
   margin-right: var(--space-sm);
@@ -211,15 +202,12 @@ blockquote {
 
 .post-description {
   font-size: 0.95rem;
-  color: var(--muted-text);
+  color: var(--muted);
   margin-top: var(--space-xs);
 }
 
-/* Article styling */
-.post-single {
-  margin-bottom: var(--space-xl);
-}
-
+/* Single post */
+.post-single,
 .post-header {
   margin-bottom: var(--space-xl);
 }
@@ -229,7 +217,7 @@ blockquote {
 }
 
 .post-meta {
-  color: var(--muted-text);
+  color: var(--muted);
   font-size: 1rem;
   display: flex;
   flex-wrap: wrap;
@@ -237,17 +225,17 @@ blockquote {
   align-items: center;
 }
 
-/* Code formatting */
+/* Code */
 pre,
 code {
-  font-family: var(--code-font);
+  font-family: var(--mono);
   font-size: 0.9rem;
 }
 
 code {
   padding: 0.2em 0.4em;
   border-radius: 3px;
-  border: 1px solid var(--inline-code-border);
+  border: 1px solid var(--border);
   font-size: 0.85em;
 }
 
@@ -256,7 +244,7 @@ pre {
   padding: var(--space-md);
   overflow-x: auto;
   margin: var(--space-lg) 0;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border);
 }
 
 pre code {
@@ -267,7 +255,7 @@ pre code {
   white-space: pre;
 }
 
-/* Responsive adjustments */
+/* Mobile */
 @media screen and (max-width: 480px) {
   html {
     font-size: 15px;
@@ -304,13 +292,13 @@ pre code {
     gap: var(--space-xs);
   }
 
-  pre,
-  code {
-    font-size: 0.85rem;
-  }
-
   pre {
     padding: var(--space-sm);
     margin: var(--space-md) 0;
+  }
+
+  pre,
+  code {
+    font-size: 0.85rem;
   }
 }
