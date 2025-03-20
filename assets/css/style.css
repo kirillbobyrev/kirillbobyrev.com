@@ -8,9 +8,10 @@
   --border-color: #e0e0e0;
 }
 
-/* Force scrollbar to always be present to prevent layout shifts */
 html {
+  /* Force scrollbar to always be present to prevent layout shifts */
   scrollbar-gutter: stable;
+  min-height: 100%;
 }
 
 body {
@@ -21,7 +22,8 @@ body {
   background: var(--background-color);
   max-width: 750px;
   margin: 0 auto;
-  padding: 2rem 1.25rem;
+  padding: 2rem max(1.25rem, env(safe-area-inset-right, 1.25rem)) 2rem max(1.25rem, env(safe-area-inset-left, 1.25rem));
+  box-sizing: border-box;
 }
 
 /* Typography */
@@ -155,6 +157,7 @@ blockquote {
 .post-item {
   margin-bottom: 0.8rem;
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
 }
 
@@ -173,7 +176,7 @@ blockquote {
 @media (max-width: 768px) {
   body {
     font-size: 16px;
-    padding: 1.5rem 1rem;
+    padding: 1.5rem max(1rem, env(safe-area-inset-right, 1rem)) 1.5rem max(1rem, env(safe-area-inset-left, 1rem));
   }
 
   h1 {
@@ -195,7 +198,7 @@ blockquote {
 
 @media screen and (max-width: 480px) {
   body {
-    padding: 1.25rem env(safe-area-inset-right, 1rem) 1.25rem env(safe-area-inset-left, 1rem);
+    padding: 1.25rem max(1rem, env(safe-area-inset-right, 1rem)) 1.25rem max(1rem, env(safe-area-inset-left, 1rem));
   }
 
   .menu-nav {
@@ -209,5 +212,17 @@ blockquote {
 
   pre {
     padding: 0.8rem;
+  }
+
+  .post-item {
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  .post-date {
+    min-width: auto;
+    margin-right: 0;
+    margin-bottom: 0.2rem;
+    font-size: 0.9rem;
   }
 }
