@@ -54,4 +54,9 @@
 
 <!-- CSS -->
 {{ $style := resources.Get "css/style.css" }}
+{{ $githubLight := resources.Get "css/github-light.css" }}
+{{ $githubDark := resources.Get "css/github-dark.css" }}
 <link rel="stylesheet" href="{{ $style.Permalink }}">
+<link rel="stylesheet" href="{{ $githubLight.Permalink }}" media="screen and (prefers-color-scheme: light)">
+<link rel="stylesheet" href="{{ $githubDark.Permalink }}" media="screen and (prefers-color-scheme: dark)">
+<link rel="stylesheet" href="{{ $githubLight.Permalink }}" media="screen and (prefers-color-scheme: no-preference)">

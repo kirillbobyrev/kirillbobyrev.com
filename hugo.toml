@@ -24,7 +24,7 @@ enableGitInfo = true
   [markup.highlight]
     codeFences = true
     guessSyntax = true
-    noClasses = true
+    noClasses = false
     tabWidth = 2
   [markup.goldmark]
     [markup.goldmark.extensions]

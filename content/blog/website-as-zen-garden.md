@@ -17,9 +17,15 @@ draft = true
 
 using namespace std;
 
-itn main() {
+int main() {
   std::vector<int> a = {1, 2, 3};
   return 0;
+}
+```
+
+```css
+body {
+  font-size: 16px;  /* comment */
 }
 ```
 
