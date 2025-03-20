@@ -1,12 +1,12 @@
 <div class="site-header">
-  <a href="{{ site.BaseURL }}" class="site-title" aria-label="Home">
+  <a href="{{ site.BaseURL }}" class="site-title">
     {{ site.Title }}
   </a>
 
-  <nav class="site-nav" aria-label="Main navigation">
+  <nav class="site-nav">
     <div class="menu-nav">
       {{ range site.Menus.main }}
-      <a href="{{ .URL }}" class="menu-link" {{ if eq $.RelPermalink .URL }}aria-current="page"{{ end }}>{{ .Name }}</a>
+      <a href="{{ .URL }}" class="menu-link">{{ .Name }}</a>
       {{ end }}
     </div>
   </nav>
