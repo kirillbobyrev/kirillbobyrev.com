@@ -7,16 +7,9 @@
     </h1>
 
     <div class="post-meta">
-      <time class="post-date" datetime="{{ .Date.Format "2006-01-02" }}" pubdate>
-        {{ .Date.Format "Jan 2, 2006" }}
+      <time datetime="{{ .Date.Format "2006-01-02" }}">
+        {{ .Date.Format site.Params.dateDisplayFormat }}
       </time>
-      {{ if .Params.tags }}
-      <div class="post-tags">
-        {{ range .Params.tags }}
-        <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="post-tag">#{{ . }}</a>
-        {{ end }}
-      </div>
-      {{ end }}
     </div>
   </header>
 

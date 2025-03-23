@@ -6,20 +6,26 @@
   </div>
   {{ end }}
 
-  <div class="notes-feed" aria-label="Notes">
-    {{ range .Pages.ByDate.Reverse }}
-    <article class="note-item">
-      <time class="note-date" datetime="{{ .Date.Format "2006-01-02 15:04" }}">
-        {{ .Date.Format "Jan 2, 2006 15:04" }}
-      </time>
-      {{ if .Title }}
-      <h3 class="note-title">{{ .Title }}</h3>
-      {{ end }}
+  <ul class="notes-feed" aria-label="Notes">
+    {{ $pagePermalink := .Permalink }}
+    {{ $notePages := .Pages.ByDate.Reverse }}
+    {{ $totalNotes := len $notePages }}
+    {{ range $index, $note := $notePages }}
+    <li id="note-{{ sub $totalNotes $index }}" class="note-item" data-note-number="{{ sub $totalNotes $index }}">
+      <a href="{{ $pagePermalink }}/#note-{{ sub $totalNotes $index }}" class="note-anchor">#</a>
+      <div class="note-header">
+        <time class="note-date" datetime="{{ .Date.Format "2006-01-02 15:04" }}">
+          {{ .Date.Format "2006-01-02 15:04" }}
+        </time>
+        {{ if .Title }}
+        <h3 class="note-title">{{ .Title }}</h3>
+        {{ end }}
+      </div>
       <div class="note-content">
         {{ .Content }}
       </div>
-    </article>
+    </li>
     {{ end }}
-  </div>
+  </ul>
 </section>
 {{ end }}

@@ -1,6 +1,6 @@
----
-date: 2023-03-21 10:42:51
----
++++
+publishDate = 2023-03-23 10:42:51
++++
 
 Just dove into the console world with a PlayStation 5 Pro after a lifetime of PC
 gaming! Initial thoughts:
