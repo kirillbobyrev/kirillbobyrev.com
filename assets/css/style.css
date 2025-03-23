@@ -8,6 +8,8 @@
   --border: #e5e7eb;
   --muted: #6b7280;
   --code-bg: #f8f9fa;
+  --note-bg: #f9fafb;
+  --note-border: #e5e7eb;
 
   /* Typography */
   --font: 'Roboto', system-ui, -apple-system, sans-serif;
@@ -30,6 +32,8 @@
     --border: #30363d;
     --muted: #8b949e;
     --code-bg: #161b22;
+    --note-bg: #161b22;
+    --note-border: #30363d;
   }
 }
 
@@ -300,5 +304,62 @@ pre code {
   pre,
   code {
     font-size: 0.85rem;
+  }
+}
+
+/* Notes */
+.notes-list {
+  margin-bottom: var(--space-xl);
+}
+
+.notes-feed {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.note-item {
+  background: var(--note-bg);
+  border: 1px solid var(--note-border);
+  border-radius: 8px;
+  padding: var(--space-md) var(--space-lg);
+}
+
+.note-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+}
+
+.note-date {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.note-title {
+  font-size: 1.3rem;
+  margin: var(--space-sm) 0 var(--space-md);
+}
+
+.note-content {
+  font-size: 1.1rem;
+}
+
+.note-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Mobile */
+@media screen and (max-width: 480px) {
+  .note-item {
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .note-title {
+    font-size: 1.2rem;
+  }
+
+  .note-content {
+    font-size: 1rem;
   }
 }

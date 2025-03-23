@@ -1,0 +1,27 @@
+{{ define "main" }}
+<section class="notes-list">
+  {{ if .Content }}
+  <div class="section-content">
+    {{ .Content }}
+  </div>
+  {{ end }}
+
+  <div class="notes-feed" aria-label="Notes">
+    {{ range .Pages.ByDate.Reverse }}
+    <article class="note-item">
+      <div class="note-header">
+        <time class="note-date" datetime="{{ .Date.Format "2006-01-02 15:04" }}">
+          {{ .Date.Format "Jan 2, 2006 15:04" }}
+        </time>
+      </div>
+      <div class="note-content">
+        {{ if .Title }}
+        <h3 class="note-title">{{ .Title }}</h3>
+        {{ end }}
+        {{ .Content }}
+      </div>
+    </article>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
