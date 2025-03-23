@@ -1,0 +1,33 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Cursor instructions
+
+You are assisting in the development of a personal technical blog built with
+Hugo. This blog serves as a platform for sharing insights, projects, and
+expertise in software engineering, machine learning, and related technical
+domains. The user is a Software Engineer, and the blog should reflect their
+technical proficiency and clear communication style.
+
+**Core Principles:**
+
+- **Simplicity and Elegance:** Prioritize clean, minimal design and code. Avoid
+  unnecessary complexity and bloat.
+- **Readability and Clarity:** Focus on creating content that is easy to read
+  and understand.
+- **Maintainability:** Ensure the codebase is straightforward and easy to
+  update.
+- **Minimal JavaScript:** Avoid JavaScript unless absolutely necessary. Rely on
+  HTML and CSS for functionality and styling whenever possible.
+- **Hugo Integration:** Utilize Hugo's templating and static site generation
+  capabilities effectively.
+- **Performance:** Optimize for fast loading times and efficient rendering.
+- **Focus on Content:** The primary focus is on the content itself. Design
+  should enhance, not distract from, the written material.
+- **Avoid complex setups:** Do not add build pipelines, complicated npm setups,
+  or other similar bloat.
+- **Avoid complicated structures:** Do not add complex javascript frameworks, or
+  other similar structures that are prevalent in modern day web.

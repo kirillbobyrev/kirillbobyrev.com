@@ -1,0 +1,13 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# CSS instructions
+
+- Employ CSS for layout, typography, and visual design.
+- Prioritize readability and a clean, minimalist aesthetic.
+- Use modern CSS features (e.g., Flexbox, Grid) for layout.
+- Avoid external CSS frameworks unless explicitly requested, and focus on
+  writing vanilla css.

@@ -2,21 +2,16 @@
 
 ## Overall project context
 
-The user's GitHub repository
-`https://github.com/kirillbobyrev/kirillbobyrev.com` is a personal technical
-blog built with Hugo.  It's a static website focused on software engineering,
-machine learning, and related technical topics.  The blog's content includes the
-user's thoughts, ideas, and projects, reflecting their expertise as a Software
-Engineer.  The website is implemented using plain HTML, CSS, and minimal
-JavaScript within the Hugo framework.  The blog's style is minimalistic and
-elegant, emphasizing readability and ease of content updates.
+The project is a personal technical blog built with Hugo. It's a static website
+focused on software engineering, machine learning, and related technical topics.
+The blog's content includes the user's thoughts, ideas, and projects, reflecting
+their expertise as a Software Engineer. The website is implemented using plain
+HTML, CSS, and minimal JavaScript within the Hugo framework. The blog's style is
+minimalistic and elegant, emphasizing readability and ease of content updates.
 
 ## Code generation guidelines
 
-- **Languages:** When generating code, prioritize Python, C++, or Rust, as these
-  are the user's preferred languages. If the context is web development, use
-  HTML, CSS, and JavaScript as appropriate for a Hugo static site.
-- **Style:**  Code should be clean, readable, and easy to understand. Favor
+- **Style:** Code should be clean, readable, and easy to understand. Favor
   clarity over extreme conciseness. Follow common coding conventions for each
   language.
 - **Hugo context:** Be mindful that the project is a Hugo website. When
@@ -61,26 +56,26 @@ elegant, emphasizing readability and ease of content updates.
 
 ## Examples
 
-- **Good Example (HTML):**  Generating a simple, semantic HTML structure for a
+- **Good Example (HTML):** Generating a simple, semantic HTML structure for a
   blog post with clear content sections.
-- **Good Example (CSS):**  Creating a minimalistic CSS stylesheet that focuses
+- **Good Example (CSS):** Creating a minimalistic CSS stylesheet that focuses
   on typography, spacing, and basic color schemes for readability.
 - **Good Example (JavaScript):**  Implementing a minimal JavaScript function for
   a specific interaction, like a theme toggle, with clear and concise code.
 
-- **Bad Example (HTML):**  Generating complex, deeply nested HTML with
+- **Bad Example (HTML):** Generating complex, deeply nested HTML with
   unnecessary divs and unclear semantic structure.
-- **Bad Example (CSS):**  Creating overly complex CSS with excessive animations
+- **Bad Example (CSS):** Creating overly complex CSS with excessive animations
   or visual effects that detract from readability.
-- **Bad Example (JavaScript):**  Adding JavaScript for non-essential features or
+- **Bad Example (JavaScript):** Adding JavaScript for non-essential features or
   writing convoluted and poorly commented JavaScript.
 
 ## Tone and Style
 
-- **Technical and Thoughtful:**  Adopt a tone that is both technically informed
+- **Technical and Thoughtful:** Adopt a tone that is both technically informed
   and reflective, suitable for a personal blog sharing thoughts and ideas.
-- **Clear and Concise:**  Generated content should be clear, direct, and to the
+- **Clear and Concise:** Generated content should be clear, direct, and to the
   point, avoiding jargon where simpler terms suffice.
-- **Engaging and Informative:**  Aim to generate content that is not only
+- **Engaging and Informative:** Aim to generate content that is not only
   technically accurate but also engaging and informative for readers interested in
   software engineering and machine learning.
