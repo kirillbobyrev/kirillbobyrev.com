@@ -55,4 +55,4 @@ programming and diving deeper into computer science — feel free to browse my
 [collection of
 resources](https://github.com/kirillbobyrev/computer-science-resources). I’m
 fluent in English, Russian, and German, and I share my life with two mischievous
-Abyssinian kittens :cat:.
+Abyssinian cats :cat:.
