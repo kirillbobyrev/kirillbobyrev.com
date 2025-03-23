@@ -53,12 +53,12 @@
 html {
   scrollbar-gutter: stable;
   min-height: 100%;
-  font-size: 16px;
+  font-size: 17px;
 }
 
 body {
   font-family: var(--font-sans);
-  font-size: 1rem;
+  font-size: 1.05rem;
   line-height: 1.7;
   color: var(--text);
   background: var(--bg);
@@ -90,24 +90,24 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 2.2rem;
   margin-top: var(--space-lg);
   margin-bottom: var(--space-lg);
 }
 
 h2 {
-  font-size: 1.5rem;
+  font-size: 1.65rem;
   margin-top: var(--space-2xl);
   border-bottom: 1px solid var(--border);
   padding-bottom: var(--space-sm);
 }
 
 h3 {
-  font-size: 1.25rem;
+  font-size: 1.35rem;
 }
 
 h4 {
-  font-size: 1.125rem;
+  font-size: 1.2rem;
 }
 
 p, ul, ol {
@@ -150,7 +150,7 @@ a:hover, a:focus {
 }
 
 .site-title {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 700;
   display: inline-block;
   color: var(--text);
@@ -174,7 +174,7 @@ a:hover, a:focus {
 
 .menu-link {
   color: var(--text-secondary);
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 500;
   padding: var(--space-xs) var(--space-sm);
   border-radius: 4px;
@@ -261,7 +261,7 @@ blockquote p:last-child {
   text-decoration: none;
   color: var(--text);
   flex: 1;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 600;
   line-height: 1.4;
 }
@@ -293,7 +293,7 @@ blockquote p:last-child {
 }
 
 .post-single .post-title {
-  font-size: 2rem;
+  font-size: 2.2rem;
   margin: 0 0 var(--space-md);
   font-weight: 700;
   color: var(--text);
@@ -311,11 +311,6 @@ blockquote p:last-child {
   height: 3px;
   background-color: var(--accent);
   border-radius: 1.5px;
-  transition: width 0.3s ease;
-}
-
-.post-single:hover .post-title::after {
-  width: 100%;
 }
 
 .post-meta {
@@ -335,7 +330,7 @@ blockquote p:last-child {
 /* Post content */
 .post-content {
   line-height: 1.75;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
 }
 
 .post-content h1,
@@ -550,7 +545,7 @@ th {
 }
 
 .intro-content {
-  font-size: 1.125rem;
+  font-size: 1.1rem;
   line-height: 1.7;
 }
 
@@ -767,7 +762,7 @@ th {
 }
 
 .note-date {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--muted);
   display: block;
   margin-bottom: var(--space-xs);
@@ -792,14 +787,14 @@ th {
 }
 
 .note-title {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 600;
   margin: 0 0 var(--space-sm) 0;
 }
 
 .note-content {
   margin-top: var(--space-sm);
-  font-size: 1rem;
+  font-size: 1.05rem;
   line-height: 1.7;
 }
 
