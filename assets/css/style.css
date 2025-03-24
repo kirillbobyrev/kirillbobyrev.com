@@ -32,6 +32,38 @@
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-serif: 'Crimson Pro', Georgia, serif;
   --font-mono: 'JetBrains Mono', monospace;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.85rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.1rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.75rem;
+  --font-size-4xl: 2rem;
+  --font-size-5xl: 2.2rem;
+  --line-height-tight: 1.1;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+  --line-height-loose: 1.8;
+
+  /* Borders & Radiuses */
+  --border-radius-sm: 3px;
+  --border-radius-md: 4px;
+  --border-radius-lg: 6px;
+  --border-radius-xl: 12px;
+  --border-radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+
+  /* Opacity values */
+  --opacity-low: 0.1;
+  --opacity-medium: 0.15;
+  --opacity-high: 0.2;
 
   /* Layout */
   --header-height: 65px;
@@ -44,6 +76,11 @@
   --space-xl: 2rem;
   --space-2xl: 3rem;
   --space-3xl: 4rem;
+
+  /* Icon sizes */
+  --icon-sm: 12px;
+  --icon-md: 16px;
+  --icon-lg: 24px;
 }
 
 /* Dark mode */
@@ -109,31 +146,31 @@ body {
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   line-height: 1.3;
   margin: var(--space-xl) 0 var(--space-md);
   color: var(--text);
 }
 
 h1 {
-  font-size: 2.2rem;
+  font-size: var(--font-size-5xl);
   margin-top: var(--space-lg);
   margin-bottom: var(--space-lg);
 }
 
 h2 {
-  font-size: 1.65rem;
+  font-size: var(--font-size-2xl);
   margin-top: var(--space-2xl);
   border-bottom: 1px solid var(--border);
   padding-bottom: var(--space-sm);
 }
 
 h3 {
-  font-size: 1.35rem;
+  font-size: var(--font-size-xl);
 }
 
 h4 {
-  font-size: 1.2rem;
+  font-size: var(--font-size-lg);
 }
 
 p, ul, ol {
@@ -164,7 +201,7 @@ a:hover, a:focus {
 img {
   max-width: 100%;
   height: auto;
-  border-radius: 4px;
+  border-radius: var(--border-radius-md);
   display: block;
   margin: var(--space-lg) auto;
 }
@@ -206,8 +243,8 @@ pre, code {
 code {
   background-color: var(--code-bg);
   padding: 0.2em 0.4em;
-  border-radius: 3px;
-  font-size: 0.85em;
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
   color: var(--code-text);
   border: 1px solid var(--code-border);
 }
@@ -215,9 +252,9 @@ code {
 pre {
   overflow-x: auto;
   margin: var(--space-lg) 0;
-  line-height: 1.6;
+  line-height: var(--line-height-normal);
   position: relative;
-  border-radius: 6px;
+  border-radius: var(--border-radius-lg);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border: 1px solid var(--code-border);
 }
@@ -378,11 +415,11 @@ th {
 
 .menu-link {
   color: var(--text-secondary);
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
   padding: var(--space-xs) var(--space-sm);
-  border-radius: 4px;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  border-radius: var(--border-radius-md);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
 .menu-link:hover {
@@ -788,15 +825,15 @@ th {
   align-items: center;
   gap: var(--space-xs);
   padding: 0.02rem 0.35rem;
-  border-radius: 12px;
+  border-radius: var(--border-radius-xl);
   font-size: 0.87rem;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   text-decoration: none;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
   margin-right: var(--space-xs);
   margin-bottom: var(--space-xs);
   vertical-align: baseline;
-  line-height: 1.1;
+  line-height: var(--line-height-tight);
   height: auto;
 }
 
@@ -813,8 +850,8 @@ p > .chip-link:only-child {
 }
 
 .chip-link svg {
-  width: 12px;
-  height: 12px;
+  width: var(--icon-sm);
+  height: var(--icon-sm);
   flex-shrink: 0;
 }
 
@@ -825,31 +862,31 @@ p > .chip-link:only-child {
 
 /* Chip Variants */
 .youtube-chip {
-  background-color: rgba(255, 0, 0, 0.1);
+  background-color: rgba(255, 0, 0, var(--opacity-low));
   color: #ff0000;
-  border: 1px solid rgba(255, 0, 0, 0.2);
+  border: 1px solid rgba(255, 0, 0, var(--opacity-medium));
 }
 
 .youtube-chip:hover {
-  background-color: rgba(255, 0, 0, 0.15);
+  background-color: rgba(255, 0, 0, var(--opacity-medium));
 }
 
 .github-chip {
-  background-color: rgba(51, 51, 51, 0.1);
+  background-color: rgba(51, 51, 51, var(--opacity-low));
   color: #333333;
 }
 
 .github-chip:hover {
-  background-color: rgba(51, 51, 51, 0.15);
+  background-color: rgba(51, 51, 51, var(--opacity-medium));
 }
 
 .arxiv-chip {
-  background-color: rgba(178, 26, 44, 0.1);
+  background-color: rgba(178, 26, 44, var(--opacity-low));
   color: #B21A2C;
 }
 
 .arxiv-chip:hover {
-  background-color: rgba(178, 26, 44, 0.15);
+  background-color: rgba(178, 26, 44, var(--opacity-medium));
 }
 
 /* Media Queries */
