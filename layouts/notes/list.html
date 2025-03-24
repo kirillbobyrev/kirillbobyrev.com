@@ -11,8 +11,8 @@
     {{ $notePages := .Pages.ByDate.Reverse }}
     {{ $totalNotes := len $notePages }}
     {{ range $index, $note := $notePages }}
-    <li id="note-{{ sub $totalNotes $index }}" class="note-item" data-note-number="{{ sub $totalNotes $index }}">
-      <a href="{{ $pagePermalink }}/#note-{{ sub $totalNotes $index }}" class="note-anchor">#</a>
+    <li id="note-{{ sub $totalNotes $index }}" class="note-item">
+      <a href="{{ $pagePermalink }}/#note-{{ sub $totalNotes $index }}" class="note-number">{{ sub $totalNotes $index }}</a>
       <div class="note-header">
         <time class="note-date" datetime="{{ .Date.Format "2006-01-02 15:04" }}">
           {{ .Date.Format "2006-01-02 15:04" }}
