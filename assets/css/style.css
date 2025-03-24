@@ -793,6 +793,9 @@ th {
   line-height: 1.7;
   width: 100%;
   display: block;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 .note-content p:last-child {
@@ -803,6 +806,8 @@ th {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .note-content pre,
@@ -810,6 +815,15 @@ th {
   width: 100%;
   max-width: 100%;
   overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.note-content a {
+  word-break: break-all;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 .note-content img {
@@ -992,6 +1006,42 @@ p > .chip-link:only-child {
   .page-title {
     font-size: 1.75rem;
     margin-bottom: var(--space-lg);
+  }
+
+  .note-content {
+    overflow-x: hidden;
+  }
+
+  .note-item {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .notes-feed {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .notes-list {
+    overflow-x: hidden;
+  }
+
+  .blockquote {
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .note-content a {
+    hyphens: auto;
+    overflow-wrap: break-word;
+    word-break: break-all;
+  }
+
+  .note-content pre,
+  .note-content code {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 }
 
