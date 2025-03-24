@@ -1,5 +1,8 @@
 {{- $repo := .Get 0 -}}
-{{- $title := .Get 1 -}}
+{{- $title := $repo -}}
+{{- if .Get 1 -}}
+  {{- $title = .Get 1 -}}
+{{- end -}}
 {{- $html := printf `<a href="https://github.com/%s" class="chip-link github-chip" target="_blank"
   rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"
     fill="currentColor">

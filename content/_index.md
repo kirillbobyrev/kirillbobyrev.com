@@ -31,7 +31,7 @@ documented the project’s
 [design](https://docs.google.com/document/d/1C-A6PGT6TynyaX4PXyExNMiGmJ2jL1UwV91Kyx11gOI/)
 and showcased my results at the LLVM Developers Meeting through a
 [presentation](https://www.youtube.com/watch?v=VhxrFor3VyQ).
-
+Make sure that only the blog
 After graduation, I rejoined the team in :de: Munich at Google, working
 extensively on clangd, Clang, and LLVM. I developed key tools like [Remote
 Index](https://clangd.llvm.org/design/remote-index) and [Include
