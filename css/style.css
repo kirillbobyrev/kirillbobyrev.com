@@ -787,16 +787,16 @@ th {
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: 16px;
-  font-size: 0.875rem;
+  padding: 0.02rem 0.35rem;
+  border-radius: 12px;
+  font-size: 0.87rem;
   font-weight: 500;
   text-decoration: none;
   transition: background-color 0.2s ease, transform 0.2s ease;
   margin-right: var(--space-xs);
   margin-bottom: var(--space-xs);
   vertical-align: baseline;
-  line-height: normal;
+  line-height: 1.1;
   height: auto;
 }
 
@@ -813,8 +813,8 @@ p > .chip-link:only-child {
 }
 
 .chip-link svg {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   flex-shrink: 0;
 }
 
