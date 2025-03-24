@@ -14,40 +14,37 @@
   {{ site.Title }}
 </title>
 
+<!-- Meta tags -->
 {{ with site.Params }}
-{{ with .author }}
-<meta name="author" content="{{ . }}">
-{{ end }}
-{{ with .description }}
-<meta name="description" content="{{ . }}">
-{{ end }}
-{{ with .keywords }}
-<meta name="keywords" content={{ delimit . "," }}>
-{{ end }}
+  {{ with .author }}
+  <meta name="author" content="{{ . }}">
+  {{ end }}
+  {{ with .description }}
+  <meta name="description" content="{{ . }}">
+  {{ end }}
+  {{ with .keywords }}
+  <meta name="keywords" content={{ delimit . "," }}>
+  {{ end }}
 {{ end }}
 
+<!-- Analytics, OpenGraph, Twitter Cards -->
 {{ template "_internal/google_analytics.html" . }}
+{{ if site.Params.opengraph }}{{ template "_internal/opengraph.html" . }}{{ end }}
+{{ if site.Params.twitterCards }}{{ template "_internal/twitter_cards.html" . }}{{ end }}
 
-{{ if site.Params.twitterCards }}
-{{ template "_internal/twitter_cards.html" . }}
-{{ end }}
-
-{{ if site.Params.opengraph }}
-{{ template "_internal/opengraph.html" . }}
-{{ end }}
-
+<!-- Alternative output formats -->
 {{ range .AlternativeOutputFormats -}}
-{{ printf `
-<link rel="%s" type="%s" href="%s" title="%s">` .Rel .MediaType.Type .RelPermalink site.Title | safeHTML }}
+  <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .RelPermalink }}" title="{{ site.Title }}">
 {{ end -}}
 
+<!-- Math support -->
 {{ partialCached "math.html" . }}
 
-<!-- Use emoji as favicon -->
+<!-- Emoji favicon -->
 <link rel="icon"
   href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>😼</text></svg>">
 
-<!-- Preload fonts -->
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style"

@@ -6,14 +6,14 @@
   </div>
   {{ end }}
 
-  <ul class="notes-feed" aria-label="Notes">
+  <ul class="notes-feed">
     {{ $pagePermalink := .Permalink }}
     {{ $notePages := .Pages.ByDate.Reverse }}
     {{ $totalNotes := len $notePages }}
     {{ range $index, $note := $notePages }}
     <li id="note-{{ sub $totalNotes $index }}" class="note-item">
-      <a href="{{ $pagePermalink }}/#note-{{ sub $totalNotes $index }}" class="note-number">{{ sub $totalNotes $index }}</a>
       <div class="note-header">
+        <a href="{{ $pagePermalink }}/#note-{{ sub $totalNotes $index }}" class="note-number" aria-label="Note {{ sub $totalNotes $index }}">{{ sub $totalNotes $index }}</a>
         <time class="note-date" datetime="{{ .Date.Format "2006-01-02 15:04" }}">
           {{ .Date.Format "2006-01-02 15:04" }}
         </time>

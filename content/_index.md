@@ -4,13 +4,13 @@ menu = 'main'
 weight = 1
 +++
 
-I'm a Software Engineer at Waymo in :us: San Francisco Bay Area. I work on
-Simulation and build Machine Learning models to make self-driving vehicles
+I'm a software engineer at Waymo in :us: San Francisco Bay Area. I work on
+simulation and build machine learning models to make self-driving vehicles
 safer.
 
 ## Work & Education
 
-I grew up in :ru: Moscow and earned my Bachelor’s degree in applied mathematics
+I grew up in :ru: Moscow and earned my bachelor’s degree in applied mathematics
 and physics from
 [MIPT](https://en.wikipedia.org/wiki/Moscow_Institute_of_Physics_and_Technology).
 My journey into computer science started during my first year at university
@@ -36,7 +36,7 @@ After graduation, I rejoined the team in :de: Munich at Google, working
 extensively on clangd, Clang, and LLVM. I developed key tools like [Remote
 Index](https://clangd.llvm.org/design/remote-index) and [Include
 Cleaner](https://clangd.llvm.org/design/include-cleaner). In a team without a
-dedicated Product Manager, I stepped up to bridge that gap—conducting UX
+dedicated product manager, I stepped up to bridge that gap—conducting UX
 interviews, running surveys, gathering feedback, and prioritizing user needs. My
 time at the Yandex School of Management
 ([ШМЯ](https://academy.yandex.ru/schools/management)) also equipped me with the
@@ -51,8 +51,8 @@ ensure the safety of our self-driving systems.
 
 When I'm not immersed in code, you'll find me training in Jiu Jitsu, challenging
 opponents in chess, or exploring new places. I also enjoy competitive
-programming and diving deeper into computer science — feel free to browse my
-[collection of
-resources](https://github.com/kirillbobyrev/computer-science-resources). I’m
-fluent in English, Russian, and German, and I share my life with two mischievous
-Abyssinian cats :cat:.
+programming and learning more about computer science and machine learning
+(through a [collection of
+resources](https://github.com/kirillbobyrev/computer-science-resources) I've
+gathered). I’m fluent in English, Russian, and German, and I live with two
+mischievous Abyssinian cats :cat:.

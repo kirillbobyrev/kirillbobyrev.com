@@ -68,17 +68,16 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.container {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
 .site-main {
   flex: 1;
   padding: var(--space-lg) 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 /* Typography */
@@ -150,7 +149,7 @@ a:focus {
   padding-bottom: var(--space-md);
 }
 
-.header-container {
+.site-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -171,12 +170,7 @@ a:focus {
   text-decoration: none;
 }
 
-.site-nav {
-  display: flex;
-  align-items: center;
-}
-
-.menu-nav {
+.menu {
   display: flex;
   gap: var(--space-md);
 }
@@ -323,13 +317,12 @@ blockquote p:last-child {
   border-radius: 1.5px;
 }
 
+/* Post meta information */
 .post-meta {
-  font-size: 0.875rem;
-  color: var(--muted);
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-md);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  display: block;
+  margin-top: var(--space-sm);
   margin-bottom: var(--space-lg);
 }
 
@@ -452,57 +445,52 @@ th {
   height: 24px;
 }
 
-/* Responsive */
+/* Mobile adjustments */
 @media screen and (max-width: 768px) {
   html {
-    font-size: 15px;
+    font-size: 16px;
   }
 
   body {
-    padding: var(--space-md);
+    padding: var(--space-lg) var(--space-md);
   }
 
-  .header-container {
+  .site-nav {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-sm);
   }
 
-  .site-nav {
-    width: 100%;
-    margin-top: var(--space-sm);
-  }
-
-  .menu-nav {
+  .menu {
     width: 100%;
     overflow-x: auto;
     padding-bottom: var(--space-xs);
   }
 
   .post-item {
-    margin-bottom: var(--space-lg);
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .post-title {
-    font-size: 1.25rem;
+    font-size: 1.8rem;
   }
 
   .post-single .post-title {
-    font-size: 1.5rem;
+    font-size: 1.9rem;
   }
 
   .post-meta {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-xs);
+    margin-top: var(--space-sm);
+    font-size: 0.85rem;
   }
 
   h1 {
-    font-size: 1.75rem;
+    font-size: 1.9rem;
   }
 
   h2 {
-    font-size: 1.35rem;
+    font-size: 1.5rem;
   }
 
   pre {
@@ -511,13 +499,13 @@ th {
 
   .footer-content {
     flex-direction: column;
-    align-items: center;
-    text-align: center;
     gap: var(--space-md);
+    align-items: flex-start;
+    text-align: left;
   }
 
   .social-links {
-    justify-content: center;
+    justify-content: flex-start;
   }
 }
 
@@ -530,10 +518,6 @@ th {
   to {
     opacity: 1;
   }
-}
-
-.site-main {
-  animation: fadeIn 0.3s ease-in-out;
 }
 
 /* Print styles */
@@ -560,7 +544,7 @@ th {
 /* Home Page */
 .home-intro {
   margin-bottom: var(--space-2xl);
-  padding-bottom: var(--space-xl);
+  margin-top: var(--space-xl);
 }
 
 .intro-content {
@@ -607,8 +591,8 @@ th {
 
 @media screen and (max-width: 768px) {
   .home-intro {
+    margin-top: var(--space-lg);
     margin-bottom: var(--space-xl);
-    padding-bottom: var(--space-lg);
   }
 
   .intro-content {
@@ -739,18 +723,22 @@ th {
 /* Notes styles */
 .notes-list {
   margin-top: 0;
+  width: 100%;
 }
 
 .notes-feed {
   list-style: none;
   padding: 0;
   counter-reset: notes-counter;
+  width: 100%;
 }
 
 .note-item {
   position: relative;
-  padding: var(--space-md) 0 var(--space-md) 2.5rem;
   margin-bottom: var(--space-md);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .note-item:not(:last-child) {
@@ -765,16 +753,15 @@ th {
 .note-header {
   display: flex;
   flex-direction: column;
-}
-
-.note-item::before {
-  content: none;
+  width: 100%;
+  padding-left: 2.5rem;
+  position: relative;
 }
 
 .note-number {
   position: absolute;
   left: 0;
-  top: calc(var(--space-md) + 0.1rem);
+  top: 0.1rem;
   font-family: var(--font-mono);
   font-size: 0.9rem;
   font-weight: 600;
@@ -810,16 +797,40 @@ th {
   font-size: 1.2rem;
   font-weight: 600;
   margin: 0 0 var(--space-sm) 0;
+  width: 100%;
 }
 
 .note-content {
-  margin-top: var(--space-sm);
+  margin-top: var(--space-md);
   font-size: 1.05rem;
   line-height: 1.7;
+  width: 100%;
+  display: block;
 }
 
 .note-content p:last-child {
   margin-bottom: 0;
+}
+
+/* Make sure note content takes full width */
+.note-content>* {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.note-content pre,
+.note-content code {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.note-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: var(--space-lg) auto;
 }
 
 /* Chip Links */
@@ -841,7 +852,7 @@ th {
 }
 
 /* Make shortcodes appear as block elements when in Markdown blocks */
-p > .chip-link:only-child {
+p>.chip-link:only-child {
   display: flex;
   width: fit-content;
   margin-top: var(--space-sm);

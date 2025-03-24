@@ -1,9 +1,6 @@
 {{ define "main" }}
   {{ partial "social-links.html" . }}
-
-  <div class="home-intro">
-    <div class="intro-content">
-      {{ .Content }}
-    </div>
-  </div>
+  <section class="home-intro">
+    {{ .Content }}
+  </section>
 {{ end }}
