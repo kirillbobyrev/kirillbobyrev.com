@@ -382,7 +382,6 @@ th {
 
 /* Header */
 .site-header {
-  margin-bottom: var(--space-xl);
   border-bottom: 1px solid var(--border);
   padding-bottom: var(--space-md);
 }
