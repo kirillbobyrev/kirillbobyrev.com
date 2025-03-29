@@ -850,13 +850,6 @@ th {
   height: auto;
 }
 
-p > .chip-link:only-child {
-  display: flex;
-  width: fit-content;
-  margin-top: var(--space-sm);
-  margin-bottom: var(--space-sm);
-}
-
 .chip-link:hover {
   transform: translateY(-1px);
   text-decoration: none;
@@ -902,6 +895,16 @@ p > .chip-link:only-child {
   background-color: rgba(178, 26, 44, var(--opacity-medium));
 }
 
+.course-chip {
+  background-color: rgba(66, 153, 225, var(--opacity-low)); /* Use accent blue */
+  color: var(--link);
+  border: 1px solid rgba(66, 153, 225, var(--opacity-medium));
+}
+
+.course-chip:hover {
+  background-color: rgba(66, 153, 225, var(--opacity-medium));
+}
+
 /* Media Queries */
 @media screen and (max-width: 768px) {
   html {
@@ -938,6 +941,7 @@ p > .chip-link:only-child {
   }
 
   .post-date {
+    font-size: 0.8rem;
     width: auto;
     margin-bottom: var(--space-xs);
   }
@@ -1042,6 +1046,12 @@ p > .chip-link:only-child {
     max-width: 100%;
     box-sizing: border-box;
   }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
 }
 
 /* Dark mode chip adjustments */
@@ -1077,6 +1087,16 @@ p > .chip-link:only-child {
 
   .youtube-chip:hover {
     background-color: rgba(255, 0, 0, 0.25);
+  }
+
+  .course-chip {
+    background-color: rgba(99, 179, 237, 0.15); /* Adjust blue for dark mode */
+    color: var(--link);
+    border: 1px solid rgba(99, 179, 237, 0.3);
+  }
+
+  .course-chip:hover {
+    background-color: rgba(99, 179, 237, 0.25);
   }
 }
 

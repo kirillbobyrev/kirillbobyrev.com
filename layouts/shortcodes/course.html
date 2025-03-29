@@ -1,0 +1,4 @@
+{{- $url := .Get 0 -}}
+{{- $name := .Get 1 -}}
+{{- $html := printf `<a href="%s" class="chip-link course-chip" target="_blank" rel="noopener noreferrer">📚<span>%s</span></a>` $url $name -}}
+{{- $html | safeHTML -}}
