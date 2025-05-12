@@ -3,7 +3,7 @@
 /* Variables */
 :root {
   /* Colors - Light mode */
-  --text: #2d3748;
+  --text: #1A202C;
   --text-secondary: #4a5568;
   --bg: #ffffff;
   --bg-secondary: #f7fafc;
@@ -145,7 +145,12 @@ body {
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: var(--font-weight-semibold);
   line-height: 1.25;
   margin: var(--space-lg) 0 var(--space-sm);
@@ -173,11 +178,14 @@ h4 {
   font-size: var(--font-size-lg);
 }
 
-p, ul, ol {
+p,
+ul,
+ol {
   margin-bottom: var(--space-md);
 }
 
-ul, ol {
+ul,
+ol {
   padding-left: var(--space-xl);
 }
 
@@ -192,7 +200,8 @@ a {
   transition: color 0.2s ease;
 }
 
-a:hover, a:focus {
+a:hover,
+a:focus {
   color: var(--link-hover);
   text-decoration: underline;
 }
@@ -235,7 +244,8 @@ blockquote p:last-child {
 }
 
 /* Code */
-pre, code {
+pre,
+code {
   font-family: var(--font-mono);
   font-size: 0.9rem;
 }
@@ -268,7 +278,7 @@ pre:before {
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
-  border-radius: 5px 5px 0 0;
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
   font-family: var(--font-sans);
   letter-spacing: 0.5px;
 }
@@ -370,7 +380,8 @@ thead {
   background-color: var(--bg-secondary);
 }
 
-th, td {
+th,
+td {
   padding: var(--space-sm) var(--space-md);
   text-align: left;
   border: 1px solid var(--border);
@@ -799,7 +810,7 @@ th {
   margin-bottom: 0;
 }
 
-.note-content > * {
+.note-content>* {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
@@ -894,7 +905,8 @@ th {
 }
 
 .course-chip {
-  background-color: rgba(66, 153, 225, var(--opacity-low)); /* Use accent blue */
+  background-color: rgba(66, 153, 225, var(--opacity-low));
+  /* Use accent blue */
   color: var(--link);
   border: 1px solid rgba(66, 153, 225, var(--opacity-medium));
 }
@@ -1088,7 +1100,8 @@ th {
   }
 
   .course-chip {
-    background-color: rgba(99, 179, 237, 0.15); /* Adjust blue for dark mode */
+    background-color: rgba(99, 179, 237, 0.15);
+    /* Adjust blue for dark mode */
     color: var(--link);
     border: 1px solid rgba(99, 179, 237, 0.3);
   }
@@ -1103,6 +1116,7 @@ th {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -1121,12 +1135,12 @@ th {
   user-select: none;
 }
 
-.line-numbers-rows > span {
+.line-numbers-rows>span {
   display: block;
   counter-increment: linenumber;
 }
 
-.line-numbers-rows > span:before {
+.line-numbers-rows>span:before {
   content: counter(linenumber);
   color: var(--muted);
   display: block;
@@ -1154,7 +1168,8 @@ th {
     display: none;
   }
 
-  pre, code {
+  pre,
+  code {
     background-color: #f5f5f5 !important;
     border: 1px solid #ddd !important;
     color: #333 !important;
