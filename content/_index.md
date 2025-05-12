@@ -49,10 +49,9 @@ ensure the safety of our self-driving systems.
 
 ## Outside of Work
 
-When I'm not immersed in code, you'll find me training in Jiu Jitsu, challenging
-opponents in chess, or exploring new places. I also enjoy competitive
-programming and learning more about computer science and machine learning
-(through a [collection of
-resources](https://github.com/kirillbobyrev/computer-science-resources) I've
+When I'm not working, you'll find me training in Jiu Jitsu, playing opponents in
+chess, or exploring new places. I also enjoy competitive programming and
+learning more about computer science and machine learning (through a [collection
+of resources](https://github.com/kirillbobyrev/computer-science-resources) I've
 gathered). I’m fluent in English, Russian, and German, and I live with two
 mischievous Abyssinian cats :cat:.
