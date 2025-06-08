@@ -2,4 +2,4 @@
 title = 'Home'
 +++
 
-Welcome to my minimal personal blog built with Hugo.
+Hi, I'm Kirill Bobyrev. This is my personal blog about programming and AI.
