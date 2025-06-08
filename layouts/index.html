@@ -1,6 +1,10 @@
 {{ define "main" }}
-  {{ partial "social-links.html" . }}
-  <section class="home-intro">
-    {{ .Content }}
-  </section>
+{{ .Content }}
+<h2>Latest Posts</h2>
+<ul>
+  {{ $blog := site.GetPage "blog" }}
+  {{ range first 5 $blog.Pages.ByDate.Reverse }}
+  <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+  {{ end }}
+</ul>
 {{ end }}

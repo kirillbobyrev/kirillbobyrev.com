@@ -1,38 +1,22 @@
-baseURL = 'https://kirillbobyrev.com/'
+baseURL = 'https://example.com/'
+languageCode = 'en-us'
+title = 'Kirill Bobyrev'
 enableEmoji = true
 enableRobotsTXT = true
-googleAnalytics = 'G-RHCZGDQQJR'
-languageCode = 'en'
-title = 'Kirill Bobyrev'
 disableKinds = ['taxonomy', 'term']
-enableGitInfo = true
 
 [params]
-  description = 'Blog about Software Engineering and hobbies by Kirill Bobyrev'
-  twitterCards = true
-  opengraph = true
-  dateDisplayFormat = '2 Jan, 2006'
-  images = ['images/twitter.png']
-  keywords = ['software engineering', 'programming', 'machine learning', 'tech blog']
-  [params.author]
-    name = 'Kirill Bobyrev'
-  # This is needed for _internal/twitter_cards.html
-  [params.social]
-    twitter = 'kirillbobyrev'
+  dateDisplayFormat = '2 Jan 2006'
 
 [markup]
   [markup.highlight]
     codeFences = true
     guessSyntax = true
     noClasses = false
-    tabWidth = 2
   [markup.goldmark]
     [markup.goldmark.extensions]
       [markup.goldmark.extensions.passthrough]
         enable = true
         [markup.goldmark.extensions.passthrough.delimiters]
-          block = [['\[', '\]'], ['$$', '$$']]
-          inline = [['\(', '\)']]
-
-[sitemap]
-  changefreq = 'weekly'
+          block = [['\\[', '\\]'], ['$$', '$$']]
+          inline = [['\\(', '\\)']]

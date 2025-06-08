@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="{{ site.Language.Lang }}">
-
 <head>
-  {{ partial "head.html" . }}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ if .Title }}{{ .Title }} | {{ end }}{{ site.Title }}</title>
+  <link rel="stylesheet" href="{{ resources.Get "css/style.css" | relURL }}">
+  {{ partial "math.html" . }}
 </head>
-
 <body>
-  <header class="site-header">
-    {{ partialCached "header.html" . }}
+  <header>
+    <nav>
+      <a href="{{ site.BaseURL }}">{{ site.Title }}</a>
+      {{ with site.Menus.main }}{{ range . }} | <a href="{{ .URL }}">{{ .Name }}</a>{{ end }}{{ end }}
+    </nav>
   </header>
-  <main id="content" class="site-main">
+  <main>
     {{ block "main" . }}{{ end }}
   </main>
 </body>
-
 </html>
