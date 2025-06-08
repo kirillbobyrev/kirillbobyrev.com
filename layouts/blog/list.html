@@ -1,10 +1,10 @@
 {{ define "main" }}
 {{ if .Content }}{{ .Content }}{{ end }}
-<ul>
+<ul class="blog-posts">
   {{ range .Pages.ByDate.Reverse }}
   <li>
+    <span>{{ .Date.Format site.Params.dateDisplayFormat }}</span>
     <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format site.Params.dateDisplayFormat }}</time>
   </li>
   {{ end }}
 </ul>

@@ -9,13 +9,18 @@
 </head>
 <body>
   <header>
+    <a class="title" href="{{ "/" | relURL }}">
+      <h1>{{ site.Title }}</h1>
+    </a>
     <nav>
-      <a href="{{ site.BaseURL }}">{{ site.Title }}</a>
-      {{ with site.Menus.main }}{{ range . }} | <a href="{{ .URL }}">{{ .Name }}</a>{{ end }}{{ end }}
+      {{ with site.Menus.main }}{{ range . }}<a href="{{ .URL }}">{{ .Name }}</a>{{ end }}{{ end }}
     </nav>
   </header>
   <main>
     {{ block "main" . }}{{ end }}
   </main>
+  <footer>
+    <p><i>Powered by Hugo</i></p>
+  </footer>
 </body>
 </html>

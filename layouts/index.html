@@ -1,10 +1,13 @@
 {{ define "main" }}
 {{ .Content }}
 <h2>Latest Posts</h2>
-<ul>
+<ul class="blog-posts">
   {{ $blog := site.GetPage "blog" }}
   {{ range first 5 $blog.Pages.ByDate.Reverse }}
-  <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+  <li>
+    <span>{{ .Date.Format site.Params.dateDisplayFormat }}</span>
+    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+  </li>
   {{ end }}
 </ul>
 {{ end }}
