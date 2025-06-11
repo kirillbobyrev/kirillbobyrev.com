@@ -1,14 +1,20 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="scroll-smooth">
-{{- partial "head.html" . -}}
+  {{- partial "head.html" . -}}
 
-<body class="bg-white text-gray-800 dark:bg-gray-950 dark:text-gray-200 leading-relaxed selection:bg-pink-300/40">
-  <div>
-    {{- partial "header.html" . -}}
-    <main id="content" role="main" class="w-full max-w-3xl mx-auto px-4 flex-1">
-      {{- block "main" . }}{{ end }}
-    </main>
-  </div>
-</body>
 
+  <body
+    class="bg-white text-gray-800 dark:bg-gray-950 dark:text-gray-200 leading-relaxed selection:bg-pink-300/40"
+  >
+    <div>
+      {{- partial "header.html" . -}}
+      <main
+        id="content"
+        role="main"
+        class="w-full max-w-3xl mx-auto px-4 pb-10 flex-1"
+      >
+        {{- block "main" . }}{{ end }}
+      </main>
+    </div>
+  </body>
 </html>

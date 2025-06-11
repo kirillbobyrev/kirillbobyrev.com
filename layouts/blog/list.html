@@ -1,19 +1,23 @@
 {{ define "main" }}
+  <section aria-label="Posts" class="space-y-6">
+    {{ range .Paginator.Pages }}
+      <article>
+        <header>
+          <h2 class="text-xl font-semibold mb-1">
+            <a href="{{ .RelPermalink }}" class="hover:underline">
+              {{ .Title }}
+            </a>
+          </h2>
+          <time
+            datetime="{{ .Date.Format " 2006-01-02" }}"
+            class="block text text-gray-500 mb-2"
+          >
+            {{ .Date.Format "Jan 2, 2006" }}
+          </time>
+        </header>
+      </article>
+    {{ end }}
+  </section>
 
-<section aria-label="Posts" class="space-y-6">
-  {{ range .Paginator.Pages }}
-  <article>
-    <header>
-      <h2 class="text-lg font-semibold mb-1">
-        <a href="{{ .RelPermalink }}" class="hover:underline">{{ .Title }}</a>
-      </h2>
-      <time datetime="{{ .Date.Format " 2006-01-02" }}" class="block text-sm text-gray-500 mb-2">
-        {{ .Date.Format "Jan 2, 2006" }}
-      </time>
-    </header>
-  </article>
-  {{ end }}
-</section>
-
-{{ template "_internal/pagination.html" . }}
+  {{ template "_internal/pagination.html" . }}
 {{ end }}

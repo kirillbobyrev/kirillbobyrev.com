@@ -11,9 +11,6 @@ draft = true
   - bearblog
   - karpathy
 
-* asd
-* asd
-
 ```c++
 #include <iostream>
 #include <vector>
