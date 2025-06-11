@@ -1,39 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Home on Kirill Bobyrev</title><link>https://kirillbobyrev.com/</link><description>Recent content in Home on Kirill Bobyrev</description><generator>Hugo</generator><language>en</language><atom:link href="https://kirillbobyrev.com/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>https://kirillbobyrev.com/notes/mit-diffusion/</link><pubDate>Wed, 26 Mar 2025 11:24:29 +0000</pubDate><guid>https://kirillbobyrev.com/notes/mit-diffusion/</guid><description>&lt;p>Diffusion is taking the world of generative machine learning by storm and there
-are two MIT courses on diffusion models that were just released publicly:&lt;/p>
-&lt;ul>
-&lt;li>&lt;a href="https://www.practical-diffusion.org/" class="chip-link course-chip" target="_blank" rel="noopener noreferrer">📚&lt;span>A Practical Introduction to Diffusion Models&lt;/span>&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://diffusion.csail.mit.edu/" class="chip-link course-chip" target="_blank" rel="noopener noreferrer">📚&lt;span>Introduction to Flow Matching and Diffusion Models&lt;/span>&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;p>Both are amazing if you want to learn more about diffusion. I&amp;rsquo;m working through
-them, too, as I recently started working on diffusion-based models at work.&lt;/p></description></item><item><title>Creating beautiful visualizations in Python</title><link>https://kirillbobyrev.com/blog/python-visualizations/</link><pubDate>Wed, 08 Jan 2025 00:00:00 +0000</pubDate><guid>https://kirillbobyrev.com/blog/python-visualizations/</guid><description>&lt;p>I recently started watching a lot of educational videos on YouTube and was
-fascinated by the quality of both explanations and the accompanying
-visualizations. Animations and visual explanations both help keep the attention
-and also improve my understanding a lot, since I&amp;rsquo;m definitely a visual learner.&lt;/p>
-&lt;p>&lt;a href="https://www.youtube.com/c/3blue1brown" class="chip-link youtube-chip" target="_blank"
- rel="noopener noreferrer">&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"
- fill="currentColor">
- &lt;path
- d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
- &lt;/svg>&lt;span>3Blue1Brown&lt;/span>&lt;/a> is probably
-one of the most popular channels that features great visuals to explain a large
-number of interesting concepts of Mathematics and Computer Science. Channel
-author even created and open-sourced the software that he uses for all
-animations and put it on GitHub: &lt;a href="https://github.com/3b1b/manim" class="chip-link github-chip" target="_blank"
- rel="noopener noreferrer">&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"
- fill="currentColor">
- &lt;path
- d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
- &lt;/svg>&lt;span>3b1b/manim&lt;/span>&lt;/a>. But apparently it
-was forked into
-&lt;a href="https://github.com/ManimCommunity/manim" class="chip-link github-chip" target="_blank"
- rel="noopener noreferrer">&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"
- fill="currentColor">
- &lt;path
- d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
- &lt;/svg>&lt;span>ManimCommunity/manim&lt;/span>&lt;/a>, which features an enhanced version of the
-package with more thorough testing, documentation and better user experience.
-The community also has active Discord and a bunch of impressive
-&lt;a href="https://docs.manim.community/en/stable/examples.html">examples&lt;/a>.&lt;/p></description></item><item><title>Anki: the ultimate tool for learning</title><link>https://kirillbobyrev.com/blog/anki/</link><pubDate>Thu, 02 Jan 2025 00:00:00 +0000</pubDate><guid>https://kirillbobyrev.com/blog/anki/</guid><description>&lt;p>Being a Software Engineer means constantly learning new things, and streamlining
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Home on Kirill Bobyrev</title><link>https://kirillbobyrev.com/</link><description>Recent content in Home on Kirill Bobyrev</description><generator>Hugo</generator><language>en</language><atom:link href="https://kirillbobyrev.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Anki: the ultimate tool for learning</title><link>https://kirillbobyrev.com/blog/anki/</link><pubDate>Thu, 02 Jan 2025 00:00:00 +0000</pubDate><guid>https://kirillbobyrev.com/blog/anki/</guid><description>&lt;p>Being a Software Engineer means constantly learning new things, and streamlining
 the learning process while making sure I don&amp;rsquo;t forget things I already learned
 along the way is an important topic for me. &lt;a href="https://apps.ankiweb.net/">Anki&lt;/a> is
 one of the best tools I found for myself to make the learning process enjoyable
@@ -44,30 +9,12 @@ principles of &lt;a href="https://en.wikipedia.org/wiki/Spaced_repetition">space
 repetition&lt;/a>. This approach
 optimizes your study sessions by spacing out reviews of material just before
 you’re likely to forget, making your learning process both efficient and
-effective.&lt;/p></description></item><item><title>Analyzing long win streaks in online chess</title><link>https://kirillbobyrev.com/blog/analyzing-long-win-streaks/</link><pubDate>Tue, 28 Nov 2023 00:00:00 +0000</pubDate><guid>https://kirillbobyrev.com/blog/analyzing-long-win-streaks/</guid><description>&lt;p>In-depth analysis of recent data suggests a high likelihood of Hikaru
-Nakamura achieving a 55-game winning streak in online blitz, based on thousands
-of his games played this year (and even more likely given that Hikaru just
-crossed 35,000 blitz games mark on Chess.com alone). Similarly, longest streaks
-by Magnus Carlsen (32 wins), Nihal Sarin (22 wins), and Daniel Naroditsky (33
-wins) align with statistical expectations. The occurrence of both short (10+
-wins) and long (15+ wins) streaks among these elite players is also found to be
-probable and not out of the ordinary. A simple explanation of Hikaru&amp;rsquo;s
-performance is that he plays an enormous number of games online, is highly
-skilled and (on average) has much weaker opponents than his peers (moreover, he
-specifically &lt;a href="https://www.youtube.com/watch?v=wDUCMEgYKrE&amp;amp;t=435s">mentions&lt;/a>
-cherry-picking opponents in order to score many points and create good content).&lt;/p></description></item><item><title/><link>https://kirillbobyrev.com/notes/ps5/</link><pubDate>Thu, 23 Mar 2023 10:42:51 +0000</pubDate><guid>https://kirillbobyrev.com/notes/ps5/</guid><description>&lt;p>Just got myself a PlayStation 5 Pro after a lifetime of PC gaming! Initial
-thoughts:&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>Simplicity wins:&lt;/strong> The user experience is undeniably streamlined – no
-more PC maintenance headaches!&lt;/li>
-&lt;li>&lt;strong>Controller magic:&lt;/strong> Some games, like Ghost of Tsushima, feel incredible
-with the PS5 controller&amp;rsquo;s features.&lt;/li>
-&lt;li>&lt;strong>Pricey games:&lt;/strong> The cost of games is definitely higher.&lt;/li>
-&lt;li>&lt;strong>Library lock-in:&lt;/strong> Missing the cross-platform library sharing (though
-that &lt;a href="https://www.theverge.com/news/633478/microsoft-xbox-steam-games-support-ui">might
-change&lt;/a>
-on Xbox?).&lt;/li>
-&lt;li>&lt;strong>App design:&lt;/strong> The PS App on iOS and Android could definitely be better.&lt;/li>
-&lt;/ul>
-&lt;p>Ultimately, it&amp;rsquo;s a fun new experience! Playing on a big screen and co-op with
-friends is great.&lt;/p></description></item></channel></rss>
+effective.&lt;/p></description></item><item><title>Analyzing long win streaks in online chess</title><link>https://kirillbobyrev.com/blog/analyzing-long-win-streaks/</link><pubDate>Tue, 28 Nov 2023 00:00:00 +0000</pubDate><guid>https://kirillbobyrev.com/blog/analyzing-long-win-streaks/</guid><description>&lt;p>&lt;strong>TL;DR&lt;/strong> Vladimir Kramnik has recently suggested that Hikaru Nakamura&amp;rsquo;s
+exceptional winning streaks in online blitz chess might indicate suspicious
+activity, potentially hinting at cheating. I was curious whether this claim has
+any ground and decided to analyze the data myself. I gathered data on Hikaru&amp;rsquo;s
+games on Chess.com and compared his performance to other top players. I found
+that Hikaru&amp;rsquo;s long winning streaks are statistically probable given his high
+rating and the significantly lower average rating of his opponents. I also found
+that other top players, such as Daniel Naroditsky, have similar patterns of
+winning streaks, which suggests that these streaks are not unique to Hikaru.&lt;/p></description></item></channel></rss>
