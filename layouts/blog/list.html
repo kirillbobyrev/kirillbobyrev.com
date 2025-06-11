@@ -1,18 +1,19 @@
 {{ define "main" }}
-<section class="blog-list">
-  {{ if .Content }}
-  <div class="section-content">
-    {{ .Content }}
-  </div>
-  {{ end }}
 
-  <ul class="post-list" aria-label="Blog posts">
-    {{ range .Pages }}
-    <li class="post-item">
-      <time class="post-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format site.Params.dateDisplayFormat }}</time>
-      <a href="{{ .Permalink }}" class="post-link">{{ .Title }}</a>
-    </li>
-    {{ end }}
-  </ul>
+<section aria-label="Posts" class="space-y-6">
+  {{ range .Paginator.Pages }}
+  <article>
+    <header>
+      <h2 class="text-3xl font-semibold mb-1">
+        <a href="{{ .RelPermalink }}" class="hover:underline">{{ .Title }}</a>
+      </h2>
+      <time datetime="{{ .Date.Format " 2006-01-02" }}" class="block text-xs text-gray-500 mb-2">
+        {{ .Date.Format "Jan 2, 2006" }}
+      </time>
+    </header>
+  </article>
+  {{ end }}
 </section>
+
+{{ template "_internal/pagination.html" . }}
 {{ end }}

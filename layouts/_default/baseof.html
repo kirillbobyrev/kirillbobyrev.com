@@ -1,17 +1,14 @@
 <!DOCTYPE html>
-<html lang="{{ site.Language.Lang }}">
+<html lang="en" class="scroll-smooth">
+{{- partial "head.html" . -}}
 
-<head>
-  {{ partial "head.html" . }}
-</head>
-
-<body>
-  <header class="site-header">
-    {{ partialCached "header.html" . }}
-  </header>
-  <main id="content" class="site-main">
-    {{ block "main" . }}{{ end }}
-  </main>
+<body class="bg-white text-gray-800 dark:bg-gray-950 dark:text-gray-200 leading-relaxed selection:bg-pink-300/40">
+  <div>
+    {{- partial "header.html" . -}}
+    <main id="content" role="main" class="w-full max-w-3xl mx-auto px-4 flex-1">
+      {{- block "main" . }}{{ end }}
+    </main>
+  </div>
 </body>
 
 </html>

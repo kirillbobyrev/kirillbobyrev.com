@@ -1,8 +1,12 @@
-<nav class="site-nav">
-  <a href="{{ site.BaseURL }}" class="site-title">{{ site.Title }}</a>
-  <div class="menu">
-    {{ range site.Menus.main }}
-    <a href="{{ .URL }}" class="menu-link">{{ .Name }}</a>
+<header class="py-6">
+  <nav class="max-w-3xl mx-auto px-4 flex items-center justify-between text-2xl font-semibold" aria-label="Primary">
+    <a href="/" class="hover:underline whitespace-nowrap">{{ .Site.Title }}</a>
+    {{ with .Site.Menus.main }}
+    <ul class="flex gap-6 font-normal">
+      {{ range . }}
+      <li><a href="{{ .URL }}" class="hover:underline">{{ .Name }}</a></li>
+      {{ end }}
+    </ul>
     {{ end }}
-  </div>
-</nav>
+  </nav>
+</header>

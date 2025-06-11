@@ -4,41 +4,21 @@ publishDate = 2023-11-28
 images = ["/images/analyzing-long-win-streaks/cover.png"]
 +++
 
-In-depth analysis of recent data suggests a high likelihood of Hikaru
-Nakamura achieving a 55-game winning streak in online blitz, based on thousands
-of his games played this year (and even more likely given that Hikaru just
-crossed 35,000 blitz games mark on Chess.com alone). Similarly, longest streaks
-by Magnus Carlsen (32 wins), Nihal Sarin (22 wins), and Daniel Naroditsky (33
-wins) align with statistical expectations. The occurrence of both short (10+
-wins) and long (15+ wins) streaks among these elite players is also found to be
-probable and not out of the ordinary. A simple explanation of Hikaru's
-performance is that he plays an enormous number of games online, is highly
-skilled and (on average) has much weaker opponents than his peers (moreover, he
-specifically [mentions](https://www.youtube.com/watch?v=wDUCMEgYKrE&t=435s)
-cherry-picking opponents in order to score many points and create good content).
+**TL;DR** Vladimir Kramnik has recently suggested that Hikaru Nakamura's
+exceptional winning streaks in online blitz chess might indicate suspicious
+activity, potentially hinting at cheating. I was curious whether this claim has
+any ground and decided to analyze the data myself. I gathered data on Hikaru's
+games on Chess.com and compared his performance to other top players. I found
+that Hikaru's long winning streaks are statistically probable given his high
+rating and the significantly lower average rating of his opponents. I also found
+that other top players, such as Daniel Naroditsky, have similar patterns of
+winning streaks, which suggests that these streaks are not unique to Hikaru.
 
----
-
-**Update**: Chess.com team has published a
-[statement](https://www.chess.com/blog/CHESScom/regarding-recent-accusations)
-the next day reinforcing that they do not think long win streaks and individual
-performances of Hikaru Nakamura are suspicious and hint at the possibility of
-cheating.
-
-> We have confirmed these results with external statisticians, including a professor of statistics at a top-10 university.
-
-Unfortunately, they have not shared any calculations and analysis. I would be
-very interested to see the methods and tools that were used and compare them to
-mine.
-
----
-
-I've conducted basic analysis using Elo win probability estimations and
-Monte-Carlo simulation to estimate the likelihood of Hikaru Nakamura (and his
-peers) achieving long winning streaks, as recently highlighted by Vladimir
-Kramnik. For results and calculations, see [Monte-Carlo
-simulation](/blog/analyzing-long-win-streaks/#monte-carlo-simulations) tables
-and [conclusion](/posts/analyzing-long-win-streaks/#conclusion) below.
+The analysis was mostly conducted using Monte Carlo simulation and Elo win model
+to estimate the likelihood of long winning streaks among top players, including
+Hikaru. For results and calculations, see [Monte-Carlo
+simulation](#monte-carlo-simulations) tables
+and [conclusion](#conclusion) below.
 
 This post does not aim to determine whether Hikaru Nakamura or other players
 have engaged in any form cheating. Instead, my goal is to critically examine
