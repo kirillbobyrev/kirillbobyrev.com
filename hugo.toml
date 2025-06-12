@@ -21,9 +21,11 @@ enableGitInfo = true
   ]
   [params.author]
     name = 'kirill bobyrev'
-  # this is needed for _internal/twitter_cards.html
   [params.social]
     twitter = 'kirillbobyrev'
+    github = 'kirillbobyrev'
+    linkedin = 'kirillbobyrev'
+    instagram = 'cybobyrev'
 
 [markup]
   [markup.highlight]

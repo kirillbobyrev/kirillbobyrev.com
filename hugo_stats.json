@@ -13,7 +13,6 @@
       "h4",
       "head",
       "header",
-      "hr",
       "html",
       "img",
       "li",
@@ -22,10 +21,12 @@
       "meta",
       "nav",
       "p",
+      "path",
       "pre",
       "script",
       "section",
       "strong",
+      "svg",
       "table",
       "tbody",
       "td",
@@ -54,28 +55,30 @@
       "site-container",
       "site-header",
       "site-nav",
-      "site-title"
+      "site-title",
+      "social-link",
+      "social-links"
     ],
     "ids": [
       "analysis",
       "beyond-code",
+      "bottom-line",
       "conclusion",
       "content",
-      "final-thoughts",
       "key-features",
       "looking-at-each-players-opposition",
       "looking-at-other-players",
       "looking-into-data",
       "monte-carlo-simulations",
+      "my-experience",
       "my-journey",
-      "personal-experience",
       "prelude",
       "probability-of-scoring-multiple-short-and-long-win-streaks",
       "probability-of-scoring-the-single-longest-win-streak",
       "side-note",
-      "the-bigger-picture",
       "using-elo-to-estimate-win-probabilities",
-      "why-anki"
+      "what-makes-anki-special",
+      "why-more-people-should-know-about-it"
     ]
   }
 }
