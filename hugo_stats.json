@@ -58,6 +58,7 @@
     ],
     "ids": [
       "analysis",
+      "beyond-code",
       "conclusion",
       "content",
       "final-thoughts",
@@ -66,7 +67,7 @@
       "looking-at-other-players",
       "looking-into-data",
       "monte-carlo-simulations",
-      "outside-of-work",
+      "my-journey",
       "personal-experience",
       "prelude",
       "probability-of-scoring-multiple-short-and-long-win-streaks",
@@ -74,8 +75,7 @@
       "side-note",
       "the-bigger-picture",
       "using-elo-to-estimate-win-probabilities",
-      "why-anki",
-      "work--education"
+      "why-anki"
     ]
   }
 }

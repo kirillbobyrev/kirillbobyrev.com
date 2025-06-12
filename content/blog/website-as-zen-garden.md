@@ -28,7 +28,3 @@ body {
   font-size: 16px;  /* comment */
 }
 ```
-
----
-
-Hehe?

@@ -8,7 +8,7 @@
 }
 
 .site-container {
-  @apply w-full max-w-3xl mx-auto px-4 pb-10 flex-1;
+  @apply w-full max-w-4xl mx-auto px-4 pb-10 flex-1;
 }
 
 /* Header components */
@@ -17,7 +17,7 @@
 }
 
 .site-nav {
-  @apply max-w-3xl mx-auto px-4 flex items-center justify-between text-xl font-semibold;
+  @apply max-w-4xl mx-auto px-4 flex items-center justify-between text-xl font-semibold;
 }
 
 .site-title {
@@ -28,13 +28,9 @@
   @apply flex gap-6 font-normal;
 }
 
-.nav-link {
-  @apply hover:underline;
-}
-
 /* Content components */
 .main-content {
-  @apply prose dark:prose-invert lg:prose-lg mt-8;
+  @apply prose dark:prose-invert lg:prose-lg mt-8 max-w-none;
 }
 
 .blog-listing {
@@ -45,7 +41,8 @@
   @apply text-xl font-semibold mb-1;
 }
 
-.blog-post-link {
+.blog-post-link,
+.nav-link {
   @apply hover:underline;
 }
 

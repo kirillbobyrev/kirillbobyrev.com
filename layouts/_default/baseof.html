@@ -4,15 +4,13 @@
 
 
   <body class="site-body">
-    <div>
-      {{- partial "header.html" . -}}
-      <main
-        id="content"
-        role="main"
-        class="site-container"
-      >
-        {{- block "main" . }}{{ end }}
-      </main>
-    </div>
+    {{- partial "header.html" . -}}
+    <main
+      id="content"
+      role="main"
+      class="site-container"
+    >
+      {{- block "main" . }}{{ end }}
+    </main>
   </body>
 </html>

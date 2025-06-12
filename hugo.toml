@@ -8,55 +8,55 @@ disableKinds = ['taxonomy', 'term']
 enableGitInfo = true
 
 [params]
-description = 'Blog about Software Engineering and hobbies by Kirill Bobyrev'
-twitterCards = true
-opengraph = true
-dateDisplayFormat = '2 Jan, 2006'
-images = ['images/twitter.png']
-keywords = [
-  'software engineering',
-  'programming',
-  'machine learning',
-  'tech blog',
-]
-[params.author]
-name = 'Kirill Bobyrev'
-# This is needed for _internal/twitter_cards.html
-[params.social]
-twitter = 'kirillbobyrev'
+  description = 'blog about software engineering and hobbies by kirill bobyrev'
+  twittercards = true
+  opengraph = true
+  datedisplayformat = '2 jan, 2006'
+  images = ['images/twitter.png']
+  keywords = [
+    'software engineering',
+    'programming',
+    'machine learning',
+    'tech blog',
+  ]
+  [params.author]
+    name = 'kirill bobyrev'
+  # this is needed for _internal/twitter_cards.html
+  [params.social]
+    twitter = 'kirillbobyrev'
 
 [markup]
-[markup.highlight]
-codeFences = true
-guessSyntax = true
-noClasses = true
-tabWidth = 2
-style = 'github-dark'
-[markup.goldmark]
-[markup.goldmark.extensions]
-[markup.goldmark.extensions.passthrough]
-enable = true
-[markup.goldmark.extensions.passthrough.delimiters]
-block = [['\[', '\]'], ['$$', '$$']]
-inline = [['\(', '\)']]
+  [markup.highlight]
+    codefences = true
+    guesssyntax = true
+    noclasses = true
+    tabwidth = 2
+    style = 'github-dark'
+    [markup.goldmark]
+      [markup.goldmark.extensions]
+        [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+          block = [['\[', '\]'], ['$$', '$$']]
+          inline = [['\(', '\)']]
 
 [sitemap]
-changefreq = 'weekly'
+  changefreq = 'weekly'
 
 [build]
-[build.buildStats]
-enable = true
-[[build.cachebusters]]
-source = 'assets/notwatching/hugo_stats\.json'
-target = 'css'
-[[build.cachebusters]]
-source = '(postcss|tailwind)\.config\.js'
-target = 'css'
+  [build.buildstats]
+    enable = true
+  [[build.cachebusters]]
+    source = 'assets/notwatching/hugo_stats\.json'
+    target = 'css'
+  [[build.cachebusters]]
+    source = '(postcss|tailwind)\.config\.js'
+    target = 'css'
 [module]
-[[module.mounts]]
-source = 'assets'
-target = 'assets'
-[[module.mounts]]
-disableWatch = true
-source = 'hugo_stats.json'
-target = 'assets/notwatching/hugo_stats.json'
+  [[module.mounts]]
+    source = 'assets'
+    target = 'assets'
+  [[module.mounts]]
+    disableWatch = true
+    source = 'hugo_stats.json'
+    target = 'assets/notwatching/hugo_stats.json'
