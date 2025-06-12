@@ -1,13 +1,13 @@
-<header class="py-6">
+<header class="site-header">
   <nav
-    class="max-w-3xl mx-auto px-4 flex items-center justify-between text-xl font-semibold"
+    class="site-nav"
     aria-label="Primary"
   >
-    <a href="/" class="hover:underline whitespace-nowrap">{{ .Site.Title }}</a>
+    <a href="/" class="site-title">{{ .Site.Title }}</a>
     {{ with .Site.Menus.main }}
-      <ul class="flex gap-6 font-normal">
+      <ul class="nav-menu">
         {{ range . }}
-          <li><a href="{{ .URL }}" class="hover:underline">{{ .Name }}</a></li>
+          <li><a href="{{ .URL }}" class="nav-link">{{ .Name }}</a></li>
         {{ end }}
       </ul>
     {{ end }}

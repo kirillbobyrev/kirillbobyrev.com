@@ -1,16 +1,16 @@
 {{ define "main" }}
-  <section aria-label="Posts" class="space-y-6">
+  <section aria-label="Posts" class="blog-listing">
     {{ range .Paginator.Pages }}
       <article>
         <header>
-          <h2 class="text-xl font-semibold mb-1">
-            <a href="{{ .RelPermalink }}" class="hover:underline">
+          <h2 class="blog-post-title">
+            <a href="{{ .RelPermalink }}" class="blog-post-link">
               {{ .Title }}
             </a>
           </h2>
           <time
             datetime="{{ .Date.Format " 2006-01-02" }}"
-            class="block text text-gray-500 mb-2"
+            class="blog-post-date"
           >
             {{ .Date.Format "Jan 2, 2006" }}
           </time>

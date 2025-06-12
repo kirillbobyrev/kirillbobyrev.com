@@ -1,3 +1,71 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @source "hugo_stats.json";
+
+/* Base layout components */
+.site-body {
+  @apply bg-white text-gray-800 dark:bg-gray-950 dark:text-gray-200 leading-relaxed selection:bg-pink-300/40;
+}
+
+.site-container {
+  @apply w-full max-w-3xl mx-auto px-4 pb-10 flex-1;
+}
+
+/* Header components */
+.site-header {
+  @apply py-6;
+}
+
+.site-nav {
+  @apply max-w-3xl mx-auto px-4 flex items-center justify-between text-xl font-semibold;
+}
+
+.site-title {
+  @apply hover:underline whitespace-nowrap;
+}
+
+.nav-menu {
+  @apply flex gap-6 font-normal;
+}
+
+.nav-link {
+  @apply hover:underline;
+}
+
+/* Content components */
+.main-content {
+  @apply prose dark:prose-invert lg:prose-lg mt-8;
+}
+
+.blog-listing {
+  @apply space-y-6 mt-8;
+}
+
+.blog-post-title {
+  @apply text-xl font-semibold mb-1;
+}
+
+.blog-post-link {
+  @apply hover:underline;
+}
+
+.blog-post-date {
+  @apply block text-gray-500 mb-2;
+}
+
+/* Error page components */
+.error-page {
+  @apply prose-lg dark:prose-invert text-center max-w-none py-24;
+}
+
+.error-title {
+  @apply text-5xl font-extrabold mb-4;
+}
+
+.error-message {
+  @apply text-xl mb-6;
+}
+
+.error-button {
+  @apply inline-block px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition;
+}
