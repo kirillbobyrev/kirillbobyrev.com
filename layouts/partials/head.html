@@ -17,6 +17,13 @@
       {{ .Site.Params.description }}
     {{ end }}"
   />
+  <meta name="author" content="{{ .Site.Params.author.name }}" />
+
+  {{ template "_internal/opengraph.html" . }}
+  {{ template "_internal/twitter_cards.html" . }}
+  {{ template "_internal/google_analytics.html" . }}
+
+
   <link rel="canonical" href="{{ .Permalink }}" />
   <link
     rel="alternate"
