@@ -1,15 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Home on Kirill Bobyrev</title><link>https://kirillbobyrev.com/</link><description>Recent content in Home on Kirill Bobyrev</description><generator>Hugo</generator><language>en</language><atom:link href="https://kirillbobyrev.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Anki: the ultimate tool for learning</title><link>https://kirillbobyrev.com/blog/anki/</link><pubDate>Thu, 02 Jan 2025 00:00:00 +0000</pubDate><guid>https://kirillbobyrev.com/blog/anki/</guid><description>&lt;p>Being a Software Engineer means constantly learning new things, and streamlining
-the learning process while making sure I don&amp;rsquo;t forget things I already learned
-along the way is an important topic for me. &lt;a href="https://apps.ankiweb.net/">Anki&lt;/a> is
-one of the best tools I found for myself to make the learning process enjoyable
-and efficient.&lt;/p>
-&lt;h2 id="why-anki">Why Anki?&lt;/h2>
-&lt;p>Anki is far more than just a flashcard app—it&amp;rsquo;s a robust system built on the
-principles of &lt;a href="https://en.wikipedia.org/wiki/Spaced_repetition">spaced
-repetition&lt;/a>. This approach
-optimizes your study sessions by spacing out reviews of material just before
-you’re likely to forget, making your learning process both efficient and
-effective.&lt;/p></description></item><item><title>Analyzing long win streaks in online chess</title><link>https://kirillbobyrev.com/blog/analyzing-long-win-streaks/</link><pubDate>Tue, 28 Nov 2023 00:00:00 +0000</pubDate><guid>https://kirillbobyrev.com/blog/analyzing-long-win-streaks/</guid><description>&lt;p>&lt;strong>TL;DR&lt;/strong> Vladimir Kramnik has recently suggested that Hikaru Nakamura&amp;rsquo;s
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Home on Kirill Bobyrev</title><link>https://kirillbobyrev.com/</link><description>Recent content in Home on Kirill Bobyrev</description><generator>Hugo</generator><language>en</language><atom:link href="https://kirillbobyrev.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Anki: the ultimate tool for learning</title><link>https://kirillbobyrev.com/blog/anki/</link><pubDate>Thu, 02 Jan 2025 00:00:00 +0000</pubDate><guid>https://kirillbobyrev.com/blog/anki/</guid><description>&lt;p>As a software engineer, I&amp;rsquo;m constantly learning new things. The challenge isn&amp;rsquo;t
+just absorbing information - it&amp;rsquo;s retaining what I&amp;rsquo;ve learned while continuing
+to grow. &lt;a href="https://apps.ankiweb.net/">Anki&lt;/a> has become my go-to tool for making
+learning both enjoyable and efficient.&lt;/p>
+&lt;h2 id="what-makes-anki-special">What Makes Anki Special&lt;/h2>
+&lt;p>Anki isn&amp;rsquo;t just another flashcard app. It&amp;rsquo;s built on &lt;a href="https://en.wikipedia.org/wiki/Spaced_repetition">spaced
+repetition&lt;/a>, a learning
+technique that shows you material right before you&amp;rsquo;re about to forget it. This
+timing makes your study sessions incredibly efficient.&lt;/p></description></item><item><title>Analyzing long win streaks in online chess</title><link>https://kirillbobyrev.com/blog/analyzing-long-win-streaks/</link><pubDate>Tue, 28 Nov 2023 00:00:00 +0000</pubDate><guid>https://kirillbobyrev.com/blog/analyzing-long-win-streaks/</guid><description>&lt;p>&lt;strong>TL;DR&lt;/strong> Vladimir Kramnik has recently suggested that Hikaru Nakamura&amp;rsquo;s
 exceptional winning streaks in online blitz chess might indicate suspicious
 activity, potentially hinting at cheating. I was curious whether this claim has
 any ground and decided to analyze the data myself. I gathered data on Hikaru&amp;rsquo;s
