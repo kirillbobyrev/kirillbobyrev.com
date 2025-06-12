@@ -1,6 +1,8 @@
 {{ define "main" }}
+  {{ $pages := where .Pages "Params.hidden" "ne" true }}
+  
   <section aria-label="Posts" class="blog-listing">
-    {{ range .Paginator.Pages }}
+    {{ range $pages }}
       <article>
         <header>
           <h2 class="blog-post-title">
@@ -18,6 +20,4 @@
       </article>
     {{ end }}
   </section>
-
-  {{ template "_internal/pagination.html" . }}
 {{ end }}

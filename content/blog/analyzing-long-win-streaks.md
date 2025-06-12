@@ -2,6 +2,7 @@
 title = "Analyzing long win streaks in online chess"
 publishDate = 2023-11-28
 images = ["/images/analyzing-long-win-streaks/cover.png"]
+hidden = true
 +++
 
 **TL;DR** Vladimir Kramnik has recently suggested that Hikaru Nakamura's
