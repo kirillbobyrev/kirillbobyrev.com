@@ -1,17 +1,15 @@
 {
-    "name": "Hugo Blog Development",
-    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "name": "Hugo Blog development",
+    "image": "mcr.microsoft.com/devcontainers/base:debian",
     "features": {
         "ghcr.io/devcontainers/features/node:1": {
             "version": "lts"
         },
-        "ghcr.io/devcontainers/features/go:1": {
-            "version": "latest"
-        },
+        "ghcr.io/devcontainers/features/go:1": {},
         "ghcr.io/devcontainers/features/git:1": {},
-        "ghcr.io/devcontainers/features/github-cli:1": {}
+        "ghcr.io/devcontainers/features/github-cli:1": {},
+        "ghcr.io/devcontainers/features/hugo:1": {}
     },
-    "postCreateCommand": ".devcontainer/setup.sh",
     "forwardPorts": [
         1313
     ]
