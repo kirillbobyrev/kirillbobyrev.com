@@ -36,9 +36,7 @@ jobs:
 
       - name: Install Hugo with Go
         run: |
-          echo "🚀 Installing Hugo..."
           go install github.com/gohugoio/hugo@latest
-          echo "✅ Hugo installed:"
           hugo version
 
       - name: Setup Pages
@@ -46,21 +44,17 @@ jobs:
         uses: actions/configure-pages@v4
 
       - name: Install Node.js dependencies
-        run: |
-          echo "📦 Installing npm dependencies..."
-          npm ci
+        run: npm ci
 
       - name: Build with Hugo
         env:
           HUGO_ENVIRONMENT: production
           HUGO_ENV: production
         run: |
-          echo "🏗️ Building Hugo site..."
           hugo \
             --gc \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
-          echo "✅ Build complete!"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
