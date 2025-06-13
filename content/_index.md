@@ -34,7 +34,7 @@ background and fascination with machine learning.
 
 ### Beyond Code
 
-I'm most alive when learning something new - whether that's mastering a new Jiu
+I really enjoy learning something new - whether that's mastering a new Jiu
 Jitsu technique, analyzing chess positions, or exploring unfamiliar cities. I
 speak English, Russian, and German and share my home with two crazy Abyssinian
 cats.

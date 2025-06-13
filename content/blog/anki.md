@@ -10,10 +10,9 @@ learning both enjoyable and efficient.
 
 ## What Makes Anki Special
 
-Anki isn't just another flashcard app. It's built on [spaced
-repetition](https://en.wikipedia.org/wiki/Spaced_repetition), a learning
-technique that shows you material right before you're about to forget it. This
-timing makes your study sessions incredibly efficient.
+Anki isn't just another flashcard app. It's built with focus on spaced
+repetition, a learning technique that shows you material right before you're
+about to forget it. This timing makes the study sessions incredibly efficient.
 
 ### Key Features
 
@@ -46,7 +45,7 @@ mainstream apps like Duolingo. For serious learners who want to retain
 knowledge long-term, Anki's customizable approach offers huge advantages. The
 trade-off is that it requires more setup and maintenance.
 
-## Bottom Line
+## Takeaway
 
 Anki isn't perfect for every learning style or subject. But for building and
 maintaining foundational knowledge, it's unmatched. If you're serious about
