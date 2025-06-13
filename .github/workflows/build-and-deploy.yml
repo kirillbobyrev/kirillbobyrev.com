@@ -34,9 +34,27 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
 
+      - name: Get Hugo version
+        id: hugo-version
+        run: |
+          HUGO_VERSION=$(go list -m github.com/gohugoio/hugo@latest | awk '{print $2}')
+          echo "version=$HUGO_VERSION" >> $GITHUB_OUTPUT
+          echo "Hugo version: $HUGO_VERSION"
+
+      - name: Cache Hugo binary
+        uses: actions/cache@v4
+        id: cache-hugo
+        with:
+          path: ~/go/bin/hugo
+          key: hugo-${{ runner.os }}-${{ steps.hugo-version.outputs.version }}
+
       - name: Install Hugo with Go
+        if: steps.cache-hugo.outputs.cache-hit != 'true'
         run: |
           go install github.com/gohugoio/hugo@latest
+
+      - name: Verify Hugo installation
+        run: |
           hugo version
 
       - name: Setup Pages
