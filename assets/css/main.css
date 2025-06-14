@@ -3,7 +3,7 @@
 @source "hugo_stats.json";
 
 .site-body {
-  @apply bg-stone-50 text-stone-800 dark:bg-stone-900 dark:text-stone-200 leading-relaxed selection:bg-blue-100/40 dark:selection:bg-blue-600/25;
+  @apply bg-stone-50 text-stone-800 dark:bg-stone-900 dark:text-stone-200 leading-relaxed selection:bg-red-100/40 dark:selection:bg-red-950/25;
 }
 
 .site-container {
@@ -15,11 +15,11 @@
 }
 
 .site-nav {
-  @apply max-w-3xl mx-auto px-3 sm:px-4 flex items-center justify-between text-base sm:text-lg font-semibold;
+  @apply max-w-3xl mx-auto px-3 sm:px-4 flex items-center justify-between text-lg sm:text-xl font-semibold;
 }
 
 .site-title {
-  @apply hover:underline whitespace-nowrap text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors;
+  @apply whitespace-nowrap text-stone-700 dark:text-stone-300 hover:text-stone-800 dark:hover:text-stone-200 transition-colors;
 }
 
 .nav-right {
@@ -27,7 +27,7 @@
 }
 
 .nav-menu {
-  @apply flex gap-4 sm:gap-6 font-normal;
+  @apply flex gap-4 sm:gap-6 font-semibold;
 }
 
 .social-links {
@@ -35,7 +35,7 @@
 }
 
 .social-link {
-  @apply text-stone-400 hover:text-blue-500 dark:text-stone-500 dark:hover:text-blue-400 transition-colors;
+  @apply text-stone-400 hover:text-red-800 dark:text-stone-500 dark:hover:text-red-500 transition-colors;
 }
 
 .main-content {
@@ -75,7 +75,7 @@
 }
 
 .main-content a {
-  @apply text-blue-600 dark:text-blue-400 underline decoration-blue-300 hover:decoration-blue-500 dark:decoration-blue-500 dark:hover:decoration-blue-400 underline-offset-2 transition-colors;
+  @apply text-red-900 dark:text-red-400 hover:text-red-950 dark:hover:text-red-300 no-underline transition-colors;
 }
 
 .blog-listing {
@@ -83,12 +83,12 @@
 }
 
 .blog-post-title {
-  @apply text-lg sm:text-xl font-semibold mb-1;
+  @apply text-lg sm:text-xl font-semibold mb-1 text-red-900 dark:text-red-400;
 }
 
 .blog-post-link,
 .nav-link {
-  @apply hover:underline py-1 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors;
+  @apply py-1 text-stone-700 dark:text-stone-300 hover:text-stone-800 dark:hover:text-stone-200 transition-colors;
 }
 
 .blog-post-date {
