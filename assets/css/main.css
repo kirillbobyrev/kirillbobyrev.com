@@ -8,7 +8,7 @@
 }
 
 .site-container {
-  @apply w-full max-w-4xl mx-auto px-3 sm:px-4 pb-8 sm:pb-10 flex-1;
+  @apply w-full max-w-3xl mx-auto px-3 sm:px-4 pb-8 sm:pb-10 flex-1;
 }
 
 /* Header components */
@@ -17,7 +17,7 @@
 }
 
 .site-nav {
-  @apply max-w-4xl mx-auto px-3 sm:px-4 flex items-center justify-between text-lg sm:text-xl font-semibold;
+  @apply max-w-3xl mx-auto px-3 sm:px-4 flex items-center justify-between text-base sm:text-lg font-medium;
 }
 
 .site-title {
@@ -33,16 +33,56 @@
 }
 
 .social-links {
-  @apply flex gap-6 mt-12 pt-8 border-t border-gray-200 dark:border-gray-700;
+  @apply flex gap-4 mt-8 pt-6 border-t border-gray-100 dark:border-gray-800;
 }
 
 .social-link {
-  @apply text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors;
+  @apply text-gray-400 hover:text-gray-600 dark:text-gray-600 dark:hover:text-gray-400 transition-colors;
 }
 
 /* Content components */
 .main-content {
   @apply prose dark:prose-invert lg:prose-lg mt-6 sm:mt-8 max-w-none;
+}
+
+/* Typography hierarchy - reduce visual weight of headings */
+.main-content h1 {
+  @apply text-2xl sm:text-3xl font-medium text-gray-900 dark:text-gray-100 mb-6 mt-8 leading-tight;
+}
+
+.main-content h2 {
+  @apply text-xl sm:text-2xl font-medium text-gray-800 dark:text-gray-200 mb-4 mt-8 leading-snug;
+}
+
+.main-content h3 {
+  @apply text-lg sm:text-xl font-medium text-gray-700 dark:text-gray-300 mb-3 mt-6 leading-snug;
+}
+
+.main-content h4 {
+  @apply text-base sm:text-lg font-medium text-gray-700 dark:text-gray-300 mb-3 mt-6;
+}
+
+.main-content h5 {
+  @apply text-base font-medium text-gray-600 dark:text-gray-400 mb-2 mt-4;
+}
+
+.main-content h6 {
+  @apply text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 mt-4 uppercase tracking-wide;
+}
+
+/* Improve paragraph spacing and readability */
+.main-content p {
+  @apply mb-4 leading-relaxed;
+}
+
+/* Reduce spacing around lists */
+.main-content ul, .main-content ol {
+  @apply mb-4;
+}
+
+/* Subtle styling for links */
+.main-content a {
+  @apply text-gray-900 dark:text-gray-100 underline decoration-gray-400 hover:decoration-gray-600 dark:decoration-gray-500 dark:hover:decoration-gray-300 underline-offset-2;
 }
 
 .blog-listing {
