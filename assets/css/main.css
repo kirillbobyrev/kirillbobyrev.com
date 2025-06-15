@@ -3,7 +3,7 @@
 @source "hugo_stats.json";
 
 .site-body {
-  @apply bg-stone-50 text-stone-800 dark:bg-stone-900 dark:text-stone-200 leading-relaxed selection:bg-red-100/40 dark:selection:bg-red-950/25;
+  @apply bg-amber-50/30 text-stone-800 dark:bg-stone-900/95 dark:text-amber-100/90 leading-relaxed selection:bg-red-100/40 dark:selection:bg-red-950/25;
 }
 
 .site-container {
@@ -19,7 +19,7 @@
 }
 
 .site-title {
-  @apply whitespace-nowrap text-stone-700 dark:text-stone-300 hover:text-stone-800 dark:hover:text-stone-200 transition-colors;
+  @apply whitespace-nowrap text-red-900 dark:text-red-400 hover:text-red-950 dark:hover:text-red-300 transition-colors;
 }
 
 .nav-menu {
