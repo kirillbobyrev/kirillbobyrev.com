@@ -127,3 +127,31 @@
 .error-button {
   @apply inline-block px-4 py-2 border border-stone-300 dark:border-amber-700/50 rounded hover:bg-stone-100 dark:hover:bg-amber-900/20 transition-colors;
 }
+
+.notes-feed {
+  @apply space-y-4 mt-8;
+}
+
+.note-item {
+  @apply pb-3;
+}
+
+.note-date {
+  @apply text-stone-500 dark:text-amber-100/70 text-xs font-mono font-medium mb-2 block hover:text-red-700 dark:hover:text-red-400 transition-colors tracking-wide uppercase;
+}
+
+.note-separator {
+  @apply border-t border-stone-200 dark:border-amber-100/20 my-3 border-dashed;
+}
+
+.note-content {
+  @apply prose dark:prose-invert max-w-none text-stone-800 dark:text-amber-100/85 font-normal mt-1;
+}
+
+.note-content p {
+  @apply mb-3 last:mb-0 leading-relaxed text-base;
+}
+
+.note-content p:first-child {
+  @apply text-lg leading-relaxed font-normal;
+}

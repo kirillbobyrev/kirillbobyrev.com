@@ -1,0 +1,25 @@
+{{ define "main" }}
+  {{ $notes := .Pages.ByDate.Reverse }}
+  {{ $today := now.Format "2006-01-02" }}
+  
+  <section aria-label="Notes" class="notes-feed">
+    {{ range $notes }}
+      {{ $noteSlug := replaceRE "^\\d{4}-\\d{2}-\\d{2}-" "" .File.BaseFileName }}
+      {{ $noteDate := .Date.Format "2006-01-02" }}
+      {{ $sameDay := eq $noteDate $today }}
+      <article class="note-item" id="{{ $noteSlug }}">
+        <a href="#{{ $noteSlug }}" class="note-date">
+          {{ if $sameDay }}
+            {{ .Date.Format "3:04 PM" }}
+          {{ else }}
+            {{ .Date.Format "Jan 2" }}
+          {{ end }}
+        </a>
+        <div class="note-separator"></div>
+        <div class="note-content">
+          {{ .Content }}
+        </div>
+      </article>
+    {{ end }}
+  </section>
+{{ end }}
