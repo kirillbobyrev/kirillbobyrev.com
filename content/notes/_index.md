@@ -1,5 +1,5 @@
 +++
 title = 'Notes'
 menu = 'main'
-weight = 3
+weight = 2
 +++

@@ -1,7 +1,5 @@
 +++
 title = 'Home'
-menu = 'main'
-weight = 1
 +++
 
 I build machine learning models at [Waymo](https://waymo.com/) that make
