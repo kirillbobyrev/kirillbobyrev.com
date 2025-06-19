@@ -161,19 +161,19 @@
   .main-content {
     @apply text-base;
   }
-  
+
   .social-link {
     @apply p-4 -m-4;
   }
-  
+
   .social-link img {
     @apply w-6 h-6;
   }
-  
+
   .nav-link {
     @apply p-4 -m-4;
   }
-  
+
   .blog-post-link {
     @apply py-3 px-2 -mx-2;
   }
