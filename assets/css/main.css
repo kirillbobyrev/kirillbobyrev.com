@@ -3,11 +3,11 @@
 @source "hugo_stats.json";
 
 .site-body {
-  @apply bg-amber-50/30 text-stone-800 dark:bg-stone-800/90 dark:text-amber-100/75;
+  @apply bg-white text-stone-900 dark:bg-stone-900 dark:text-amber-50;
 }
 
 .site-container {
-  @apply w-full max-w-4xl mx-auto px-3 sm:px-4 pb-8 sm:pb-10 flex-1;
+  @apply w-full max-w-4xl mx-auto px-4 sm:px-6 pb-8 sm:pb-10 flex-1;
 }
 
 .site-header {
@@ -15,19 +15,23 @@
 }
 
 .site-nav {
-  @apply max-w-4xl mx-auto px-3 sm:px-4 flex items-center justify-between text-lg sm:text-xl font-medium;
+  @apply max-w-4xl mx-auto px-4 sm:px-6 flex items-center justify-between text-lg sm:text-xl font-medium;
 }
 
 .nav-menu {
   @apply flex gap-4 sm:gap-6 font-medium;
 }
 
+.nav-link {
+  @apply p-3 -m-3 rounded-md hover:bg-stone-50 dark:hover:bg-stone-800/50 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2;
+}
+
 .social-links {
-  @apply flex gap-4 mt-8 pt-6 border-t border-stone-200 dark:border-amber-900/30;
+  @apply flex gap-6 mt-8 pt-8 border-t border-stone-200 dark:border-amber-100/20;
 }
 
 .social-link {
-  @apply text-stone-400 hover:text-red-800 dark:text-amber-100/60 dark:hover:text-red-400 transition-colors;
+  @apply text-stone-500 hover:text-red-900 dark:text-amber-100/60 dark:hover:text-red-400 transition-all duration-200 transform hover:scale-110 p-3 -m-3 rounded-lg hover:bg-stone-50 dark:hover:bg-stone-800/50 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2;
 }
 
 .main-content {
@@ -38,23 +42,23 @@
 .main-content h2,
 .main-content h3,
 .main-content h4 {
-  @apply font-medium text-stone-800 dark:text-amber-100/75 tracking-tight;
+  @apply text-stone-700 dark:text-amber-100/90 tracking-tight;
 }
 
 .main-content h1 {
-  @apply text-3xl sm:text-4xl text-stone-900 dark:text-amber-100/80 mb-5 mt-10;
+  @apply text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 mt-10;
 }
 
 .main-content h2 {
-  @apply text-2xl sm:text-3xl mb-4 mt-8;
+  @apply text-xl sm:text-2xl lg:text-3xl font-semibold mb-5 mt-10;
 }
 
 .main-content h3 {
-  @apply text-xl sm:text-2xl mb-3 mt-6;
+  @apply text-lg sm:text-xl lg:text-2xl font-medium mb-4 mt-8;
 }
 
 .main-content h4 {
-  @apply text-lg sm:text-xl mb-3 mt-6;
+  @apply text-base sm:text-lg lg:text-xl font-medium mb-3 mt-6;
 }
 
 .main-content h5,
@@ -80,20 +84,20 @@
 .blog-post-link,
 .nav-link,
 .site-title {
-  @apply text-red-900 dark:text-red-400 hover:text-red-950 dark:hover:text-red-300 transition-colors;
+  @apply text-red-900 dark:text-red-500 hover:text-red-800 dark:hover:text-red-400 transition-all duration-200;
 }
 
 .main-content a {
-  @apply no-underline;
+  @apply text-red-900 dark:text-red-500 no-underline relative hover:text-red-800 dark:hover:text-red-400 hover:underline decoration-red-400 dark:decoration-red-600 decoration-2 underline-offset-2 focus:outline-none focus:ring-2 focus:ring-red-400 dark:focus:ring-red-500 focus:ring-offset-2 rounded-sm;
 }
 
 .blog-post-link {
-  @apply py-1;
+  @apply py-2 px-1 -mx-1 rounded-md hover:bg-stone-50 dark:hover:bg-stone-800/50 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2;
 }
 
 .main-content strong,
 .main-content b {
-  @apply text-stone-700 dark:text-amber-100/65;
+  @apply text-stone-700 dark:text-amber-100/80;
 }
 
 .blog-listing {
@@ -101,11 +105,11 @@
 }
 
 .blog-post-title {
-  @apply text-xl sm:text-2xl font-normal mb-2;
+  @apply text-lg sm:text-xl lg:text-2xl font-normal mb-2;
 }
 
 .blog-post-date {
-  @apply block text-stone-500 dark:text-amber-100/70 mb-2 text-sm;
+  @apply block text-stone-500 dark:text-amber-100/60 mb-2 text-sm lg:text-base;
 }
 
 .error-page {
@@ -133,7 +137,7 @@
 }
 
 .note-date {
-  @apply text-stone-500 dark:text-amber-100/70 text-xs font-mono font-medium mb-2 block hover:text-red-700 dark:hover:text-red-400 transition-colors tracking-wide uppercase;
+  @apply text-stone-500 dark:text-amber-100/60 text-xs font-mono font-medium mb-2 block hover:text-red-700 dark:hover:text-red-500 transition-colors tracking-wide uppercase;
 }
 
 .note-separator {
@@ -150,4 +154,27 @@
 
 .note-content p:first-child {
   @apply text-lg leading-relaxed font-normal;
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 640px) {
+  .main-content {
+    @apply text-base;
+  }
+  
+  .social-link {
+    @apply p-4 -m-4;
+  }
+  
+  .social-link img {
+    @apply w-6 h-6;
+  }
+  
+  .nav-link {
+    @apply p-4 -m-4;
+  }
+  
+  .blog-post-link {
+    @apply py-3 px-2 -mx-2;
+  }
 }
