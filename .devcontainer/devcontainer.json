@@ -14,17 +14,4 @@
         1313
     ],
     "postCreateCommand": "npm install",
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "tamasfe.even-better-toml",
-                "github.vscode-github-actions",
-                "GitHub.copilot",
-                "yzhang.markdown-all-in-one",
-                "esbenp.prettier-vscode",
-                "vscodevim.vim",
-                "redhat.vscode-yaml"
-            ]
-        }
-    }
 }
