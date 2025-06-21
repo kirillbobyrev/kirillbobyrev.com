@@ -23,7 +23,7 @@
 }
 
 .nav-link {
-  @apply p-3 -m-3 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500/60 dark:focus:ring-red-400/50 focus:ring-offset-2;
+  @apply p-3 -m-3 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500/60 dark:focus:ring-red-400/50 focus:ring-offset-2;
 }
 
 .social-links {
@@ -31,7 +31,7 @@
 }
 
 .social-link {
-  @apply text-stone-500 hover:text-red-700 dark:text-amber-100/60 dark:hover:text-red-400/80 transition-all duration-200 transform hover:scale-110 p-3 -m-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/60 dark:focus:ring-red-400/50 focus:ring-offset-2;
+  @apply text-stone-500 hover:text-red-700 dark:text-amber-100/60 dark:hover:text-red-400/80 transition-all duration-300 ease-out transform hover:scale-110 p-3 -m-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/60 dark:focus:ring-red-400/50 focus:ring-offset-2;
 }
 
 .main-content {
@@ -46,11 +46,11 @@
 }
 
 .main-content h1 {
-  @apply text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 mt-10;
+  @apply text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 mt-10 leading-tight;
 }
 
 .main-content h2 {
-  @apply text-xl sm:text-2xl lg:text-3xl font-semibold mb-5 mt-10;
+  @apply text-xl sm:text-2xl lg:text-3xl font-semibold mb-5 mt-10 leading-tight;
 }
 
 .main-content h3 {
@@ -77,7 +77,7 @@
 .main-content p,
 .main-content ul,
 .main-content ol {
-  @apply mb-5;
+  @apply mb-5 leading-relaxed;
 }
 
 .main-content a,
@@ -101,7 +101,7 @@
 }
 
 .blog-listing {
-  @apply space-y-6 mt-8;
+  @apply space-y-8 mt-8;
 }
 
 .blog-post-title {
@@ -141,7 +141,7 @@
 }
 
 .note-separator {
-  @apply border-t border-stone-200 dark:border-amber-100/20 my-3 border-dashed;
+  @apply border-t border-stone-200 dark:border-amber-100/20 my-4 border-dashed;
 }
 
 .note-content {
@@ -159,7 +159,15 @@
 /* Mobile-specific improvements */
 @media (max-width: 640px) {
   .main-content {
-    @apply text-base;
+    @apply text-base leading-relaxed;
+  }
+
+  .main-content h1 {
+    @apply text-xl font-bold mb-4 mt-6;
+  }
+
+  .main-content h2 {
+    @apply text-lg font-semibold mb-3 mt-6;
   }
 
   .social-link {
@@ -171,7 +179,7 @@
   }
 
   .nav-link {
-    @apply p-4 -m-4;
+    @apply p-4 -m-4 text-base;
   }
 
   .blog-post-link {
