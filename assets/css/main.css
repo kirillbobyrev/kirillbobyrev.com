@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @source "hugo_stats.json";
-@variant dark (&:where(.dark, .dark *));
 
 .site-body {
   @apply bg-white text-stone-900 dark:bg-stone-900 dark:text-amber-50;
@@ -35,21 +34,6 @@
   @apply text-stone-500 hover:text-red-700 dark:text-amber-100/60 dark:hover:text-red-400/80 transition-all duration-300 ease-out transform hover:scale-110 p-3 -m-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/60 dark:focus:ring-red-400/50 focus:ring-offset-2;
 }
 
-.dark-mode-toggle {
-  @apply p-2 rounded-md transition-colors duration-200 hover:bg-stone-200 dark:hover:bg-stone-700 focus:outline-none focus:ring-2 focus:ring-red-500/60 dark:focus:ring-red-400/50 focus:ring-offset-2;
-}
-
-.dark-mode-toggle svg {
-  @apply w-5 h-5;
-}
-
-.dark-mode-toggle .sun-icon {
-  @apply block dark:hidden;
-}
-
-.dark-mode-toggle .moon-icon {
-  @apply hidden dark:block;
-}
 
 .main-content {
   @apply prose dark:prose-invert lg:prose-lg mt-8 max-w-none;
