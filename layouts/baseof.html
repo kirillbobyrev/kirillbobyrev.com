@@ -5,12 +5,9 @@
 
   <body class="site-body">
     {{- partial "header.html" . -}}
-    <main
-      id="content"
-      role="main"
-      class="site-container"
-    >
+    <main id="content" role="main" class="site-container">
       {{- block "main" . }}{{ end }}
     </main>
+    <script src="/js/dark-mode.js"></script>
   </body>
 </html>
