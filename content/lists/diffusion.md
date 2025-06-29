@@ -8,6 +8,14 @@ weight = 10
 This is a collection of resources mostly focused on text-to-image,
 image-to-image generative models.
 
+### MIT IAP 2025 short diffusion courses
+
+Two amazing courses on Diffusion from MIT. The courses feature lecture videos,
+code assignments, lecture notes and tons of great materials.
+
+- [Practical Diffusion](https://www.practical-diffusion.org/)
+- [Introduction to Flow Matching and Diffusion Models](https://diffusion.csail.mit.edu/)
+
 ## Foundational diffusion papers
 
 ### [Denoising Diffusion Probabilistic Models](https://arxiv.org/abs/2006.11239)
@@ -15,6 +23,8 @@ image-to-image generative models.
 DDPM paper started the modern diffusion model revolution. Introduces the
 mathematical framework and training methodology that underlies most current
 diffusion models. Essential reading for understanding the fundamentals.
+
+### [Score-Based Generative Modeling through Stochastic Differential Equations](https://arxiv.org/abs/2011.13456)
 
 ### [Improved Denoising Diffusion Probabilistic Models](https://arxiv.org/abs/2102.09672)
 
@@ -42,15 +52,7 @@ generation capabilities (in just a single/few steps).
 
 ### [Normalizing Flows: An Introduction and Review of Current Methods](https://arxiv.org/abs/1908.09257)
 
-## Tutorials & Explanations
-
-### [Lil'Log - What are Diffusion Models?](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/)
-
-Lilian Weng's detailed blog post covering the mathematical foundations.
-Excellent balance of rigor and accessibility, with helpful derivations and
-intuitions.
-
-### [Let Us Flow Together](https://rectifiedflow.github.io/)
+### [Classifier-Free Diffusion Guidance](https://arxiv.org/abs/2207.12598)
 
 ## Notable papers
  
@@ -79,11 +81,36 @@ improvements for both quality and inference time (through better schedules).
 Introduces the methods and architecture behind Stable Diffsuion 3, one of the
 most capable existing generative image models.
 
-### [Zero-Shot Text-to-Image Generation](https://arxiv.org/abs/2102.12092)
-
-The original DALL-E paper.
-
 ### [FLUX.1 Kontext: Flow Matching for In-Context Image Generation and Editing in Latent Space](https://arxiv.org/abs/2506.15742)
 
 Introduces FLUX.1 Kontext, the most capable open weights model (as of June 2025)
 that unifies image generation and editing.
+
+### [Zero-Shot Text-to-Image Generation](https://arxiv.org/abs/2102.12092)
+
+The original DALL-E paper.
+
+### [Photorealistic Text-to-Image Diffusion Models with Deep Language Understanding](https://arxiv.org/abs/2205.11487)
+
+The original Imagen paper.
+
+## Tutorials & Explanations
+
+### [Sander Dieleman blog](https://sander.ai/tags/#generative%20models)
+
+A whole series about some different aspects of the Diffusion models and
+generative AI.
+
+### [Lil'Log - What are Diffusion Models?](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/)
+
+Lilian Weng's detailed blog post covering the mathematical foundations.
+Excellent balance of rigor and accessibility, with helpful derivations and
+intuitions.
+
+### [Let Us Flow Together](https://rectifiedflow.github.io/)
+
+The Rectified Flow deep dive, lecture notes and code.
+
+### [Diffusion Meets Flow Matching: Two Sides of the Same Coin](https://diffusionflow.github.io/)
+
+Discussing the equivalence of Diffusion and Flow Matching paradigms.
