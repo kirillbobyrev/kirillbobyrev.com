@@ -1,0 +1,31 @@
+{{ define "main" }}
+  <section aria-label="Lists" class="lists-collection">
+    <div class="prose max-w-none">
+      {{ with .Content }}
+        {{ . }}
+      {{ end }}
+    </div>
+    
+    <div class="lists-index mt-8">
+      {{ $lists := .Pages }}
+      {{ if not .Params.sortByDate }}
+        {{ $lists = .Pages.ByTitle }}
+      {{ end }}
+      
+      {{ range $lists }}
+        {{ if not .Params.draft }}
+          <article class="list-item mb-6">
+            <h2 class="text-xl font-semibold mb-2">
+              <a href="{{ .RelPermalink }}" class="hover:text-red-600 transition-colors">
+                {{ .Title }}
+              </a>
+            </h2>
+            {{ with .Description }}
+              <p class="text-stone-600 dark:text-stone-400">{{ . }}</p>
+            {{ end }}
+          </article>
+        {{ end }}
+      {{ end }}
+    </div>
+  </section>
+{{ end }}
