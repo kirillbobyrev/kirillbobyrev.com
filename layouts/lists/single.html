@@ -3,7 +3,9 @@
     <header class="mb-8">
       <h1 class="text-3xl font-bold mb-4">{{ .Title }}</h1>
       {{ with .Description }}
-        <p class="text-lg text-stone-600 dark:text-stone-400">{{ . }}</p>
+        <div class="prose prose-stone max-w-none dark:prose-invert">
+          <p class="text-lg">{{ . }}</p>
+        </div>
       {{ end }}
     </header>
 

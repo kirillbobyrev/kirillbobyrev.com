@@ -1,6 +1,6 @@
 {{ define "main" }}
   <section aria-label="Lists" class="lists-section">
-    <div class="prose max-w-none">
+    <div class="prose prose-stone max-w-none dark:prose-invert">
       {{ with .Content }}
         {{ . }}
       {{ end }}
@@ -21,7 +21,9 @@
               </a>
             </h2>
             {{ with .Description }}
-              <p class="text-stone-600 dark:text-stone-400">{{ . }}</p>
+              <div class="prose prose-stone max-w-none dark:prose-invert">
+                <p>{{ . }}</p>
+              </div>
             {{ end }}
           </article>
         {{ end }}
