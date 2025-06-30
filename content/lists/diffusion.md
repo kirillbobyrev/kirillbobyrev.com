@@ -62,6 +62,7 @@ generation capabilities (in just a single/few steps).
 - [FLUX.1 Kontext: Flow Matching for In-Context Image Generation and Editing in Latent Space](https://arxiv.org/abs/2506.15742)
 - [Zero-Shot Text-to-Image Generation](https://arxiv.org/abs/2102.12092) (DALL-E paper)
 - [Photorealistic Text-to-Image Diffusion Models with Deep Language Understanding](https://arxiv.org/abs/2205.11487) (Imagen paper)
+- [DreamBooth: Fine Tuning Text-to-Image Diffusion Models for Subject-Driven Generation](https://arxiv.org/abs/2208.12242)
 - [Neural Ordinary Differential Equations](https://arxiv.org/abs/1806.07366)
 
 ## Tutorials & Explanations
