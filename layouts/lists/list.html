@@ -1,11 +1,11 @@
 {{ define "main" }}
-  <section aria-label="Lists" class="main-content">
+  <article class="main-content">
     {{ with .Content }}
       {{ . }}
     {{ end }}
 
 
-    <div class="lists-index mt-8">
+    <section aria-label="Lists" class="lists-index mt-8">
       {{ $lists := .Pages }}
       {{ if not .Params.sortByDate }}
         {{ $lists = .Pages.ByTitle }}
@@ -14,20 +14,19 @@
       {{ range $lists }}
         {{ if not .Params.draft }}
           <article class="mb-6">
-            <h2 class="text-xl font-semibold mb-2">
-              <a
-                href="{{ .RelPermalink }}"
-                class="hover:text-red-600 transition-colors"
-              >
-                {{ .Title }}
-              </a>
-            </h2>
+            <header>
+              <h2 class="blog-post-title">
+                <a href="{{ .RelPermalink }}" class="blog-post-link">
+                  {{ .Title }}
+                </a>
+              </h2>
+            </header>
             {{ with .Description }}
               <p>{{ . }}</p>
             {{ end }}
           </article>
         {{ end }}
       {{ end }}
-    </div>
-  </section>
+    </section>
+  </article>
 {{ end }}

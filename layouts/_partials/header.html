@@ -1,14 +1,12 @@
 <header class="site-header">
-  <nav class="site-nav" aria-label="Primary">
-    <a href="/" class="site-title">{{ .Site.Title }}</a>
-    <div class="flex items-center gap-4">
-      {{ with .Site.Menus.main }}
-        <div class="nav-menu">
-          {{ range . }}
-            <a href="{{ .URL }}" class="nav-link">{{ .Name }}</a>
-          {{ end }}
-        </div>
-      {{ end }}
-    </div>
+  <nav class="site-nav" aria-label="Primary navigation">
+    <a href="/" class="site-title" rel="home">{{ .Site.Title }}</a>
+    {{ with .Site.Menus.main }}
+      <menu class="nav-menu">
+        {{ range . }}
+          <li><a href="{{ .URL }}" class="nav-link">{{ .Name }}</a></li>
+        {{ end }}
+      </menu>
+    {{ end }}
   </nav>
 </header>
