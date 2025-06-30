@@ -157,24 +157,6 @@
   @apply text-lg leading-relaxed font-normal;
 }
 
-/* Lists section styling */
-.lists-index {
-  @apply list-none;
-}
-
-.lists-index article {
-  @apply list-none;
-}
-
-.lists-collection .list-item {
-  @apply relative;
-}
-
-/* Remove any default list styling from articles */
-article.list-item::before {
-  content: none !important;
-}
-
 /* Mobile-specific improvements */
 @media (max-width: 640px) {
   .main-content {

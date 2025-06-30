@@ -1,5 +1,5 @@
 {{ define "main" }}
-  <section aria-label="Lists" class="lists-collection">
+  <section aria-label="Lists" class="lists-section">
     <div class="prose max-w-none">
       {{ with .Content }}
         {{ . }}
@@ -14,7 +14,7 @@
       
       {{ range $lists }}
         {{ if not .Params.draft }}
-          <article class="list-item mb-6">
+          <article class="mb-6">
             <h2 class="text-xl font-semibold mb-2">
               <a href="{{ .RelPermalink }}" class="hover:text-red-600 transition-colors">
                 {{ .Title }}
