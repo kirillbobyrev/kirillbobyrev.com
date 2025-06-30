@@ -10,11 +10,7 @@
       {{ $sameDay := eq $noteDate $today }}
       <article class="note-item" id="{{ $noteSlug }}">
         <a href="#{{ $noteSlug }}" class="note-date">
-          {{ if $sameDay }}
-            {{ .Date.Format "3:04 PM" }}
-          {{ else }}
-            {{ .Date.Format "Jan 2" }}
-          {{ end }}
+          {{ .Date.Format "Jan 2, 2006 at 3:04 PM" }}
         </a>
         <div class="note-separator"></div>
         <div class="note-content">
