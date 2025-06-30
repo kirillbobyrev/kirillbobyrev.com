@@ -5,18 +5,21 @@
         {{ . }}
       {{ end }}
     </div>
-    
+
     <div class="lists-index mt-8">
       {{ $lists := .Pages }}
       {{ if not .Params.sortByDate }}
         {{ $lists = .Pages.ByTitle }}
       {{ end }}
-      
+
       {{ range $lists }}
         {{ if not .Params.draft }}
           <article class="mb-6">
             <h2 class="text-xl font-semibold mb-2">
-              <a href="{{ .RelPermalink }}" class="hover:text-red-600 transition-colors">
+              <a
+                href="{{ .RelPermalink }}"
+                class="hover:text-red-600 transition-colors"
+              >
                 {{ .Title }}
               </a>
             </h2>
