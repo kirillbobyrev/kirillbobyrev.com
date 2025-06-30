@@ -146,28 +146,74 @@
 }
 
 .note-content {
-  @apply prose dark:prose-invert max-w-none text-stone-800 dark:text-amber-100/85 font-normal mt-1;
+  @apply prose dark:prose-invert lg:prose-lg max-w-none;
 }
 
-.note-content p {
-  @apply mb-3 last:mb-0 leading-relaxed text-base;
+.note-content h1,
+.note-content h2,
+.note-content h3,
+.note-content h4 {
+  @apply text-stone-600 dark:text-amber-100/70 tracking-tight;
 }
 
-.note-content p:first-child {
-  @apply text-lg leading-relaxed font-normal;
+.note-content h1 {
+  @apply text-2xl sm:text-3xl lg:text-3xl font-bold mb-6 mt-10 leading-tight;
+}
+
+.note-content h2 {
+  @apply text-xl sm:text-2xl lg:text-3xl font-semibold mb-5 mt-10 leading-tight;
+}
+
+.note-content h3 {
+  @apply text-lg sm:text-xl lg:text-2xl font-medium mb-4 mt-8;
+}
+
+.note-content h4 {
+  @apply text-base sm:text-lg lg:text-xl font-medium mb-3 mt-6;
+}
+
+.note-content h5,
+.note-content h6 {
+  @apply font-semibold text-stone-500 dark:text-amber-100/65 mb-3;
+}
+
+.note-content h5 {
+  @apply text-base mt-5;
+}
+
+.note-content h6 {
+  @apply text-sm mt-4 uppercase;
+}
+
+.note-content p,
+.note-content ul,
+.note-content ol {
+  @apply mb-5 leading-relaxed;
+}
+
+.note-content a {
+  @apply text-red-800 dark:text-red-400/80 no-underline relative hover:text-red-700 dark:hover:text-red-300/90 hover:underline decoration-red-600/70 dark:decoration-red-400/60 decoration-2 underline-offset-2 focus:outline-none focus:ring-2 focus:ring-red-500/60 dark:focus:ring-red-400/50 focus:ring-offset-2 rounded-sm;
+}
+
+.note-content strong,
+.note-content b {
+  @apply text-stone-600 dark:text-amber-100/70;
 }
 
 /* Mobile-specific improvements */
 @media (max-width: 640px) {
-  .main-content {
+  .main-content,
+  .note-content {
     @apply text-base leading-relaxed;
   }
 
-  .main-content h1 {
+  .main-content h1,
+  .note-content h1 {
     @apply text-xl font-bold mb-4 mt-6;
   }
 
-  .main-content h2 {
+  .main-content h2,
+  .note-content h2 {
     @apply text-lg font-semibold mb-3 mt-6;
   }
 
