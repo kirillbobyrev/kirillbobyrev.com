@@ -206,6 +206,10 @@
     @apply p-4 -m-4 text-base;
   }
 
+  .site-title {
+    @apply text-base;
+  }
+
   .blog-post-link {
     @apply py-3 px-2 -mx-2;
   }
