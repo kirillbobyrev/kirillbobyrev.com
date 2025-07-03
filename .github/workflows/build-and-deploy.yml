@@ -64,6 +64,13 @@ jobs:
       - name: Install Node.js dependencies
         run: npm ci
 
+      - name: Fetch resume PDF
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p static
+          gh release download --repo kirillbobyrev/resume --pattern "Kirill-Bobyrev-Resume.pdf" --output static/resume.pdf --clobber
+
       - name: Build with Hugo
         env:
           HUGO_ENVIRONMENT: production
