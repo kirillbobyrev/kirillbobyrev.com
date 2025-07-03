@@ -64,6 +64,9 @@ generation capabilities (in just a single/few steps).
 - [Photorealistic Text-to-Image Diffusion Models with Deep Language Understanding](https://arxiv.org/abs/2205.11487) (Imagen paper)
 - [DreamBooth: Fine Tuning Text-to-Image Diffusion Models for Subject-Driven Generation](https://arxiv.org/abs/2208.12242)
 - [Neural Ordinary Differential Equations](https://arxiv.org/abs/1806.07366)
+- [Variational Diffusion Models](https://arxiv.org/abs/2107.00630)
+- [An Image is Worth One Word: Personalizing Text-to-Image Generation using Textual Inversion](https://arxiv.org/abs/2208.01618)
+- [Normalizing Flows are Capable Generative Models](https://arxiv.org/abs/2208.01618)
 
 ## Tutorials & Explanations
 
