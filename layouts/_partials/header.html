@@ -1,12 +1,25 @@
 <header class="site-header">
+  <div class="ascii-header">
+<pre>
+ ██ ▄█▀ ██▓ ██▀███   ██▓ ██▓     ██▓        ▄▄▄▄    ▒█████   ▄▄▄▄ ▓██   ██▓ ██▀███  ▓█████  ██▒   █▓
+ ██▄█▒ ▓██▒▓██ ▒ ██▒▓██▒▓██▒    ▓██▒       ▓█████▄ ▒██▒  ██▒▓█████▄▒██  ██▒▓██ ▒ ██▒▓█   ▀ ▓██░   █▒
+▓███▄░ ▒██▒▓██ ░▄█ ▒▒██▒▒██░    ▒██░       ▒██▒ ▄██▒██░  ██▒▒██▒ ▄██ ▒██ ██░▓██ ░▄█ ▒▒███    ▓██  █▒░
+▓██ █▄ ░██░▒██▀▀█▄  ░██░▒██░    ▒██░       ▒██░█▀  ▒██   ██░▒██░█▀   ░ ▐██▓░▒██▀▀█▄  ▒▓█  ▄   ▒██ █░░
+▒██▒ █▄░██░░██▓ ▒██▒░██░░██████▒░██████▒   ░▓█  ▀█▓░ ████▓▒░░▓█  ▀█▓ ░ ██▒▓░░██▓ ▒██▒░▒████▒   ▒▀█░  
+▒ ▒▒ ▓▒░▓  ░ ▒▓ ░▒▓░░▓  ░ ▒░▓  ░░ ▒░▓  ░   ░▒▓███▀▒░ ▒░▒░▒░ ░▒▓███▀▒  ██▒▒▒ ░ ▒▓ ░▒▓░░░ ▒░ ░   ░ ▐░  
+░ ░▒ ▒░ ▒ ░  ░▒ ░ ▒░ ▒ ░░ ░ ▒  ░░ ░ ▒  ░   ▒░▒   ░   ░ ▒ ▒░  ▒░▒   ░ ▓██ ░▒░   ░▒ ░ ▒░ ░ ░  ░   ░ ░░  
+░ ░░ ░  ▒ ░  ░░   ░  ▒ ░  ░ ░     ░ ░       ░    ░ ░ ░ ░ ▒   ░    ░ ▒ ▒ ░░    ░░   ░    ░        ░░  
+░  ░    ░     ░      ░      ░  ░    ░  ░    ░          ░ ░   ░      ░ ░           ░        ░  ░      ░  
+                                            ░                      ░ ░ ░                            ░   
+</pre>
+  </div>
   <nav class="site-nav" aria-label="Primary navigation">
-    <a href="/" class="site-title" rel="home">{{ .Site.Title }}</a>
-    {{ with .Site.Menus.main }}
-      <menu class="nav-menu">
-        {{ range . }}
-          <li><a href="{{ .URL }}" class="nav-link">{{ .Name }}</a></li>
-        {{ end }}
-      </menu>
-    {{ end }}
+    <menu class="nav-menu">
+      <li><a href="/" class="nav-link">Home</a></li>
+      {{ range .Site.Menus.main }}
+        <li><a href="{{ .URL }}" class="nav-link">{{ .Name }}</a></li>
+      {{ end }}
+    </menu>
   </nav>
+  <hr style="border: 1px solid black; margin: 1rem 0;">
 </header>
