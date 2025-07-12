@@ -19,7 +19,7 @@ attention and launched my career.
 
 At Google, I spent years making C++ development faster and more reliable. I
 built many features for [clangd](https://clangd.llvm.org/), including [search
-engine](https://youtu.be/VhxrFor3VyQ) for that made code completion 100x faster,
+engine](https://youtu.be/VhxrFor3VyQ) that made code completion 100x faster,
 [include cleaner](https://clangd.llvm.org/guides/include-cleaner) and renaming
 engine. Beyond the technical work, I became the team's unofficial product
 manager - running user interviews, analyzing feedback, and shaping our roadmap
