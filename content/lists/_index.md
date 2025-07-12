@@ -4,4 +4,5 @@ menu = 'main'
 weight = 3
 +++
 
-Curated resources on topics I find interesting.
+Curated collections of papers, tools, and resources on topics I find
+interesting. These are personal references I regularly return to.
