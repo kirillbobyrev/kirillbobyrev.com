@@ -67,7 +67,7 @@
 }
 
 .blog-listing {
-  @apply space-y-2 mt-8;
+  @apply space-y-2;
 }
 
 .blog-post-date {
