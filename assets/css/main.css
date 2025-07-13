@@ -99,10 +99,6 @@
   @apply text-black hover:text-gray-600 no-underline;
 }
 
-.note-separator {
-  @apply my-4 border-t border-gray-300;
-}
-
 /* Dark theme support */
 @media (prefers-color-scheme: dark) {
   .site-body {
@@ -142,10 +138,6 @@
 
   .note-date {
     @apply text-amber-50 hover:text-amber-200;
-  }
-
-  .note-separator {
-    @apply border-amber-100/20;
   }
 }
 
