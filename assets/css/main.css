@@ -1,8 +1,5 @@
-/* Import monospace font */
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap");
-/* Monaspace Neon from GitHub's CDN */
-@import url("https://unpkg.com/@fontsource/monaspace-neon@latest/400.css");
-@import url("https://unpkg.com/@fontsource/monaspace-neon@latest/700.css");
+/* Import JetBrains Mono font */
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap");
 
 /* Base styles */
 html {
@@ -12,7 +9,7 @@ html {
 .site-body {
   background-color: white;
   color: black;
-  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-family: "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
 }
 
 .site-container {
@@ -170,11 +167,13 @@ html {
 }
 
 .ascii-header pre {
-  font-size: 0.75rem;
-  line-height: 1.333;
+  font-size: 0.7rem;
+  line-height: 1.1;
   margin-left: auto;
   margin-right: auto;
-  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-family: "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+  white-space: pre;
+  overflow-x: auto;
 }
 
 /* Blog listing */
@@ -285,7 +284,7 @@ html {
 
 .algorithm-content {
   padding: 0.5rem;
-  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-family: "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
   font-size: 0.875rem;
   line-height: 1.25;
 }
@@ -341,7 +340,7 @@ html {
 
 .highlight .chroma pre,
 .chroma pre {
-  font-family: "Monaspace Neon", monospace;
+  font-family: "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
 }
 
 .highlight .line,
@@ -391,7 +390,7 @@ code:not(.chroma code) {
   line-height: 1.25;
   font-weight: 500;
   border: 1px solid #d1d5db;
-  font-family: "Monaspace Neon", monospace;
+  font-family: "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
 }
 
 /* Dark theme support */
@@ -515,7 +514,7 @@ code:not(.chroma code) {
   code,
   .highlight .chroma pre,
   .chroma pre {
-    font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+    font-family: "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
   }
 
   /* Hide ASCII header on mobile */
