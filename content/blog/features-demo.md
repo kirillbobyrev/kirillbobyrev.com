@@ -8,6 +8,28 @@ This post demonstrates the available shortcodes for enhanced blog content format
 
 This is a LaTeX demo: \({\partial x}\over{10} = 1\)
 
+## Mathematical List Features
+
+Here's an example of our new mathematical list styling using the Hadamard product symbol:
+
+- Linear algebra operations and matrix transformations
+- Neural network gradient descent optimization  
+- Probability distributions and statistical inference
+- Fourier transforms and signal processing
+- Convolution operations in deep learning
+- Eigenvalue decomposition techniques
+
+You can also create nested lists:
+
+- Machine Learning Fundamentals
+  - Supervised learning algorithms
+  - Unsupervised learning methods
+  - Reinforcement learning paradigms
+- Deep Learning Architectures
+  - Convolutional Neural Networks (CNNs)
+  - Recurrent Neural Networks (RNNs)
+  - Transformer models and attention mechanisms
+
 ## Code Examples
 
 Here are some examples of code blocks with syntax highlighting:

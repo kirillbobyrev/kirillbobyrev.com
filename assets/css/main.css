@@ -10,6 +10,10 @@ html {
   background-color: white;
   color: black;
   font-family: "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+  /* Subtle mathematical dot grid background */
+  background-image: radial-gradient(circle, #e5e7eb 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: 0 0;
 }
 
 .site-container {
@@ -138,7 +142,27 @@ html {
 }
 
 .main-content ul,
-.note-content ul,
+.note-content ul {
+  list-style: none;
+  margin: 1.25em 0;
+  padding-left: 1.625em;
+}
+
+.main-content ul li,
+.note-content ul li {
+  position: relative;
+  margin: 0.5em 0;
+}
+
+.main-content ul li::before,
+.note-content ul li::before {
+  content: "⊙";  /* Hadamard product symbol */
+  position: absolute;
+  left: -1.625em;
+  color: #6b7280;
+  font-weight: bold;
+}
+
 .main-content ol,
 .note-content ol {
   margin: 1.25em 0;
@@ -167,7 +191,7 @@ html {
 }
 
 .ascii-header pre {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   line-height: 1.1;
   margin-left: auto;
   margin-right: auto;
@@ -398,6 +422,10 @@ code:not(.chroma code) {
   .site-body {
     background-color: #1c1917;
     color: #fef3c7;
+    /* Subtle mathematical dot grid background for dark mode */
+    background-image: radial-gradient(circle, #374151 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-position: 0 0;
   }
 
   .site-header hr {
