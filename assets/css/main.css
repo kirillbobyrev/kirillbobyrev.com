@@ -1,7 +1,4 @@
-/* Import JetBrains Mono font */
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap");
-
-/* Base styles */
 html {
   scroll-behavior: smooth;
 }
@@ -12,7 +9,6 @@ html {
   font-family:
     "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono",
     Consolas, "Courier New", monospace;
-  /* Subtle mathematical dot grid background */
   background-image: radial-gradient(circle, #e5e7eb 1px, transparent 1px);
   background-size: 20px 20px;
   background-position: 0 0;
@@ -29,7 +25,6 @@ html {
   flex: 1;
 }
 
-/* Header styles */
 .site-header {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -42,7 +37,6 @@ html {
   border-color: black;
 }
 
-/* Navigation */
 .site-nav {
   max-width: 56rem;
   margin-left: auto;
@@ -76,7 +70,6 @@ html {
   color: #4b5563;
 }
 
-/* Social links */
 .social-links {
   display: flex;
   gap: 1.5rem;
@@ -93,7 +86,6 @@ html {
   color: #4b5563;
 }
 
-/* Content styles */
 .main-content,
 .note-content {
   color: #374151;
@@ -113,7 +105,6 @@ html {
   text-decoration: none;
 }
 
-/* Typography */
 .main-content h1,
 .note-content h1 {
   font-size: 2.25rem;
@@ -158,7 +149,7 @@ html {
 
 .main-content ul li::before,
 .note-content ul li::before {
-  content: "⊙"; /* Hadamard product symbol */
+  content: "⊙";
   position: absolute;
   left: -1.625em;
   color: #6b7280;
@@ -186,7 +177,6 @@ html {
   padding-left: 1em;
 }
 
-/* ASCII header */
 .ascii-header {
   text-align: center;
   margin-bottom: 1rem;
@@ -204,7 +194,6 @@ html {
   overflow-x: auto;
 }
 
-/* Blog listing */
 .blog-listing {
   display: flex;
   flex-direction: column;
@@ -223,19 +212,16 @@ html {
   line-height: 1.5;
 }
 
-/* Lists page */
 .lists-index {
-  margin-top: 3rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
-/* Notes page */
 .notes-feed {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 1.5rem;
 }
 
 .note-item {
@@ -251,7 +237,6 @@ html {
   color: #4b5563;
 }
 
-/* Shortcode styles */
 .note-block,
 .warning-block,
 .algorithm-block {
@@ -333,7 +318,6 @@ html {
   margin-top: 0.125rem;
 }
 
-/* Figure shortcode styles */
 .figure-block {
   margin: 2rem 0;
   text-align: center;
@@ -353,7 +337,6 @@ html {
   font-style: italic;
 }
 
-/* Code block styling */
 .highlight {
   border-radius: 0.375rem;
   border: 1px solid #d1d5db;
@@ -409,7 +392,6 @@ html {
   margin: 0.1rem 0;
 }
 
-/* Inline code styling */
 code:not(.chroma code) {
   background-color: #f3f4f6;
   color: #2563eb;
@@ -427,12 +409,10 @@ code:not(.chroma code) {
     Consolas, "Courier New", monospace;
 }
 
-/* Dark theme support */
 @media (prefers-color-scheme: dark) {
   .site-body {
     background-color: #1c1917;
     color: #fef3c7;
-    /* Subtle mathematical dot grid background for dark mode */
     background-image: radial-gradient(circle, #374151 1px, transparent 1px);
     background-size: 20px 20px;
     background-position: 0 0;
@@ -519,36 +499,30 @@ code:not(.chroma code) {
     color: #fef3c7;
   }
 
-  /* Inline code dark theme */
   code:not(.chroma code) {
     background-color: #292524;
     color: #fcd34d;
     border-color: #57534e;
   }
 
-  /* Code blocks dark theme */
   .highlight,
   .chroma {
     border-color: #374151;
     background-color: #1f2937 !important;
   }
 
-  /* Highlighted lines in dark mode */
   .chroma .hl {
     background-color: rgba(255, 255, 255, 0.05);
   }
 }
 
-/* Mobile responsiveness */
 @media (max-width: 768px) {
-  /* Use native system fonts on mobile */
   .site-body {
     font-family:
       -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
       Arial, sans-serif;
   }
 
-  /* Keep monospace for code elements */
   .ascii-header pre,
   .algorithm-content,
   code,
@@ -559,12 +533,10 @@ code:not(.chroma code) {
       Consolas, "Courier New", monospace;
   }
 
-  /* Hide ASCII header on mobile */
   .ascii-header {
     display: none;
   }
 
-  /* Adjust container padding to prevent overflow */
   .site-container {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
@@ -572,13 +544,14 @@ code:not(.chroma code) {
     box-sizing: border-box;
   }
 
-  /* Reduce header padding */
   .site-header {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    padding-top: 0.5rem;
   }
 
-  /* Increase nav font size and adjust spacing */
+  .site-header hr {
+    margin-top: 1rem;
+  }
+
   .site-nav {
     font-size: 1.125rem;
     padding-left: 0.75rem;
@@ -586,18 +559,53 @@ code:not(.chroma code) {
   }
 
   .nav-menu {
-    gap: 1.5rem;
+    gap: 1.25rem;
   }
 
-  /* Reduce main content font size slightly */
   .main-content,
   .note-content {
     font-size: 1rem;
-    line-height: 1.6;
+    line-height: 1.5;
     padding: 0;
   }
 
-  /* Ensure content doesn't overflow */
+  .main-content p,
+  .note-content p {
+    margin: 1em 0;
+  }
+
+  .main-content h1,
+  .note-content h1 {
+    margin: 0 0 1.5rem;
+  }
+
+  .main-content h2,
+  .note-content h2 {
+    margin: 1.5rem 0 0.75rem;
+  }
+
+  .main-content h3,
+  .note-content h3 {
+    margin: 1.25rem 0 0.5rem;
+  }
+
+  .main-content ul,
+  .note-content ul,
+  .main-content ol,
+  .note-content ol {
+    margin: 1em 0;
+  }
+
+  .main-content li,
+  .note-content li {
+    margin: 0.25em 0;
+  }
+
+  .main-content blockquote,
+  .note-content blockquote {
+    margin: 1.25em 0;
+  }
+
   .main-content *,
   .note-content * {
     max-width: 100%;
@@ -608,19 +616,37 @@ code:not(.chroma code) {
     gap: 0.25rem;
   }
 
+  .blog-listing p {
+    padding: 0.375rem 0;
+  }
+
+  .notes-feed {
+    gap: 1.5rem;
+  }
+
+  .note-item {
+    padding-bottom: 1.5rem;
+  }
+
+  .lists-index {
+    gap: 1.5rem;
+  }
+
   .highlight {
     margin-left: -0.75rem;
     margin-right: -0.75rem;
     border-radius: 0;
     border-left: none;
     border-right: none;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 
   .highlight .chroma pre,
   .chroma pre {
     padding: 0;
     font-size: 0.85rem;
-    line-height: 1.7;
+    line-height: 1.6;
     overflow-x: auto;
   }
 
@@ -640,10 +666,6 @@ code:not(.chroma code) {
     margin-bottom: 0.75rem;
   }
 
-  .blog-listing p {
-    padding: 0.5rem 0;
-  }
-
   .algorithm-header {
     padding: 0.25rem 0.5rem;
     font-size: 0.8rem;
@@ -655,6 +677,12 @@ code:not(.chroma code) {
   }
 
   .note-block,
+  .warning-block,
+  .algorithm-block {
+    margin: 1rem 0;
+  }
+
+  .note-block,
   .warning-block {
     padding: 0.75rem;
     margin-left: -0.75rem;
@@ -662,13 +690,20 @@ code:not(.chroma code) {
     border-radius: 0;
   }
 
-  /* Ensure images don't overflow */
+  .figure-block {
+    margin: 1.5rem 0;
+  }
+
   .figure-block img {
     max-width: calc(100vw - 1.5rem);
     height: auto;
   }
 
-  /* Adjust table overflow if any */
+  .social-links {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+  }
+
   table {
     display: block;
     overflow-x: auto;
