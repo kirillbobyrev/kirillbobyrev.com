@@ -9,7 +9,9 @@ html {
 .site-body {
   background-color: white;
   color: black;
-  font-family: "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+  font-family:
+    "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono",
+    Consolas, "Courier New", monospace;
   /* Subtle mathematical dot grid background */
   background-image: radial-gradient(circle, #e5e7eb 1px, transparent 1px);
   background-size: 20px 20px;
@@ -156,7 +158,7 @@ html {
 
 .main-content ul li::before,
 .note-content ul li::before {
-  content: "⊙";  /* Hadamard product symbol */
+  content: "⊙"; /* Hadamard product symbol */
   position: absolute;
   left: -1.625em;
   color: #6b7280;
@@ -195,7 +197,9 @@ html {
   line-height: 1.1;
   margin-left: auto;
   margin-right: auto;
-  font-family: "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+  font-family:
+    "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono",
+    Consolas, "Courier New", monospace;
   white-space: pre;
   overflow-x: auto;
 }
@@ -308,7 +312,9 @@ html {
 
 .algorithm-content {
   padding: 0.5rem;
-  font-family: "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+  font-family:
+    "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono",
+    Consolas, "Courier New", monospace;
   font-size: 0.875rem;
   line-height: 1.25;
 }
@@ -364,7 +370,9 @@ html {
 
 .highlight .chroma pre,
 .chroma pre {
-  font-family: "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+  font-family:
+    "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono",
+    Consolas, "Courier New", monospace;
 }
 
 .highlight .line,
@@ -414,7 +422,9 @@ code:not(.chroma code) {
   line-height: 1.25;
   font-weight: 500;
   border: 1px solid #d1d5db;
-  font-family: "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+  font-family:
+    "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono",
+    Consolas, "Courier New", monospace;
 }
 
 /* Dark theme support */
@@ -533,7 +543,9 @@ code:not(.chroma code) {
 @media (max-width: 768px) {
   /* Use native system fonts on mobile */
   .site-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family:
+      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+      Arial, sans-serif;
   }
 
   /* Keep monospace for code elements */
@@ -542,7 +554,9 @@ code:not(.chroma code) {
   code,
   .highlight .chroma pre,
   .chroma pre {
-    font-family: "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+    font-family:
+      "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono",
+      Consolas, "Courier New", monospace;
   }
 
   /* Hide ASCII header on mobile */
@@ -629,17 +643,17 @@ code:not(.chroma code) {
   .blog-listing p {
     padding: 0.5rem 0;
   }
-  
+
   .algorithm-header {
     padding: 0.25rem 0.5rem;
     font-size: 0.8rem;
   }
-  
+
   .algorithm-content {
     padding: 0.375rem;
     font-size: 0.8rem;
   }
-  
+
   .note-block,
   .warning-block {
     padding: 0.75rem;

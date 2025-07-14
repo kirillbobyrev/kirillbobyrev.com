@@ -51,7 +51,7 @@ Rectified Flow is a new method that shows both great quality and extremely fast
 generation capabilities (in just a single/few steps).
 
 ## Notable papers
- 
+
 - [Classifier-Free Diffusion Guidance](https://arxiv.org/abs/2207.12598)
 - [Adding Conditional Control to Text-to-Image Diffusion Models](https://arxiv.org/abs/2302.05543)
 - [Consistency Models](https://arxiv.org/abs/2303.01469)
@@ -75,6 +75,7 @@ generation capabilities (in just a single/few steps).
 - [Lil'Log - What are Diffusion
   Models?](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/) is a
   great overview of the diffusion techniques landscape
+- [Step-by-Step Diffusion: An Elementary Tutorial](https://arxiv.org/abs/2406.08929)
 - [Let Us Flow Together](https://rectifiedflow.github.io/) - rectified Flow deep
   dive, lecture notes and code.
 - [Diffusion Meets Flow Matching: Two Sides of the Same Coin](https://diffusionflow.github.io/)
