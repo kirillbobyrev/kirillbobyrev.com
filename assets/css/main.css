@@ -504,35 +504,103 @@ code:not(.chroma code) {
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
+  /* Use native system fonts on mobile */
+  .site-body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  /* Keep monospace for code elements */
+  .ascii-header pre,
+  .algorithm-content,
+  code,
+  .highlight .chroma pre,
+  .chroma pre {
+    font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+  }
+
+  /* Hide ASCII header on mobile */
+  .ascii-header {
+    display: none;
+  }
+
+  /* Adjust container padding to prevent overflow */
+  .site-container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Reduce header padding */
+  .site-header {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  /* Increase nav font size and adjust spacing */
+  .site-nav {
+    font-size: 1.125rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .nav-menu {
+    gap: 1.5rem;
+  }
+
+  /* Reduce main content font size slightly */
   .main-content,
   .note-content {
-    font-size: 1.125rem;
-    line-height: 1.75;
-    padding: 0 0.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    padding: 0;
   }
+
+  /* Ensure content doesn't overflow */
+  .main-content *,
+  .note-content * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
   .blog-listing {
     gap: 0.25rem;
   }
+
+  .highlight {
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
   .highlight .chroma pre,
   .chroma pre {
     padding: 0;
     font-size: 0.85rem;
     line-height: 1.7;
+    overflow-x: auto;
   }
+
   .highlight .line,
   .chroma .line {
-    margin: 0 1.5rem;
+    margin: 0 1rem;
+    white-space: pre;
   }
+
   .highlight .line:first-child,
   .chroma .line:first-child {
     margin-top: 0.75rem;
   }
+
   .highlight .line:last-child,
   .chroma .line:last-child {
     margin-bottom: 0.75rem;
   }
+
   .blog-listing p {
-    padding: 0.5rem 0.25rem;
+    padding: 0.5rem 0;
   }
   
   .algorithm-header {
@@ -548,5 +616,21 @@ code:not(.chroma code) {
   .note-block,
   .warning-block {
     padding: 0.75rem;
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+    border-radius: 0;
+  }
+
+  /* Ensure images don't overflow */
+  .figure-block img {
+    max-width: calc(100vw - 1.5rem);
+    height: auto;
+  }
+
+  /* Adjust table overflow if any */
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
   }
 }
