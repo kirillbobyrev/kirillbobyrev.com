@@ -31,9 +31,12 @@ enableGitInfo = true
   [markup.highlight]
     codefences = true
     guesssyntax = true
-    noclasses = true
+    noclasses = false
     tabwidth = 2
-    style = 'github-dark'
+    style = 'github'
+    lineNos = false
+    lineNumbersInTable = false
+    anchorLineNos = false
     [markup.goldmark]
       [markup.goldmark.extensions]
         [markup.goldmark.extensions.passthrough]
