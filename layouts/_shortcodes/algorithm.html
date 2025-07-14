@@ -1,0 +1,8 @@
+<div class="algorithm-block">
+  <header class="algorithm-header">
+    Algorithm{{ with .Get "name" }}: {{ . }}{{ end }}
+  </header>
+  <div class="algorithm-content">
+    {{ .Inner | markdownify }}
+  </div>
+</div>

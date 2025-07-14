@@ -39,5 +39,10 @@
 
   {{ partialCached "css.html" . }}
 
+  {{ $noop := .WordCount }}
+  {{ if .Page.Store.Get "hasMath" }}
+    {{ partialCached "math.html" . }}
+  {{ end }}
+
   {{ hugo.Generator }}
 </head>
