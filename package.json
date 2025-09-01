@@ -5,7 +5,7 @@
   },
   "dependencies": {
     "@playwright/mcp": "^0.0.32",
-    "@playwright/test": "^1.54.1",
+    "@playwright/test": "^1.55.0",
     "playwright": "^1.54.2"
   }
 }
