@@ -19,9 +19,9 @@
   />
   <meta name="author" content="{{ .Site.Params.author.name }}" />
 
-  {{ partial "opengraph.html" . }}
-  {{ partial "twitter_cards.html" . }}
-  {{ partial "google_analytics.html" . }}
+  {{ template "_internal/opengraph.html" . }}
+  {{ template "_internal/twitter_cards.html" . }}
+  {{ template "_internal/google_analytics.html" . }}
 
 
   <link rel="canonical" href="{{ .Permalink }}" />

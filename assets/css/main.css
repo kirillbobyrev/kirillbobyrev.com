@@ -98,69 +98,59 @@ html {
   color: #4b5563;
 }
 
-.main-content,
-.note-content {
+.main-content {
   color: #374151;
   line-height: 1.75;
 }
 
 .main-content a,
-.note-content a,
 .blog-post-link {
   color: black;
   text-decoration: underline;
 }
 
 .main-content a:hover,
-.note-content a:hover,
 .blog-post-link:hover {
   text-decoration: none;
 }
 
-.main-content h1,
-.note-content h1 {
+.main-content h1 {
   font-size: 2.25rem;
   font-weight: 800;
   line-height: 1.111;
   margin: 0 0 var(--space-xl);
 }
 
-.main-content h2,
-.note-content h2 {
+.main-content h2 {
   font-size: 1.875rem;
   font-weight: 700;
   line-height: 1.333;
   margin: var(--space-xl) 0 var(--space-sm);
 }
 
-.main-content h3,
-.note-content h3 {
+.main-content h3 {
   font-size: 1.5rem;
   font-weight: 600;
   line-height: 1.333;
   margin: var(--space-lg) 0 var(--space-xs);
 }
 
-.main-content p,
-.note-content p {
+.main-content p {
   margin: var(--space-md) 0;
 }
 
-.main-content ul,
-.note-content ul {
+.main-content ul {
   list-style: none;
   margin: var(--space-md) 0;
   padding-left: var(--space-lg);
 }
 
-.main-content ul li,
-.note-content ul li {
+.main-content ul li {
   position: relative;
   margin: var(--space-xs) 0;
 }
 
-.main-content ul li::before,
-.note-content ul li::before {
+.main-content ul li::before {
   content: "⊙";
   position: absolute;
   left: -1.625em;
@@ -168,19 +158,16 @@ html {
   font-weight: bold;
 }
 
-.main-content ol,
-.note-content ol {
+.main-content ol {
   margin: 1.25em 0;
   padding-left: 1.625em;
 }
 
-.main-content li,
-.note-content li {
+.main-content li {
   margin: 0.5em 0;
 }
 
-.main-content blockquote,
-.note-content blockquote {
+.main-content blockquote {
   font-weight: 500;
   font-style: italic;
   color: #374151;
@@ -228,50 +215,17 @@ html {
   line-height: 1.5;
 }
 
-.lists-index {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.notes-feed {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.note-item {
-  padding-bottom: 2rem;
-}
-
-.note-date {
-  color: black;
-  text-decoration: none;
-}
-
-.note-date:hover {
-  color: #4b5563;
-}
-
-.note-block,
 .warning-block,
 .algorithm-block {
   margin: 1.5rem 0;
 }
 
-.note-block,
 .warning-block {
   padding: 1rem;
   border-top-right-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
 }
 
-.note-block {
-  border-left: 4px solid #2563eb;
-  background-color: #eff6ff;
-}
-
-.note-title,
 .warning-title {
   font-weight: 600;
   font-size: 0.875rem;
@@ -279,10 +233,6 @@ html {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 0.5rem;
-}
-
-.note-title {
-  color: #1d4ed8;
 }
 
 .warning-block {
@@ -459,13 +409,11 @@ code:not(.chroma code) {
   }
 
   .main-content a,
-  .note-content a,
   .blog-post-link {
     color: #fef3c7;
   }
 
   .main-content a:hover,
-  .note-content a:hover,
   .blog-post-link:hover {
     color: #fde68a;
   }
@@ -474,26 +422,8 @@ code:not(.chroma code) {
     color: #fef3c7;
   }
 
-  .main-content,
-  .note-content {
+  .main-content {
     color: #fef3c7;
-  }
-
-  .note-date {
-    color: #fef3c7;
-  }
-
-  .note-date:hover {
-    color: #fde68a;
-  }
-
-  .note-block {
-    border-color: #60a5fa;
-    background-color: rgba(30, 58, 138, 0.2);
-  }
-
-  .note-title {
-    color: #93c5fd;
   }
 
   .warning-block {
@@ -609,52 +539,42 @@ code:not(.chroma code) {
     gap: 1.25rem;
   }
 
-  .main-content,
-  .note-content {
+  .main-content {
     font-size: 1rem;
     line-height: 1.5;
     padding: 0;
   }
 
-  .main-content p,
-  .note-content p {
+  .main-content p {
     margin: 1em 0;
   }
 
-  .main-content h1,
-  .note-content h1 {
+  .main-content h1 {
     margin: 0 0 1.5rem;
   }
 
-  .main-content h2,
-  .note-content h2 {
+  .main-content h2 {
     margin: 1.5rem 0 0.75rem;
   }
 
-  .main-content h3,
-  .note-content h3 {
+  .main-content h3 {
     margin: 1.25rem 0 0.5rem;
   }
 
   .main-content ul,
-  .note-content ul,
-  .main-content ol,
-  .note-content ol {
+  .main-content ol {
     margin: 1em 0;
   }
 
-  .main-content li,
-  .note-content li {
+  .main-content li {
     margin: 0.25em 0;
   }
 
-  .main-content blockquote,
-  .note-content blockquote {
+  .main-content blockquote {
     margin: 1.25em 0;
   }
 
-  .main-content *,
-  .note-content * {
+  .main-content * {
     max-width: 100%;
     box-sizing: border-box;
   }
@@ -665,18 +585,6 @@ code:not(.chroma code) {
 
   .blog-listing p {
     padding: 0.25rem 0;
-  }
-
-  .notes-feed {
-    gap: 1.5rem;
-  }
-
-  .note-item {
-    padding-bottom: 1.5rem;
-  }
-
-  .lists-index {
-    gap: 0.75rem;
   }
 
   .highlight {
@@ -723,13 +631,11 @@ code:not(.chroma code) {
     font-size: 0.8rem;
   }
 
-  .note-block,
   .warning-block,
   .algorithm-block {
     margin: 1rem 0;
   }
 
-  .note-block,
   .warning-block {
     padding: 0.75rem;
     margin-left: -0.75rem;
