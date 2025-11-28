@@ -47,7 +47,3 @@ enableGitInfo = true
 
 [sitemap]
   changefreq = 'weekly'
-
-[build]
-  [build.buildstats]
-    enable = true
