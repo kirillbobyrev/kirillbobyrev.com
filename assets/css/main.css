@@ -215,34 +215,6 @@ html {
   line-height: 1.5;
 }
 
-.warning-block {
-  margin: 1.5rem 0;
-}
-
-.warning-block {
-  padding: 1rem;
-  border-top-right-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
-}
-
-.warning-title {
-  font-weight: 600;
-  font-size: 0.875rem;
-  line-height: 1.25;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.5rem;
-}
-
-.warning-block {
-  border-left: 4px solid #d97706;
-  background-color: #fffbeb;
-}
-
-.warning-title {
-  color: #b45309;
-}
-
 .figure-block {
   margin: 2rem 0;
   text-align: center;
