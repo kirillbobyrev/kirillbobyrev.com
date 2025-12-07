@@ -1,13 +1,13 @@
-{{ define "main" }}
+{{- define "main" -}}
 <article class="main-content">
   <section class="blog-listing">
-    {{ range .Pages }}
-    <p>
-      <time datetime="{{ .Date.Format "2006-01-02" }}" class="blog-post-date">{{ .Date.Format "2006-01-02" }}</time>
-      <span class="separator">·</span>
-      <a href="{{ .RelPermalink }}" class="blog-post-link">{{ .Title }}</a>
-    </p>
-    {{ end }}
+    {{- range .Pages -}}
+      <p>
+        <time datetime="{{ .Date.Format "2006-01-02" }}" class="blog-post-date">{{ .Date.Format "2006-01-02" }}</time>
+        <span class="separator">·</span>
+        <a href="{{ .RelPermalink }}" class="blog-post-link">{{ .Title }}</a>
+      </p>
+    {{- end -}}
   </section>
 </article>
-{{ end }}
+{{- end -}}
