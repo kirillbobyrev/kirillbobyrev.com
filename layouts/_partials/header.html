@@ -1,11 +1,7 @@
 <header class="site-header">
   <a href="/" class="site-title">Kirill Bobyrev</a>
-  <nav class="site-nav" aria-label="Primary navigation">
-    <menu class="nav-menu">
-      <li><a href="/" class="nav-link">Home</a></li>
-      {{ range .Site.Menus.main }}
-        <li><a href="{{ .URL }}" class="nav-link">{{ .Name }}</a></li>
-      {{ end }}
-    </menu>
+  <nav class="site-nav">
+    <a href="/" class="nav-link">Home</a>
+    {{ range .Site.Menus.main }}<a href="{{ .URL }}" class="nav-link">{{ .Name }}</a>{{ end }}
   </nav>
 </header>

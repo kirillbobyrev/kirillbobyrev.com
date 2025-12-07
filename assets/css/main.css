@@ -51,15 +51,9 @@ html {
 }
 
 .site-nav {
-  font-size: 1rem;
-}
-
-.nav-menu {
   display: flex;
   gap: 1.5rem;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  font-size: 1rem;
 }
 
 .nav-link {
@@ -175,6 +169,11 @@ html {
 .blog-post-date {
   color: var(--color-muted);
   font-size: 0.875rem;
+}
+
+.separator {
+  margin: 0 0.5rem;
+  color: var(--color-muted);
 }
 
 .figure-block {
