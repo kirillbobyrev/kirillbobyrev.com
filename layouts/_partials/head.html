@@ -1,61 +1,19 @@
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>
-    {{ if .IsHome }}
-      {{ .Site.Title }}
-    {{ else }}
-      {{ .Title }} ·
-      {{ .Site.Title }}
-    {{ end }}
-  </title>
-  <meta
-    name="description"
-    content="{{ with .Description }}
-      {{ . }}
-    {{ else }}
-      {{ .Site.Params.description }}
-    {{ end }}"
-  />
-  <meta name="author" content="{{ .Site.Params.author.name }}" />
-
-  {{ partial "opengraph.html" . }}
-  {{ partial "twitter_cards.html" . }}
-  {{ partial "google_analytics.html" . }}
-
-
-  <link rel="canonical" href="{{ .Permalink }}" />
-  <link
-    rel="alternate"
-    type="application/rss+xml"
-    href="{{ .Site.BaseURL }}index.xml"
-    title="{{ .Site.Title }}"
-  />
-
-  <link
-    rel="icon"
-    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>😼</text></svg>"
-  />
-
-  {{ partialCached "css.html" . }}
-
-
-  <!-- Syntax highlighting themes -->
-  <link
-    rel="stylesheet"
-    href="/syntax-light.css"
-    media="(prefers-color-scheme: light)"
-  />
-  <link
-    rel="stylesheet"
-    href="/syntax-dark.css"
-    media="(prefers-color-scheme: dark)"
-  />
-
-  {{ $noop := .WordCount }}
-  {{ if .Page.Store.Get "hasMath" }}
-    {{ partialCached "math.html" . }}
-  {{ end }}
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta name="author" content="{{ .Site.Params.author.name }}">
+  {{- partial "opengraph.html" . -}}
+  {{- partial "twitter_cards.html" . -}}
+  {{- partial "google_analytics.html" . -}}
+  <link rel="canonical" href="{{ .Permalink }}">
+  <link rel="alternate" type="application/rss+xml" href="{{ .Site.BaseURL }}index.xml" title="{{ .Site.Title }}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>😼</text></svg>">
+  {{- partialCached "css.html" . -}}
+  {{- $noop := .WordCount -}}
+  {{- if .Page.Store.Get "hasMath" -}}
+    {{- partialCached "math.html" . -}}
+  {{- end -}}
   {{ hugo.Generator }}
 </head>

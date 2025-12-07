@@ -29,17 +29,17 @@ enableGitInfo = true
 
 [markup]
   [markup.highlight]
-    codefences = true
-    guesssyntax = true
-    noclasses = false
-    tabwidth = 2
+    codeFences = true
+    guessSyntax = true
+    noClasses = true
+    tabWidth = 2
     style = 'github'
     lineNos = false
     lineNumbersInTable = false
     anchorLineNos = false
-    [markup.goldmark]
-      [markup.goldmark.extensions]
-        [markup.goldmark.extensions.passthrough]
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      [markup.goldmark.extensions.passthrough]
         enable = true
         [markup.goldmark.extensions.passthrough.delimiters]
           block = [['\[', '\]'], ['$$', '$$']]

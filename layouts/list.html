@@ -1,20 +1,13 @@
-{{ define "main" }}
-  <article class="main-content">
-    <section aria-label="Posts" class="blog-listing">
-      {{ range .Pages }}
-        <p>
-          <time
-            datetime="{{ .Date.Format "2006-01-02" }}"
-            class="blog-post-date"
-          >
-            {{ .Date.Format "2006-01-02" }}
-          </time>
-          <span style="margin: 0 0.5rem;">·</span>
-          <a href="{{ .RelPermalink }}" class="blog-post-link">
-            {{ .Title }}
-          </a>
-        </p>
-      {{ end }}
-    </section>
-  </article>
-{{ end }}
+{{- define "main" -}}
+<article class="main-content">
+  <section class="blog-listing">
+    {{- range .Pages -}}
+      <p>
+        <time datetime="{{ .Date.Format "2006-01-02" }}" class="blog-post-date">{{ .Date.Format "2006-01-02" }}</time>
+        <span class="separator">·</span>
+        <a href="{{ .RelPermalink }}" class="blog-post-link">{{ .Title }}</a>
+      </p>
+    {{- end -}}
+  </section>
+</article>
+{{- end -}}
