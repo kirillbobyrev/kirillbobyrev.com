@@ -4,6 +4,7 @@
   <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
   <meta name="author" content="{{ .Site.Params.author.name }}">
+  {{- with .Site.Params.keywords }}<meta name="keywords" content="{{ delimit . ", " }}">{{ end }}
   {{- partial "opengraph.html" . -}}
   {{- partial "twitter_cards.html" . -}}
   {{- partial "google_analytics.html" . -}}

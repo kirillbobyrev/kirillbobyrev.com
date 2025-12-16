@@ -8,10 +8,9 @@ disableKinds = ['taxonomy', 'term']
 enableGitInfo = true
 
 [params]
-  description = 'blog about software engineering and hobbies by kirill bobyrev'
+  description = 'software engineering blog by Kirill Bobyrev'
   twittercards = true
   opengraph = true
-  datedisplayformat = '2 jan, 2006'
   images = ['images/twitter.png']
   keywords = [
     'software engineering',
