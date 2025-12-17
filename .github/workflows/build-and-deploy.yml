@@ -33,9 +33,6 @@ jobs:
         with:
           go-version: "stable"
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-
       - name: Install Hugo with Go
         run: |
           go install github.com/gohugoio/hugo@latest
