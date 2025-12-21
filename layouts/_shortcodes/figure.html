@@ -1,9 +1,18 @@
 <figure class="figure-block">
   {{- if .Get "src" -}}
-    <img src="{{ .Get "src" }}" alt="{{ .Get "alt" | default (.Get "caption") }}" class="figure-image"{{ with .Get "width" }} width="{{ . }}"{{ end }}{{ with .Get "height" }} height="{{ . }}"{{ end }}>
+    <img
+      src="{{ .Get "src" }}"
+      alt="{{ .Get "alt" | default (.Get "caption") }}"
+      class="figure-image"
+      {{ with .Get "width" }}width="{{ . }}"{{ end }}{{ with .Get "height" }}
+        height="{{ . }}"
+      {{ end }}
+    />
   {{- end -}}
   {{- if .Get "caption" -}}
-    <figcaption class="figure-caption">{{ .Get "caption" | markdownify }}</figcaption>
+    <figcaption class="figure-caption">
+      {{ .Get "caption" | markdownify }}
+    </figcaption>
   {{- end -}}
   {{- if .Inner -}}
     <figcaption class="figure-caption">{{ .Inner | markdownify }}</figcaption>
