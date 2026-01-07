@@ -96,10 +96,6 @@ html {
   padding: 0 1.5rem 4rem;
 }
 
-.site-header-wrapper {
-  /* transparent background */
-}
-
 .site-header {
   max-width: 52rem;
   margin: 0 auto;
@@ -173,7 +169,6 @@ html {
 }
 
 .main-content {
-  color: var(--color-text);
   line-height: 1.75;
   margin-top: 1rem;
   letter-spacing: -0.01em;
@@ -265,10 +260,6 @@ html {
   color: inherit;
   border-radius: 0.25rem;
   transition: background-color 0.15s ease;
-}
-
-.blog-post-row:hover {
-  /* no background highlight */
 }
 
 .blog-post-date {
