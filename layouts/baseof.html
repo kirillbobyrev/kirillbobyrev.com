@@ -4,7 +4,9 @@
 
 
   <body class="site-body">
-    {{- partial "header.html" . -}}
+    <div class="site-header-wrapper">
+      {{- partial "header.html" . -}}
+    </div>
     <main id="content" class="site-container">
       {{- block "main" . }}{{ end }}
     </main>

@@ -65,11 +65,11 @@
 :root {
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: "Monaspace Neon", "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
-  --color-text: #374151;
+  --color-text: #1f2937;
   --color-heading: #111827;
   --color-link: #2563eb;
   --color-link-hover: #1d4ed8;
-  --color-muted: #6b7280;
+  --color-muted: #4b5563;
   --color-border: #e5e7eb;
   --color-bg: #fff;
   --color-bg-code: #f8fafc;
@@ -96,21 +96,25 @@ html {
   padding: 0 1.5rem 4rem;
 }
 
+.site-header-wrapper {
+  /* transparent background */
+}
+
 .site-header {
   max-width: 52rem;
   margin: 0 auto;
-  padding: 2rem 1.5rem;
+  padding: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .site-title {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.125rem;
+  font-weight: 700;
   color: var(--color-heading);
   text-decoration: none;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 .site-title:hover {
@@ -175,8 +179,7 @@ html {
   letter-spacing: -0.01em;
 }
 
-.main-content a,
-.blog-post-link {
+.main-content a:not(.blog-post-row) {
   color: var(--color-link);
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -184,8 +187,7 @@ html {
   transition: color 0.15s ease;
 }
 
-.main-content a:hover,
-.blog-post-link:hover {
+.main-content a:not(.blog-post-row):hover {
   color: var(--color-link-hover);
 }
 
@@ -251,23 +253,38 @@ html {
 .blog-listing {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.125rem;
 }
 
-.blog-listing p {
-  margin: 0;
+.blog-post-row {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: 1rem;
   padding: 0.625rem 0;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 0.25rem;
+  transition: background-color 0.15s ease;
+}
+
+.blog-post-row:hover {
+  /* no background highlight */
 }
 
 .blog-post-date {
   color: var(--color-muted);
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   font-variant-numeric: tabular-nums;
 }
 
-.separator {
-  margin: 0 0.625rem;
-  color: var(--color-border);
+.blog-post-title {
+  color: var(--color-heading);
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+.blog-post-row:hover .blog-post-title {
+  color: var(--color-link);
 }
 
 .figure-block {
@@ -343,9 +360,16 @@ code:not(pre code) {
 
 @media (max-width: 640px) {
   .site-header {
-    flex-direction: column;
-    gap: 0.75rem;
-    padding: 1.5rem 1rem;
+    padding: 1rem;
+  }
+
+  .site-title {
+    font-size: 1rem;
+  }
+
+  .site-nav {
+    gap: 1rem;
+    font-size: 0.9rem;
   }
 
   .site-container {

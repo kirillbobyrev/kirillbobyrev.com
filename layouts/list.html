@@ -2,15 +2,14 @@
   <article class="main-content">
     <section class="blog-listing">
       {{- range .Pages -}}
-        <p>
+        <a href="{{ .RelPermalink }}" class="blog-post-row">
           <time
             datetime="{{ .Date.Format "2006-01-02" }}"
             class="blog-post-date"
-            >{{ .Date.Format "2006-01-02" }}</time
+            >{{ .Date.Format "Jan 2" }}</time
           >
-          <span class="separator">·</span>
-          <a href="{{ .RelPermalink }}" class="blog-post-link">{{ .Title }}</a>
-        </p>
+          <span class="blog-post-title">{{ .Title }}</span>
+        </a>
       {{- end -}}
     </section>
   </article>
