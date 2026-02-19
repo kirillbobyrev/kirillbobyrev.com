@@ -1,11 +1,15 @@
 {{- define "main" -}}
   <article class="main-content">
+    <a href="/blog/" class="back-link">&larr; Back to blog</a>
     <header class="article-header">
       <h1>{{ .Title }}</h1>
       {{- if .Date -}}
-        <time class="article-date" datetime="{{ .Date.Format "2006-01-02" }}"
-          >{{ .Date.Format "Jan 2, 2006" }}</time
-        >
+        <div class="article-meta">
+          <time class="article-date" datetime="{{ .Date.Format "2006-01-02" }}"
+            >{{ .Date.Format "January 2, 2006" }}</time
+          >
+          <span class="article-reading-time">{{ .ReadingTime }} min read</span>
+        </div>
       {{- end -}}
     </header>
     {{ .Content }}

@@ -4,7 +4,7 @@ title = 'Home'
 
 I build machine learning models at Waymo and make the simulation more realisitc.
 
-### My Journey
+## My Journey
 
 My path started with competitive programming as a physics and math student at
 [MIPT](https://en.wikipedia.org/wiki/Moscow_Institute_of_Physics_and_Technology).
@@ -27,7 +27,7 @@ My team focuses on making simulations more realistic, robust, and performant to
 help ensure the safety of self-driving systems. It's challenging work at the
 intersection of ML and safety-critical systems.
 
-### Beyond Code
+## Beyond Code
 
 I really enjoy learning something new - practicing Jiu Jitsu techniques,
 exploring the chess openings, or traveling to new places. I speak English,
