@@ -2,7 +2,7 @@
 title = 'Home'
 +++
 
-I build machine learning models at Waymo and make the simulation more realisitc.
+I build machine learning models at Waymo and make the simulation more realistic.
 
 ## My Journey
 

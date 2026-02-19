@@ -1,7 +1,6 @@
 baseURL = 'https://kirillbobyrev.com/'
 enableEmoji = true
 enableRobotsTXT = true
-googleAnalytics = 'G-RHCZGDQQJR'
 languageCode = 'en'
 title = 'Kirill Bobyrev'
 disableKinds = ['taxonomy', 'term']
@@ -9,8 +8,6 @@ enableGitInfo = true
 
 [params]
   description = 'software engineering blog by Kirill Bobyrev'
-  twittercards = true
-  opengraph = true
   images = ['images/twitter.png']
   keywords = [
     'software engineering',
@@ -33,9 +30,6 @@ enableGitInfo = true
     noClasses = true
     tabWidth = 2
     style = 'github'
-    lineNos = false
-    lineNumbersInTable = false
-    anchorLineNos = false
   [markup.goldmark]
     [markup.goldmark.extensions]
       [markup.goldmark.extensions.passthrough]
@@ -43,6 +37,10 @@ enableGitInfo = true
         [markup.goldmark.extensions.passthrough.delimiters]
           block = [['\[', '\]'], ['$$', '$$']]
           inline = [['\(', '\)']]
+
+[services]
+  [services.googleAnalytics]
+    id = 'G-RHCZGDQQJR'
 
 [sitemap]
   changefreq = 'weekly'
