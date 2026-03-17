@@ -21,8 +21,8 @@ hugo --gc --minify
 **Format HTML templates:**
 
 ```sh
-npm run format        # Format layouts
-npm run format:check  # Check formatting
+npm run format
+npm run format:check
 ```
 
 **Check links locally (requires [lychee](https://github.com/lycheeverse/lychee)):**
@@ -76,6 +76,7 @@ Automated via GitHub Actions on push to `main`. Builds Hugo site, checks links, 
 When making visual changes (CSS, layouts, templates), follow this workflow:
 
 1. **Start the dev server:**
+
    ```sh
    hugo server --disableFastRender --noHTTPCache --ignoreCache
    ```
@@ -84,12 +85,14 @@ When making visual changes (CSS, layouts, templates), follow this workflow:
    Use `mcp__playwright__browser_navigate` to open `http://localhost:1313` and `mcp__playwright__browser_snapshot` to inspect the page. Check both the homepage and affected blog posts.
 
 3. **Build and check links:**
+
    ```sh
    hugo --gc --minify
    lychee --offline --no-progress ./public
    ```
 
 4. **Format templates:**
+
    ```sh
    npm run format
    ```
