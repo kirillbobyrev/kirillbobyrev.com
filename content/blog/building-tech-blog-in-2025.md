@@ -1,5 +1,6 @@
 +++
 title = "Building a tech blog in 2025"
+description = "Finding the right tools and setup for a personal tech blog you actually own."
 publishDate = 2025-06-19
 draft = true
 +++

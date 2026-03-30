@@ -1,5 +1,6 @@
 +++
 title = "Analyzing long win streaks in online chess"
+description = "A statistical analysis of Hikaru Nakamura's 55-game winning streak in online blitz chess."
 publishDate = 2023-11-28
 +++
 

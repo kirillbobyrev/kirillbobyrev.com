@@ -1,20 +1,23 @@
 {{- define "main" -}}
   <article class="main-content">
     <h1>Blog</h1>
-    {{- range .Pages.GroupByDate "2006" -}}
-      <section class="blog-year-group">
-        <h2 class="blog-year-heading">{{ .Key }}</h2>
-        {{- range .Pages -}}
-          <a href="{{ .RelPermalink }}" class="blog-post-row">
-            <span class="blog-post-title">{{ .Title }}</span>
-            <time
-              datetime="{{ .Date.Format "2006-01-02" }}"
-              class="blog-post-date"
-              >{{ .Date.Format "January 2" }}</time
-            >
-          </a>
-        {{- end -}}
-      </section>
-    {{- end -}}
+    <div class="blog-timeline">
+      {{- range .Pages -}}
+        <a href="{{ .RelPermalink }}" class="blog-timeline-entry">
+          <time
+            datetime="{{ .Date.Format "2006-01-02" }}"
+            class="blog-timeline-date"
+            >{{ .Date.Format "Jan 02, 2006" }}</time
+          >
+          <div class="blog-timeline-content">
+            <span class="blog-timeline-title">{{ .Title }}</span>
+            {{- with .Description | default .Params.description -}}
+              <span class="blog-timeline-sep"> &mdash; </span>
+              <span class="blog-timeline-desc">{{ . }}</span>
+            {{- end -}}
+          </div>
+        </a>
+      {{- end -}}
+    </div>
   </article>
 {{- end -}}

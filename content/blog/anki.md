@@ -1,5 +1,6 @@
 +++
 title = "Anki: the ultimate tool for learning"
+description = "How spaced repetition transformed my approach to learning as a software engineer."
 publishDate = 2025-01-02
 +++
 

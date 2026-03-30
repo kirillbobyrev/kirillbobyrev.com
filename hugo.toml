@@ -42,5 +42,10 @@ enableGitInfo = true
   [services.googleAnalytics]
     id = 'G-RHCZGDQQJR'
 
+[[menus.main]]
+  name = 'Resume'
+  url = '/resume.pdf'
+  weight = 2
+
 [sitemap]
   changefreq = 'weekly'

@@ -1,5 +1,6 @@
 ---
 title: "Blog features demo"
+description: "A demonstration of available shortcodes and blog formatting features."
 date: 2025-07-14
 draft: true
 ---
