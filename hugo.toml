@@ -1,7 +1,7 @@
 baseURL = 'https://kirillbobyrev.com/'
 enableEmoji = true
 enableRobotsTXT = true
-languageCode = 'en'
+locale = 'en-US'
 title = 'Kirill Bobyrev'
 disableKinds = ['taxonomy', 'term']
 enableGitInfo = true

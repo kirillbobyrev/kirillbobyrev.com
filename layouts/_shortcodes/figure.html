@@ -1,11 +1,26 @@
+{{- /*
+  Figure shortcode. When `src` resolves to a bundled page resource it is
+  processed (see responsive-img.html); otherwise the raw `src` (external or
+  /static path) is used as-is. API: src, alt, caption, width, height.
+  */
+-}}
+{{- $src := .Get "src" | default "" -}}
+{{- $alt := .Get "alt" | default (.Get "caption") -}}
+{{- $res := "" -}}
+{{- if and (ne $src "") (not (urls.Parse $src).IsAbs) (not (strings.HasPrefix $src "/")) }}
+  {{- $res = .Page.Resources.Get $src -}}
+{{- end -}}
 <figure class="figure-block">
-  {{- if .Get "src" -}}
+  {{- if and $res (eq $res.ResourceType "image") (ne $res.MediaType.SubType "svg") -}}
+    {{- partial "responsive-img.html" (dict "image" $res "alt" $alt) -}}
+  {{- else if ne $src "" -}}
     <img
-      src="{{ .Get "src" }}"
-      alt="{{ .Get "alt" | default (.Get "caption") }}"
-      {{ with .Get "width" }}width="{{ . }}"{{ end }}{{ with .Get "height" }}
-        height="{{ . }}"
-      {{ end }}
+      src="{{ $src }}"
+      alt="{{ $alt }}"
+      loading="lazy"
+      decoding="async"
+      {{- with .Get "width" }}width="{{ . }}"{{ end }}
+      {{- with .Get "height" }}height="{{ . }}"{{ end }}
     />
   {{- end -}}
   {{- if .Inner -}}

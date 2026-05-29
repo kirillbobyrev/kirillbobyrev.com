@@ -1,0 +1,32 @@
+{{- /*
+  Renders a responsive, lazily loaded <img> from an image Resource.
+  Params (dict): image (resource, required), alt (string).
+  Emits a WebP srcset at widths 480/768/1024/1440 capped at the original width,
+  with intrinsic width/height to avoid layout shift.
+  */
+-}}
+{{- $res := .image -}}
+{{- $maxw := $res.Width -}}
+{{- $cap := cond (gt $maxw 1600) 1600 $maxw -}}
+{{- $widths := slice -}}
+{{- range (slice 480 768 1024 1440) -}}
+  {{- if lt . $maxw }}{{ $widths = $widths | append . }}{{ end -}}
+{{- end -}}
+{{- $widths = $widths | append $cap | uniq | sort -}}
+{{- $srcset := slice -}}
+{{- range $widths -}}
+  {{- $i := $res.Resize (printf "%dx webp q82" .) -}}
+  {{- $srcset = $srcset | append (printf "%s %dw" $i.RelPermalink .) -}}
+{{- end -}}
+{{- $fallback := $res.Resize (printf "%dx webp q82" $cap) -}}
+<img
+  src="{{ $fallback.RelPermalink }}"
+  srcset="{{ delimit $srcset ", " }}"
+  sizes="(max-width: 44rem) 100vw, 44rem"
+  width="{{ $fallback.Width }}"
+  height="{{ $fallback.Height }}"
+  alt="{{ .alt }}"
+  loading="lazy"
+  decoding="async"
+/>
+{{- /* keep output tight */ -}}

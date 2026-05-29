@@ -133,7 +133,7 @@ Here are my findings:
 
 Let's look at Hikaru's opponents rating distribution:
 
-![Hikaru's opponents rating distribution](/images/analyzing-long-win-streaks/hikaru_opponent_ratings_60d.png)
+![Hikaru's opponents rating distribution](hikaru_opponent_ratings_60d.png)
 
 Here are top 6 win streaks:
 
@@ -170,7 +170,7 @@ Caruana.
 Let's take top 5 players from Chess.com
 blitz [leaderboard](https://www.chess.com/leaderboard/live) from today:
 
-![Top 5 blitz players on Chess.com](/images/analyzing-long-win-streaks/top_5_blitz.jpeg)
+![Top 5 blitz players on Chess.com](top_5_blitz.jpeg)
 
 Hikaru Nakamura and Daniel Narodistky have by far most games, which is expected
 since both of them are streaming a lot and play online almost exclusively (with
@@ -268,13 +268,13 @@ win streaks:
 
 It might be easier to look at the rating distributions visually:
 
-![Carlsen's opponents rating distribution](/images/analyzing-long-win-streaks/MagnusCarlsen_opponent_ratings.png)
+![Carlsen's opponents rating distribution](MagnusCarlsen_opponent_ratings.png)
 
-![Nakamura's opponents rating distribution](/images/analyzing-long-win-streaks/Hikaru_opponent_ratings.png)
+![Nakamura's opponents rating distribution](Hikaru_opponent_ratings.png)
 
-![Sarin's opponents rating distribution](/images/analyzing-long-win-streaks/nihalsarin_opponent_ratings.png)
+![Sarin's opponents rating distribution](nihalsarin_opponent_ratings.png)
 
-![Naroditsky's opponents rating distribution](/images/analyzing-long-win-streaks/DanielNaroditsky_opponent_ratings.png)
+![Naroditsky's opponents rating distribution](DanielNaroditsky_opponent_ratings.png)
 
 Now, let's get to figuring out the probability of achieving the streaks we
 found.

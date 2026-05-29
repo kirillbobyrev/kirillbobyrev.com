@@ -33,9 +33,11 @@ jobs:
         with:
           go-version: "stable"
 
-      - name: Install Hugo with Go
+      - name: Install Hugo (extended, pinned)
+        # Keep the version in sync with .devcontainer; bump deliberately.
+        # -tags extended is required for WebP image encoding.
         run: |
-          go install github.com/gohugoio/hugo@latest
+          CGO_ENABLED=1 go install -tags extended github.com/gohugoio/hugo@v0.162.0
 
       - name: Setup Pages
         id: pages

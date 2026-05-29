@@ -1,6 +1,6 @@
 {{- define "main" -}}
   <article class="main-content homepage">
-    {{ .Content }}
+    <div class="prose">{{ .Content }}</div>
     <aside class="social-links" aria-label="Social links">
       {{- with .Site.Params.social.github -}}
         <a

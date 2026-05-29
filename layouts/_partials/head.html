@@ -3,12 +3,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <title>
-    {{ if .IsHome }}
+    {{- if .IsHome }}
       {{ .Site.Title }}
     {{ else }}
       {{ .Title }} ·
       {{ .Site.Title }}
-    {{ end }}
+    {{ end -}}
   </title>
   <meta
     name="description"

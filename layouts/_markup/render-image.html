@@ -1,0 +1,29 @@
+{{- /*
+  Image render hook: turns Markdown images into responsive, lazily loaded
+  <figure>s. Bundled page resources are processed (see responsive-img.html);
+  remote/static paths fall back to a plain <img>. The image title (3rd Markdown
+  arg) becomes the <figcaption>.
+  */
+-}}
+{{- $alt := .PlainText -}}
+{{- $caption := .Title -}}
+{{- $u := urls.Parse .Destination -}}
+{{- $res := "" -}}
+{{- if not $u.IsAbs }}
+  {{ $res = .PageInner.Resources.Get .Destination }}
+{{ end -}}
+<figure class="figure-block">
+  {{- if and $res (eq $res.ResourceType "image") (ne $res.MediaType.SubType "svg") -}}
+    {{- partial "responsive-img.html" (dict "image" $res "alt" $alt) -}}
+  {{- else -}}
+    <img
+      src="{{ .Destination | safeURL }}"
+      alt="{{ $alt }}"
+      loading="lazy"
+      decoding="async"
+    />
+  {{- end -}}
+  {{- with $caption }}
+    <figcaption class="figure-caption">{{ . }}</figcaption>
+  {{ end }}
+</figure>
