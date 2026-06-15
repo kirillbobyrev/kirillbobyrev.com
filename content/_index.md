@@ -1,5 +1,5 @@
 +++
-title = 'Home'
+title = 'Kirill Bobyrev'
 +++
 
 I build machine learning models at Waymo and make the simulation more realistic.

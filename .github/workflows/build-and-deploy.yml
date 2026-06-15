@@ -27,6 +27,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0 # full history so enableGitInfo lastmod dates are correct
 
       - name: Setup Go
         uses: actions/setup-go@v6
@@ -37,7 +39,7 @@ jobs:
         # Keep the version in sync with .devcontainer; bump deliberately.
         # -tags extended is required for WebP image encoding.
         run: |
-          CGO_ENABLED=1 go install -tags extended github.com/gohugoio/hugo@v0.162.0
+          CGO_ENABLED=1 go install -tags extended github.com/gohugoio/hugo@v0.163.0
 
       - name: Setup Pages
         id: pages
@@ -63,7 +65,7 @@ jobs:
       - name: Check links
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --offline --no-progress ./public
+          args: --offline --no-progress --root-dir ./public ./public
           fail: true
 
       - name: Upload artifact

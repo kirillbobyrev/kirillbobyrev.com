@@ -5,7 +5,7 @@
         "ghcr.io/devcontainers/features/git:1": {},
         "ghcr.io/devcontainers/features/github-cli:1": {},
         "ghcr.io/devcontainers/features/hugo:1": {
-            "version": "0.162.0",
+            "version": "0.163.0",
             "extended": true
         },
         "ghcr.io/devcontainers/features/node:1": {}
