@@ -1,0 +1,2 @@
+# prettier-plugin-go-template cannot parse dynamic tag names (<h{{ .Level }}>)
+layouts/_markup/render-heading.html

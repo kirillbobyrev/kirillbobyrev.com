@@ -1,6 +1,35 @@
 {{- define "main" -}}
   <article class="main-content homepage">
+    <header class="home-hero">
+      <h1>{{ .Title }}</h1>
+      {{- with .Params.tagline -}}
+        <p class="home-tagline">{{ . }}</p>
+      {{- end -}}
+    </header>
     <div class="prose">{{ .Content }}</div>
+    {{- $posts := where site.RegularPages "Section" "blog" | first 3 -}}
+    {{- with $posts -}}
+      <section class="home-recent" aria-labelledby="recent-writing">
+        <h2 id="recent-writing">Recent writing</h2>
+        <ul class="blog-timeline">
+          {{- range . -}}
+            <li>
+              <a href="{{ .RelPermalink }}" class="blog-timeline-entry">
+                <time
+                  datetime="{{ .Date.Format "2006-01-02" }}"
+                  class="blog-timeline-date"
+                  >{{ .Date.Format "Jan 02, 2006" }}</time
+                >
+                <span class="blog-timeline-content">
+                  <span class="blog-timeline-title">{{ .Title }}</span>
+                </span>
+              </a>
+            </li>
+          {{- end -}}
+        </ul>
+        <a href="/blog/" class="home-recent-all">All posts &rarr;</a>
+      </section>
+    {{- end -}}
     <aside class="social-links" aria-label="Social links">
       {{- with .Site.Params.social.github -}}
         <a

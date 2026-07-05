@@ -1,8 +1,7 @@
 +++
 title = 'Kirill Bobyrev'
+tagline = 'I build machine learning models at Waymo and make the simulation more realistic.'
 +++
-
-I build machine learning models at Waymo and make the simulation more realistic.
 
 ## My Journey
 
