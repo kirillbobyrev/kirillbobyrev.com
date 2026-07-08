@@ -1,7 +1,6 @@
 {{- define "main" -}}
   <article class="main-content homepage">
     <header class="home-hero">
-      <h1>{{ .Title }}</h1>
       {{- with .Params.tagline -}}
         <p class="home-tagline">{{ . }}</p>
       {{- end -}}

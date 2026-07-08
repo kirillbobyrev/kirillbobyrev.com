@@ -117,6 +117,13 @@
   --measure: 45.5rem;
 }
 
+/* Wider content column on large monitors (≥ 1600 px). */
+@media (min-width: 1600px) {
+  :root {
+    --measure: 56rem;
+  }
+}
+
 :root[data-theme="dark"] {
   color-scheme: dark;
 
@@ -585,16 +592,6 @@ a.heading-anchor:hover {
 /* === Homepage === */
 .home-hero {
   margin-block: 1.5rem 1.75rem;
-}
-
-.home-hero h1 {
-  font-family: var(--font-serif);
-  margin: 0 0 0.5rem;
-  font-size: var(--step-2);
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.005em;
-  color: var(--color-heading);
 }
 
 .home-tagline {
