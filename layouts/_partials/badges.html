@@ -1,12 +1,12 @@
 {{- /* Football colours: club crests + national-team flags. */ -}}
-{{- /* Crests are official artwork fetched at deploy time into static/crests */ -}}
-{{- /* (see build-and-deploy.yml); locally they are skipped when absent. */ -}}
+{{- /* Crests are stored in static/crests (committed to the repo). */ -}}
 {{- /* Flags are inlined from assets/badges (flag-icons, MIT licence). */ -}}
 {{- $clubs := slice
   (dict "file" "manchester-city.svg" "name" "Manchester City")
   (dict "file" "bayern-munich.svg" "name" "Bayern Munich")
   (dict "file" "liverpool.svg" "name" "Liverpool")
   (dict "file" "chelsea.svg" "name" "Chelsea")
+  (dict "file" "barcelona.svg" "name" "Barcelona")
 -}}
 {{- $flags := slice
   (dict "file" "gb-eng.svg" "name" "England")
@@ -14,29 +14,19 @@
   (dict "file" "de.svg" "name" "Germany")
   (dict "file" "es.svg" "name" "Spain")
 -}}
-{{- $hasCrests := false -}}
-{{- range $clubs -}}
-  {{- if fileExists (printf "static/crests/%s" .file) -}}
-    {{- $hasCrests = true -}}
-  {{- end -}}
-{{- end -}}
 <span class="badges">
   {{- range $clubs -}}
-    {{- if fileExists (printf "static/crests/%s" .file) -}}
-      <span class="badge" title="{{ .name }}">
-        <img
-          src="/crests/{{ .file }}"
-          alt="{{ .name }}"
-          loading="lazy"
-          decoding="async"
-          height="25"
-        />
-      </span>
-    {{- end -}}
+    <span class="badge" title="{{ .name }}">
+      <img
+        src="/crests/{{ .file }}"
+        alt="{{ .name }}"
+        loading="lazy"
+        decoding="async"
+        height="25"
+      />
+    </span>
   {{- end -}}
-  {{- if $hasCrests -}}
-    <span class="badge-sep" aria-hidden="true"></span>
-  {{- end -}}
+  <span class="badge-sep" aria-hidden="true"></span>
   {{- range $flags -}}
     {{- $name := .name -}}
     {{- with resources.Get (printf "badges/%s" .file) -}}

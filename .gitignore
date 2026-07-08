@@ -7,4 +7,3 @@ node_modules
 /*.png
 # Fetched at deploy time (see build-and-deploy.yml)
 static/resume.pdf
-static/crests/
