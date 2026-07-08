@@ -1,5 +1,8 @@
 <!doctype html>
 <html lang="en">
+  {{- /* Render content before head so render hooks can set page Store */ -}}
+  {{- /* flags (e.g. hasMath) that the head partial depends on. */ -}}
+  {{- $noop := .Content -}}
   {{- partial "head.html" . -}}
   <body class="site-body">
     <a href="#content" class="skip-link">Skip to content</a>
@@ -8,5 +11,23 @@
       {{- block "main" . }}{{ end }}
     </main>
     {{- partial "footer.html" . -}}
+    <script>
+      (() => {
+        const btn = document.querySelector(".theme-toggle");
+        if (!btn) return;
+        btn.hidden = false;
+        const mq = window.matchMedia("(prefers-color-scheme: dark)");
+        const current = () =>
+          document.documentElement.dataset.theme ||
+          (mq.matches ? "dark" : "light");
+        btn.addEventListener("click", () => {
+          const next = current() === "dark" ? "light" : "dark";
+          document.documentElement.dataset.theme = next;
+          try {
+            localStorage.setItem("theme", next);
+          } catch (e) {}
+        });
+      })();
+    </script>
   </body>
 </html>

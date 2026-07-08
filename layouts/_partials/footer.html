@@ -1,4 +1,16 @@
 <footer class="site-footer">
+  <div class="footer-cols">
+    <div class="footer-col">
+      <span class="footer-label">Elsewhere</span>
+      <span class="footer-icons">
+        {{- partial "social-icons.html" . -}}
+      </span>
+    </div>
+    <div class="footer-col footer-col-colours">
+      <span class="footer-label">Colours</span>
+      {{- partial "badges.html" . -}}
+    </div>
+  </div>
   <nav class="footer-nav" aria-label="Footer">
     <a href="/index.xml">RSS</a>
     <a
