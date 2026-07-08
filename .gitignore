@@ -5,3 +5,6 @@ node_modules
 .hugo_build.lock
 .playwright-mcp
 /*.png
+# Fetched at deploy time (see build-and-deploy.yml)
+static/resume.pdf
+static/crests/

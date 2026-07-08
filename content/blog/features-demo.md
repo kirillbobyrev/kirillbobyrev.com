@@ -7,7 +7,7 @@ draft: true
 
 This post demonstrates the available shortcodes for enhanced blog content formatting.
 
-This is a LaTeX demo: \({\partial x}\over{10} = 1\)
+This is a LaTeX demo: \(\frac{\partial x}{10} = 1\)
 
 ## Mathematical List Features
 

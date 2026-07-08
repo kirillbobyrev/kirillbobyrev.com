@@ -26,8 +26,8 @@ enableGitInfo = true
 [markup]
   [markup.highlight]
     codeFences = true
-    guessSyntax = true
-    noClasses = true
+    guessSyntax = false
+    noClasses = false
     tabWidth = 2
     style = 'github'
   [markup.goldmark]
