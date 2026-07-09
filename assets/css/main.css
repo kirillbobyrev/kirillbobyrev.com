@@ -362,6 +362,12 @@ video {
 .badge {
   display: inline-block;
   line-height: 0;
+  filter: grayscale(0.35) opacity(0.85);
+  transition: filter 0.18s ease;
+}
+
+.badge:hover {
+  filter: none;
 }
 
 .badge svg,
