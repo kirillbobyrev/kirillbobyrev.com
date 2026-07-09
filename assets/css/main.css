@@ -362,26 +362,14 @@ video {
 .badge {
   display: inline-block;
   line-height: 0;
-  filter: grayscale(0.75) opacity(0.72);
-  transition: filter 0.18s ease;
-}
-
-.badge:hover {
-  filter: none;
 }
 
 .badge svg,
 .badge img {
-  height: 25px;
-  width: auto;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
   display: block;
-}
-
-.badge-flag svg,
-.badge-flag img {
-  height: 19px;
-  border-radius: 2.5px;
-  box-shadow: 0 0 0 1px rgba(128, 128, 128, 0.25);
 }
 
 .badge-sep {
