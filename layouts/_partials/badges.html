@@ -1,5 +1,5 @@
-{{- /* Football colours: club crests + national-team crests. */ -}}
-{{- /* All crests are downloaded via scripts/download-crest-svgs.sh and committed to static/crests/. */ -}}
+{{- /* Football colours: club crests + national-team crests + competition logos. */ -}}
+{{- /* Crest SVGs are committed to static/crests/. */ -}}
 {{- $clubs := slice
   (dict "file" "manchester-city.svg" "name" "Manchester City")
   (dict "file" "bayern-munich.svg" "name" "Bayern Munich")
@@ -12,6 +12,10 @@
   (dict "file" "norway.svg" "name" "Norway")
   (dict "file" "germany.svg" "name" "Germany")
   (dict "file" "spain.svg" "name" "Spain")
+-}}
+{{- $competitions := slice
+  (dict "file" "premier-league.svg" "name" "Premier League")
+  (dict "file" "champions-league.svg" "name" "Champions League")
 -}}
 <span class="badges">
   {{- range $clubs -}}
@@ -27,6 +31,18 @@
   {{- end -}}
   <span class="badge-sep" aria-hidden="true"></span>
   {{- range $nationals -}}
+    <span class="badge" title="{{ .name }}">
+      <img
+        src="/crests/{{ .file }}"
+        alt="{{ .name }}"
+        loading="lazy"
+        decoding="async"
+        height="25"
+      />
+    </span>
+  {{- end -}}
+  <span class="badge-sep" aria-hidden="true"></span>
+  {{- range $competitions -}}
     <span class="badge" title="{{ .name }}">
       <img
         src="/crests/{{ .file }}"
