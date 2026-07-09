@@ -9,9 +9,21 @@
             >{{ .Date.Format "January 2, 2006" }}</time
           >
           <span class="article-reading-time">{{ .ReadingTime }} min read</span>
+          {{- /* Show the git last-modified date only for real updates (>1 day after publish). */ -}}
+          {{- if gt (sub .Lastmod.Unix .Date.Unix) 86400 -}}
+            <span class="article-updated"
+              >Updated {{ .Lastmod.Format "January 2, 2006" }}</span
+            >
+          {{- end -}}
         </div>
       {{- end -}}
     </header>
+    {{- if ge .WordCount 1500 -}}
+      <details class="toc">
+        <summary>Contents</summary>
+        {{ .TableOfContents }}
+      </details>
+    {{- end -}}
     <div class="prose">{{ .Content }}</div>
   </article>
 {{- end -}}

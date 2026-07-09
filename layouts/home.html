@@ -1,6 +1,8 @@
 {{- define "main" -}}
   <article class="main-content homepage">
     <header class="home-hero">
+      {{- /* Name is already in the site header; keep an h1 for SEO/a11y but hide it visually. */ -}}
+      <h1 class="visually-hidden">{{ .Title }}</h1>
       {{- with .Params.tagline -}}
         <p class="home-tagline">{{ . }}</p>
       {{- end -}}

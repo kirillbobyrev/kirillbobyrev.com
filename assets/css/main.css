@@ -117,12 +117,6 @@
   --measure: 45.5rem;
 }
 
-/* Wider content column on large monitors (≥ 1600 px). */
-@media (min-width: 1600px) {
-  :root {
-    --measure: 56rem;
-  }
-}
 
 :root[data-theme="dark"] {
   color-scheme: dark;
@@ -168,6 +162,31 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Large monitors: scale the root up (and widen the column) so the page fills
+   more of a wide display without stretching the line length past a comfortable
+   measure. Because --measure is in rem, bumping the root font-size grows the
+   column in pixels while keeping the characters-per-line roughly constant, and
+   the whole UI (text, nav, footer) scales together. MacBook-class widths
+   (<= 1512 px) are untouched. Placed after the base html rule so the
+   font-size override wins on source order. */
+@media (min-width: 1600px) {
+  html {
+    font-size: 112.5%; /* 1rem = 18px */
+  }
+  :root {
+    --measure: 50rem;
+  }
+}
+
+@media (min-width: 2200px) {
+  html {
+    font-size: 125%; /* 1rem = 20px */
+  }
+  :root {
+    --measure: 54rem;
+  }
 }
 
 body {
@@ -421,9 +440,68 @@ video {
   font-size: var(--step--1);
 }
 
-.article-reading-time::before {
+.article-reading-time::before,
+.article-updated::before {
   content: "\00b7";
   margin-inline-end: 0.5rem;
+}
+
+/* === Table of contents (long posts) === */
+.toc {
+  margin-block: 1.5rem 2rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background-color: var(--color-bg-code);
+  font-size: var(--step--1);
+}
+
+.toc summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--color-heading);
+  list-style: none;
+}
+
+.toc summary::-webkit-details-marker {
+  display: none;
+}
+
+.toc summary::before {
+  content: "▸";
+  display: inline-block;
+  margin-inline-end: 0.5rem;
+  color: var(--color-muted);
+  transition: transform 0.15s ease;
+}
+
+.toc[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.toc nav ul {
+  list-style: none;
+  margin: 0.6rem 0 0;
+  padding-inline-start: 0.75rem;
+}
+
+.toc nav > ul {
+  padding-inline-start: 0;
+}
+
+.toc nav li {
+  margin-block: 0.2rem;
+  line-height: 1.5;
+}
+
+.toc nav a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.toc nav a:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
 }
 
 .back-link {
@@ -584,6 +662,20 @@ a.heading-anchor:hover {
 }
 
 /* === Homepage === */
+/* Visually hidden, still announced to screen readers and available to crawlers. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .home-hero {
   margin-block: 1.5rem 1.75rem;
 }
