@@ -1,6 +1,5 @@
-{{- /* Football colours: club crests + national-team flags. */ -}}
-{{- /* Crests are downloaded via scripts/download-crest-svgs.sh and committed to static/crests/. */ -}}
-{{- /* Flags are inlined from assets/badges (flag-icons, MIT licence). */ -}}
+{{- /* Football colours: club crests + national-team crests. */ -}}
+{{- /* All crests are downloaded via scripts/download-crest-svgs.sh and committed to static/crests/. */ -}}
 {{- $clubs := slice
   (dict "file" "manchester-city.svg" "name" "Manchester City")
   (dict "file" "bayern-munich.svg" "name" "Bayern Munich")
@@ -8,11 +7,11 @@
   (dict "file" "chelsea.svg" "name" "Chelsea")
   (dict "file" "barcelona.svg" "name" "Barcelona")
 -}}
-{{- $flags := slice
-  (dict "file" "gb-eng.svg" "name" "England")
-  (dict "file" "no.svg" "name" "Norway")
-  (dict "file" "de.svg" "name" "Germany")
-  (dict "file" "es.svg" "name" "Spain")
+{{- $nationals := slice
+  (dict "file" "england.svg" "name" "England")
+  (dict "file" "norway.svg" "name" "Norway")
+  (dict "file" "germany.svg" "name" "Germany")
+  (dict "file" "spain.svg" "name" "Spain")
 -}}
 <span class="badges">
   {{- range $clubs -}}
@@ -27,12 +26,15 @@
     </span>
   {{- end -}}
   <span class="badge-sep" aria-hidden="true"></span>
-  {{- range $flags -}}
-    {{- $name := .name -}}
-    {{- with resources.Get (printf "badges/%s" .file) -}}
-      <span class="badge badge-flag" title="{{ $name }}"
-        >{{ .Content | safeHTML }}</span
-      >
-    {{- end -}}
+  {{- range $nationals -}}
+    <span class="badge" title="{{ .name }}">
+      <img
+        src="/crests/{{ .file }}"
+        alt="{{ .name }}"
+        loading="lazy"
+        decoding="async"
+        height="25"
+      />
+    </span>
   {{- end -}}
 </span>

@@ -14,6 +14,10 @@ crests=(
   "liverpool|Liverpool_FC.svg"
   "chelsea|Chelsea_FC.svg"
   "barcelona|FC_Barcelona_(crest).svg"
+  "england|Arms_of_The_Football_Association.svg"
+  "germany|DFB-Maenner-Nationalmannschaft_Logo.svg"
+  "spain|Royal_Spanish_Football_Federation_logo.svg"
+  "norway|Norwegian_Football_Federation_logo.svg"
 )
 
 encode_url() {
