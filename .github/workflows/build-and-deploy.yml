@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0 # full history so enableGitInfo lastmod dates are correct
 
@@ -39,7 +39,7 @@ jobs:
         # Keep the version in sync with .devcontainer; bump deliberately.
         # -tags extended is required for WebP image encoding.
         run: |
-          CGO_ENABLED=1 go install -tags extended github.com/gohugoio/hugo@v0.163.0
+          CGO_ENABLED=1 go install -tags extended github.com/gohugoio/hugo@v0.164.0
 
       - name: Setup Pages
         id: pages
@@ -63,7 +63,7 @@ jobs:
             --baseURL "${{ steps.pages.outputs.base_url }}/"
 
       - name: Check links
-        uses: lycheeverse/lychee-action@v2
+        uses: lycheeverse/lychee-action@v2.8.0
         with:
           args: --offline --no-progress --root-dir ./public ./public
           fail: true
