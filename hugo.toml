@@ -8,13 +8,7 @@ enableGitInfo = true
 
 [params]
   description = 'software engineering blog by Kirill Bobyrev'
-  images = ['images/twitter.png']
-  keywords = [
-    'software engineering',
-    'programming',
-    'machine learning',
-    'tech blog',
-  ]
+  images = ['images/og.jpg']
   [params.author]
     name = 'kirill bobyrev'
   [params.social]
