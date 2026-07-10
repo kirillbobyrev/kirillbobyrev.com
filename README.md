@@ -13,3 +13,9 @@ hugo server -D        # live preview with drafts at http://localhost:1313
 npm run format        # format templates with Prettier
 npm run check-links   # build and validate links with lychee
 ```
+
+Templates are formatted with Prettier via
+[prettier-plugin-go-template](https://github.com/NiklasPor/prettier-plugin-go-template).
+Keep Go template comments (`{{ /* ... */ }}`) on a single line: the plugin
+currently splits multiline comments across lines, which breaks Hugo's
+template parser.
