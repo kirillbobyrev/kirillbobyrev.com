@@ -14,8 +14,13 @@ npm run format        # format templates with Prettier
 npm run check-links   # build and validate links with lychee
 ```
 
-Templates are formatted with Prettier via
+HTML templates are formatted with Prettier via
 [prettier-plugin-go-template](https://github.com/NiklasPor/prettier-plugin-go-template).
-Keep Go template comments (`{{ /* ... */ }}`) on a single line: the plugin
-currently splits multiline comments across lines, which breaks Hugo's
-template parser.
+Two caveats:
+
+- Keep Go template comments (`{{ /* ... */ }}`) on a single line: the plugin
+  splits multiline comments across lines, which breaks Hugo's template parser.
+- `layouts/rss.xml` is hand-formatted and excluded: the plugin parses input
+  as HTML, where `<link>` is a void element, so RSS's `<link>...</link>`
+  container breaks its parser. The template uses `{{- -}}` whitespace-trim
+  markers around text content, so indentation never leaks into the feed.

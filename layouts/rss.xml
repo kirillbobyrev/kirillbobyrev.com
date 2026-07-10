@@ -1,33 +1,68 @@
-{{- /* Full-content RSS. Adds <content:encoded> so feed readers show the whole
-   post instead of a summary (the auto summary also embeds raw KaTeX markup,
-   which renders as garbage in readers). */ -}}
+{{- /* Full-content RSS: adds <content:encoded> so feed readers show whole */ -}}
+{{- /* posts instead of a summary (the auto summary embeds raw KaTeX markup, */ -}}
+{{- /* which renders as garbage in readers). */ -}}
 {{- $pctx := . -}}
-{{- if .IsHome -}}{{ $pctx = .Site.RegularPages }}{{ else }}{{ $pctx = .RegularPages }}{{ end -}}
+{{- if .IsHome -}}
+  {{- $pctx = .Site.RegularPages -}}
+{{- else -}}
+  {{- $pctx = .RegularPages -}}
+{{- end -}}
 {{- $pages := where $pctx "Section" "blog" -}}
 {{- $limit := .Site.Config.Services.RSS.Limit -}}
-{{- if ge $limit 1 -}}{{ $pages = $pages | first $limit }}{{ end -}}
+{{- if ge $limit 1 -}}
+  {{- $pages = $pages | first $limit -}}
+{{- end -}}
+{{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>{{ if eq .Title .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{ . }} on {{ end }}{{ .Site.Title }}{{ end }}</title>
+    <title>
+      {{- if eq .Title .Site.Title -}}
+        {{ .Site.Title }}
+      {{- else -}}
+        {{ with .Title }}{{ . }} on {{ end }}{{ .Site.Title }}
+      {{- end -}}
+    </title>
     <link>{{ .Permalink }}</link>
-    <description>Recent content {{ if ne .Title .Site.Title }}{{ with .Title }}in {{ . }} {{ end }}{{ end }}on {{ .Site.Title }}</description>
-    <generator>Hugo</generator>{{ with site.Language.Locale }}
-    <language>{{ . }}</language>{{ end }}{{ with .Site.Params.author.name }}
-    <managingEditor>{{ . }}</managingEditor>
-    <webMaster>{{ . }}</webMaster>{{ end }}{{ with .Site.Copyright }}
-    <copyright>{{ . }}</copyright>{{ end }}{{ range first 1 $pages }}{{ if .Date }}
-    <lastBuildDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>{{ end }}{{ end }}
+    <description>
+      {{- "Recent content " -}}
+      {{- if ne .Title .Site.Title -}}
+        {{- with .Title }}in {{ . }} {{ end -}}
+      {{- end -}}
+      {{- printf "on %s" .Site.Title -}}
+    </description>
+    <generator>Hugo</generator>
+    {{- with site.Language.Locale }}
+      <language>{{ . }}</language>
+    {{- end }}
+    {{- with .Site.Params.author.name }}
+      <managingEditor>{{ . }}</managingEditor>
+      <webMaster>{{ . }}</webMaster>
+    {{- end }}
+    {{- with .Site.Copyright }}
+      <copyright>{{ . }}</copyright>
+    {{- end }}
+    {{- range first 1 $pages }}
+      {{- with .Date }}
+        <lastBuildDate>{{ .Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>
+      {{- end }}
+    {{- end }}
     <atom:link href="{{ .Permalink }}index.xml" rel="self" type="application/rss+xml" />
     {{- range $pages }}
-    <item>
-      <title>{{ .Title }}</title>
-      <link>{{ .Permalink }}</link>
-      <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
-      {{- with .Site.Params.author.name }}<author>{{ . }}</author>{{ end }}
-      <guid>{{ .Permalink }}</guid>
-      <description>{{ with .Description | default .Summary }}{{ . | plainify | htmlUnescape | truncate 300 }}{{ end }}</description>
-      <content:encoded>{{ printf "<![CDATA[%s]]>" .Content | safeHTML }}</content:encoded>
-    </item>
+      <item>
+        <title>{{ .Title }}</title>
+        <link>{{ .Permalink }}</link>
+        <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
+        {{- with .Site.Params.author.name }}
+          <author>{{ . }}</author>
+        {{- end }}
+        <guid>{{ .Permalink }}</guid>
+        <description>
+          {{- with .Description | default .Summary -}}
+            {{ . | plainify | htmlUnescape | truncate 300 }}
+          {{- end -}}
+        </description>
+        <content:encoded>{{ printf "<![CDATA[%s]]>" .Content | safeHTML }}</content:encoded>
+      </item>
     {{- end }}
   </channel>
 </rss>
