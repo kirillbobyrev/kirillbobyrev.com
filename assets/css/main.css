@@ -182,6 +182,18 @@ body {
   margin: 0;
 }
 
+/* Cross-fade between pages where the browser supports cross-document
+   view transitions; everyone else gets an instant navigation. */
+@view-transition {
+  navigation: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+
 img,
 svg,
 video {
