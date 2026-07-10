@@ -849,10 +849,11 @@ a.heading-anchor:hover {
 
 /* === Code === */
 .highlight {
+  /* Anchor for the language chip / copy button; the pre scrolls under them. */
+  position: relative;
   border-radius: var(--radius);
   border: 1px solid var(--color-border);
   margin-block: 1.5rem;
-  overflow-x: auto;
   background-color: var(--color-bg-code);
 }
 
@@ -863,6 +864,44 @@ a.heading-anchor:hover {
   font-size: var(--step--1);
   line-height: 1.55;
   background-color: transparent;
+  overflow-x: auto;
+}
+
+.code-lang,
+.code-copy {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.45rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-code);
+  color: var(--color-muted);
+  transition: opacity var(--transition);
+}
+
+.code-copy {
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  opacity: 0;
+}
+
+.code-copy:hover {
+  color: var(--color-accent);
+}
+
+.highlight:hover .code-copy,
+.code-copy:focus-visible {
+  opacity: 1;
+}
+
+.highlight:hover .code-lang,
+.highlight:focus-within .code-lang {
+  opacity: 0;
 }
 
 code:not(pre code) {
