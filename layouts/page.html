@@ -25,5 +25,25 @@
       </details>
     {{- end -}}
     <div class="prose">{{ .Content }}</div>
+    {{- if or .PrevInSection .NextInSection -}}
+      <nav class="post-nav" aria-label="More posts">
+        {{- with .PrevInSection -}}
+          <a class="post-nav-link" rel="prev" href="{{ .RelPermalink }}">
+            <span class="post-nav-label">&larr; Older</span>
+            <span class="post-nav-title">{{ .Title }}</span>
+          </a>
+        {{- end -}}
+        {{- with .NextInSection -}}
+          <a
+            class="post-nav-link post-nav-newer"
+            rel="next"
+            href="{{ .RelPermalink }}"
+          >
+            <span class="post-nav-label">Newer &rarr;</span>
+            <span class="post-nav-title">{{ .Title }}</span>
+          </a>
+        {{- end -}}
+      </nav>
+    {{- end -}}
   </article>
 {{- end -}}
