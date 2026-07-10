@@ -797,6 +797,26 @@ a.heading-anchor:hover {
   padding: 0;
 }
 
+/* Year groups on the blog listing: quiet overline label, shorter dates. */
+.main-content .timeline-year-label {
+  /* Outranks the .main-content h2 heading style on purpose: the year is a
+     quiet overline label, not a section heading. */
+  margin: 1.75rem 0 0.25rem;
+  font-family: var(--font-sans);
+  font-size: var(--step--1);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+}
+
+.timeline-year .blog-timeline {
+  margin-block-start: 0;
+}
+
+.timeline-year .blog-timeline-date {
+  width: 3.25rem;
+}
+
 .blog-timeline li {
   margin: 0;
 }
