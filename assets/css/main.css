@@ -797,6 +797,18 @@ a.heading-anchor:hover {
   font-style: italic;
 }
 
+/* Soften bright images against the dark background (filter values cannot
+   ride light-dark(), so this one rule keeps the dual theme scope). */
+:root[data-theme="dark"] .prose img {
+  filter: brightness(0.85) contrast(1.05);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .prose img {
+    filter: brightness(0.85) contrast(1.05);
+  }
+}
+
 /* === Code === */
 .highlight {
   border-radius: var(--radius);
