@@ -525,6 +525,15 @@ video {
   text-decoration-color: var(--color-accent);
 }
 
+/* Mark links that leave the site with a small north-east arrow. */
+.prose a[href^="http"]:not([href*="kirillbobyrev.com"])::after {
+  content: "\2197";
+  font-size: 0.7em;
+  margin-inline-start: 0.1em;
+  vertical-align: 0.2em;
+  color: var(--color-muted);
+}
+
 .main-content h1 {
   font-family: var(--font-serif);
   font-size: var(--step-3);
