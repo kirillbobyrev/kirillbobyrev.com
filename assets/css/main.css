@@ -633,6 +633,23 @@ video {
   scroll-margin-block-start: 2rem;
 }
 
+/* Flash the element a fragment link points at (headings, footnotes) so the
+   eye lands on it after the jump. */
+.main-content :target {
+  animation: target-highlight 2s ease-out;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes target-highlight {
+  0%,
+  30% {
+    background-color: color-mix(in srgb, var(--color-sky) 22%, transparent);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
 a.heading-anchor {
   font-family: var(--font-sans);
   font-size: 0.8em;
