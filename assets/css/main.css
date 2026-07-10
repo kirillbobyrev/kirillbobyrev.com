@@ -943,6 +943,45 @@ code:not(pre code) {
   }
 }
 
+/* === Print === */
+@media print {
+  :root,
+  :root[data-theme="dark"] {
+    color-scheme: light;
+  }
+
+  .site-header,
+  .site-footer,
+  .back-link,
+  .toc,
+  .post-nav {
+    display: none;
+  }
+
+  .site-container {
+    max-width: none;
+    padding: 0;
+  }
+
+  .prose a {
+    text-decoration: none;
+  }
+
+  /* Show where external links point since paper has no hover. */
+  .prose a[href^="http"]:not([href*="kirillbobyrev.com"])::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    vertical-align: baseline;
+    color: var(--color-muted);
+    word-break: break-all;
+  }
+
+  .highlight pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}
+
 /* === Reduced motion === */
 @media (prefers-reduced-motion: reduce) {
   html {
