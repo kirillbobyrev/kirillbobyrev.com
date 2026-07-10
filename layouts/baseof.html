@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ site.Language.Locale }}">
   {{- /* Render content before head so render hooks can set page Store */ -}}
   {{- /* flags (e.g. hasMath) that the head partial depends on. */ -}}
   {{- $noop := .Content -}}
@@ -17,15 +17,28 @@
         if (!btn) return;
         btn.hidden = false;
         const mq = window.matchMedia("(prefers-color-scheme: dark)");
+        const system = () => (mq.matches ? "dark" : "light");
         const current = () =>
-          document.documentElement.dataset.theme ||
-          (mq.matches ? "dark" : "light");
+          document.documentElement.dataset.theme || system();
+        const apply = (theme) => {
+          // An override matching the system preference is redundant: drop it
+          // so the site keeps tracking OS theme changes live via CSS.
+          if (theme === system()) {
+            delete document.documentElement.dataset.theme;
+            try {
+              localStorage.removeItem("theme");
+            } catch (e) {}
+          } else {
+            document.documentElement.dataset.theme = theme;
+            try {
+              localStorage.setItem("theme", theme);
+            } catch (e) {}
+          }
+        };
+        apply(current());
+        mq.addEventListener("change", () => apply(current()));
         btn.addEventListener("click", () => {
-          const next = current() === "dark" ? "light" : "dark";
-          document.documentElement.dataset.theme = next;
-          try {
-            localStorage.setItem("theme", next);
-          } catch (e) {}
+          apply(current() === "dark" ? "light" : "dark");
         });
       })();
     </script>
