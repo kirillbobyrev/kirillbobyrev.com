@@ -144,6 +144,13 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Scrollbars pick up the theme instead of the UA default. */
+  scrollbar-color: var(--color-underline) transparent;
+}
+
+.highlight pre,
+.table-wrapper {
+  scrollbar-width: thin;
 }
 
 /* Large monitors: scale the root up (and widen the column) so the page fills
