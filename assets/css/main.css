@@ -917,6 +917,108 @@ a.taste-name[href^="http"]::after {
   font-size: var(--step--1);
 }
 
+/* === Travel page === */
+.travel-stats {
+  margin: 0 0 1.25rem;
+  color: var(--color-muted);
+  font-size: var(--step--1);
+  font-variant-numeric: tabular-nums;
+}
+
+.travel-stats strong {
+  color: var(--color-heading);
+  font-weight: 500;
+}
+
+.map-wrap {
+  position: relative;
+  margin-block: 1rem 2rem;
+}
+
+#travel-map {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.map-country {
+  fill: light-dark(#eff1f2, #262c35);
+  stroke: var(--color-bg);
+  stroke-width: 0.6;
+}
+
+.map-visited {
+  fill: color-mix(in srgb, var(--color-sky) 28%, light-dark(#eff1f2, #262c35));
+}
+
+.map-dot-mark {
+  fill: var(--color-accent);
+  stroke: var(--color-bg);
+  stroke-width: 1.5;
+  transition: r var(--transition);
+}
+
+.map-dot:hover .map-dot-mark {
+  r: 5;
+}
+
+.map-tip {
+  position: absolute;
+  translate: -50% calc(-100% - 12px);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.45rem 0.7rem;
+  pointer-events: none;
+  box-shadow: 0 2px 8px color-mix(in srgb, #000 12%, transparent);
+  white-space: nowrap;
+  font-size: var(--step--1);
+  line-height: 1.4;
+}
+
+.tip-city {
+  display: block;
+  font-weight: 500;
+  color: var(--color-heading);
+}
+
+.tip-meta {
+  color: var(--color-muted);
+}
+
+.country-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: 1.25rem 2rem;
+  margin-block: 1rem;
+}
+
+.country-grid .taste-overline {
+  margin: 0 0 0.4rem;
+}
+
+.country-cities {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.country-cities li {
+  padding-block: 0.15rem;
+}
+
+.city-name {
+  font-weight: 500;
+  color: var(--color-heading);
+  font-size: 0.95em;
+}
+
+.city-when {
+  color: var(--color-muted);
+  font-size: var(--step--1);
+  margin-inline-start: 0.4rem;
+}
+
 /* === Blog timeline === */
 .blog-timeline {
   list-style: none;

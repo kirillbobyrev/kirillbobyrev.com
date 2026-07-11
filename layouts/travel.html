@@ -1,0 +1,60 @@
+{{- define "main" -}}
+  <article class="main-content">
+    <h1>{{ .Title }}</h1>
+    <p class="taste-lede">{{ .Description }}</p>
+    {{- $places := hugo.Data.travel.places -}}
+    {{- $countries := slice -}}
+    {{- range $places -}}
+      {{- $countries = $countries | append .country -}}
+    {{- end -}}
+    {{- $countries = uniq $countries -}}
+    <p class="travel-stats">
+      <strong>{{ len $places }}</strong>
+      {{ cond (eq (len $places) 1) "place" "places" }} ·
+      <strong>{{ len $countries }}</strong>
+      {{ cond (eq (len $countries) 1) "country" "countries" }}
+    </p>
+
+    <div class="map-wrap">
+      <svg
+        id="travel-map"
+        viewBox="0 0 920 470"
+        role="img"
+        aria-label="World map of visited places"
+      >
+        <g id="travel-countries"></g>
+        <g id="travel-dots"></g>
+      </svg>
+      <div class="map-tip" id="travel-tooltip" hidden>
+        <span class="tip-city"></span>
+        <span class="tip-meta"></span>
+      </div>
+    </div>
+
+    <h2>By country</h2>
+    <div class="country-grid">
+      {{- range $c := $countries }}
+        <div>
+          <p class="taste-overline">{{ $c }}</p>
+          <ul class="country-cities">
+            {{- range where $places "country" $c }}
+              <li>
+                <span class="city-name">{{ .city }}</span>
+                {{- with .when }}<span class="city-when">{{ . }}</span>{{ end }}
+              </li>
+            {{- end }}
+          </ul>
+        </div>
+      {{- end }}
+    </div>
+
+    <script id="travel-places" type="application/json">
+      {{ $places | jsonify | safeJS }}
+    </script> {{- $js := resources.Get "js/travel.js" | js.Build (dict "minify" true) | fingerprint -}}
+    <script
+      src="{{ $js.RelPermalink }}"
+      integrity="{{ $js.Data.Integrity }}"
+      defer
+    ></script>
+  </article>
+{{- end -}}
