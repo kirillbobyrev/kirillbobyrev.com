@@ -1,40 +1,19 @@
-{{- /* Football colours: club crests + national-team crests + competition logos. */ -}}
-{{- /* Crest SVGs are committed to static/crests/. */ -}}
-{{- $clubs := slice
-  (dict "file" "manchester-city.svg" "name" "Manchester City")
-  (dict "file" "bayern-munich.svg" "name" "Bayern Munich")
-  (dict "file" "liverpool.svg" "name" "Liverpool")
-  (dict "file" "chelsea.svg" "name" "Chelsea")
--}}
-{{- $nationals := slice
-  (dict "file" "england.svg" "name" "England")
-  (dict "file" "norway.svg" "name" "Norway")
-  (dict "file" "germany.svg" "name" "Germany")
--}}
+{{- /* Footer teaser for /taste: the two main crests plus a link to the rest. */ -}}
 <span class="badges">
-  {{- range $clubs -}}
-    <span class="badge" title="{{ .name }}">
+  {{- range slice
+    (dict "file" "manchester-city.svg" "name" "Manchester City")
+    (dict "file" "bayern-munich.svg" "name" "Bayern Munich")
+  -}}
+    <a href="/taste/" class="badge" title="{{ .name }}">
       <img
         src="/crests/{{ .file }}"
         alt="{{ .name }}"
         loading="lazy"
         decoding="async"
-        width="25"
-        height="25"
+        width="30"
+        height="30"
       />
-    </span>
+    </a>
   {{- end -}}
-  <span class="badge-sep" aria-hidden="true"></span>
-  {{- range $nationals -}}
-    <span class="badge" title="{{ .name }}">
-      <img
-        src="/crests/{{ .file }}"
-        alt="{{ .name }}"
-        loading="lazy"
-        decoding="async"
-        width="25"
-        height="25"
-      />
-    </span>
-  {{- end -}}
+  <a href="/taste/" class="badges-link">all of it &rarr;</a>
 </span>

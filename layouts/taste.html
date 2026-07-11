@@ -1,0 +1,59 @@
+{{- define "main" -}}
+  <article class="main-content">
+    <h1>{{ .Title }}</h1>
+    <p class="taste-lede">{{ .Description }}</p>
+    {{- $taste := hugo.Data.taste -}}
+
+
+    <h2>Football</h2>
+    {{- range $taste.football.groups }}
+      <p class="taste-overline">{{ .label }}</p>
+      <div class="crest-grid">
+        {{- range .items }}
+          <div class="crest-card">
+            {{- if and .file_light .file_dark }}
+              <img
+                class="crest-light"
+                src="/crests/{{ .file_light }}"
+                alt="{{ .name }} crest"
+                loading="lazy"
+                decoding="async"
+              />
+              <img
+                class="crest-dark"
+                src="/crests/{{ .file_dark }}"
+                alt="{{ .name }} crest"
+                loading="lazy"
+                decoding="async"
+              />
+            {{- else }}
+              <img
+                src="/crests/{{ .file }}"
+                alt="{{ .name }} crest"
+                loading="lazy"
+                decoding="async"
+              />
+            {{- end }}
+            <span class="crest-name">{{ .name }}</span>
+            {{- with .note }}<span class="crest-note">{{ . }}</span>{{ end }}
+          </div>
+        {{- end }}
+      </div>
+    {{- end }}
+
+    {{- range $taste.sections }}
+      <h2>{{ .title }}</h2>
+      <ul class="taste-list">
+        {{- range .items }}
+          <li>
+            <span class="taste-name">{{ .name }}</span>
+            {{- with .note }}
+              <span class="taste-sep">&mdash;</span>
+              <span class="taste-note">{{ . }}</span>
+            {{- end }}
+          </li>
+        {{- end }}
+      </ul>
+    {{- end }}
+  </article>
+{{- end -}}
