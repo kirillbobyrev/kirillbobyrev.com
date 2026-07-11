@@ -1,7 +1,7 @@
-# Places for the /travel map. One table per place; the map dots, the
+# Places for the /places map. One table per place; the map dots, the
 # visited-country tint, the stats line, and the by-country list all
 # render from this file. `country` should be the common English name
-# (Natural Earth naming; assets/js/travel.js has an alias map for the
+# (Natural Earth naming; assets/js/places.js has an alias map for the
 # few that differ, e.g. United States). `when` is free-form and
 # optional ('2023', '2019—', 'every summer').
 

@@ -1,17 +1,17 @@
-// World map for /travel: Equal Earth projection, no dependencies.
+// World map for /places: Equal Earth projection, no dependencies.
 // Geography: world-atlas countries-110m (Natural Earth, ISC) fetched as
 // TopoJSON and decoded here. Place data comes from the JSON script tag
-// rendered by layouts/travel.html out of data/travel.toml.
+// rendered by layouts/places.html out of data/places.toml.
+// Clicking a visited country zooms to it so nearby dots separate;
+// clicking it again (or anywhere else) returns to the world view.
 
 (async () => {
-  const svg = document.getElementById("travel-map");
+  const svg = document.getElementById("places-map");
   if (!svg) return;
-  const gCountries = document.getElementById("travel-countries");
-  const gDots = document.getElementById("travel-dots");
-  const tooltip = document.getElementById("travel-tooltip");
-  const places = JSON.parse(
-    document.getElementById("travel-places").textContent,
-  );
+  const gCountries = document.getElementById("places-map-countries");
+  const gDots = document.getElementById("places-map-dots");
+  const tooltip = document.getElementById("places-tooltip");
+  const places = JSON.parse(document.getElementById("places-data").textContent);
 
   const W = 920;
   const H = 470;
@@ -135,6 +135,7 @@
   // --- Render countries. Unvisited land draws as one quiet silhouette
   // (stroke matches fill to seal seams between neighbours); visited
   // countries articulate themselves with the tint and a crisp edge.
+  const countryEls = new Map();
   for (const c of countries) {
     let d = "";
     for (const r of c.rings) {
@@ -150,12 +151,113 @@
       d += "Z";
     }
     if (!d) continue;
-    addPath(
+    const el = addPath(
       gCountries,
       d,
       visited.has(c.name) ? "map-country map-visited" : "map-country",
     );
+    if (visited.has(c.name)) countryEls.set(c.name, { el, rings: c.rings });
   }
+
+  // --- Zoomable view: the viewBox pans/zooms, marks re-scale so they
+  // keep a constant on-screen size.
+  const world = { x: 0, y: 0, w: W, h: H };
+  let view = { ...world };
+  let zoomedTo = null;
+  const dots = [];
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const applyView = (v) => {
+    view = v;
+    svg.setAttribute("viewBox", `${v.x} ${v.y} ${v.w} ${v.h}`);
+    const z = W / v.w;
+    for (const d of dots) {
+      d.hit.setAttribute("r", 10 / z);
+      d.halo.setAttribute("r", 7 / z);
+      d.dot.setAttribute("r", 3.5 / z);
+      d.dot.setAttribute("stroke-width", 1.5 / z);
+    }
+  };
+
+  let animId = 0;
+  const animateView = (target, onDone) => {
+    tooltip.hidden = true;
+    cancelAnimationFrame(animId);
+    if (reduced) {
+      applyView(target);
+      if (onDone) onDone();
+      return;
+    }
+    const from = { ...view };
+    const t0 = performance.now();
+    const DUR = 320;
+    const tick = (now) => {
+      const t = Math.min(1, (now - t0) / DUR);
+      const e = 1 - (1 - t) ** 3;
+      applyView({
+        x: from.x + (target.x - from.x) * e,
+        y: from.y + (target.y - from.y) * e,
+        w: from.w + (target.w - from.w) * e,
+        h: from.h + (target.h - from.h) * e,
+      });
+      if (t < 1) animId = requestAnimationFrame(tick);
+      else if (onDone) onDone();
+    };
+    animId = requestAnimationFrame(tick);
+  };
+
+  const zoomToCountry = (name, rings) => {
+    let x0 = Infinity;
+    let y0 = Infinity;
+    let x1 = -Infinity;
+    let y1 = -Infinity;
+    for (const r of rings) {
+      for (const [lon, lat] of r) {
+        const [x, y] = project(lon, lat);
+        if (x < x0) x0 = x;
+        if (x > x1) x1 = x;
+        if (y < y0) y0 = y;
+        if (y > y1) y1 = y;
+      }
+    }
+    const pad = Math.max((x1 - x0) * 0.15, (y1 - y0) * 0.15, 12);
+    x0 -= pad;
+    y0 -= pad;
+    x1 += pad;
+    y1 += pad;
+    // Match the frame's aspect ratio and never zoom past the world view.
+    let w = x1 - x0;
+    let h = y1 - y0;
+    if (w / h > W / H) h = (w * H) / W;
+    else w = (h * W) / H;
+    w = Math.min(w, W);
+    h = Math.min(h, H);
+    animateView({
+      x: (x0 + x1) / 2 - w / 2,
+      y: (y0 + y1) / 2 - h / 2,
+      w,
+      h,
+    });
+    zoomedTo = name;
+    svg.classList.add("is-zoomed");
+  };
+
+  const resetView = () => {
+    animateView({ ...world });
+    zoomedTo = null;
+    svg.classList.remove("is-zoomed");
+  };
+
+  for (const [name, { el, rings }] of countryEls) {
+    el.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (zoomedTo === name) resetView();
+      else zoomToCountry(name, rings);
+    });
+  }
+  svg.addEventListener("click", () => {
+    if (zoomedTo) resetView();
+  });
 
   // --- Render place dots with hover tooltips.
   const showTip = (p) => {
@@ -164,8 +266,8 @@
       p.country + (p.when ? " · " + p.when : "");
     const rect = svg.getBoundingClientRect();
     const [x, y] = project(p.lon, p.lat);
-    tooltip.style.left = (x / W) * rect.width + "px";
-    tooltip.style.top = (y / H) * rect.height + "px";
+    tooltip.style.left = ((x - view.x) / view.w) * rect.width + "px";
+    tooltip.style.top = ((y - view.y) / view.h) * rect.height + "px";
     tooltip.hidden = false;
   };
   for (const p of places) {
@@ -182,9 +284,76 @@
     const dot = document.createElementNS(NS, "circle");
     dot.setAttribute("r", "3.5");
     dot.setAttribute("class", "map-dot-mark");
+    dot.setAttribute("stroke-width", "1.5");
     g.append(hit, halo, dot);
     g.addEventListener("pointerenter", () => showTip(p));
     g.addEventListener("pointerleave", () => (tooltip.hidden = true));
     gDots.append(g);
+    dots.push({ g, hit, halo, dot });
+  }
+
+  // --- Legend lines: hovering a country or place name zooms the map to
+  // it (with a short delay so sweeping across the line doesn't thrash).
+  const HOVER_DELAY = 120;
+
+  for (const btn of document.querySelectorAll(".line-item[data-country]")) {
+    const name = ATLAS_ALIAS[btn.dataset.country] || btn.dataset.country;
+    const entry = countryEls.get(name);
+    if (!entry) continue;
+    let timer;
+    const activate = () => {
+      entry.el.classList.add("is-hot");
+      timer = setTimeout(() => zoomToCountry(name, entry.rings), HOVER_DELAY);
+    };
+    const deactivate = () => {
+      clearTimeout(timer);
+      entry.el.classList.remove("is-hot");
+      if (zoomedTo === name) resetView();
+    };
+    btn.addEventListener("pointerenter", activate);
+    btn.addEventListener("pointerleave", deactivate);
+    btn.addEventListener("focus", activate);
+    btn.addEventListener("blur", deactivate);
+    btn.addEventListener("click", () => {
+      clearTimeout(timer);
+      zoomToCountry(name, entry.rings);
+    });
+  }
+
+  const zoomToPlace = (p, i) => {
+    const [x, y] = project(p.lon, p.lat);
+    const w = W / 7;
+    const h = H / 7;
+    animateView(
+      { x: x - w / 2, y: y - h / 2, w, h },
+      () => showTip(p),
+    );
+    zoomedTo = "place:" + i;
+    svg.classList.add("is-zoomed");
+  };
+
+  for (const btn of document.querySelectorAll(".line-item[data-place]")) {
+    const i = Number(btn.dataset.place);
+    const p = places[i];
+    if (!p) continue;
+    let timer;
+    const activate = () => {
+      dots[i].g.classList.add("is-active");
+      timer = setTimeout(() => zoomToPlace(p, i), HOVER_DELAY);
+    };
+    const deactivate = () => {
+      clearTimeout(timer);
+      dots[i].g.classList.remove("is-active");
+      tooltip.hidden = true;
+      if (zoomedTo === "place:" + i) resetView();
+    };
+    btn.addEventListener("pointerenter", activate);
+    btn.addEventListener("pointerleave", deactivate);
+    btn.addEventListener("focus", activate);
+    btn.addEventListener("blur", deactivate);
+    btn.addEventListener("click", () => {
+      clearTimeout(timer);
+      zoomToPlace(p, i);
+    });
   }
 })();

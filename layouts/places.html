@@ -1,0 +1,69 @@
+{{- define "main" -}}
+  <article class="main-content">
+    <h1>{{ .Title }}</h1>
+    <p class="taste-lede">{{ .Description }}</p>
+    <nav class="me-nav" aria-label="Personal pages">
+      <a href="/taste/">taste</a>
+      <span class="me-nav-sep">&middot;</span>
+      <span aria-current="page">places</span>
+    </nav>
+    {{- $places := hugo.Data.places.places -}}
+    {{- $countries := slice -}}
+    {{- range $places -}}
+      {{- $countries = $countries | append .country -}}
+    {{- end -}}
+    {{- $countries = uniq $countries -}}
+    <p class="places-stats">
+      <strong>{{ len $places }}</strong>
+      {{ cond (eq (len $places) 1) "place" "places" }} ·
+      <strong>{{ len $countries }}</strong>
+      {{ cond (eq (len $countries) 1) "country" "countries" }}
+    </p>
+
+    <div class="map-wrap">
+      <svg
+        id="places-map"
+        viewBox="0 0 920 470"
+        role="img"
+        aria-label="World map of visited places"
+      >
+        <g id="places-map-countries"></g>
+        <g id="places-map-dots"></g>
+      </svg>
+      <div class="map-tip" id="places-tooltip" hidden>
+        <span class="tip-city"></span>
+        <span class="tip-meta"></span>
+      </div>
+    </div>
+
+    {{- /* Interactive legend: hovering a name zooms the map to it. */ -}}
+    {{- /* Server-rendered, so it doubles as the no-JS text record. */ -}}
+    <p class="places-line">
+      <span class="line-label">Countries</span>
+      {{- range $i, $c := $countries -}}
+        {{- if $i }}·{{ end -}}
+        <button type="button" class="line-item" data-country="{{ $c }}">
+          {{- $c -}}
+        </button>
+      {{- end }}
+    </p>
+    <p class="places-line">
+      <span class="line-label">Places</span>
+      {{- range $i, $p := $places -}}
+        {{- if $i }}·{{ end -}}
+        <button type="button" class="line-item" data-place="{{ $i }}">
+          {{- $p.city -}}
+        </button>
+      {{- end }}
+    </p>
+
+    <script id="places-data" type="application/json">
+      {{ $places | jsonify | safeJS }}
+    </script> {{- $js := resources.Get "js/places.js" | js.Build (dict "minify" true) | fingerprint -}}
+    <script
+      src="{{ $js.RelPermalink }}"
+      integrity="{{ $js.Data.Integrity }}"
+      defer
+    ></script>
+  </article>
+{{- end -}}

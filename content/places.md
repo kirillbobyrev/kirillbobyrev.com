@@ -1,5 +1,5 @@
 ---
-title: Travel
+title: Places
 description: Cities and places, collected.
-layout: travel
+layout: places
 ---
