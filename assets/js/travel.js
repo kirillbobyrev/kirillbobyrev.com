@@ -126,24 +126,12 @@
     return el;
   };
 
-  // --- Ocean wash + frame outline, then a quiet 30° graticule.
+  // --- Ocean wash + frame outline.
   addPath(gCountries, linePath(frameRing, true), "map-ocean");
-  {
-    let d = "";
-    for (let lon = -150; lon <= 150; lon += 30) {
-      const pts = [];
-      for (let lat = LAT_MIN; lat <= 90; lat += 2) pts.push([lon, lat]);
-      d += linePath(pts, false);
-    }
-    for (let lat = -30; lat <= 60; lat += 30) {
-      const pts = [];
-      for (let lon = -180; lon <= 180; lon += 2) pts.push([lon, lat]);
-      d += linePath(pts, false);
-    }
-    addPath(gCountries, d, "map-graticule");
-  }
 
-  // --- Render countries.
+  // --- Render countries. Unvisited land draws as one quiet silhouette
+  // (stroke matches fill to seal seams between neighbours); visited
+  // countries articulate themselves with the tint and a crisp edge.
   for (const c of countries) {
     let d = "";
     for (const r of c.rings) {

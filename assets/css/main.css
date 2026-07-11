@@ -943,27 +943,24 @@ a.taste-name[href^="http"]::after {
 
 .map-ocean {
   fill: light-dark(
-    color-mix(in srgb, #6cabdd 6%, #fcfcfc),
-    color-mix(in srgb, #6cabdd 8%, #171b21)
+    color-mix(in srgb, #6cabdd 4%, #fcfcfc),
+    color-mix(in srgb, #6cabdd 6%, #171b21)
   );
   stroke: var(--color-border);
   stroke-width: 1;
 }
 
-.map-graticule {
-  fill: none;
-  stroke: light-dark(#dfe5e9, #272e38);
-  stroke-width: 0.5;
-}
-
+/* Unvisited land is one silhouette: stroke = fill seals the seams
+   between neighbouring countries so no interior borders show. */
 .map-country {
-  fill: light-dark(#e7ebed, #2d3540);
-  stroke: light-dark(#f9fafb, #1a1f26);
+  fill: light-dark(#e9edef, #2a313b);
+  stroke: light-dark(#e9edef, #2a313b);
   stroke-width: 0.5;
 }
 
 .map-visited {
-  fill: color-mix(in srgb, var(--color-sky) 38%, light-dark(#e7ebed, #2d3540));
+  fill: color-mix(in srgb, var(--color-sky) 36%, light-dark(#e9edef, #2a313b));
+  stroke: color-mix(in srgb, var(--color-sky) 65%, light-dark(#e9edef, #2a313b));
 }
 
 .map-dot-halo {
