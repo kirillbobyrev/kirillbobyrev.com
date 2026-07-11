@@ -31,22 +31,9 @@
       </div>
     </div>
 
-    <h2>By country</h2>
-    <div class="country-grid">
-      {{- range $c := $countries }}
-        <div>
-          <p class="taste-overline">{{ $c }}</p>
-          <ul class="country-cities">
-            {{- range where $places "country" $c }}
-              <li>
-                <span class="city-name">{{ .city }}</span>
-                {{- with .when }}<span class="city-when">{{ . }}</span>{{ end }}
-              </li>
-            {{- end }}
-          </ul>
-        </div>
-      {{- end }}
-    </div>
+    {{- /* No exhaustive city list: the map and its tooltips carry the */ -}}
+    {{- /* detail; this quiet line keeps a text record of the countries. */ -}}
+    <p class="travel-countries">{{ delimit $countries " · " }}</p>
 
     <script id="travel-places" type="application/json">
       {{ $places | jsonify | safeJS }}
