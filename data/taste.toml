@@ -63,6 +63,13 @@
     note = 'machined titanium, overbuilt on purpose'
 
 [[sections]]
+  title = 'Hardware'
+
+  [[sections.items]]
+    name = 'Kinesis Advantage360'
+    note = 'split, contoured, no going back'
+
+[[sections]]
   title = 'Design'
 
   [[sections.items]]
@@ -73,13 +80,55 @@
     name = 'JetBrains Mono'
     note = 'every line of code here'
 
+[[sections]]
+  title = 'Podcasts'
+
+  [[sections.items]]
+    name = 'Dwarkesh Podcast'
+
+  [[sections.items]]
+    name = 'Lex Fridman Podcast'
+
+[[sections]]
+  title = 'Games'
+
+  [[sections.items]]
+    name = 'Hades & Hades II'
+
+  [[sections.items]]
+    name = 'Slay the Spire 2'
+
+  [[sections.items]]
+    name = 'Kingdom Come: Deliverance II'
+
+  [[sections.items]]
+    name = 'The Witcher'
+
+  [[sections.items]]
+    name = 'Hollow Knight: Silksong'
+
+[[sections]]
+  title = 'Chess'
+
+  [[sections.items]]
+    name = 'Lichess'
+    note = '@kirillbobyrev'
+    url = 'https://lichess.org/@/kirillbobyrev'
+
+[[sections]]
+  title = 'Places'
+
+  [[sections.items]]
+    name = 'Munich'
+
+  [[sections.items]]
+    name = 'Bavaria'
+    note = 'the Alps, the nature'
+
+  [[sections.items]]
+    name = 'Joshua Tree'
+
 # More section ideas, same shape as above:
-#
-# [[sections]]
-#   title = 'Chess'
-#   [[sections.items]]
-#     name = 'Blitz on chess.com'
-#     note = '...'
 #
 # [[sections]]
 #   title = 'Learning'
