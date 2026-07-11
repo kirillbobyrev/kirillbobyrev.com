@@ -108,6 +108,14 @@
     name = 'Hollow Knight: Silksong'
 
 [[sections]]
+  title = 'Chess'
+
+  [[sections.items]]
+    name = 'Lichess'
+    note = '@kirillbobyrev'
+    url = 'https://lichess.org/@/kirillbobyrev'
+
+[[sections]]
   title = 'Places'
 
   [[sections.items]]
@@ -121,12 +129,6 @@
     name = 'Joshua Tree'
 
 # More section ideas, same shape as above:
-#
-# [[sections]]
-#   title = 'Chess'
-#   [[sections.items]]
-#     name = 'Blitz on chess.com'
-#     note = '...'
 #
 # [[sections]]
 #   title = 'Learning'

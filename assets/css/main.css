@@ -884,6 +884,30 @@ a.heading-anchor:hover {
   color: var(--color-heading);
 }
 
+a.taste-name {
+  text-decoration: underline;
+  text-decoration-color: var(--color-underline);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.19em;
+  transition:
+    color var(--transition),
+    text-decoration-color var(--transition);
+}
+
+a.taste-name:hover {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+}
+
+/* Same external-link marker as prose links. */
+a.taste-name[href^="http"]::after {
+  content: "\2197";
+  font-size: 0.7em;
+  margin-inline-start: 0.1em;
+  vertical-align: 0.2em;
+  color: var(--color-muted);
+}
+
 .taste-sep,
 .taste-note {
   color: var(--color-muted);

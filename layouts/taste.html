@@ -46,7 +46,13 @@
       <ul class="taste-list">
         {{- range .items }}
           <li>
-            <span class="taste-name">{{ .name }}</span>
+            {{- if .url }}
+              <a class="taste-name" href="{{ .url }}" rel="noopener noreferrer"
+                >{{ .name }}</a
+              >
+            {{- else }}
+              <span class="taste-name">{{ .name }}</span>
+            {{- end }}
             {{- with .note }}
               <span class="taste-sep">&mdash;</span>
               <span class="taste-note">{{ . }}</span>
