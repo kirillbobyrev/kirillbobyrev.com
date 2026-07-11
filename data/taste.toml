@@ -89,6 +89,9 @@
   [[sections.items]]
     name = 'Lex Fridman Podcast'
 
+  [[sections.items]]
+    name = 'The Athletic FC'
+
 [[sections]]
   title = 'Games'
 
