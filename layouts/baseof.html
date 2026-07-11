@@ -42,5 +42,34 @@
         });
       })();
     </script>
+    {{- /* Code blocks: language chip + copy-to-clipboard button. */ -}}
+    <script>
+      (() => {
+        for (const block of document.querySelectorAll(".highlight")) {
+          const code = block.querySelector("pre code");
+          if (!code) continue;
+          const lang = code.dataset.lang;
+          if (lang && lang !== "text" && lang !== "fallback") {
+            const chip = document.createElement("span");
+            chip.className = "code-lang";
+            chip.textContent = lang;
+            block.append(chip);
+          }
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "code-copy";
+          btn.textContent = "copy";
+          btn.setAttribute("aria-label", "Copy code to clipboard");
+          btn.addEventListener("click", async () => {
+            try {
+              await navigator.clipboard.writeText(code.textContent);
+              btn.textContent = "copied";
+              setTimeout(() => (btn.textContent = "copy"), 1500);
+            } catch (e) {}
+          });
+          block.append(btn);
+        }
+      })();
+    </script>
   </body>
 </html>

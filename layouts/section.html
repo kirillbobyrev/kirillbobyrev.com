@@ -1,25 +1,30 @@
 {{- define "main" -}}
   <article class="main-content">
     <h1>{{ .Title }}</h1>
-    <ul class="blog-timeline">
-      {{- range .Pages -}}
-        <li>
-          <a href="{{ .RelPermalink }}" class="blog-timeline-entry">
-            <time
-              datetime="{{ .Date.Format "2006-01-02" }}"
-              class="blog-timeline-date"
-              >{{ .Date.Format "Jan 02, 2006" }}</time
-            >
-            <span class="blog-timeline-content">
-              <span class="blog-timeline-title">{{ .Title }}</span>
-              {{- with .Description | default .Params.description -}}
-                <span class="blog-timeline-sep"> &mdash; </span>
-                <span class="blog-timeline-desc">{{ . }}</span>
-              {{- end -}}
-            </span>
-          </a>
-        </li>
-      {{- end -}}
-    </ul>
+    {{- range .Pages.GroupByDate "2006" }}
+      <section class="timeline-year">
+        <h2 class="timeline-year-label">{{ .Key }}</h2>
+        <ul class="blog-timeline">
+          {{- range .Pages -}}
+            <li>
+              <a href="{{ .RelPermalink }}" class="blog-timeline-entry">
+                <time
+                  datetime="{{ .Date.Format "2006-01-02" }}"
+                  class="blog-timeline-date"
+                  >{{ .Date.Format "Jan 02" }}</time
+                >
+                <span class="blog-timeline-content">
+                  <span class="blog-timeline-title">{{ .Title }}</span>
+                  {{- with .Description | default .Params.description -}}
+                    <span class="blog-timeline-sep"> &mdash; </span>
+                    <span class="blog-timeline-desc">{{ . }}</span>
+                  {{- end -}}
+                </span>
+              </a>
+            </li>
+          {{- end -}}
+        </ul>
+      </section>
+    {{- end }}
   </article>
 {{- end -}}
