@@ -60,6 +60,9 @@
           </li>
         {{- end }}
       </ul>
+      {{- with .more }}
+        <a class="taste-more" href="{{ .url }}">{{ .text }} &rarr;</a>
+      {{- end }}
     {{- end }}
   </article>
 {{- end -}}

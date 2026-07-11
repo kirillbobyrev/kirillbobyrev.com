@@ -120,6 +120,7 @@
 
 [[sections]]
   title = 'Places'
+  more = { text = 'the whole travel map', url = '/travel/' }
 
   [[sections.items]]
     name = 'Munich'
