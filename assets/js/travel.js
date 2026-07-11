@@ -20,6 +20,9 @@
   // Display names -> Natural Earth names where they differ.
   const ATLAS_ALIAS = {
     "United States": "United States of America",
+    England: "United Kingdom",
+    Scotland: "United Kingdom",
+    Wales: "United Kingdom",
     Czechia: "Czech Republic",
     "Bosnia and Herzegovina": "Bosnia and Herz.",
   };
