@@ -1,0 +1,88 @@
+# Content for the /taste page. Add an item = add a table; the layout
+# (layouts/taste.html) renders everything here, no HTML edits needed.
+
+[football]
+
+  [[football.groups]]
+    label = 'Clubs'
+
+    [[football.groups.items]]
+      file = 'manchester-city.svg'
+      name = 'Manchester City'
+      note = 'fell in love with Guardiola'
+
+    [[football.groups.items]]
+      file = 'bayern-munich.svg'
+      name = 'Bayern Munich'
+      note = 'lived in Munich'
+
+    [[football.groups.items]]
+      file = 'chelsea.svg'
+      name = 'Chelsea'
+      note = 'Xabi Alonso'
+
+  [[football.groups]]
+    label = 'National teams'
+
+    [[football.groups.items]]
+      file = 'england.svg'
+      name = 'England'
+      note = 'Beckham, since ~2000'
+
+    [[football.groups.items]]
+      file = 'norway.svg'
+      name = 'Norway'
+      note = 'Haaland'
+
+    [[football.groups.items]]
+      file = 'germany.svg'
+      name = 'Germany'
+      note = 'lived in Munich'
+
+  [[football.groups]]
+    label = 'Competitions'
+
+    [[football.groups.items]]
+      # Placeholder logo. For a theme-aware pair, drop the files into
+      # static/crests/ and replace `file` with:
+      #   file_light = 'premier-league-on-light.svg'
+      #   file_dark = 'premier-league-on-dark.svg'
+      file = 'premier-league.svg'
+      name = 'Premier League'
+      note = 'since ~2000'
+
+[[sections]]
+  title = 'Stationery'
+
+  [[sections.items]]
+    name = 'rotring 800'
+    note = 'the drafting classic'
+
+  [[sections.items]]
+    name = 'CW&T Pen Type-B'
+    note = 'machined titanium, overbuilt on purpose'
+
+[[sections]]
+  title = 'Design'
+
+  [[sections.items]]
+    name = 'Newsreader & Inter'
+    note = 'the type on this site'
+
+  [[sections.items]]
+    name = 'JetBrains Mono'
+    note = 'every line of code here'
+
+# More section ideas, same shape as above:
+#
+# [[sections]]
+#   title = 'Chess'
+#   [[sections.items]]
+#     name = 'Blitz on chess.com'
+#     note = '...'
+#
+# [[sections]]
+#   title = 'Learning'
+#   [[sections.items]]
+#     name = 'Anki'
+#     note = 'spaced repetition that stuck'
