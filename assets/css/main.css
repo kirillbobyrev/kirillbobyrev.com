@@ -941,14 +941,35 @@ a.taste-name[href^="http"]::after {
   height: auto;
 }
 
+.map-ocean {
+  fill: light-dark(
+    color-mix(in srgb, #6cabdd 6%, #fcfcfc),
+    color-mix(in srgb, #6cabdd 8%, #171b21)
+  );
+  stroke: var(--color-border);
+  stroke-width: 1;
+}
+
+.map-graticule {
+  fill: none;
+  stroke: light-dark(#dfe5e9, #272e38);
+  stroke-width: 0.5;
+}
+
 .map-country {
-  fill: light-dark(#eff1f2, #262c35);
-  stroke: var(--color-bg);
-  stroke-width: 0.6;
+  fill: light-dark(#e7ebed, #2d3540);
+  stroke: light-dark(#f9fafb, #1a1f26);
+  stroke-width: 0.5;
 }
 
 .map-visited {
-  fill: color-mix(in srgb, var(--color-sky) 28%, light-dark(#eff1f2, #262c35));
+  fill: color-mix(in srgb, var(--color-sky) 38%, light-dark(#e7ebed, #2d3540));
+}
+
+.map-dot-halo {
+  fill: var(--color-sky);
+  opacity: 0.28;
+  transition: opacity var(--transition);
 }
 
 .map-dot-mark {
@@ -960,6 +981,10 @@ a.taste-name[href^="http"]::after {
 
 .map-dot:hover .map-dot-mark {
   r: 5;
+}
+
+.map-dot:hover .map-dot-halo {
+  opacity: 0.45;
 }
 
 .map-tip {

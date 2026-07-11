@@ -79,21 +79,26 @@
     ];
   };
 
-  // Fit the projected bounds into the viewBox (y flips: SVG grows down).
+  // The frame: the full Equal Earth outline, cropped below 58°S where
+  // only Antarctica lives. Sampled as a closed ring of lon/lat points.
+  const LAT_MIN = -58;
+  const frameRing = [];
+  for (let lon = -180; lon <= 180; lon += 2) frameRing.push([lon, 90]);
+  for (let lat = 90; lat >= LAT_MIN; lat -= 2) frameRing.push([180, lat]);
+  for (let lon = 180; lon >= -180; lon -= 2) frameRing.push([lon, LAT_MIN]);
+  for (let lat = LAT_MIN; lat <= 90; lat += 2) frameRing.push([-180, lat]);
+
+  // Fit the frame into the viewBox (y flips: SVG grows down).
   let minX = Infinity;
   let minY = Infinity;
   let maxX = -Infinity;
   let maxY = -Infinity;
-  for (const c of countries) {
-    for (const r of c.rings) {
-      for (const [lon, lat] of r) {
-        const [x, y] = raw(lon, lat);
-        if (x < minX) minX = x;
-        if (x > maxX) maxX = x;
-        if (y < minY) minY = y;
-        if (y > maxY) maxY = y;
-      }
-    }
+  for (const [lon, lat] of frameRing) {
+    const [x, y] = raw(lon, lat);
+    if (x < minX) minX = x;
+    if (x > maxX) maxX = x;
+    if (y < minY) minY = y;
+    if (y > maxY) maxY = y;
   }
   const k = Math.min((W - 2 * PAD) / (maxX - minX), (H - 2 * PAD) / (maxY - minY));
   const tx = (W - k * (minX + maxX)) / 2;
@@ -103,9 +108,42 @@
     return [x * k + tx, ty - y * k];
   };
 
-  // --- Render countries.
   const NS = "http://www.w3.org/2000/svg";
   const fmt = (n) => Math.round(n * 10) / 10;
+  const linePath = (pts, close) => {
+    let d = "";
+    pts.forEach(([lon, lat], i) => {
+      const [x, y] = project(lon, lat);
+      d += (i ? "L" : "M") + fmt(x) + "," + fmt(y);
+    });
+    return close ? d + "Z" : d;
+  };
+  const addPath = (parent, d, cls) => {
+    const el = document.createElementNS(NS, "path");
+    el.setAttribute("d", d);
+    el.setAttribute("class", cls);
+    parent.append(el);
+    return el;
+  };
+
+  // --- Ocean wash + frame outline, then a quiet 30° graticule.
+  addPath(gCountries, linePath(frameRing, true), "map-ocean");
+  {
+    let d = "";
+    for (let lon = -150; lon <= 150; lon += 30) {
+      const pts = [];
+      for (let lat = LAT_MIN; lat <= 90; lat += 2) pts.push([lon, lat]);
+      d += linePath(pts, false);
+    }
+    for (let lat = -30; lat <= 60; lat += 30) {
+      const pts = [];
+      for (let lon = -180; lon <= 180; lon += 2) pts.push([lon, lat]);
+      d += linePath(pts, false);
+    }
+    addPath(gCountries, d, "map-graticule");
+  }
+
+  // --- Render countries.
   for (const c of countries) {
     let d = "";
     for (const r of c.rings) {
@@ -121,13 +159,11 @@
       d += "Z";
     }
     if (!d) continue;
-    const el = document.createElementNS(NS, "path");
-    el.setAttribute("d", d);
-    el.setAttribute(
-      "class",
+    addPath(
+      gCountries,
+      d,
       visited.has(c.name) ? "map-country map-visited" : "map-country",
     );
-    gCountries.append(el);
   }
 
   // --- Render place dots with hover tooltips.
@@ -149,10 +185,13 @@
     const hit = document.createElementNS(NS, "circle");
     hit.setAttribute("r", "10");
     hit.setAttribute("fill", "transparent");
+    const halo = document.createElementNS(NS, "circle");
+    halo.setAttribute("r", "7");
+    halo.setAttribute("class", "map-dot-halo");
     const dot = document.createElementNS(NS, "circle");
     dot.setAttribute("r", "3.5");
     dot.setAttribute("class", "map-dot-mark");
-    g.append(hit, dot);
+    g.append(hit, halo, dot);
     g.addEventListener("pointerenter", () => showTip(p));
     g.addEventListener("pointerleave", () => (tooltip.hidden = true));
     gDots.append(g);
