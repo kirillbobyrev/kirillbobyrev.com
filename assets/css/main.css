@@ -1004,11 +1004,17 @@ a.taste-name[href^="http"]::after {
   fill: light-dark(#e9edef, #2a313b);
   stroke: light-dark(#e9edef, #2a313b);
   stroke-width: 0.5;
+  /* Any land is clickable: it zooms to its continent. */
+  cursor: zoom-in;
 }
 
 .map-visited {
   fill: color-mix(in srgb, var(--color-sky) 36%, light-dark(#e9edef, #2a313b));
-  stroke: color-mix(in srgb, var(--color-sky) 65%, light-dark(#e9edef, #2a313b));
+  stroke: color-mix(
+    in srgb,
+    var(--color-sky) 65%,
+    light-dark(#e9edef, #2a313b)
+  );
   stroke-width: 1;
   cursor: zoom-in;
   transition: fill var(--transition);
@@ -1020,6 +1026,10 @@ a.taste-name[href^="http"]::after {
 }
 
 #places-map.is-zoomed .map-visited {
+  cursor: zoom-out;
+}
+
+#places-map.is-zoomed .map-ocean {
   cursor: zoom-out;
 }
 
@@ -1077,7 +1087,7 @@ a.taste-name[href^="http"]::after {
   text-wrap: pretty;
 }
 
-.places-line + .places-line {
+.places-line:last-of-type {
   margin-block-end: 2rem;
 }
 
@@ -1094,6 +1104,11 @@ a.taste-name[href^="http"]::after {
 }
 
 .line-item:hover {
+  color: var(--color-accent);
+}
+
+/* The pinned target stays highlighted until the pin is released. */
+.line-item[aria-pressed="true"] {
   color: var(--color-accent);
 }
 

@@ -39,6 +39,15 @@
     {{- /* Interactive legend: hovering a name zooms the map to it. */ -}}
     {{- /* Server-rendered, so it doubles as the no-JS text record. */ -}}
     <p class="places-line">
+      <span class="line-label">Continents</span>
+      {{- range $i, $c := slice "Europe" "Asia" "Africa" "North America" "South America" "Oceania" -}}
+        {{- if $i }}·{{ end -}}
+        <button type="button" class="line-item" data-continent="{{ $c }}">
+          {{- $c -}}
+        </button>
+      {{- end }}
+    </p>
+    <p class="places-line">
       <span class="line-label">Countries</span>
       {{- range $i, $c := $countries -}}
         {{- if $i }}·{{ end -}}
