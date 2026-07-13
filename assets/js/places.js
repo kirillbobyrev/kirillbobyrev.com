@@ -6,7 +6,10 @@
 // Interaction model: hovering a legend name previews a zoom; clicking a
 // legend name, a visited country, or any land (which zooms to its
 // continent) PINS the view until the same target is clicked again, the
-// ocean is clicked, or Escape is pressed.
+// ocean is clicked, or Escape is pressed. The map can also be handled
+// directly: drag to pan, ctrl/cmd + wheel (or trackpad pinch) to zoom,
+// and on touch, pinch to zoom and drag to pan once zoomed. The first
+// zoom swaps the 1:110m geometry for lazily fetched 1:50m detail.
 
 (async () => {
   const svg = document.getElementById("places-map");
@@ -29,43 +32,48 @@
     Czechia: "Czech Republic",
     "Bosnia and Herzegovina": "Bosnia and Herz.",
   };
-  const visited = new Set(places.map((p) => ATLAS_ALIAS[p.country] || p.country));
+  const visited = new Set(
+    places.map((p) => ATLAS_ALIAS[p.country] || p.country),
+  );
 
   const topo = await (
     await fetch("/data/countries-110m.json", { cache: "force-cache" })
   ).json();
 
   // --- TopoJSON -> per-country polygons (absolute lon/lat coordinates).
-  const { scale, translate } = topo.transform;
-  const arcs = topo.arcs.map((arc) => {
-    let x = 0;
-    let y = 0;
-    return arc.map(([dx, dy]) => {
-      x += dx;
-      y += dy;
-      return [x * scale[0] + translate[0], y * scale[1] + translate[1]];
+  const decodeCountries = (t) => {
+    const { scale, translate } = t.transform;
+    const arcs = t.arcs.map((arc) => {
+      let x = 0;
+      let y = 0;
+      return arc.map(([dx, dy]) => {
+        x += dx;
+        y += dy;
+        return [x * scale[0] + translate[0], y * scale[1] + translate[1]];
+      });
     });
-  });
-  const ring = (indexes) => {
-    const pts = [];
-    for (const i of indexes) {
-      const a = i < 0 ? arcs[~i].slice().reverse() : arcs[i];
-      // Consecutive arcs share their join point; drop the duplicate.
-      pts.push(...(pts.length ? a.slice(1) : a));
-    }
-    return pts;
+    const ring = (indexes) => {
+      const pts = [];
+      for (const i of indexes) {
+        const a = i < 0 ? arcs[~i].slice().reverse() : arcs[i];
+        // Consecutive arcs share their join point; drop the duplicate.
+        pts.push(...(pts.length ? a.slice(1) : a));
+      }
+      return pts;
+    };
+    return t.objects.countries.geometries
+      .filter((g) => g.properties.name !== "Antarctica")
+      .map((g) => ({
+        name: g.properties.name,
+        rings:
+          g.type === "Polygon"
+            ? g.arcs.map(ring)
+            : g.type === "MultiPolygon"
+              ? g.arcs.flatMap((poly) => poly.map(ring))
+              : [],
+      }));
   };
-  const countries = topo.objects.countries.geometries
-    .filter((g) => g.properties.name !== "Antarctica")
-    .map((g) => ({
-      name: g.properties.name,
-      rings:
-        g.type === "Polygon"
-          ? g.arcs.map(ring)
-          : g.type === "MultiPolygon"
-            ? g.arcs.flatMap((poly) => poly.map(ring))
-            : [],
-    }));
+  let countries = decodeCountries(topo);
 
   // --- Equal Earth forward projection (Šavrič, Patterson & Jenny 2018).
   const A1 = 1.340264;
@@ -106,7 +114,10 @@
     if (y < minY) minY = y;
     if (y > maxY) maxY = y;
   }
-  const k = Math.min((W - 2 * PAD) / (maxX - minX), (H - 2 * PAD) / (maxY - minY));
+  const k = Math.min(
+    (W - 2 * PAD) / (maxX - minX),
+    (H - 2 * PAD) / (maxY - minY),
+  );
   const tx = (W - k * (minX + maxX)) / 2;
   const ty = (H + k * (minY + maxY)) / 2;
   const project = (lon, lat) => {
@@ -132,35 +143,62 @@
     return el;
   };
 
-  // --- Ocean wash + frame outline.
-  addPath(gCountries, linePath(frameRing, true), "map-ocean");
-
-  // --- Render countries. Unvisited land draws as one quiet silhouette
-  // (stroke matches fill to seal seams between neighbours); visited
-  // countries articulate themselves with the tint and a crisp edge.
+  // --- Render countries (repeatable: called again after the geometry is
+  // swapped for the high-detail file). Unvisited land draws as one quiet
+  // silhouette (stroke matches fill to seal seams between neighbours);
+  // visited countries articulate themselves with the tint and crisp edge.
   const countryEls = new Map();
-  for (const c of countries) {
-    let d = "";
-    for (const r of c.rings) {
-      // Break the path where a ring crosses the antimeridian (Fiji, the
-      // Russian far east) so it doesn't streak across the whole map.
-      let prevLon = null;
-      for (const [lon, lat] of r) {
-        const [x, y] = project(lon, lat);
-        const jump = prevLon !== null && Math.abs(lon - prevLon) > 180;
-        d += (prevLon === null || jump ? "M" : "L") + fmt(x) + "," + fmt(y);
-        prevLon = lon;
+  const renderCountries = () => {
+    gCountries.replaceChildren();
+    countryEls.clear();
+    // Ocean wash + frame outline.
+    addPath(gCountries, linePath(frameRing, true), "map-ocean");
+    for (const c of countries) {
+      let d = "";
+      for (const r of c.rings) {
+        // Break the path where a ring crosses the antimeridian (Fiji, the
+        // Russian far east) so it doesn't streak across the whole map.
+        let prevLon = null;
+        for (const [lon, lat] of r) {
+          const [x, y] = project(lon, lat);
+          const jump = prevLon !== null && Math.abs(lon - prevLon) > 180;
+          d += (prevLon === null || jump ? "M" : "L") + fmt(x) + "," + fmt(y);
+          prevLon = lon;
+        }
+        d += "Z";
       }
-      d += "Z";
+      if (!d) continue;
+      const el = addPath(
+        gCountries,
+        d,
+        visited.has(c.name) ? "map-country map-visited" : "map-country",
+      );
+      if (visited.has(c.name)) {
+        countryEls.set(c.name, { el, rings: c.rings });
+        // Click a visited country to pin its zoom.
+        el.addEventListener("click", (e) => {
+          e.stopPropagation();
+          togglePin("country:" + c.name, viewForRings(c.rings));
+        });
+      }
     }
-    if (!d) continue;
-    const el = addPath(
-      gCountries,
-      d,
-      visited.has(c.name) ? "map-country map-visited" : "map-country",
-    );
-    if (visited.has(c.name)) countryEls.set(c.name, { el, rings: c.rings });
-  }
+  };
+  renderCountries();
+
+  // Crisper coastlines once anything zooms: swap the 1:110m geometry for
+  // the 1:50m file, fetched once in the background.
+  let detailUpgraded = false;
+  const upgradeDetail = () => {
+    if (detailUpgraded) return;
+    detailUpgraded = true;
+    fetch("/data/countries-50m.json", { cache: "force-cache" })
+      .then((r) => r.json())
+      .then((fine) => {
+        countries = decodeCountries(fine);
+        renderCountries();
+      })
+      .catch(() => {}); // the 110m silhouettes stay perfectly serviceable
+  };
 
   // --- View geometry helpers.
   const world = { x: 0, y: 0, w: W, h: H };
@@ -263,6 +301,7 @@
   const animateView = (target, onDone) => {
     tooltip.hidden = true;
     cancelAnimationFrame(animId);
+    if (target.w < W) upgradeDetail();
     if (reduced) {
       applyView(target);
       if (onDone) onDone();
@@ -315,17 +354,123 @@
     if (e.key === "Escape" && pinned) unpin();
   });
 
-  // Visited countries on the map: click to pin their zoom.
-  for (const [name, { el, rings }] of countryEls) {
-    el.addEventListener("click", (e) => {
-      e.stopPropagation();
-      togglePin("country:" + name, viewForRings(rings));
+  // --- Direct manipulation: drag to pan, ctrl/cmd + wheel (which is
+  // also what a trackpad pinch sends) to zoom, touch pinch to zoom. A
+  // hand-driven view acts as an anonymous pin: previews stay away until
+  // the user zooms back out or presses Escape.
+  const ZMAX = 40;
+
+  const clampView = (v) => {
+    const w = Math.min(Math.max(v.w, W / ZMAX), W);
+    const h = (w * H) / W;
+    // Keep the viewport centre over the map.
+    return {
+      w,
+      h,
+      x: Math.min(Math.max(v.x, -w / 2), W - w / 2),
+      y: Math.min(Math.max(v.y, -h / 2), H - h / 2),
+    };
+  };
+
+  const setManualView = (v) => {
+    cancelAnimationFrame(animId);
+    tooltip.hidden = true;
+    v = clampView(v);
+    if (v.w >= W * 0.995) {
+      // Zoomed all the way back out: settle into the resting world view.
+      pinned = null;
+      applyView({ ...world });
+    } else {
+      pinned = { key: "manual", view: v };
+      upgradeDetail();
+      applyView(v);
+    }
+    syncPressed();
+  };
+
+  svg.addEventListener(
+    "wheel",
+    (e) => {
+      if (!e.ctrlKey && !e.metaKey) return; // plain scroll scrolls the page
+      e.preventDefault();
+      const rect = svg.getBoundingClientRect();
+      const mx = view.x + ((e.clientX - rect.left) / rect.width) * view.w;
+      const my = view.y + ((e.clientY - rect.top) / rect.height) * view.h;
+      const w = view.w / Math.exp(-e.deltaY * (e.deltaMode ? 0.05 : 0.002));
+      const h = (w * H) / W;
+      // The point under the cursor stays under the cursor.
+      setManualView({
+        x: mx - ((mx - view.x) / view.w) * w,
+        y: my - ((my - view.y) / view.h) * h,
+        w,
+        h,
+      });
+    },
+    { passive: false },
+  );
+
+  const pointers = new Map();
+  let gestureStart = null; // { view, cx, cy, dist } at gesture start
+  let dragged = false;
+
+  const centroid = () => {
+    const pts = [...pointers.values()];
+    const cx = pts.reduce((s, p) => s + p.x, 0) / pts.length;
+    const cy = pts.reduce((s, p) => s + p.y, 0) / pts.length;
+    const dist =
+      pts.length > 1 ? Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y) : 0;
+    return { cx, cy, dist };
+  };
+
+  svg.addEventListener("pointerdown", (e) => {
+    if (e.button !== 0) return;
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    gestureStart = { view: { ...view }, ...centroid() };
+  });
+
+  svg.addEventListener("pointermove", (e) => {
+    if (!gestureStart || !pointers.has(e.pointerId)) return;
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    const b = gestureStart;
+    const { cx, cy, dist } = centroid();
+    // A click is not a drag: ignore sub-threshold single-pointer moves.
+    if (!dragged && pointers.size < 2 && Math.hypot(cx - b.cx, cy - b.cy) < 4)
+      return;
+    if (!dragged) {
+      dragged = true;
+      // Capture only once a real drag starts: capturing on pointerdown
+      // would retarget the click and break country/dot clicks.
+      for (const id of pointers.keys()) svg.setPointerCapture(id);
+    }
+    const rect = svg.getBoundingClientRect();
+    let w = b.view.w;
+    if (pointers.size > 1 && b.dist > 0 && dist > 0)
+      w = (b.view.w * b.dist) / dist;
+    const h = (w * H) / W;
+    // The map point that started under the gesture centroid follows it.
+    const ax = b.view.x + ((b.cx - rect.left) / rect.width) * b.view.w;
+    const ay = b.view.y + ((b.cy - rect.top) / rect.height) * b.view.h;
+    setManualView({
+      x: ax - ((cx - rect.left) / rect.width) * w,
+      y: ay - ((cy - rect.top) / rect.height) * h,
+      w,
+      h,
     });
-  }
+  });
+
+  const endPointer = (e) => {
+    if (!pointers.delete(e.pointerId)) return;
+    gestureStart = pointers.size ? { view: { ...view }, ...centroid() } : null;
+    // Let the click that follows pointerup see the flag, then clear it.
+    if (!pointers.size) setTimeout(() => (dragged = false));
+  };
+  svg.addEventListener("pointerup", endPointer);
+  svg.addEventListener("pointercancel", endPointer);
 
   // Anywhere else on the map: land zooms to its continent (smallest
   // matching pixel box wins); ocean or the frame releases the pin.
   svg.addEventListener("click", (e) => {
+    if (dragged) return; // tail end of a pan, not a click
     const t = e.target;
     if (
       t.classList?.contains("map-country") &&
@@ -390,7 +535,10 @@
     const enter = () => {
       if (extra.onEnter) extra.onEnter();
       if (pinned) return; // previews stay out of the way of a pinned view
-      timer = setTimeout(() => animateView(getView(), extra.onShown), HOVER_DELAY);
+      timer = setTimeout(
+        () => animateView(getView(), extra.onShown),
+        HOVER_DELAY,
+      );
     };
     const leave = () => {
       clearTimeout(timer);
@@ -415,12 +563,17 @@
 
   for (const btn of document.querySelectorAll(".line-item[data-country]")) {
     const name = ATLAS_ALIAS[btn.dataset.country] || btn.dataset.country;
-    const entry = countryEls.get(name);
-    if (!entry) continue;
-    wireLegend(btn, "country:" + name, () => viewForRings(entry.rings), {
-      onEnter: () => entry.el.classList.add("is-hot"),
-      onLeave: () => entry.el.classList.remove("is-hot"),
-    });
+    if (!countryEls.has(name)) continue;
+    // Look the entry up per event: the detail upgrade rebuilds the map.
+    wireLegend(
+      btn,
+      "country:" + name,
+      () => viewForRings(countryEls.get(name).rings),
+      {
+        onEnter: () => countryEls.get(name)?.el.classList.add("is-hot"),
+        onLeave: () => countryEls.get(name)?.el.classList.remove("is-hot"),
+      },
+    );
   }
 
   for (const btn of document.querySelectorAll(".line-item[data-place]")) {

@@ -985,6 +985,13 @@ a.taste-name[href^="http"]::after {
   display: block;
   width: 100%;
   height: auto;
+  /* One finger scrolls the page past the map; pinch is handled in JS. */
+  touch-action: pan-y;
+}
+
+/* Once zoomed the map owns its touches: one finger pans the view. */
+#places-map.is-zoomed {
+  touch-action: none;
 }
 
 .map-ocean {
