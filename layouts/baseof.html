@@ -71,5 +71,8 @@
         }
       })();
     </script>
+    {{- if .Page.Store.Get "hasMermaid" -}}
+      {{- partialCached "mermaid.html" . -}}
+    {{- end -}}
   </body>
 </html>

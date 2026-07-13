@@ -31,6 +31,33 @@ You can also create nested lists:
   - Recurrent Neural Networks (RNNs)
   - Transformer models and attention mechanisms
 
+## Diagrams
+
+Mermaid code blocks render as diagrams that follow the site theme:
+
+```mermaid
+flowchart LR
+    A[Write markdown] --> B{mermaid block?}
+    B -- yes --> C[Render diagram]
+    B -- no --> D[Plain code block]
+    C --> E[Ship it]
+    D --> E
+```
+
+Sequence diagrams work too:
+
+```mermaid
+sequenceDiagram
+    participant B as Browser
+    participant S as Site
+    participant C as CDN
+    B->>S: GET /blog/post/
+    S-->>B: HTML with diagram source
+    B->>C: import mermaid (only on pages with diagrams)
+    C-->>B: renderer module
+    B->>B: draw SVG in the current theme
+```
+
 ## Code Examples
 
 Here are some examples of code blocks with syntax highlighting:
