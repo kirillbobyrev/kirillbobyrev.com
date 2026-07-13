@@ -118,19 +118,6 @@
     note = '@kirillbobyrev'
     url = 'https://lichess.org/@/kirillbobyrev'
 
-[[sections]]
-  title = 'Places'
-
-  [[sections.items]]
-    name = 'Munich'
-
-  [[sections.items]]
-    name = 'Bavaria'
-    note = 'the Alps, the nature'
-
-  [[sections.items]]
-    name = 'Joshua Tree'
-
 # More section ideas, same shape as above:
 #
 # [[sections]]

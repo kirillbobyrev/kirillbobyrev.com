@@ -1,0 +1,65 @@
+# Places for the /places map. One table per place; the map dots, the
+# visited-country tint, the stats line, and the by-country list all
+# render from this file. `country` should be the common English name
+# (Natural Earth naming; assets/js/places.js has an alias map for the
+# few that differ, e.g. United States). `when` is free-form and
+# optional ('2023', '2019—', 'every summer').
+
+[[places]]
+  city = 'Miami'
+  country = 'United States'
+  lat = 25.7617
+  lon = -80.1918
+  when = '2026'
+
+[[places]]
+  city = 'Los Angeles'
+  country = 'United States'
+  lat = 34.0522
+  lon = -118.2437
+  when = '2026'
+
+[[places]]
+  city = 'Munich'
+  country = 'Germany'
+  lat = 48.1372
+  lon = 11.5755
+
+[[places]]
+  city = 'Frankfurt'
+  country = 'Germany'
+  lat = 50.1109
+  lon = 8.6821
+
+[[places]]
+  city = 'Bavarian Alps'
+  country = 'Germany'
+  lat = 47.4210
+  lon = 10.9850
+
+[[places]]
+  city = 'London'
+  country = 'England'
+  lat = 51.5074
+  lon = -0.1278
+
+[[places]]
+  city = 'Hastings'
+  country = 'England'
+  lat = 50.8543
+  lon = 0.5735
+
+[[places]]
+  city = 'Brighton'
+  country = 'England'
+  lat = 50.8225
+  lon = -0.1372
+
+# Template:
+#
+# [[places]]
+#   city = ''
+#   country = ''
+#   lat = 0.0
+#   lon = 0.0
+#   when = ''

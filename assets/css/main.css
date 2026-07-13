@@ -899,6 +899,21 @@ a.taste-name:hover {
   text-decoration-color: var(--color-accent);
 }
 
+/* Optional "more" link after a taste section. */
+.taste-more {
+  display: inline-block;
+  margin-block-start: 0.25rem;
+  color: var(--color-muted);
+  text-decoration: none;
+  font-size: var(--step--1);
+  font-weight: 500;
+  transition: color var(--transition);
+}
+
+.taste-more:hover {
+  color: var(--color-accent);
+}
+
 /* Same external-link marker as prose links. */
 a.taste-name[href^="http"]::after {
   content: "\2197";
@@ -915,6 +930,199 @@ a.taste-name[href^="http"]::after {
 
 .taste-note {
   font-size: var(--step--1);
+}
+
+/* === Places page === */
+.me-nav {
+  margin: 0 0 1rem;
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--color-heading);
+}
+
+.me-nav a {
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.me-nav a:hover {
+  color: var(--color-accent);
+}
+
+.me-nav-sep {
+  color: var(--color-muted);
+  margin-inline: 0.15rem;
+}
+
+.places-stats {
+  margin: 0 0 1.25rem;
+  color: var(--color-muted);
+  font-size: var(--step--1);
+  font-variant-numeric: tabular-nums;
+}
+
+.places-stats strong {
+  color: var(--color-heading);
+  font-weight: 500;
+}
+
+.map-wrap {
+  position: relative;
+  margin-block: 1rem 2rem;
+}
+
+/* Let the map break out of the text column on wide screens. */
+@media (min-width: 1100px) {
+  .map-wrap {
+    --map-width: min(62rem, calc(100vw - 4rem));
+    width: var(--map-width);
+    margin-inline: calc((100% - var(--map-width)) / 2);
+  }
+}
+
+#places-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* One finger scrolls the page past the map; pinch is handled in JS. */
+  touch-action: pan-y;
+}
+
+/* Once zoomed the map owns its touches: one finger pans the view. */
+#places-map.is-zoomed {
+  touch-action: none;
+}
+
+.map-ocean {
+  vector-effect: non-scaling-stroke;
+  fill: light-dark(
+    color-mix(in srgb, #6cabdd 4%, #fcfcfc),
+    color-mix(in srgb, #6cabdd 6%, #171b21)
+  );
+  stroke: var(--color-border);
+  stroke-width: 1;
+}
+
+/* Unvisited land is one silhouette: stroke = fill seals the seams
+   between neighbouring countries so no interior borders show. */
+.map-country {
+  vector-effect: non-scaling-stroke;
+  fill: light-dark(#e9edef, #2a313b);
+  stroke: light-dark(#e9edef, #2a313b);
+  stroke-width: 0.5;
+  /* Any land is clickable: it zooms to its continent. */
+  cursor: zoom-in;
+}
+
+.map-visited {
+  fill: color-mix(in srgb, var(--color-sky) 36%, light-dark(#e9edef, #2a313b));
+  stroke: color-mix(
+    in srgb,
+    var(--color-sky) 65%,
+    light-dark(#e9edef, #2a313b)
+  );
+  stroke-width: 1;
+  cursor: zoom-in;
+  transition: fill var(--transition);
+}
+
+.map-visited:hover,
+.map-visited.is-hot {
+  fill: color-mix(in srgb, var(--color-sky) 48%, light-dark(#e9edef, #2a313b));
+}
+
+#places-map.is-zoomed .map-visited {
+  cursor: zoom-out;
+}
+
+#places-map.is-zoomed .map-ocean {
+  cursor: zoom-out;
+}
+
+.map-dot-halo {
+  fill: var(--color-sky);
+  opacity: 0.28;
+  transition: opacity var(--transition);
+}
+
+.map-dot-mark {
+  fill: var(--color-accent);
+  stroke: var(--color-bg);
+  stroke-width: 1.5;
+  transition: r var(--transition);
+}
+
+.map-dot:hover .map-dot-mark,
+.map-dot.is-active .map-dot-mark {
+  transform: scale(1.45);
+}
+
+.map-dot:hover .map-dot-halo {
+  opacity: 0.45;
+}
+
+.map-tip {
+  position: absolute;
+  translate: -50% calc(-100% - 12px);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.45rem 0.7rem;
+  pointer-events: none;
+  box-shadow: 0 2px 8px color-mix(in srgb, #000 12%, transparent);
+  white-space: nowrap;
+  font-size: var(--step--1);
+  line-height: 1.4;
+}
+
+.tip-city {
+  display: block;
+  font-weight: 500;
+  color: var(--color-heading);
+}
+
+.tip-meta {
+  color: var(--color-muted);
+}
+
+.places-line {
+  margin-block: 0 0.5rem;
+  color: var(--color-muted);
+  font-size: var(--step--1);
+  line-height: 1.9;
+  text-wrap: pretty;
+}
+
+.places-line:last-of-type {
+  margin-block-end: 2rem;
+}
+
+.line-item {
+  border: 0;
+  padding: 0;
+  background: none;
+  font: inherit;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: color var(--transition);
+  /* Breathing room around the bare "·" text separators. */
+  margin-inline: 0.15em;
+}
+
+.line-item:hover {
+  color: var(--color-accent);
+}
+
+/* The pinned target stays highlighted until the pin is released. */
+.line-item[aria-pressed="true"] {
+  color: var(--color-accent);
+}
+
+.line-label {
+  font-weight: 500;
+  color: var(--color-heading);
+  margin-inline-end: 0.35rem;
 }
 
 /* === Blog timeline === */
@@ -1105,6 +1313,24 @@ code:not(pre code) {
   overflow-x: auto;
   overflow-y: hidden;
   padding-block: 0.25rem;
+}
+
+/* Mermaid diagrams. Until (or unless) the script draws the SVG, the
+   block shows the escaped diagram source as quiet monospace text. */
+pre.mermaid {
+  display: flex;
+  justify-content: center;
+  margin-block: 1.75rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+
+pre.mermaid svg {
+  max-width: 100%;
+  height: auto;
 }
 
 /* === 404 === */
