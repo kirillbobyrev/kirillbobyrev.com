@@ -4,7 +4,30 @@ updates:
     directory: "/"
     schedule:
       interval: monthly
-  - package-ecosystem: "npm"
+    # Bundle all Action bumps into a single monthly PR instead of one per action.
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+    # Wait for a release to settle before proposing it, so freshly-published
+    # (and potentially compromised or broken) versions age first. Security
+    # updates ignore the cooldown and are still opened immediately.
+    cooldown:
+      default-days: 7
+      semver-major-days: 14
+      semver-minor-days: 7
+      semver-patch-days: 3
+
+  - package-ecosystem: npm
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: monthly
+    groups:
+      npm:
+        patterns:
+          - "*"
+    cooldown:
+      default-days: 7
+      semver-major-days: 14
+      semver-minor-days: 7
+      semver-patch-days: 3
