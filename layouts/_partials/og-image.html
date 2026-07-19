@@ -1,5 +1,5 @@
 {{- /* Returns a generated 1200x630 Open Graph card for a blog post (or "" for anything else). */ -}}
-{{- /* Composed at build time: the dark-theme base canvas (assets/images/og-base.png) plus the */ -}}
+{{- /* Composed at build time: the light-theme base canvas (assets/images/og-base.png) plus the */ -}}
 {{- /* post title set in Newsreader and a site/date line in Inter. The TTFs in assets/fonts/ */ -}}
 {{- /* exist only for this partial — images.Text cannot read the woff2 files the site serves. */ -}}
 {{- $img := "" -}}
@@ -26,8 +26,8 @@
   {{- $titleFont := resources.Get "fonts/Newsreader-SemiBold.ttf" -}}
   {{- $metaFont := resources.Get "fonts/Inter-Regular.ttf" -}}
   {{- $card := $base | images.Filter
-    (images.Text $title (dict "x" 80 "y" $y "size" 68 "linespacing" 14 "color" "#f1f2f3" "font" $titleFont))
-    (images.Text $meta (dict "x" 80 "y" 508 "size" 30 "color" "#8f959b" "font" $metaFont))
+    (images.Text $title (dict "x" 80 "y" $y "size" 68 "linespacing" 14 "color" "#0b0d0f" "font" $titleFont))
+    (images.Text $meta (dict "x" 80 "y" 508 "size" 30 "color" "#6a7076" "font" $metaFont))
   -}}
   {{- $img = resources.Copy (printf "og/%s.png" .File.ContentBaseName) $card -}}
 {{- end -}}
