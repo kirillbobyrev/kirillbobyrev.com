@@ -1387,7 +1387,6 @@ pre.mermaid svg {
   .blog-timeline-entry {
     flex-direction: column;
     gap: 0.125rem;
-    padding: 0.55rem 0.6rem;
   }
 
   .blog-timeline-date {

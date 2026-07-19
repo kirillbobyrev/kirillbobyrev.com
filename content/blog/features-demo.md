@@ -9,12 +9,12 @@ This post demonstrates the available shortcodes for enhanced blog content format
 
 This is a LaTeX demo: \(\frac{\partial x}{10} = 1\)
 
-## Mathematical List Features
+## Lists
 
-Here's an example of our new mathematical list styling using the Hadamard product symbol:
+Bullet lists render like this:
 
 - Linear algebra operations and matrix transformations
-- Neural network gradient descent optimization  
+- Neural network gradient descent optimization
 - Probability distributions and statistical inference
 - Fourier transforms and signal processing
 - Convolution operations in deep learning
@@ -157,7 +157,7 @@ Use `const variable = "value"` for inline code snippets. You can also use `npm i
 
 ## Figure Examples
 
-{{< figure src="/images/twitter.png" caption="This is a figure caption demonstrating the new figure shortcode functionality." alt="Twitter image" />}}
+{{< figure src="/images/og.jpg" caption="A figure with a caption, via the figure shortcode." alt="Site Open Graph image" />}}
 
 ## Mathematical Expressions
 
