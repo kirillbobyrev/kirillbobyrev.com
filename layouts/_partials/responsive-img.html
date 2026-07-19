@@ -22,7 +22,9 @@
 <img
   src="{{ $fallback.RelPermalink }}"
   srcset="{{ delimit $srcset ", " }}"
-  sizes="(max-width: 45.5rem) 100vw, 45.5rem"
+  {{- /* Mirror the --measure breakpoints in main.css: the column widens */ -}}
+  {{- /* to 50rem at 1600px and 54rem at 2200px viewports. */ -}}
+  sizes="(min-width: 2200px) 54rem, (min-width: 1600px) 50rem, (max-width: 45.5rem) 100vw, 45.5rem"
   width="{{ $fallback.Width }}"
   height="{{ $fallback.Height }}"
   alt="{{ .alt }}"

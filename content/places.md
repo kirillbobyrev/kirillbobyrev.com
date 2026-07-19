@@ -1,5 +1,5 @@
----
-title: Places
-description: Cities and places, collected.
-layout: places
----
++++
+title = 'Places'
+description = 'Cities and places, collected.'
+layout = 'places'
++++

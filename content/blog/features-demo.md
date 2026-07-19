@@ -1,9 +1,9 @@
----
-title: "Blog features demo"
-description: "A demonstration of available shortcodes and blog formatting features."
-date: 2025-07-14
-draft: true
----
++++
+title = "Blog features demo"
+description = "A demonstration of available shortcodes and blog formatting features."
+publishDate = 2025-07-14
+draft = true
++++
 
 This post demonstrates the available shortcodes for enhanced blog content formatting.
 

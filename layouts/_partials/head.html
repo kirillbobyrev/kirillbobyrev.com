@@ -42,10 +42,12 @@
     {{ end }}"
   />
   <meta name="author" content="{{ .Site.Params.author.name }}" />
-  {{- partial "opengraph.html" . -}}
-  {{- partial "twitter_cards.html" . -}}
+  {{- partial "social-meta.html" . -}}
   {{- partial "schema.html" . -}}
-  {{- partial "google_analytics.html" . -}}
+  {{- /* Guard analytics so local `hugo server` sessions don't pollute stats. */ -}}
+  {{- if hugo.IsProduction -}}
+    {{- partial "google_analytics.html" . -}}
+  {{- end -}}
   <link rel="canonical" href="{{ .Permalink }}" />
   <link
     rel="alternate"

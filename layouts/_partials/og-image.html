@@ -1,0 +1,34 @@
+{{- /* Returns a generated 1200x630 Open Graph card for a blog post (or "" for anything else). */ -}}
+{{- /* Composed at build time: the dark-theme base canvas (assets/images/og-base.png) plus the */ -}}
+{{- /* post title set in Newsreader and a site/date line in Inter. The TTFs in assets/fonts/ */ -}}
+{{- /* exist only for this partial — images.Text cannot read the woff2 files the site serves. */ -}}
+{{- $img := "" -}}
+{{- if and .IsPage (eq .Section "blog") -}}
+  {{- /* Greedy-wrap the title: images.Text only breaks lines at the image edge, which would */ -}}
+  {{- /* leave no right margin. ~26 runes fits the 1040px column at 68px Newsreader SemiBold. */ -}}
+  {{- $lines := slice -}}
+  {{- $cur := "" -}}
+  {{- range split .Title " " -}}
+    {{- $try := trim (printf "%s %s" $cur .) " " -}}
+    {{- if gt (strings.RuneCount $try) 26 -}}
+      {{- with $cur }}{{ $lines = $lines | append . }}{{ end -}}
+      {{- $cur = . -}}
+    {{- else -}}
+      {{- $cur = $try -}}
+    {{- end -}}
+  {{- end -}}
+  {{- with $cur }}{{ $lines = $lines | append . }}{{ end -}}
+  {{- $title := delimit $lines "\n" -}}
+  {{- /* Center the block around y=250: each line is ~82px tall. */ -}}
+  {{- $y := sub 250 (mul (len $lines) 41) -}}
+  {{- $meta := printf "kirillbobyrev.com · %s" (.Date.Format "January 2006") -}}
+  {{- $base := resources.Get "images/og-base.png" -}}
+  {{- $titleFont := resources.Get "fonts/Newsreader-SemiBold.ttf" -}}
+  {{- $metaFont := resources.Get "fonts/Inter-Regular.ttf" -}}
+  {{- $card := $base | images.Filter
+    (images.Text $title (dict "x" 80 "y" $y "size" 68 "linespacing" 14 "color" "#f1f2f3" "font" $titleFont))
+    (images.Text $meta (dict "x" 80 "y" 508 "size" 30 "color" "#8f959b" "font" $metaFont))
+  -}}
+  {{- $img = resources.Copy (printf "og/%s.png" .File.ContentBaseName) $card -}}
+{{- end -}}
+{{- return $img -}}
