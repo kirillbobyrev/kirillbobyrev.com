@@ -599,6 +599,22 @@ video {
   margin-block: 0.3em;
 }
 
+/* Mathematical bullets: composition, then dot product, then convolution
+   the deeper the list nests. Browsers without ::marker keep the default
+   discs; both are fine. */
+.prose ul > li::marker {
+  content: "\2218\a0\a0"; /* ∘ */
+  color: var(--color-muted);
+}
+
+.prose ul ul > li::marker {
+  content: "\b7\a0\a0"; /* · */
+}
+
+.prose ul ul ul > li::marker {
+  content: "\2217\a0\a0"; /* ∗ */
+}
+
 .prose blockquote {
   font-style: italic;
   color: var(--color-muted);
@@ -610,6 +626,27 @@ video {
   border: 0;
   border-top: 1px solid var(--color-border);
   margin-block: 2.25rem;
+}
+
+/* === Post body easter eggs (single posts only, via .post-body) === */
+/* A quiet section sign on h2s, like a paper. */
+.post-body h2::before {
+  content: "\a7"; /* § */
+  margin-inline-end: 0.55rem;
+  font-family: var(--font-sans);
+  font-size: 0.68em;
+  font-weight: 500;
+  color: var(--color-muted);
+  vertical-align: 0.12em;
+}
+
+/* End of proof. */
+.post-body::after {
+  content: "\220e"; /* ∎ */
+  display: block;
+  text-align: end;
+  color: var(--color-muted);
+  margin-block-start: 2.25rem;
 }
 
 /* === Post navigation (older / newer) === */

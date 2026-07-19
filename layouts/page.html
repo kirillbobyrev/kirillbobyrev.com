@@ -8,11 +8,15 @@
           <time class="article-date" datetime="{{ .Date.Format "2006-01-02" }}"
             >{{ .Date.Format "January 2, 2006" }}</time
           >
-          <span class="article-reading-time">{{ .ReadingTime }} min read</span>
+          <span class="article-reading-time"
+            >&approx;&nbsp;{{ .ReadingTime }} min</span
+          >
           {{- /* Show the git last-modified date only for real updates (>1 day after publish). */ -}}
           {{- if gt (sub .Lastmod.Unix .Date.Unix) 86400 -}}
-            <span class="article-updated"
-              >Updated {{ .Lastmod.Format "January 2, 2006" }}</span
+            <span
+              class="article-updated"
+              title="Updated {{ .Lastmod.Format "January 2, 2006" }}"
+              >&Delta; {{ .Lastmod.Format "January 2, 2006" }}</span
             >
           {{- end -}}
         </div>
@@ -24,7 +28,7 @@
         {{ .TableOfContents }}
       </details>
     {{- end -}}
-    <div class="prose">{{ .Content }}</div>
+    <div class="prose post-body">{{ .Content }}</div>
     {{- if or .PrevInSection .NextInSection -}}
       <nav class="post-nav" aria-label="More posts">
         {{- with .PrevInSection -}}
