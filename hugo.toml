@@ -1,5 +1,4 @@
 baseURL = 'https://kirillbobyrev.com/'
-enableEmoji = true
 enableRobotsTXT = true
 locale = 'en-US'
 title = 'Kirill Bobyrev'
