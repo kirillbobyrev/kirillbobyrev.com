@@ -1,8 +1,14 @@
 {{- /* JSON-LD structured data: BlogPosting on posts, WebSite + Person on home. */ -}}
+{{- /* Standalone pages like /taste and /places get neither: they are not */ -}}
+{{- /* articles, and BlogPosting would emit their zero dates as 0001-01-01. */ -}}
 {{- $author := .Site.Params.author.name | title -}}
-{{- if .IsPage -}}
+{{- if and .IsPage (eq .Section "blog") -}}
   {{- $img := "" -}}
-  {{- with .Site.Params.images -}}{{ $img = (index . 0) | absURL }}{{- end -}}
+  {{- with partial "og-image.html" . -}}
+    {{ $img = .Permalink }}
+  {{- else -}}
+    {{- with .Site.Params.images -}}{{ $img = (index . 0) | absURL }}{{- end -}}
+  {{- end -}}
   {{- $data := dict
     "@context" "https://schema.org"
     "@type" "BlogPosting"

@@ -1200,15 +1200,6 @@ a.taste-name[href^="http"]::after {
   color: var(--color-accent);
 }
 
-.blog-timeline-sep {
-  color: var(--color-muted);
-}
-
-.blog-timeline-desc {
-  color: var(--color-muted);
-  font-size: var(--step--1);
-}
-
 /* === Figures === */
 .figure-block {
   margin-block: 1.75rem;

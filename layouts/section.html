@@ -15,10 +15,6 @@
                 >
                 <span class="blog-timeline-content">
                   <span class="blog-timeline-title">{{ .Title }}</span>
-                  {{- with .Description | default .Params.description -}}
-                    <span class="blog-timeline-sep"> &mdash; </span>
-                    <span class="blog-timeline-desc">{{ . }}</span>
-                  {{- end -}}
                 </span>
               </a>
             </li>
