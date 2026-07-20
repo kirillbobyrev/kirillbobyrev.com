@@ -1,0 +1,34 @@
+name: Setup Hugo
+description: >-
+  Install the pinned Hugo extended release binary with checksum
+  verification. This is the single source of truth for the Hugo version
+  in CI; keep .devcontainer/devcontainer.json in sync when bumping.
+  The extended build ships SASS + WebP encoding, same as the old
+  `go install -tags extended` path, but installs in seconds instead of
+  compiling for minutes.
+
+inputs:
+  version:
+    description: Hugo version to install (no leading v)
+    required: false
+    default: '0.164.0'
+
+runs:
+  using: composite
+  steps:
+    - name: Download, verify, and install Hugo
+      shell: bash
+      env:
+        HUGO_VERSION: ${{ inputs.version }}
+      run: |
+        set -euo pipefail
+        cd "$RUNNER_TEMP"
+        base="https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}"
+        tarball="hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz"
+        checksums="hugo_${HUGO_VERSION}_checksums.txt"
+        curl -sSfL --retry 3 --retry-delay 2 -O "${base}/${tarball}"
+        curl -sSfL --retry 3 --retry-delay 2 -O "${base}/${checksums}"
+        grep "  ${tarball}\$" "${checksums}" | sha256sum -c -
+        tar -xzf "${tarball}" hugo
+        sudo install -m 0755 hugo /usr/local/bin/hugo
+        hugo version
