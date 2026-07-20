@@ -4,7 +4,7 @@
       {{- /* Name is already in the site header; keep an h1 for SEO/a11y but hide it visually. */ -}}
       <h1 class="visually-hidden">{{ .Title }}</h1>
       {{- with .Params.tagline -}}
-        <p class="home-tagline">{{ . }}</p>
+        <p class="lede">{{ . }}</p>
       {{- end -}}
     </header>
     <div class="prose">{{ .Content }}</div>
@@ -28,7 +28,7 @@
             </li>
           {{- end -}}
         </ul>
-        <a href="/blog/" class="home-recent-all">All posts &rarr;</a>
+        <a href="/blog/" class="more-link">All posts &rarr;</a>
       </section>
     {{- end -}}
   </article>

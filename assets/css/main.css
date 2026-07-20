@@ -109,6 +109,12 @@
   --radius-sm: 4px; /* inline code, chips, small marks */
   --transition: 0.15s ease;
 
+  /* Spacing tokens for the two rhythms that repeat across the site:
+     display blocks inside prose (code, tables, figures, quotes) and
+     major section boundaries (footer, post nav, homepage sections). */
+  --space-block: 1.75rem;
+  --space-section: 2.75rem;
+
   --color-bg: light-dark(#fcfcfc, #14161a);
   --color-text: light-dark(#212529, #cfd3d7);
   --color-heading: light-dark(#0b0d0f, #f1f2f3);
@@ -120,6 +126,7 @@
   --color-bg-code: light-dark(#f4f5f5, #1b1e23);
   --color-bg-hover: light-dark(#f2f7fb, #1a2028);
   --color-underline: light-dark(#c9cbcd, #43474c);
+  --color-land: light-dark(#e9edef, #2a313b); /* unvisited map land */
 
   --measure: 45.5rem;
 }
@@ -332,7 +339,7 @@ video {
 /* === Footer === */
 .site-footer {
   max-width: var(--measure);
-  margin: 2.75rem auto 0;
+  margin: var(--space-section) auto 0;
   padding: 1.5rem 1.5rem 2rem;
   font-size: var(--step--1);
   line-height: 1.5;
@@ -357,7 +364,7 @@ video {
 
 .footer-icons {
   display: flex;
-  gap: 1.05rem;
+  gap: 1rem;
   align-items: center;
 }
 
@@ -518,7 +525,8 @@ video {
   margin-block-start: 0.5rem;
 }
 
-.prose a {
+.prose a,
+a.taste-name {
   color: var(--color-text);
   text-decoration: underline;
   text-decoration-color: var(--color-underline);
@@ -529,13 +537,15 @@ video {
     text-decoration-color var(--transition);
 }
 
-.prose a:hover {
+.prose a:hover,
+a.taste-name:hover {
   color: var(--color-accent);
   text-decoration-color: var(--color-accent);
 }
 
 /* Mark links that leave the site with a small north-east arrow. */
-.prose a[href^="http"]:not([href*="kirillbobyrev.com"])::after {
+.prose a[href^="http"]:not([href*="kirillbobyrev.com"])::after,
+a.taste-name[href^="http"]::after {
   content: "\2197";
   font-size: 0.7em;
   margin-inline-start: 0.1em;
@@ -618,7 +628,7 @@ video {
 .prose blockquote {
   font-style: italic;
   color: var(--color-muted);
-  margin-block: 1.5rem;
+  margin-block: var(--space-block);
   padding-inline: 1.5rem;
 }
 
@@ -643,7 +653,7 @@ video {
   display: flex;
   justify-content: space-between;
   gap: 1.5rem;
-  margin-block-start: 2.75rem;
+  margin-block-start: var(--space-section);
   padding-block-start: 1.25rem;
   border-top: 1px solid var(--color-border);
 }
@@ -678,7 +688,7 @@ video {
 
 /* === Tables === */
 .table-wrapper {
-  margin-block: 1.5rem;
+  margin-block: var(--space-block);
   overflow-x: auto;
 }
 
@@ -769,11 +779,12 @@ a.heading-anchor:hover {
 }
 
 .home-hero {
-  margin-block: 1.5rem 1.75rem;
+  margin-block: 1.5rem 1rem;
 }
 
-.home-tagline {
-  margin: 0;
+/* Lede paragraph under a page title (homepage tagline, taste, places). */
+.lede {
+  margin: 0 0 0.75rem;
   font-size: var(--step-1);
   line-height: 1.5;
   color: var(--color-muted);
@@ -782,11 +793,10 @@ a.heading-anchor:hover {
 .homepage .prose > p:first-child {
   font-size: var(--step-1);
   line-height: 1.5;
-  letter-spacing: -0.012em;
 }
 
 .home-recent {
-  margin-block-start: 2.5rem;
+  margin-block-start: var(--space-section);
   padding-block-start: 1.5rem;
   border-top: 1px solid var(--color-border);
 }
@@ -799,7 +809,8 @@ a.heading-anchor:hover {
   margin-block: 0.75rem 0.5rem;
 }
 
-.home-recent-all {
+/* Quiet trailing link after a section ("All posts", "more"). */
+.more-link {
   display: inline-block;
   margin-block-start: 0.5rem;
   color: var(--color-muted);
@@ -809,24 +820,13 @@ a.heading-anchor:hover {
   transition: color var(--transition);
 }
 
-.home-recent-all:hover {
+.more-link:hover {
   color: var(--color-accent);
 }
 
 /* === Taste page === */
-.taste-lede {
-  margin: 0 0 0.75rem;
-  font-size: var(--step-1);
-  line-height: 1.5;
-  color: var(--color-muted);
-}
-
 .taste-overline {
   margin: 1.5rem 0 0.9rem;
-  font-size: var(--step--1);
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  color: var(--color-muted);
 }
 
 .crest-grid {
@@ -895,7 +895,8 @@ a.heading-anchor:hover {
 }
 
 .taste-list li {
-  padding: 0.4rem 0.6rem;
+  /* Same hover-row geometry as .blog-timeline-entry. */
+  padding: 0.55rem 0.6rem;
   margin-inline: -0.6rem;
   border-radius: var(--radius);
   transition: background-color var(--transition);
@@ -910,43 +911,10 @@ a.heading-anchor:hover {
   color: var(--color-heading);
 }
 
+/* Underline treatment is shared with prose links (see .prose a); this
+   keeps the heading ink of the non-link siblings on link names too. */
 a.taste-name {
-  text-decoration: underline;
-  text-decoration-color: var(--color-underline);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.19em;
-  transition:
-    color var(--transition),
-    text-decoration-color var(--transition);
-}
-
-a.taste-name:hover {
-  color: var(--color-accent);
-  text-decoration-color: var(--color-accent);
-}
-
-/* Optional "more" link after a taste section. */
-.taste-more {
-  display: inline-block;
-  margin-block-start: 0.25rem;
-  color: var(--color-muted);
-  text-decoration: none;
-  font-size: var(--step--1);
-  font-weight: 500;
-  transition: color var(--transition);
-}
-
-.taste-more:hover {
-  color: var(--color-accent);
-}
-
-/* Same external-link marker as prose links. */
-a.taste-name[href^="http"]::after {
-  content: "\2197";
-  font-size: 0.7em;
-  margin-inline-start: 0.1em;
-  vertical-align: 0.2em;
-  color: var(--color-muted);
+  color: var(--color-heading);
 }
 
 .taste-sep,
@@ -1023,8 +991,8 @@ a.taste-name[href^="http"]::after {
 .map-ocean {
   vector-effect: non-scaling-stroke;
   fill: light-dark(
-    color-mix(in srgb, #6cabdd 4%, #fcfcfc),
-    color-mix(in srgb, #6cabdd 6%, #171b21)
+    color-mix(in srgb, var(--color-sky) 4%, #fcfcfc),
+    color-mix(in srgb, var(--color-sky) 6%, #171b21)
   );
   stroke: var(--color-border);
   stroke-width: 1;
@@ -1034,20 +1002,16 @@ a.taste-name[href^="http"]::after {
    between neighbouring countries so no interior borders show. */
 .map-country {
   vector-effect: non-scaling-stroke;
-  fill: light-dark(#e9edef, #2a313b);
-  stroke: light-dark(#e9edef, #2a313b);
+  fill: var(--color-land);
+  stroke: var(--color-land);
   stroke-width: 0.5;
   /* Any land is clickable: it zooms to its continent. */
   cursor: zoom-in;
 }
 
 .map-visited {
-  fill: color-mix(in srgb, var(--color-sky) 36%, light-dark(#e9edef, #2a313b));
-  stroke: color-mix(
-    in srgb,
-    var(--color-sky) 65%,
-    light-dark(#e9edef, #2a313b)
-  );
+  fill: color-mix(in srgb, var(--color-sky) 36%, var(--color-land));
+  stroke: color-mix(in srgb, var(--color-sky) 65%, var(--color-land));
   stroke-width: 1;
   cursor: zoom-in;
   transition: fill var(--transition);
@@ -1055,7 +1019,7 @@ a.taste-name[href^="http"]::after {
 
 .map-visited:hover,
 .map-visited.is-hot {
-  fill: color-mix(in srgb, var(--color-sky) 48%, light-dark(#e9edef, #2a313b));
+  fill: color-mix(in srgb, var(--color-sky) 48%, var(--color-land));
 }
 
 #places-map.is-zoomed .map-visited {
@@ -1158,16 +1122,20 @@ a.taste-name[href^="http"]::after {
   padding: 0;
 }
 
-/* Year groups on the blog listing: quiet overline label, shorter dates. */
+/* Overline labels: quiet muted group labels (taste groups, blog years).
+   The year selector outranks the .main-content h2 heading style on
+   purpose: the year is a label, not a section heading. */
+.taste-overline,
 .main-content .timeline-year-label {
-  /* Outranks the .main-content h2 heading style on purpose: the year is a
-     quiet overline label, not a section heading. */
-  margin: 1.75rem 0 0.25rem;
   font-family: var(--font-sans);
   font-size: var(--step--1);
   font-weight: 500;
   letter-spacing: 0.04em;
   color: var(--color-muted);
+}
+
+.main-content .timeline-year-label {
+  margin: 1.75rem 0 0.25rem;
 }
 
 .timeline-year .blog-timeline {
@@ -1228,7 +1196,7 @@ a.taste-name[href^="http"]::after {
 
 /* === Figures === */
 .figure-block {
-  margin-block: 1.75rem;
+  margin-block: var(--space-block);
   text-align: center;
 }
 
@@ -1263,7 +1231,7 @@ a.taste-name[href^="http"]::after {
   position: relative;
   border-radius: var(--radius);
   border: 1px solid var(--color-border);
-  margin-block: 1.5rem;
+  margin-block: var(--space-block);
   background-color: var(--color-bg-code);
 }
 
@@ -1337,7 +1305,7 @@ code:not(pre code) {
 pre.mermaid {
   display: flex;
   justify-content: center;
-  margin-block: 1.75rem;
+  margin-block: var(--space-block);
   overflow-x: auto;
   font-family: var(--font-mono);
   font-size: var(--step--1);
