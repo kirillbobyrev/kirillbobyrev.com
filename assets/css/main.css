@@ -629,17 +629,6 @@ video {
 }
 
 /* === Post body easter eggs (single posts only, via .post-body) === */
-/* A quiet section sign on h2s, like a paper. */
-.post-body h2::before {
-  content: "\a7"; /* § */
-  margin-inline-end: 0.55rem;
-  font-family: var(--font-sans);
-  font-size: 0.68em;
-  font-weight: 500;
-  color: var(--color-muted);
-  vertical-align: 0.12em;
-}
-
 /* End of proof. */
 .post-body::after {
   content: "\220e"; /* ∎ */
