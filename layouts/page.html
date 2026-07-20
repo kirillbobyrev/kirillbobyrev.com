@@ -13,10 +13,8 @@
           >
           {{- /* Show the git last-modified date only for real updates (>1 day after publish). */ -}}
           {{- if gt (sub .Lastmod.Unix .Date.Unix) 86400 -}}
-            <span
-              class="article-updated"
-              title="Updated {{ .Lastmod.Format "January 2, 2006" }}"
-              >&Delta; {{ .Lastmod.Format "January 2, 2006" }}</span
+            <span class="article-updated"
+              >Updated {{ .Lastmod.Format "January 2, 2006" }}</span
             >
           {{- end -}}
         </div>
