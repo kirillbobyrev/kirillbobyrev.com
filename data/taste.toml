@@ -47,7 +47,8 @@
       # static/crests/ and replace `file` with:
       #   file_light = 'premier-league-on-light.svg'
       #   file_dark = 'premier-league-on-dark.svg'
-      file = 'premier-league.svg'
+      file_light = 'premier-league-light.svg'
+      file_dark = 'premier-league-dark.svg'
       name = 'Premier League'
       note = 'since ~2000'
 
