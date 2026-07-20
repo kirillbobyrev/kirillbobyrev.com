@@ -4,8 +4,17 @@ on:
   push:
     branches:
       - main
+    # Skip deploys for changes that cannot affect the built site.
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
+      - '.devcontainer/**'
+      - '.mcp.json'
+      - '.prettierrc'
+      - '.prettierignore'
+      - '.github/dependabot.yml'
   schedule:
-    - cron: '0 0 * * 0'  # Runs at 00:00 UTC every Sunday
+    - cron: '0 0 * * 0' # Weekly rebuild: refreshes the fetched resume.
   workflow_dispatch:
 
 permissions:
@@ -13,9 +22,12 @@ permissions:
   pages: write
   id-token: write
 
+# Queue deploys instead of cancelling in-flight ones: with
+# cancel-in-progress a merge landing during a deploy killed it and left
+# the site on the previous build until something else triggered a run.
 concurrency:
-  group: "pages"
-  cancel-in-progress: true
+  group: pages
+  cancel-in-progress: false
 
 defaults:
   run:
@@ -24,22 +36,26 @@ defaults:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v7
         with:
           fetch-depth: 0 # full history so enableGitInfo lastmod dates are correct
 
-      - name: Setup Go
-        uses: actions/setup-go@v6
-        with:
-          go-version: "stable"
+      - name: Setup Hugo
+        uses: ./.github/actions/setup-hugo
 
-      - name: Install Hugo (extended, pinned)
-        # Keep the version in sync with .devcontainer; bump deliberately.
-        # -tags extended is required for WebP image encoding.
-        run: |
-          CGO_ENABLED=1 go install -tags extended github.com/gohugoio/hugo@v0.164.0
+      - name: Restore generated-image cache
+        # resources/ holds Hugo's processed images (OG cards, responsive
+        # WebP sets). Restoring it skips re-encoding unchanged images;
+        # `hugo --gc` prunes entries that no longer correspond to content.
+        uses: actions/cache@v4
+        with:
+          path: resources
+          key: hugo-resources-${{ hashFiles('assets/**', 'content/**', 'layouts/**') }}
+          restore-keys: |
+            hugo-resources-
 
       - name: Setup Pages
         id: pages
@@ -50,7 +66,14 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p static
-          gh release download --repo kirillbobyrev/resume --pattern "Kirill-Bobyrev-Resume.pdf" --output static/resume.pdf --clobber
+          for attempt in 1 2 3; do
+            gh release download --repo kirillbobyrev/resume \
+              --pattern "Kirill-Bobyrev-Resume.pdf" \
+              --output static/resume.pdf --clobber && break
+            [ "$attempt" = 3 ] && exit 1
+            sleep $((attempt * 5))
+          done
+          test -s static/resume.pdf
 
       - name: Build with Hugo
         env:
@@ -79,7 +102,12 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
+    timeout-minutes: 10
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+      - name: Summary
+        run: |
+          echo "Deployed \`${GITHUB_SHA}\` to ${{ steps.deployment.outputs.page_url }}" >> "$GITHUB_STEP_SUMMARY"

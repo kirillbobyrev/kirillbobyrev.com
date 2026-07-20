@@ -3,8 +3,13 @@
 [![Build and deploy](https://github.com/kirillbobyrev/kirillbobyrev.com/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/kirillbobyrev/kirillbobyrev.com/actions/workflows/build-and-deploy.yml)
 
 My personal website built with [Hugo](https://gohugo.io) (extended, pinned to
-`0.164.0` — see `.github/workflows/build-and-deploy.yml` and
+`0.164.0` — see `.github/actions/setup-hugo/action.yml` and
 `.devcontainer/devcontainer.json`).
+
+CI: pull requests build the site, validate internal links, and check
+formatting (`.github/workflows/ci.yml`); merges to `main` build and deploy to
+GitHub Pages (`build-and-deploy.yml`); a weekly job checks external links
+online and files an issue on rot (`link-check.yml`).
 
 ## Develop
 
