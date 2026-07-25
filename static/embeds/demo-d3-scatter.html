@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>D3 embed demo</title>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: light-dark(#fcfcfc, #14161a);
+    --text: light-dark(#212529, #cfd3d7);
+    --muted: light-dark(#6a7076, #8f959b);
+    --border: light-dark(#e7e8e9, #2a2d32);
+    --point: light-dark(#1c74b4, #85b8e6);
+    --point-hover: light-dark(#0b0d0f, #f1f2f3);
+  }
+  /* Follow the parent site's manual dark-mode toggle (see the message
+     listener below) instead of only the OS-level prefers-color-scheme. */
+  :root[data-theme="light"] { color-scheme: light; }
+  :root[data-theme="dark"] { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font: 13px/1.4 -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem 1rem;
+  }
+  p.hint {
+    margin: 0 0 0.25rem;
+    color: var(--muted);
+  }
+  svg {
+    flex: 1;
+    min-height: 0;
+    overflow: visible;
+  }
+  .axis path, .axis line {
+    stroke: var(--border);
+  }
+  .axis text {
+    fill: var(--muted);
+  }
+  .grid line {
+    stroke: var(--border);
+    stroke-dasharray: 2, 2;
+  }
+  .grid path {
+    stroke: none;
+  }
+  .dot {
+    fill: var(--point);
+    cursor: pointer;
+    transition: fill 0.15s ease, r 0.15s ease;
+  }
+  .dot:hover {
+    fill: var(--point-hover);
+    r: 6;
+  }
+  .tooltip {
+    font-size: 11px;
+    fill: var(--text);
+  }
+</style>
+</head>
+<body>
+<main>
+  <p class="hint">A D3 scatter plot, embedded via the <code>embed</code> shortcode &mdash; D3 loaded from a pinned CDN version inside this standalone HTML file.</p>
+  <svg id="chart"></svg>
+</main>
+<script>
+  window.addEventListener("message", (e) => {
+    if (e.data?.kbTheme === "light" || e.data?.kbTheme === "dark") {
+      document.documentElement.dataset.theme = e.data.kbTheme;
+    }
+  });
+
+  const svg = d3.select("#chart");
+  const margin = { top: 10, right: 20, bottom: 28, left: 34 };
+
+  const n = 40;
+  const data = d3.range(n).map((i) => {
+    const x = i / (n - 1);
+    return {
+      x,
+      y: Math.sin(x * Math.PI * 2) * 0.4 + 0.5 + (Math.random() - 0.5) * 0.15,
+    };
+  });
+
+  function render() {
+    const rect = svg.node().getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const innerW = width - margin.left - margin.right;
+    const innerH = height - margin.top - margin.bottom;
+
+    svg.selectAll("*").remove();
+    if (innerW <= 0 || innerH <= 0) return;
+
+    const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+    const x = d3.scaleLinear().domain([0, 1]).range([0, innerW]);
+    const y = d3.scaleLinear().domain([0, 1]).range([innerH, 0]);
+
+    g.append("g")
+      .attr("class", "grid")
+      .call(d3.axisLeft(y).tickSize(-innerW).tickFormat("").ticks(5));
+
+    g.append("g")
+      .attr("class", "axis")
+      .attr("transform", `translate(0,${innerH})`)
+      .call(d3.axisBottom(x).ticks(5));
+
+    g.append("g").attr("class", "axis").call(d3.axisLeft(y).ticks(5));
+
+    const tooltip = g
+      .append("text")
+      .attr("class", "tooltip")
+      .attr("text-anchor", "middle")
+      .style("opacity", 0);
+
+    g.selectAll(".dot")
+      .data(data)
+      .join("circle")
+      .attr("class", "dot")
+      .attr("cx", (d) => x(d.x))
+      .attr("cy", (d) => y(d.y))
+      .attr("r", 3.5)
+      .on("mouseenter", (event, d) => {
+        tooltip
+          .attr("x", x(d.x))
+          .attr("y", y(d.y) - 12)
+          .text(`(${d.x.toFixed(2)}, ${d.y.toFixed(2)})`)
+          .style("opacity", 1);
+      })
+      .on("mouseleave", () => tooltip.style("opacity", 0));
+  }
+
+  render();
+  new ResizeObserver(render).observe(svg.node());
+</script>
+</body>
+</html>

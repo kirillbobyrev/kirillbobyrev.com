@@ -1213,6 +1213,28 @@ a.taste-name {
   font-style: italic;
 }
 
+/* Break a figure out of the prose measure and re-center it on the viewport
+   instead of the text column, for diagrams/embeds that benefit from more
+   width than a comfortable reading line allows. Relies on .prose's
+   horizontal center coinciding with the viewport's (true as long as an
+   ancestor doesn't off-center .site-container). */
+.figure-wide {
+  --breakout-width: min(92vw, 62rem);
+  width: var(--breakout-width);
+  margin-inline: calc(50% - 50vw + (100vw - var(--breakout-width)) / 2);
+}
+
+.figure-wide img {
+  width: 100%;
+}
+
+.embed-frame {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background-color: var(--color-bg);
+}
+
 /* Soften bright images against the dark background (filter values cannot
    ride light-dark(), so this one rule keeps the dual theme scope). */
 :root[data-theme="dark"] .prose img {

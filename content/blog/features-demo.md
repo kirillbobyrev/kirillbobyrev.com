@@ -159,6 +159,25 @@ Use `const variable = "value"` for inline code snippets. You can also use `npm i
 
 {{< figure src="/images/og.jpg" caption="A figure with a caption, via the figure shortcode." alt="Site Open Graph image" />}}
 
+A `wide="true"` figure breaks out of the prose measure for images or diagrams
+that benefit from more horizontal room:
+
+{{< figure src="/images/og.jpg" wide="true" caption="The same image, rendered wide via figure's wide=\"true\" parameter." alt="Site Open Graph image, wide" />}}
+
+## Interactive Embeds
+
+The `embed` shortcode drops a sandboxed iframe pointing at a self-contained
+static HTML file (own inline JS/CSS, no build dependency) for interactive
+figures a static image or Mermaid diagram can't express:
+
+{{< embed src="/embeds/demo-bars.html" height="220" caption="A minimal interactive demo, embedded via the `embed` shortcode." />}}
+
+The embedded file can pull in a charting library too &mdash; here D3 is loaded
+from a pinned CDN version inside the standalone HTML file itself, same as any
+other embed:
+
+{{< embed src="/embeds/demo-d3-scatter.html" height="320" caption="A D3 scatter plot with hover tooltips, embedded the same way." />}}
+
 ## Mathematical Expressions
 
 The ToMath transform with KaTeX renders beautiful mathematics:

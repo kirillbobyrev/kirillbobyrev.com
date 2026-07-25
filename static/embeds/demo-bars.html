@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Interactive embed demo</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: light-dark(#fcfcfc, #14161a);
+    --text: light-dark(#212529, #cfd3d7);
+    --muted: light-dark(#6a7076, #8f959b);
+    --bar: light-dark(#1c74b4, #85b8e6);
+    --bar-hover: light-dark(#0b0d0f, #f1f2f3);
+  }
+  /* Follow the parent site's manual dark-mode toggle (see the message
+     listener below) instead of only the OS-level prefers-color-scheme. */
+  :root[data-theme="light"] { color-scheme: light; }
+  :root[data-theme="dark"] { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font: 14px/1.4 -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem 1.5rem;
+  }
+  p.hint {
+    margin: 0 0 0.75rem;
+    color: var(--muted);
+  }
+  .bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    height: 120px;
+  }
+  .bar {
+    flex: 1;
+    background: var(--bar);
+    border-radius: 3px 3px 0 0;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.15s ease;
+    transform-origin: bottom;
+  }
+  .bar:hover, .bar:focus-visible {
+    background: var(--bar-hover);
+    transform: scaleY(1.03);
+  }
+  output {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--muted);
+    height: 1.2em;
+  }
+</style>
+</head>
+<body>
+<main>
+  <p class="hint">Hover or focus a bar &mdash; this is a plain static HTML file, embedded via the <code>embed</code> shortcode.</p>
+  <div class="bars" id="bars"></div>
+  <output id="readout">&nbsp;</output>
+</main>
+<script>
+  window.addEventListener("message", (e) => {
+    if (e.data?.kbTheme === "light" || e.data?.kbTheme === "dark") {
+      document.documentElement.dataset.theme = e.data.kbTheme;
+    }
+  });
+
+  const values = [12, 19, 7, 24, 15, 30, 9, 21];
+  const container = document.getElementById("bars");
+  const readout = document.getElementById("readout");
+  const max = Math.max(...values);
+  values.forEach((v, i) => {
+    const bar = document.createElement("div");
+    bar.className = "bar";
+    bar.style.height = `${(v / max) * 100}%`;
+    bar.tabIndex = 0;
+    bar.addEventListener("mouseenter", () => (readout.textContent = `series[${i}] = ${v}`));
+    bar.addEventListener("focus", () => (readout.textContent = `series[${i}] = ${v}`));
+    bar.addEventListener("mouseleave", () => (readout.textContent = " "));
+    bar.addEventListener("blur", () => (readout.textContent = " "));
+    container.append(bar);
+  });
+</script>
+</body>
+</html>

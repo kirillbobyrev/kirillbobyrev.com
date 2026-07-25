@@ -20,6 +20,18 @@
         const system = () => (mq.matches ? "dark" : "light");
         const current = () =>
           document.documentElement.dataset.theme || system();
+        // Embeds (see the `embed` shortcode) run in a sandboxed iframe with
+        // no allow-same-origin, so they have an opaque origin — they can't
+        // see data-theme on our <html> or read our localStorage, and a
+        // postMessage targetOrigin of location.origin would never match
+        // (it'd never be delivered), hence "*" here. Embeds that want to
+        // follow the site's manual override opt in by listening for this on
+        // their end (see static/embeds/*.html).
+        const broadcastTheme = (theme) => {
+          for (const frame of document.querySelectorAll(".embed-frame")) {
+            frame.contentWindow?.postMessage({ kbTheme: theme }, "*");
+          }
+        };
         const apply = (theme) => {
           // An override matching the system preference is redundant: drop it
           // so the site keeps tracking OS theme changes live via CSS.
@@ -34,12 +46,18 @@
               localStorage.setItem("theme", theme);
             } catch (e) {}
           }
+          broadcastTheme(theme);
         };
         apply(current());
         mq.addEventListener("change", () => apply(current()));
         btn.addEventListener("click", () => {
           apply(current() === "dark" ? "light" : "dark");
         });
+        // Lazy-loaded embed iframes finish loading well after the initial
+        // apply() above ran; sync each one as soon as it's ready.
+        for (const frame of document.querySelectorAll(".embed-frame")) {
+          frame.addEventListener("load", () => broadcastTheme(current()));
+        }
       })();
     </script>
     {{- /* Code blocks: language chip + copy-to-clipboard button. */ -}}
