@@ -53,35 +53,6 @@
       note = 'since ~2000'
 
 [[sections]]
-  title = 'Stationery'
-
-  [[sections.items]]
-    name = 'rotring 800'
-    note = 'the drafting classic'
-
-  [[sections.items]]
-    name = 'CW&T Pen Type-B'
-    note = 'machined titanium, overbuilt on purpose'
-
-[[sections]]
-  title = 'Hardware'
-
-  [[sections.items]]
-    name = 'Kinesis Advantage360'
-    note = 'split, contoured, no going back'
-
-[[sections]]
-  title = 'Design'
-
-  [[sections.items]]
-    name = 'Newsreader & Inter'
-    note = 'the type on this site'
-
-  [[sections.items]]
-    name = 'JetBrains Mono'
-    note = 'every line of code here'
-
-[[sections]]
   title = 'Podcasts'
 
   [[sections.items]]
