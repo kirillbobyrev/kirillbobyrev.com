@@ -1,7 +1,7 @@
 {{- /* Returns a generated 1200x630 Open Graph card for a blog post (or "" for anything else). */ -}}
 {{- /* Composed at build time: the light-theme base canvas (assets/images/og-base.png) plus the */ -}}
 {{- /* post title set in Newsreader and a site/date line in Inter. The TTFs in assets/fonts/ */ -}}
-{{- /* exist only for this partial — images.Text cannot read the woff2 files the site serves. */ -}}
+{{- /* exist only for this partial - images.Text cannot read the woff2 files the site serves. */ -}}
 {{- $img := "" -}}
 {{- if and .IsPage (eq .Section "blog") -}}
   {{- /* Greedy-wrap the title: images.Text only breaks lines at the image edge, which would */ -}}

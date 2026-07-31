@@ -21,7 +21,7 @@
         const current = () =>
           document.documentElement.dataset.theme || system();
         // Embeds (see the `embed` shortcode) run in a sandboxed iframe with
-        // no allow-same-origin, so they have an opaque origin — they can't
+        // no allow-same-origin, so they have an opaque origin - they can't
         // see data-theme on our <html> or read our localStorage, and a
         // postMessage targetOrigin of location.origin would never match
         // (it'd never be delivered), hence "*" here. Embeds that want to

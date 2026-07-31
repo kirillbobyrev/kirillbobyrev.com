@@ -3,7 +3,7 @@
 [![Build and deploy](https://github.com/kirillbobyrev/kirillbobyrev.com/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/kirillbobyrev/kirillbobyrev.com/actions/workflows/build-and-deploy.yml)
 
 My personal website built with [Hugo](https://gohugo.io) (extended, pinned to
-`0.164.0` — see `.github/actions/setup-hugo/action.yml` and
+`0.164.0` - see `.github/actions/setup-hugo/action.yml` and
 `.devcontainer/devcontainer.json`).
 
 CI: pull requests build the site, validate internal links, and check
