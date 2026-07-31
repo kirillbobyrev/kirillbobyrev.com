@@ -60,6 +60,21 @@
         }
       })();
     </script>
+    {{- /* Back-to-top: reveal it once the article header has scrolled off. */ -}}
+    <script>
+      (() => {
+        const link = document.querySelector(".to-top");
+        if (!link) return;
+        const anchor = document.querySelector(".article-header");
+        if (!anchor) return;
+        link.hidden = false;
+        // Observing the header rather than listening to scroll: this fires
+        // twice per crossing instead of on every frame of every scroll.
+        new IntersectionObserver(([entry]) => {
+          link.toggleAttribute("data-visible", !entry.isIntersecting);
+        }).observe(anchor);
+      })();
+    </script>
     {{- /* Code blocks: language chip + copy-to-clipboard button. */ -}}
     <script>
       (() => {
