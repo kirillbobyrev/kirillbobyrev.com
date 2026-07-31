@@ -2,11 +2,7 @@
   <article class="main-content">
     <h1>{{ .Title }}</h1>
     <p class="lede">{{ .Description }}</p>
-    <nav class="me-nav" aria-label="Personal pages">
-      <a href="/taste/">taste</a>
-      <span class="me-nav-sep">&middot;</span>
-      <span aria-current="page">places</span>
-    </nav>
+    {{- partial "me-nav.html" . -}}
     {{- $places := hugo.Data.places.places -}}
     {{- $countries := slice -}}
     {{- range $places -}}

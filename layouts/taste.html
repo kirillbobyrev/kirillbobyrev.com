@@ -2,11 +2,7 @@
   <article class="main-content">
     <h1>{{ .Title }}</h1>
     <p class="lede">{{ .Description }}</p>
-    <nav class="me-nav" aria-label="Personal pages">
-      <span aria-current="page">taste</span>
-      <span class="me-nav-sep">&middot;</span>
-      <a href="/places/">places</a>
-    </nav>
+    {{- partial "me-nav.html" . -}}
     {{- $taste := hugo.Data.taste -}}
 
 
