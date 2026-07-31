@@ -1249,6 +1249,69 @@ a.taste-name {
   color: var(--color-accent);
 }
 
+/* Index only: the homepage list stays title-only, since it is a teaser
+   under a page of prose rather than somewhere you pick what to read. */
+.blog-timeline-summary {
+  display: block;
+  margin-block-start: 0.1rem;
+  color: var(--color-muted);
+  font-size: var(--step--1);
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+/* === Back to top ===
+   Rendered only on long posts (see page.html) and revealed once the article
+   header has scrolled away, so it never sits over a screen you can already
+   see the top of. */
+.to-top {
+  position: fixed;
+  inset-block-end: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+  inset-inline-end: 1.25rem;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  /* The stronger hairline, not --color-border: this floats over the page
+     rather than dividing it, and at --color-border it reads as a smudge
+     against a background of exactly the same colour. */
+  border: 1px solid var(--color-underline);
+  border-radius: var(--radius);
+  /* Opaque, so prose scrolling underneath never shows through. */
+  background-color: var(--color-bg);
+  color: var(--color-muted);
+  text-decoration: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.35rem);
+  transition:
+    opacity var(--transition),
+    visibility var(--transition),
+    transform var(--transition),
+    color var(--transition),
+    background-color var(--transition),
+    border-color var(--transition);
+}
+
+.to-top[data-visible] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.to-top:hover {
+  color: var(--color-heading);
+  background-color: var(--color-bg-hover);
+}
+
+/* Author-origin `display` outranks the UA's `[hidden]` rule, same as the
+   theme toggle: the link ships hidden and only the script reveals it. */
+.to-top[hidden] {
+  display: none;
+}
+
 /* === Figures === */
 .figure-block {
   margin-block: var(--space-block);
@@ -1519,7 +1582,8 @@ pre.mermaid svg {
   .site-footer,
   .back-link,
   .toc,
-  .post-nav {
+  .post-nav,
+  .to-top {
     display: none;
   }
 

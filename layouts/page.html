@@ -27,6 +27,26 @@
       </details>
     {{- end -}}
     <div class="prose post-body">{{ .Content }}</div>
+    {{- /* Same length gate as the contents block above: a post long enough to need a map is long enough to need a way back. */ -}}
+    {{- if ge .WordCount 1500 -}}
+      {{- /* "#top" rather than "#content": with no element of that id, browsers resolve it to the top of the document, so the masthead comes back too. */ -}}
+      <a href="#top" class="to-top" hidden>
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 19V5M5 12l7-7 7 7" />
+        </svg>
+        <span class="visually-hidden">Back to top</span>
+      </a>
+    {{- end -}}
     {{- if or .PrevInSection .NextInSection -}}
       <nav class="post-nav" aria-label="More posts">
         {{- with .PrevInSection -}}
