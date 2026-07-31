@@ -287,15 +287,17 @@ video {
   color: var(--color-accent);
 }
 
-.header-tools {
+.header-brand {
   display: flex;
   align-items: center;
-  gap: 0.15rem;
-  margin-inline-start: auto;
+  gap: 0.35rem;
 }
 
+/* Cancels the links' own inline padding so their labels — not their tap
+   areas — line up with the title above and the text column below. */
 .site-nav {
   min-width: 0;
+  margin-inline: -0.55rem;
 }
 
 .nav-list {
@@ -345,7 +347,6 @@ video {
   justify-content: center;
   border: 0;
   padding: 0.4rem;
-  margin-inline-start: 0.2rem;
   border-radius: var(--radius-sm);
   background: none;
   color: var(--color-muted);
@@ -1427,23 +1428,27 @@ pre.mermaid svg {
     margin-block-end: 1.5rem;
   }
 
-  /* Title gets the full first line, so it can carry the page the way a
+  /* The name gets the full first line, so it can carry the page the way a
      masthead should instead of competing with the links for width. */
-  .site-title {
+  .header-brand {
     flex-basis: 100%;
+  }
+
+  .site-title {
     font-size: var(--step-3);
   }
 
-  .header-tools {
-    width: 100%;
-    margin-inline-start: 0;
+  .theme-toggle {
+    margin-inline-start: auto;
+    /* Pull the icon out to the text column's edge, past its own padding. */
+    margin-inline-end: -0.45rem;
+    padding: 0.45rem;
   }
 
   /* Nav starts under the title and scrolls sideways rather than wrapping or
-     shrinking, so links stay tappable however many of them there are. The
-     toggle sits outside this box, so it stays put as the links scroll. */
+     shrinking, so links stay tappable however many of them there are. */
   .site-nav {
-    flex: 1 1 auto;
+    width: 100%;
     overflow-x: auto;
     scrollbar-width: none;
     /* Room for the underline so it never clips against the border. */
