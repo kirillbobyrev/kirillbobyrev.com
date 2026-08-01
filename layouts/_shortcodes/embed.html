@@ -1,6 +1,6 @@
 {{- /*
   Embed shortcode: drops a sandboxed iframe pointing at a self-contained
-  static HTML file (own inline JS/CSS, no dependency on the site's build —
+  static HTML file (own inline JS/CSS, no dependency on the site's build -
   e.g. a D3 chart or an exported Observable notebook) for interactive
   figures that a plain image/Mermaid diagram can't express.
   API: src (required, path to the embed's HTML file, e.g. /embeds/foo.html),
@@ -11,7 +11,7 @@
   the toggle too, an embed's own script should listen for a postMessage from
   the parent and set data-theme on its own <html>. The iframe has no
   allow-same-origin (deliberately, to avoid sandbox-escape via allow-scripts
-  + allow-same-origin together), which makes it an opaque origin — targeting
+  + allow-same-origin together), which makes it an opaque origin - targeting
   it with location.origin instead of "*" would silently fail to deliver, and
   e.source === window.parent is unreliable for the same reason, so validate
   the message's value instead of its sender (harmless payload, so that's a

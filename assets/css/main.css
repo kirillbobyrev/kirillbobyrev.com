@@ -274,7 +274,7 @@ video {
 
 .site-title {
   font-family: var(--font-serif);
-  font-size: var(--step-2);
+  font-size: var(--title-size);
   font-weight: 600;
   line-height: 1.15;
   color: var(--color-heading);
@@ -288,13 +288,16 @@ video {
 }
 
 .header-brand {
+  /* Drives the title's size and the toggle's optical lift together, so the
+     two can't drift apart when one breakpoint changes the type scale. */
+  --title-size: var(--step-2);
   display: flex;
   align-items: center;
   gap: 0.35rem;
 }
 
-/* Cancels the links' own inline padding so their labels — not their tap
-   areas — line up with the title above and the text column below. */
+/* Cancels the links' own inline padding so their labels - not their tap
+   areas - line up with the title above and the text column below. */
 .site-nav {
   min-width: 0;
   margin-inline: -0.55rem;
@@ -352,6 +355,14 @@ video {
   color: var(--color-muted);
   cursor: pointer;
   line-height: 0;
+  /* `align-items: center` centres the icon on the title's line box, but a
+     Title Case name reads as its cap band - baseline up to cap top - which
+     sits higher, so a symmetrical icon looks low beside it. Lift it onto the
+     cap-band centre. The factor is measured against rendered pixels: the gap
+     between the two centres is 0.10-0.13 of the title's size, drifting a
+     little because Chromium rounds font ascent and descent to whole pixels
+     when it places the baseline. Transform, so the row's height is unchanged. */
+  translate: 0 calc(var(--title-size, var(--step-2)) * -0.115);
   transition:
     color var(--transition),
     background-color var(--transition);
@@ -1004,6 +1015,34 @@ a.taste-name {
   margin-inline: 0.15rem;
 }
 
+.now-updated {
+  margin: 0 0 var(--space-block);
+  color: var(--color-muted);
+  font-size: var(--step--1);
+}
+
+.now-about {
+  margin-block-start: var(--space-section);
+  padding-block-start: 1rem;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-muted);
+  font-size: var(--step--1);
+  text-wrap: pretty;
+}
+
+.now-about a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--color-underline);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.19em;
+  transition: color var(--transition);
+}
+
+.now-about a:hover {
+  color: var(--color-accent);
+}
+
 .places-stats {
   margin: 0 0 1.25rem;
   color: var(--color-muted);
@@ -1495,10 +1534,7 @@ pre.mermaid svg {
      masthead should instead of competing with the links for width. */
   .header-brand {
     flex-basis: 100%;
-  }
-
-  .site-title {
-    font-size: var(--step-3);
+    --title-size: var(--step-3);
   }
 
   .theme-toggle {

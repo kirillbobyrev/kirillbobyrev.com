@@ -172,7 +172,7 @@ figures a static image or Mermaid diagram can't express:
 
 {{< embed src="/embeds/demo-bars.html" height="220" caption="A minimal interactive demo, embedded via the `embed` shortcode." />}}
 
-The embedded file can pull in a charting library too &mdash; here D3 is loaded
+The embedded file can pull in a charting library too - here D3 is loaded
 from a pinned CDN version inside the standalone HTML file itself, same as any
 other embed:
 

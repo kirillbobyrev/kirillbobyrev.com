@@ -3,7 +3,7 @@
 # render from this file. `country` should be the common English name
 # (Natural Earth naming; assets/js/places.js has an alias map for the
 # few that differ, e.g. United States). `when` is free-form and
-# optional ('2023', '2019—', 'every summer').
+# optional ('2023', '2019-', 'every summer').
 
 [[places]]
   city = 'Miami'
