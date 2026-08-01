@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "@playwright/mcp": "^0.0.77",
-    "prettier": "^3.9.4",
+    "prettier": "^3.9.6",
     "prettier-plugin-go-template": "^0.0.15"
   }
 }
