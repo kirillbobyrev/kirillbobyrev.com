@@ -50,7 +50,7 @@ jobs:
         # resources/ holds Hugo's processed images (OG cards, responsive
         # WebP sets). Restoring it skips re-encoding unchanged images;
         # `hugo --gc` prunes entries that no longer correspond to content.
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: resources
           key: hugo-resources-${{ hashFiles('assets/**', 'content/**', 'layouts/**') }}
