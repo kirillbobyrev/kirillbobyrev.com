@@ -109,11 +109,14 @@
   --radius-sm: 4px; /* inline code, chips, small marks */
   --transition: 0.15s ease;
 
-  /* Spacing tokens for the two rhythms that repeat across the site:
-     display blocks inside prose (code, tables, figures, quotes) and
-     major section boundaries (footer, post nav, homepage sections). */
+  /* Spacing tokens for the rhythms that repeat across the site: display
+     blocks inside prose (code, tables, figures, quotes), major section
+     boundaries (footer, post nav, homepage sections), and the hover-row
+     padding shared by .blog-timeline-entry and .taste-list li. */
   --space-block: 1.75rem;
   --space-section: 2.75rem;
+  --space-row-block: 0.55rem;
+  --space-row-inline: 0.6rem;
 
   --color-bg: light-dark(#fcfcfc, #14161a);
   --color-text: light-dark(#212529, #cfd3d7);
@@ -261,15 +264,68 @@ video {
   margin-block-end: 2rem;
 }
 
-/* Wraps so the title can take a line of its own on narrow screens (see the
-   responsive block); on wider screens the title and nav share one line. */
+/* Brand (title + toggle) and the back-to-top link live here, pinned to the
+   viewport for the whole page - PaperMod's trick for keeping the name in
+   view while the rest of the nav scrolls away with the header. Transparent
+   in the gap between the two children (not the children themselves - see
+   .header-brand/.to-top) and click-through there too: at rest, before
+   anything has scrolled, .site-nav renders in that same gap and needs to
+   stay visible and clickable. */
+.sticky-bar {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: 70;
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.sticky-bar > * {
+  pointer-events: auto;
+}
+
+/* Wide viewports: move brand and back-to-top out into the side margins
+   entirely, clear of the text column, so scrolled text can never sit under
+   either of them - .sticky-bar becomes a plain (invisible) positioning
+   anchor and its two children position themselves off its left/right
+   edges via inset-inline-*: 100%, rather than a shared centered row. */
+@media (min-width: 1200px) {
+  .sticky-bar {
+    padding-inline: 0;
+  }
+
+  /* inset-*-start on an absolutely positioned box is measured from the
+     containing block's padding edge, which sits flush with .sticky-bar's
+     own top (it has no border) regardless of padding - so the top offset
+     has to be set here directly, not via the parent's padding-block. */
+  .header-brand {
+    position: absolute;
+    inset-block-start: 1.5rem;
+    inset-inline-end: 100%;
+    margin-inline-end: 1.5rem;
+    white-space: nowrap;
+    /* inset-inline-end: 100% leaves shrink-to-fit with zero space to work
+       with, which was collapsing the toggle icon's box down to near
+       nothing - pin the box to its natural content width instead. */
+    width: max-content;
+  }
+
+  .to-top {
+    position: absolute;
+    inset-block-start: 1.5rem;
+    inset-inline-start: 100%;
+    margin-inline-start: 1.5rem;
+  }
+}
+
 .header-inner {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  column-gap: 1.5rem;
-  row-gap: 0.6rem;
+  justify-content: flex-end;
 }
 
 .site-title {
@@ -294,6 +350,8 @@ video {
   display: flex;
   align-items: center;
   gap: 0.35rem;
+  /* Opaque once scrolled, so prose sliding underneath never shows through. */
+  background-color: var(--color-bg);
 }
 
 /* Cancels the links' own inline padding so their labels - not their tap
@@ -518,10 +576,8 @@ video {
 /* === Table of contents (long posts) === */
 .toc {
   margin-block: 1.5rem 2rem;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  background-color: var(--color-bg-code);
+  padding-block-end: 1.1rem;
+  border-bottom: 1px solid var(--color-border);
   font-size: var(--step--1);
 }
 
@@ -530,6 +586,10 @@ video {
   font-weight: 600;
   color: var(--color-heading);
   list-style: none;
+}
+
+.toc summary:hover {
+  color: var(--color-accent);
 }
 
 .toc summary::-webkit-details-marker {
@@ -704,6 +764,57 @@ a.taste-name[href^="http"]::after {
   margin-block: 2.25rem;
 }
 
+/* === Footnotes ===
+   Goldmark's default markup: an inline `sup#fnref:N > a.footnote-ref`,
+   and a trailing `.footnotes` block (its own <hr>, then an <ol> of
+   entries each ending in an a.footnote-backref arrow). */
+.footnote-ref {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-size: 0.75em;
+  vertical-align: super;
+  padding-inline: 0.05em;
+}
+
+.prose .footnotes {
+  margin-block-start: var(--space-section);
+  padding-block-start: 1rem;
+  border-top: 1px solid var(--color-border);
+  font-size: var(--step--1);
+  color: var(--color-muted);
+}
+
+/* Same section-boundary rule as the border-top above; the native one is
+   redundant here. */
+.footnotes hr {
+  display: none;
+}
+
+.footnotes ol {
+  margin: 0;
+  padding-inline-start: 1.25rem;
+}
+
+.footnotes li {
+  margin-block: 0.5em;
+  line-height: 1.5;
+}
+
+.footnotes li p {
+  margin: 0;
+}
+
+.footnote-backref {
+  margin-inline-start: 0.35em;
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.footnote-backref:hover {
+  color: var(--color-accent);
+}
+
 /* === Post body easter eggs (single posts only, via .post-body) === */
 /* End of proof. */
 .post-body::after {
@@ -848,17 +959,14 @@ a.heading-anchor:hover {
   margin-block: 1.5rem 1rem;
 }
 
-/* Lede paragraph under a page title (homepage tagline, taste, places). */
+/* Lede paragraph under a page title (homepage tagline, taste, places).
+   Body size, not a step up - muted color alone marks it as a subtitle, so
+   the page doesn't add a size that's used nowhere else. */
 .lede {
   margin: 0 0 0.75rem;
-  font-size: var(--step-1);
-  line-height: 1.5;
+  font-size: var(--step-0);
+  line-height: 1.6;
   color: var(--color-muted);
-}
-
-.homepage .prose > p:first-child {
-  font-size: var(--step-1);
-  line-height: 1.5;
 }
 
 .home-recent {
@@ -962,8 +1070,8 @@ a.heading-anchor:hover {
 
 .taste-list li {
   /* Same hover-row geometry as .blog-timeline-entry. */
-  padding: 0.55rem 0.6rem;
-  margin-inline: -0.6rem;
+  padding: var(--space-row-block) var(--space-row-inline);
+  margin-inline: calc(var(--space-row-inline) * -1);
   border-radius: var(--radius);
   transition: background-color var(--transition);
 }
@@ -1248,8 +1356,8 @@ a.taste-name {
   display: flex;
   align-items: baseline;
   gap: 1.25rem;
-  padding: 0.55rem 0.6rem;
-  margin-inline: -0.6rem;
+  padding: var(--space-row-block) var(--space-row-inline);
+  margin-inline: calc(var(--space-row-inline) * -1);
   text-decoration: none;
   color: inherit;
   border-radius: var(--radius);
@@ -1299,20 +1407,85 @@ a.taste-name {
   text-wrap: pretty;
 }
 
-/* === Back to top ===
-   Rendered only on long posts (see page.html) and revealed once the article
-   header has scrolled away, so it never sits over a screen you can already
-   see the top of. */
-.to-top {
+/* Blog index: most entries are "large" (serif title, a summary line, room
+   for a thumbnail); a post can opt into a single compact line instead (see
+   the `compact` front matter param) for minor, low-effort posts. */
+.blog-timeline-entry-lg {
+  align-items: flex-start;
+  padding-block: 0.85rem;
+}
+
+.blog-timeline-entry-lg .blog-timeline-date {
+  /* Sits at the title's cap height, not the full first line box. */
+  padding-block-start: 0.2rem;
+}
+
+.blog-timeline-entry-lg .blog-timeline-title {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: var(--step-1);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.blog-timeline-entry-lg .blog-timeline-summary {
+  margin-block-start: 0.3rem;
+}
+
+.blog-timeline-summary-inline {
+  color: var(--color-muted);
+  font-weight: 400;
+  margin-inline-start: 0.5em;
+}
+
+.has-thumb .blog-timeline-entry {
+  align-items: center;
+}
+
+.blog-timeline-thumb {
+  flex-shrink: 0;
+  width: 5.5rem;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.blog-timeline-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* === Reading progress ===
+   Rendered only on long posts (see page.html), tracking scroll through
+   .post-body. Ships hidden; the script in baseof.html reveals and drives it,
+   so a no-JS reader never sees a bar stuck at zero width. */
+.reading-progress {
   position: fixed;
-  inset-block-end: calc(1.25rem + env(safe-area-inset-bottom, 0px));
-  inset-inline-end: 1.25rem;
-  z-index: 50;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: 60;
+  height: 2px;
+}
+
+.reading-progress-bar {
+  height: 100%;
+  width: 0%;
+  background-color: var(--color-accent);
+}
+
+/* === Back to top ===
+   Lives at the right edge of .sticky-bar (see header.html) and appears on
+   any page once the header has scrolled away, so it never sits over a
+   screen you can already see the top of. */
+.to-top {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
   /* The stronger hairline, not --color-border: this floats over the page
      rather than dividing it, and at --color-border it reads as a smudge
      against a background of exactly the same colour. */
@@ -1324,7 +1497,7 @@ a.taste-name {
   text-decoration: none;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(0.35rem);
+  transform: translateY(-0.35rem);
   transition:
     opacity var(--transition),
     visibility var(--transition),
@@ -1524,28 +1697,39 @@ pre.mermaid svg {
 }
 
 /* === Responsive === */
+/* Below the sidebar breakpoint (see .sticky-bar's own media query),
+   .header-brand and .to-top sit close enough together that the gap between
+   them can't stay transparent without scrolled text bleeding through it -
+   there isn't the width to spare that wide viewports have. Push .site-nav
+   clear of that row and make the bar opaque instead. */
+@media (max-width: 1199px) {
+  .site-header {
+    /* Tuned against .sticky-bar's rendered height, not a coincidence. */
+    padding-block-start: 5.25rem;
+  }
+
+  .sticky-bar {
+    background-color: var(--color-bg);
+  }
+}
+
 @media (max-width: 640px) {
   .site-header {
-    padding: 1.25rem 1rem 0.6rem;
+    padding-inline: 1rem;
+    padding-block-end: 0.6rem;
     margin-block-end: 1.5rem;
   }
 
-  /* The name gets the full first line, so it can carry the page the way a
-     masthead should instead of competing with the links for width. */
-  .header-brand {
-    flex-basis: 100%;
-    --title-size: var(--step-3);
+  .sticky-bar {
+    padding: 1rem;
   }
 
   .theme-toggle {
-    margin-inline-start: auto;
-    /* Pull the icon out to the text column's edge, past its own padding. */
-    margin-inline-end: -0.45rem;
     padding: 0.45rem;
   }
 
-  /* Nav starts under the title and scrolls sideways rather than wrapping or
-     shrinking, so links stay tappable however many of them there are. */
+  /* Nav scrolls sideways rather than wrapping or shrinking, so links stay
+     tappable however many of them there are. */
   .site-nav {
     width: 100%;
     overflow-x: auto;
@@ -1560,10 +1744,6 @@ pre.mermaid svg {
 
   .nav-link {
     padding: 0.45rem 0.55rem;
-  }
-
-  .theme-toggle {
-    padding: 0.45rem;
   }
 
   .site-container {
@@ -1585,12 +1765,24 @@ pre.mermaid svg {
     border-inline: none;
   }
 
-  .blog-timeline-entry {
+  .blog-timeline-entry,
+  .has-thumb .blog-timeline-entry {
     flex-direction: column;
+    /* Cancels .has-thumb's row-only centering: stacked, everything should
+       hug the left edge like any other entry. Matches .has-thumb's own
+       specificity so it actually wins here. */
+    align-items: stretch;
     gap: 0.125rem;
   }
 
-  .blog-timeline-date {
+  .blog-timeline-thumb {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin-block-start: 0.4rem;
+  }
+
+  .blog-timeline-date,
+  .timeline-year .blog-timeline-date {
     text-align: left;
     width: auto;
   }
