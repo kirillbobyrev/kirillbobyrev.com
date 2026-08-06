@@ -7,7 +7,7 @@ My personal website built with [Hugo](https://gohugo.io) (extended, pinned to
 `.devcontainer/devcontainer.json`).
 
 Presentation lives in its own theme, `themes/quietprint/` (see its
-[README](themes/quietprint/README.md)), wired in via `theme = "quietprint"`
+[README](themes/quietprint/README.md)), wired in via `theme = 'quietprint'`
 in `hugo.toml`. `content/`, `data/`, and `archetypes/` stay at the repo root
 and are theme-agnostic; trying a different look later means adding a sibling
 theme directory and changing that one config line, without touching content.
