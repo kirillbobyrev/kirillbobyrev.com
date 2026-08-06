@@ -53,7 +53,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: resources
-          key: hugo-resources-${{ hashFiles('assets/**', 'content/**', 'layouts/**') }}
+          key: hugo-resources-${{ hashFiles('themes/**/assets/**', 'themes/**/layouts/**', 'content/**') }}
           restore-keys: |
             hugo-resources-
 
