@@ -4,6 +4,7 @@ locale = 'en-US'
 title = 'Kirill Bobyrev'
 disableKinds = ['taxonomy', 'term']
 enableGitInfo = true
+theme = 'quietprint'
 
 [params]
   description = 'software engineering blog by Kirill Bobyrev'
