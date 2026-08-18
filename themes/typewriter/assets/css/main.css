@@ -1,0 +1,2128 @@
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* No italic face is shipped for JetBrains Mono: code has no reason to go
+   italic, so a fourth webfont download would buy nothing here. */
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Newsreader";
+  src: url("/fonts/Newsreader-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   Design tokens
+
+   A quiet editorial pairing rather than the mono-everywhere look this theme
+   started with: Newsreader (serif) carries the site title and prose
+   headings, Inter (sans) carries body copy, nav, and UI chrome, and
+   JetBrains Mono is kept only where it's earned - code and inline code.
+   Only Newsreader SemiBold (600) is shipped, so every serif use is set at
+   weight 600, not 700: browsers happily substitute the nearest real weight
+   the family declares, but writing the true weight documents what's
+   actually rendered instead of leaving a false "700" for the next reader.
+   Type rides a gentler ratio than quietprint's 1.2 (1.125, a "major
+   second"): the goal here is a quiet page, and 1.2 was making the big
+   steps (h1/h2/the site title) louder than that page wants. Going with a
+   flatter ratio rather than just shrinking the root keeps the two ends
+   moving in different directions - the biggest steps shrink the most,
+   the smallest two (meta/code, overline labels) actually get a hair
+   *bigger* than the 1.2 scale gave them, since they were the ones under
+   the most pressure to stay legible:
+     --step--2  0.79rem    table headers, overline labels
+     --step--1  0.8889rem  meta, dates, labels, code, tables
+     --step-0   1rem       body, nav
+     --step-1   1.125rem   site title, lede, h3
+     --step-2   1.2656rem  h2, homepage title
+     --step-3   1.4238rem  post h1
+   (px results depend on the root font-size set below.)
+
+   Themes: every color is declared exactly once via light-dark(). The
+   default color-scheme follows the OS; the header toggle forces one by
+   setting html[data-theme] (persisted in localStorage), which flips
+   color-scheme and with it every token.
+   ========================================================================== */
+:root {
+  color-scheme: light dark;
+
+  --font-sans:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-mono:
+    "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono",
+    Consolas, "Courier New", monospace;
+
+  --step--2: 0.79rem;
+  --step--1: 0.8889rem;
+  --step-0: 1rem;
+  --step-1: 1.125rem;
+  --step-2: 1.2656rem;
+  --step-3: 1.4238rem;
+
+  /* Shared shape + motion tokens (kept consistent across the whole UI).
+     Slightly softer corners than the theme's original 4px/2px - still a
+     touch crisper than quietprint's 8px/4px, enough to stay visually
+     distinct without reading as mechanical. A standard "ease-out"-leaning
+     curve reads calmer than the browser's default `ease` on the quick,
+     small movements everything here uses (hover fades, the toggle, the
+     back-to-top button) - it starts a touch faster and settles instead of
+     easing in from a dead stop. */
+  --radius: 6px; /* cards, code blocks, tables, buttons */
+  --radius-sm: 3px; /* inline code, chips, small marks */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: 0.15s var(--ease);
+
+  /* Spacing tokens for the rhythms that repeat across the site: display
+     blocks inside prose (code, tables, figures, quotes), major section
+     boundaries (footer, post nav, homepage sections), and the hover-row
+     padding shared by .blog-timeline-entry and .taste-list li. */
+  --space-block: 1.75rem;
+  --space-section: 2.75rem;
+  --space-row-block: 0.55rem;
+  --space-row-inline: 0.6rem;
+
+  /* Warm "paper" palette instead of quietprint's neutral gray-on-white -
+     the reference site's signature. Muted rather than bright/vivid: low
+     saturation in both modes (the light value used to run S=0.50 - closer
+     to a warm cream than paper), and dark mode's is deliberately not
+     near-black (L=0.17, not the previous 0.10) - a bleak overcast charcoal
+     instead of ink. */
+  --color-bg: light-dark(#f2f1ed, #2e2c29);
+  --color-text: light-dark(#3a3226, #d6d0c4);
+  --color-heading: light-dark(#211c14, #f1ece3);
+  /* Retuned alongside --color-bg above: a muted, less saturated background
+     shifts contrast even at the same text color, so this needed
+     re-verifying against the new bg, not just carried over. Same hue,
+     just enough lighter/darker to clear WCAG AA's 4.5:1 with a small
+     margin (light: 4.97:1 against the new bg; dark: 5.04:1, matching what
+     the pre-mute dark value had against the pre-mute dark bg). */
+  --color-muted: light-dark(#70665a, #a59a8d);
+  --color-border: light-dark(#dad4c8, #504b44);
+  /* Kept deliberately narrow: only ::selection (needs a light background
+     regardless of theme) and the places map (its own page, own legend) use
+     this. It used to also be the nav's current-page indicator and the
+     :target flash, back when --color-accent was blue too - two blues
+     doing the same job. Now that the accent is red (below), this is the
+     site's one remaining nod to Manchester City rather than a color
+     competing with it. */
+  --color-sky: #6cabdd;
+  /* A brick/oxblood red rather than Bayern's stadium red: their crest red
+     (#dc052d) is calibrated for a kit and signage, too saturated and cool
+     to sit on warm paper as body-size link text. Darkened and warmed a few
+     degrees toward orange instead - reads as "considered accent," not
+     "team color," and the warmth actually fits the palette's existing
+     browns better than the old blue did (light-mode contrast against
+     --color-bg: 6.90:1, well past WCAG AA's 4.5:1; dark-mode: 5.27:1 -
+     re-verified against the muted background below, not just carried
+     over from the brighter/darker one this was originally tuned against). */
+  --color-accent: light-dark(#952e23, #e58576);
+  --color-selection-text: #08263c;
+  --color-bg-code: light-dark(#e9e7e2, #343230);
+  --color-bg-hover: light-dark(#eae8e3, #383531);
+  --color-underline: light-dark(#c9bfa8, #4a4237);
+  --color-land: light-dark(#e6ddc8, #332c22); /* unvisited map land */
+
+  /* rem, not ch: rides the fluid root font-size above on its own (no
+     per-breakpoint override needed), the column widening a little on large
+     displays as a side effect of the root growing rather than as a second,
+     independent rule to keep in sync with it. */
+  --measure: 45.5rem;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* === Reset / base === */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Fluid, not stepped: flat at 18px (1.125em) up to ~1600px of viewport,
+     then grows in a straight line to 20px (1.25em) by ~2200px and holds
+     there. A second nudge up (17-19px before this) - the heading scale's
+     ratio (see the --step tokens above) was the real source of "too
+     loud", not the base size on its own, so this keeps moving the whole
+     page larger without undoing that fix. Same method as before: em, not
+     px, so a reader's browser-level text-size preference (not just
+     pinch/ctrl-zoom) still scales the whole clamp; solved from
+     font-size = 0.7917em + 0.3333vw, a line that crosses 1.125em at
+     exactly 1600px of viewport and 1.25em at exactly 2200px, fixing the
+     clamp's flat/fluid/flat breakpoints without a media query. Because
+     everything else is sized in rem, the whole UI (text, nav, footer,
+     --measure) scales together as this one value moves. */
+  font-size: clamp(1.125em, 0.7917em + 0.3333vw, 1.25em);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Scrollbars pick up the theme instead of the UA default. */
+  scrollbar-color: var(--color-underline) transparent;
+}
+
+.highlight pre,
+.table-wrapper {
+  scrollbar-width: thin;
+}
+
+body {
+  margin: 0;
+}
+
+/* Cross-fade between pages where the browser supports cross-document
+   view transitions; everyone else gets an instant navigation. */
+@view-transition {
+  navigation: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.site-body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: 1.7;
+  /* Every weight and style actually used is a real shipped face (see the
+     @font-face block above) - if a future edit asks for one that isn't,
+     this makes it fall back cleanly instead of drawing a faux-bold/oblique
+     the type designer never approved. */
+  font-synthesis: none;
+}
+
+::selection {
+  background-color: var(--color-sky);
+  color: var(--color-selection-text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+  /* A soft halo outside the outline reads as a deliberate focus treatment
+     rather than the browser default poking through - most noticeable on
+     the pill-shaped nav/toggle hit areas, where a bare outline alone can
+     look like an afterthought against their already-rounded corners. */
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--color-accent) 18%, transparent);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-heading);
+  color: var(--color-bg);
+  text-decoration: none;
+  border-radius: 0 0 var(--radius-sm) 0;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+/* === Layout === */
+.site-container {
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  padding-block-end: 2rem;
+}
+
+.site-header {
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding: 1.5rem;
+  padding-block-end: 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+  margin-block-end: 2rem;
+}
+
+/* A plain static row: title on one side, nav + toggle on the other, all on
+   one line at any width that has room for them. No fixed/pinned masthead -
+   the whole header scrolls away with the rest of the page like everything
+   else on it. */
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+
+.site-title {
+  font-family: var(--font-serif);
+  font-size: var(--step-2);
+  font-weight: 600;
+  line-height: 1.15;
+  /* A hair of negative tracking reads tighter and more considered instead
+     of merely bigger - kept light now that the scale itself runs smaller,
+     since tight tracking is a large-display-type move and overdoing it at
+     a more modest size starts to look cramped instead of considered. */
+  letter-spacing: -0.008em;
+  color: var(--color-heading);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.site-title:hover {
+  color: var(--color-accent);
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 0.15rem;
+  list-style: none;
+  margin: 0;
+  /* Cancels the links' own inline padding so their labels, not their tap
+     areas, line up with the toggle beside them. */
+  padding: 0;
+  margin-inline-start: -0.55rem;
+  white-space: nowrap;
+}
+
+.nav-link {
+  display: block;
+  color: var(--color-muted);
+  text-decoration: none;
+  padding: 0.3rem 0.55rem;
+  border-radius: var(--radius-sm);
+  font-size: var(--step-0);
+  font-weight: 500;
+  transition: color var(--transition);
+}
+
+/* Color alone, no fill: the current page already has its own indicator (the
+   underline below), so a hover-only page also getting a filled pill on top
+   of that was two different "state" languages doing the same job in one
+   small row. */
+.nav-link:hover {
+  color: var(--color-heading);
+}
+
+/* The rule hugs the label rather than the padded hit area: painting it as a
+   background image anchored to the content box keeps it under the text
+   whatever the padding is. --color-accent, not --color-sky: one accent
+   color for the whole page reads calmer than a second one competing with
+   it (see --color-sky's own comment above). */
+.nav-link[aria-current] {
+  color: var(--color-heading);
+  background-image: linear-gradient(var(--color-accent), var(--color-accent));
+  background-repeat: no-repeat;
+  background-size: 100% 2px;
+  background-position: bottom;
+  background-origin: content-box;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  margin-inline-start: 0.35rem;
+  padding: 0.4rem;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--color-muted);
+  cursor: pointer;
+  line-height: 0;
+  transition:
+    color var(--transition),
+    background-color var(--transition);
+}
+
+.theme-toggle:hover {
+  color: var(--color-heading);
+  background-color: var(--color-bg-hover);
+}
+
+/* An author-origin `display` beats the UA's `[hidden] { display: none }`
+   regardless of specificity, so restore it: the button ships hidden and only
+   the theme script unhides it, keeping it away from no-JS readers. */
+.theme-toggle[hidden] {
+  display: none;
+}
+
+.theme-icon-sun {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-icon-sun {
+  display: block;
+}
+
+:root[data-theme="dark"] .theme-icon-moon {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-icon-sun {
+    display: block;
+  }
+
+  :root:not([data-theme="light"]) .theme-icon-moon {
+    display: none;
+  }
+}
+
+/* === Footer === */
+.site-footer {
+  max-width: var(--measure);
+  margin: var(--space-section) auto 0;
+  padding: 1.5rem 1.5rem 2rem;
+  font-size: var(--step--1);
+  line-height: 1.5;
+  color: var(--color-muted);
+  border-top: 1px solid var(--color-border);
+}
+
+.footer-cols {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.footer-label {
+  display: block;
+  font-weight: 500;
+  color: var(--color-muted);
+  margin-block-end: 0.7rem;
+}
+
+.footer-icons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.social-link {
+  color: var(--color-muted);
+  line-height: 0;
+  transition: color var(--transition);
+}
+
+.social-link:hover {
+  color: var(--color-accent);
+}
+
+.badges {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.badge {
+  display: inline-block;
+  line-height: 0;
+  /* Muted enough at rest to sit at the same quiet register as the social
+     icons beside it (see .social-link) rather than reading as its own,
+     more colorful "card" - the reveal to full color on hover is unchanged. */
+  filter: grayscale(0.85) opacity(0.6);
+  transition: filter var(--transition);
+}
+
+.badge:hover {
+  filter: none;
+}
+
+.badge img {
+  /* Matches .social-link's icon size (see social-icons.html): the two
+     groups read as one register, not two. */
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+}
+
+.badges-link {
+  white-space: nowrap;
+}
+
+.footer-nav {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-block-start: 1.5rem;
+  padding-block-start: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.site-footer a {
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.footer-nav a:hover {
+  color: var(--color-accent);
+}
+
+/* === Article meta === */
+.article-header {
+  margin-block-end: 1.5rem;
+}
+
+.article-header h1 {
+  margin-block-end: 0.4rem;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  color: var(--color-muted);
+  font-size: var(--step--1);
+  font-variant-numeric: tabular-nums;
+}
+
+.article-reading-time::before,
+.article-updated::before {
+  content: "\00b7";
+  margin-inline-end: 0.5rem;
+}
+
+/* === Table of contents (long posts) === */
+.toc {
+  margin-block: 1.5rem 2rem;
+  padding-block-end: 1.1rem;
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--step--1);
+}
+
+.toc summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--color-heading);
+  list-style: none;
+}
+
+.toc summary:hover {
+  color: var(--color-accent);
+}
+
+.toc summary::-webkit-details-marker {
+  display: none;
+}
+
+.toc summary::before {
+  content: "▸";
+  display: inline-block;
+  margin-inline-end: 0.5rem;
+  color: var(--color-muted);
+  transition: transform var(--transition);
+}
+
+.toc[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.toc nav ul {
+  list-style: none;
+  margin: 0.6rem 0 0;
+  padding-inline-start: 0.75rem;
+}
+
+.toc nav > ul {
+  padding-inline-start: 0;
+}
+
+.toc nav li {
+  margin-block: 0.2rem;
+  line-height: 1.5;
+}
+
+.toc nav a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.toc nav a:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+.back-link {
+  display: inline-block;
+  color: var(--color-muted);
+  text-decoration: none;
+  font-size: var(--step--1);
+  margin-block-end: 1.25rem;
+  transition: color var(--transition);
+}
+
+.back-link:hover {
+  color: var(--color-accent);
+}
+
+/* === Prose typography === */
+.main-content {
+  margin-block-start: 0.5rem;
+}
+
+.prose a,
+a.taste-name {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-color: var(--color-underline);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.19em;
+  transition:
+    color var(--transition),
+    text-decoration-color var(--transition);
+}
+
+.prose a:hover,
+a.taste-name:hover {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+}
+
+/* Mark links that leave the site with a small north-east arrow - revealed
+   on hover/focus rather than always on, same pattern as a.heading-anchor
+   below. On link-dense prose (several outbound links in a couple of short
+   paragraphs) having every one of them permanently marked reads as clutter;
+   the arrow is still there for anyone who hovers or tabs through. */
+.prose a[href^="http"]:not([href*="kirillbobyrev.com"])::after,
+a.taste-name[href^="http"]::after {
+  content: "\2197";
+  font-size: 0.7em;
+  margin-inline-start: 0.1em;
+  vertical-align: 0.2em;
+  color: var(--color-muted);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.prose a[href^="http"]:not([href*="kirillbobyrev.com"]):hover::after,
+.prose a[href^="http"]:not([href*="kirillbobyrev.com"]):focus-visible::after,
+a.taste-name[href^="http"]:hover::after,
+a.taste-name[href^="http"]:focus-visible::after {
+  opacity: 1;
+}
+
+.main-content h1 {
+  font-family: var(--font-serif);
+  font-size: var(--step-3);
+  font-weight: 600;
+  line-height: 1.2;
+  /* Tracking eases back toward zero as the heading steps down (h1 tighter
+     than h2, h3 left alone) - the same reasoning as .site-title, scaled to
+     how much size there is to tighten, and kept light for the same reason
+     .site-title's is: this is a modest-sized scale now, not display type. */
+  letter-spacing: -0.012em;
+  margin: 2.25rem 0 0.75rem;
+  color: var(--color-heading);
+  text-wrap: balance;
+}
+
+.main-content h2 {
+  font-family: var(--font-serif);
+  font-size: var(--step-2);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.008em;
+  margin: 2.25rem 0 0.75rem;
+  color: var(--color-heading);
+  text-wrap: balance;
+}
+
+.main-content h3 {
+  font-family: var(--font-serif);
+  font-size: var(--step-1);
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 1.75rem 0 0.6rem;
+  color: var(--color-heading);
+  text-wrap: balance;
+}
+
+.prose p {
+  margin-block: 0.9em;
+}
+
+/* Nicer paragraph rag: avoids single-word last lines (orphans). */
+.prose p,
+.prose li {
+  text-wrap: pretty;
+}
+
+.prose ul {
+  margin-block: 0.9em;
+  padding-inline-start: 1.25rem;
+}
+
+.prose ol {
+  margin-block: 0.9em;
+  padding-inline-start: 1.25rem;
+}
+
+.prose li {
+  margin-block: 0.3em;
+}
+
+/* Mathematical bullets: composition, then dot product, then convolution
+   the deeper the list nests. Browsers without ::marker keep the default
+   discs; both are fine. */
+.prose ul > li::marker {
+  content: "\2218\a0\a0"; /* ∘ */
+  color: var(--color-muted);
+}
+
+.prose ul ul > li::marker {
+  content: "\b7\a0\a0"; /* · */
+}
+
+.prose ul ul ul > li::marker {
+  content: "\2217\a0\a0"; /* ∗ */
+}
+
+.prose blockquote {
+  font-style: italic;
+  color: var(--color-muted);
+  margin-block: var(--space-block);
+  padding-inline: 1.5rem;
+  /* Lets a leading/trailing quotation mark (Goldmark renders smart quotes
+     by default) sit just outside the text's optical edge instead of
+     indenting the whole first line to make room for it. Safari-only today;
+     everywhere else the mark simply sits inline, which is still correct. */
+  hanging-punctuation: first last;
+}
+
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  margin-block: 2.25rem;
+}
+
+/* === Footnotes ===
+   Goldmark's default markup: an inline `sup#fnref:N > a.footnote-ref`,
+   and a trailing `.footnotes` block (its own <hr>, then an <ol> of
+   entries each ending in an a.footnote-backref arrow). */
+.footnote-ref {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-size: 0.75em;
+  vertical-align: super;
+  padding-inline: 0.05em;
+}
+
+.prose .footnotes {
+  margin-block-start: var(--space-section);
+  padding-block-start: 1rem;
+  border-top: 1px solid var(--color-border);
+  font-size: var(--step--1);
+  color: var(--color-muted);
+}
+
+/* Same section-boundary rule as the border-top above; the native one is
+   redundant here. */
+.footnotes hr {
+  display: none;
+}
+
+.footnotes ol {
+  margin: 0;
+  padding-inline-start: 1.25rem;
+}
+
+.footnotes li {
+  margin-block: 0.5em;
+  line-height: 1.5;
+}
+
+.footnotes li p {
+  margin: 0;
+}
+
+.footnote-backref {
+  margin-inline-start: 0.35em;
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.footnote-backref:hover {
+  color: var(--color-accent);
+}
+
+/* === Post body easter eggs (single posts only, via .post-body) === */
+/* End of proof. */
+.post-body::after {
+  content: "\220e"; /* ∎ */
+  display: block;
+  text-align: end;
+  color: var(--color-muted);
+  margin-block-start: 2.25rem;
+}
+
+/* === Post navigation (older / newer) === */
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-block-start: var(--space-section);
+  padding-block-start: 1.25rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.post-nav-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  max-width: 48%;
+  text-decoration: none;
+}
+
+.post-nav-newer {
+  margin-inline-start: auto;
+  text-align: right;
+}
+
+.post-nav-label {
+  font-size: var(--step--1);
+  color: var(--color-muted);
+}
+
+.post-nav-title {
+  font-weight: 500;
+  color: var(--color-heading);
+  transition: color var(--transition);
+}
+
+.post-nav-link:hover .post-nav-title {
+  color: var(--color-accent);
+}
+
+/* === Tables === */
+.table-wrapper {
+  margin-block: var(--space-block);
+  overflow-x: auto;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--step--1);
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+
+.prose th {
+  padding: 0.4rem 0.75rem;
+  text-align: left;
+  font-size: var(--step--2);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  border-block-end: 1px solid var(--color-heading);
+}
+
+.prose td {
+  padding: 0.45rem 0.75rem;
+  border-block-end: 1px solid var(--color-border);
+}
+
+.prose tbody tr:hover td {
+  background-color: var(--color-bg-hover);
+}
+
+/* === Heading anchors === */
+.main-content :is(h2, h3, h4) {
+  scroll-margin-block-start: 2rem;
+}
+
+/* Flash the element a fragment link points at (headings, footnotes) so the
+   eye lands on it after the jump. */
+.main-content :target {
+  animation: target-highlight 2s ease-out;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes target-highlight {
+  0%,
+  30% {
+    background-color: color-mix(in srgb, var(--color-accent) 22%, transparent);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+a.heading-anchor {
+  font-family: var(--font-sans);
+  font-size: 0.8em;
+  margin-inline-start: 0.375rem;
+  color: var(--color-muted);
+  text-decoration: none;
+  opacity: 0;
+  transition:
+    opacity var(--transition),
+    color var(--transition);
+}
+
+:is(h2, h3, h4):hover a.heading-anchor,
+a.heading-anchor:focus-visible {
+  opacity: 1;
+}
+
+a.heading-anchor:hover {
+  color: var(--color-accent);
+}
+
+/* === Homepage === */
+/* Visually hidden, still announced to screen readers and available to crawlers. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.home-hero {
+  margin-block: 1.5rem 1rem;
+}
+
+/* Lede paragraph under a page title (homepage tagline, taste, places).
+   Body size, not a step up - muted color alone marks it as a subtitle, so
+   the page doesn't add a size that's used nowhere else. */
+.lede {
+  margin: 0 0 0.75rem;
+  font-size: var(--step-0);
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+
+.home-recent {
+  margin-block-start: var(--space-section);
+  padding-block-start: 1.5rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.home-recent h2 {
+  margin-block-start: 0;
+}
+
+.home-recent .blog-timeline {
+  margin-block: 0.75rem 0.5rem;
+}
+
+/* Quiet trailing link after a section ("All posts", "more"). */
+.more-link {
+  display: inline-block;
+  margin-block-start: 0.5rem;
+  color: var(--color-muted);
+  text-decoration: none;
+  font-size: var(--step--1);
+  font-weight: 500;
+  transition: color var(--transition);
+}
+
+.more-link:hover {
+  color: var(--color-accent);
+}
+
+/* === Taste page === */
+.taste-overline {
+  margin: 1.5rem 0 0.9rem;
+}
+
+.crest-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7.2rem, 1fr));
+  gap: 1.6rem 0.8rem;
+  margin-block: 1rem;
+}
+
+.crest-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  text-align: center;
+}
+
+.crest-card img {
+  height: 84px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.crest-name {
+  font-weight: 500;
+  color: var(--color-heading);
+  font-size: var(--step--1);
+  line-height: 1.3;
+}
+
+/* Theme-aware crest pairs (display cannot ride light-dark(), so this
+   follows the theme-icon pattern). */
+.crest-dark {
+  display: none;
+}
+
+:root[data-theme="dark"] .crest-dark {
+  display: block;
+}
+
+:root[data-theme="dark"] .crest-light {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .crest-dark {
+    display: block;
+  }
+
+  :root:not([data-theme="light"]) .crest-light {
+    display: none;
+  }
+}
+
+.crest-note {
+  color: var(--color-muted);
+  font-size: var(--step--2);
+  line-height: 1.35;
+}
+
+.taste-list {
+  list-style: none;
+  margin-block: 0.75rem;
+  padding: 0;
+}
+
+.taste-list li {
+  /* Same hover-row geometry as .blog-timeline-entry. */
+  padding: var(--space-row-block) var(--space-row-inline);
+  margin-inline: calc(var(--space-row-inline) * -1);
+  border-radius: var(--radius);
+  transition: background-color var(--transition);
+}
+
+.taste-list li:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.taste-name {
+  font-weight: 500;
+  color: var(--color-heading);
+}
+
+/* Underline treatment is shared with prose links (see .prose a); this
+   keeps the heading ink of the non-link siblings on link names too. */
+a.taste-name {
+  color: var(--color-heading);
+}
+
+.taste-sep,
+.taste-note {
+  color: var(--color-muted);
+}
+
+.taste-note {
+  font-size: var(--step--1);
+}
+
+/* === Places page === */
+.me-nav {
+  margin: 0 0 1rem;
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--color-heading);
+}
+
+.me-nav a {
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.me-nav a:hover {
+  color: var(--color-accent);
+}
+
+.me-nav-sep {
+  color: var(--color-muted);
+  margin-inline: 0.15rem;
+}
+
+.now-updated {
+  margin: 0 0 var(--space-block);
+  color: var(--color-muted);
+  font-size: var(--step--1);
+  font-variant-numeric: tabular-nums;
+}
+
+.now-about {
+  margin-block-start: var(--space-section);
+  padding-block-start: 1rem;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-muted);
+  font-size: var(--step--1);
+  text-wrap: pretty;
+}
+
+.now-about a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--color-underline);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.19em;
+  transition: color var(--transition);
+}
+
+.now-about a:hover {
+  color: var(--color-accent);
+}
+
+.places-stats {
+  margin: 0 0 1.25rem;
+  color: var(--color-muted);
+  font-size: var(--step--1);
+  font-variant-numeric: tabular-nums;
+}
+
+.places-stats strong {
+  color: var(--color-heading);
+  font-weight: 500;
+}
+
+.map-wrap {
+  position: relative;
+  margin-block: 1rem 2rem;
+}
+
+/* Let the map break out of the text column on wide screens. */
+@media (min-width: 1100px) {
+  .map-wrap {
+    --map-width: min(62rem, calc(100vw - 4rem));
+    width: var(--map-width);
+    margin-inline: calc((100% - var(--map-width)) / 2);
+  }
+}
+
+#places-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* One finger scrolls the page past the map; pinch is handled in JS. */
+  touch-action: pan-y;
+}
+
+/* Once zoomed the map owns its touches: one finger pans the view. */
+#places-map.is-zoomed {
+  touch-action: none;
+}
+
+.map-ocean {
+  vector-effect: non-scaling-stroke;
+  /* var(--color-bg), not a hardcoded fallback: this was still mixing
+     against quietprint's neutral #fcfcfc/#171b21 from before the theme was
+     re-skinned warm, so the ocean never actually matched this theme's own
+     background - it now inherits whatever --color-bg is automatically. */
+  fill: light-dark(
+    color-mix(in srgb, var(--color-sky) 4%, var(--color-bg)),
+    color-mix(in srgb, var(--color-sky) 6%, var(--color-bg))
+  );
+  stroke: var(--color-border);
+  stroke-width: 1;
+}
+
+/* Unvisited land is one silhouette: stroke = fill seals the seams
+   between neighbouring countries so no interior borders show. */
+.map-country {
+  vector-effect: non-scaling-stroke;
+  fill: var(--color-land);
+  stroke: var(--color-land);
+  stroke-width: 0.5;
+  /* Any land is clickable: it zooms to its continent. */
+  cursor: zoom-in;
+}
+
+.map-visited {
+  fill: color-mix(in srgb, var(--color-sky) 36%, var(--color-land));
+  stroke: color-mix(in srgb, var(--color-sky) 65%, var(--color-land));
+  stroke-width: 1;
+  cursor: zoom-in;
+  transition: fill var(--transition);
+}
+
+.map-visited:hover,
+.map-visited.is-hot {
+  fill: color-mix(in srgb, var(--color-sky) 48%, var(--color-land));
+}
+
+#places-map.is-zoomed .map-visited {
+  cursor: zoom-out;
+}
+
+#places-map.is-zoomed .map-ocean {
+  cursor: zoom-out;
+}
+
+.map-dot-halo {
+  fill: var(--color-sky);
+  opacity: 0.28;
+  transition: opacity var(--transition);
+}
+
+.map-dot-mark {
+  fill: var(--color-accent);
+  stroke: var(--color-bg);
+  stroke-width: 1.5;
+  transition: r var(--transition);
+}
+
+.map-dot:hover .map-dot-mark,
+.map-dot.is-active .map-dot-mark {
+  transform: scale(1.45);
+}
+
+.map-dot:hover .map-dot-halo {
+  opacity: 0.45;
+}
+
+.map-tip {
+  position: absolute;
+  translate: -50% calc(-100% - 12px);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.45rem 0.7rem;
+  pointer-events: none;
+  box-shadow: 0 2px 8px color-mix(in srgb, #000 12%, transparent);
+  white-space: nowrap;
+  font-size: var(--step--1);
+  line-height: 1.4;
+}
+
+.tip-city {
+  display: block;
+  font-weight: 500;
+  color: var(--color-heading);
+}
+
+.tip-meta {
+  color: var(--color-muted);
+}
+
+.places-line {
+  margin-block: 0 0.5rem;
+  color: var(--color-muted);
+  font-size: var(--step--1);
+  line-height: 1.9;
+  text-wrap: pretty;
+}
+
+.places-line:last-of-type {
+  margin-block-end: 2rem;
+}
+
+.line-item {
+  border: 0;
+  padding: 0;
+  background: none;
+  font: inherit;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: color var(--transition);
+  /* Breathing room around the bare "·" text separators. */
+  margin-inline: 0.15em;
+}
+
+.line-item:hover {
+  color: var(--color-accent);
+}
+
+/* The pinned target stays highlighted until the pin is released. */
+.line-item[aria-pressed="true"] {
+  color: var(--color-accent);
+}
+
+.line-label {
+  font-weight: 500;
+  color: var(--color-heading);
+  margin-inline-end: 0.35rem;
+}
+
+/* === Blog timeline === */
+.blog-timeline {
+  list-style: none;
+  margin-block: 0.75rem;
+  padding: 0;
+}
+
+/* Overline labels: quiet muted group labels (taste groups, blog years).
+   The year selector outranks the .main-content h2 heading style on
+   purpose: the year is a label, not a section heading. */
+.taste-overline,
+.main-content .timeline-year-label {
+  font-family: var(--font-sans);
+  font-size: var(--step--1);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+}
+
+.main-content .timeline-year-label {
+  margin: 1.75rem 0 0.25rem;
+}
+
+.timeline-year .blog-timeline {
+  margin-block-start: 0;
+}
+
+.timeline-year .blog-timeline-date {
+  width: 3.25rem;
+}
+
+.blog-timeline li {
+  margin: 0;
+}
+
+.blog-timeline-entry {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  padding: var(--space-row-block) var(--space-row-inline);
+  margin-inline: calc(var(--space-row-inline) * -1);
+  text-decoration: none;
+  color: inherit;
+  border-radius: var(--radius);
+  transition: background-color var(--transition);
+}
+
+.blog-timeline-entry:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.blog-timeline-date {
+  /* ch, not rem: monospace digits are a fixed width, so the column can be
+     sized in characters ("Aug 12, 2026" is 12) instead of guessing a rem
+     value. */
+  flex-shrink: 0;
+  width: 12ch;
+  text-align: right;
+  color: var(--color-muted);
+  font-size: var(--step--1);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  line-height: 1.7;
+}
+
+.blog-timeline-content {
+  display: block;
+  flex: 1;
+  min-width: 0;
+  line-height: 1.55;
+}
+
+.blog-timeline-title {
+  color: var(--color-heading);
+  font-weight: 500;
+  transition: color var(--transition);
+}
+
+.blog-timeline-entry:hover .blog-timeline-title {
+  color: var(--color-accent);
+}
+
+/* Index only: the homepage list stays title-only, since it is a teaser
+   under a page of prose rather than somewhere you pick what to read. */
+.blog-timeline-summary {
+  display: block;
+  margin-block-start: 0.1rem;
+  color: var(--color-muted);
+  font-size: var(--step--1);
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+/* Blog index: most entries are "large" (serif title, a summary line, room
+   for a thumbnail); a post can opt into a single compact line instead (see
+   the `compact` front matter param) for minor, low-effort posts. */
+.blog-timeline-entry-lg {
+  align-items: flex-start;
+  padding-block: 0.85rem;
+}
+
+.blog-timeline-entry-lg .blog-timeline-date {
+  /* Sits at the title's cap height, not the full first line box. */
+  padding-block-start: 0.2rem;
+}
+
+.blog-timeline-entry-lg .blog-timeline-title {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: var(--step-1);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.blog-timeline-entry-lg .blog-timeline-summary {
+  margin-block-start: 0.3rem;
+}
+
+.blog-timeline-summary-inline {
+  color: var(--color-muted);
+  font-weight: 400;
+  margin-inline-start: 0.5em;
+}
+
+.has-thumb .blog-timeline-entry {
+  align-items: center;
+}
+
+.blog-timeline-thumb {
+  flex-shrink: 0;
+  width: 5.5rem;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.blog-timeline-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* === Reading progress ===
+   Rendered only on long posts (see page.html), tracking scroll through
+   .post-body. Ships hidden; the script in baseof.html reveals and drives it,
+   so a no-JS reader never sees a bar stuck at zero width. */
+.reading-progress {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: 60;
+  height: 2px;
+}
+
+.reading-progress-bar {
+  height: 100%;
+  width: 0%;
+  background-color: var(--color-accent);
+}
+
+/* === Back to top ===
+   A plain fixed corner button, independent of the header, that appears once
+   the header has scrolled away - so it never sits over a screen you can
+   already see the top of. */
+.to-top {
+  position: fixed;
+  inset-block-end: 1.5rem;
+  inset-inline-end: 1.5rem;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+  /* The stronger hairline, not --color-border: this floats over the page
+     rather than dividing it, and at --color-border it reads as a smudge
+     against a background of exactly the same colour. */
+  border: 1px solid var(--color-underline);
+  border-radius: var(--radius);
+  /* Opaque, so prose scrolling underneath never shows through. */
+  background-color: var(--color-bg);
+  color: var(--color-muted);
+  text-decoration: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.35rem);
+  transition:
+    opacity var(--transition),
+    visibility var(--transition),
+    transform var(--transition),
+    color var(--transition),
+    background-color var(--transition),
+    border-color var(--transition);
+}
+
+.to-top[data-visible] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.to-top:hover {
+  color: var(--color-heading);
+  background-color: var(--color-bg-hover);
+}
+
+/* Author-origin `display` outranks the UA's `[hidden]` rule, same as the
+   theme toggle: the link ships hidden and only the script reveals it. */
+.to-top[hidden] {
+  display: none;
+}
+
+/* === Figures === */
+.figure-block {
+  margin-block: var(--space-block);
+  text-align: center;
+}
+
+.figure-block img {
+  margin-inline: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+}
+
+.figure-caption {
+  margin-block-start: 0.6rem;
+  font-size: var(--step--1);
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+/* Break a figure out of the prose measure and re-center it on the viewport
+   instead of the text column, for diagrams/embeds that benefit from more
+   width than a comfortable reading line allows. Relies on .prose's
+   horizontal center coinciding with the viewport's (true as long as an
+   ancestor doesn't off-center .site-container). */
+.figure-wide {
+  --breakout-width: min(92vw, 62rem);
+  width: var(--breakout-width);
+  margin-inline: calc(50% - 50vw + (100vw - var(--breakout-width)) / 2);
+}
+
+.figure-wide img {
+  width: 100%;
+}
+
+.embed-frame {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background-color: var(--color-bg);
+}
+
+/* Soften bright images against the dark background (filter values cannot
+   ride light-dark(), so this one rule keeps the dual theme scope). */
+:root[data-theme="dark"] .prose img {
+  filter: brightness(0.85) contrast(1.05);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .prose img {
+    filter: brightness(0.85) contrast(1.05);
+  }
+}
+
+/* === Code === */
+.highlight {
+  /* Anchor for the language chip / copy button; the pre scrolls under them. */
+  position: relative;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  margin-block: var(--space-block);
+  background-color: var(--color-bg-code);
+}
+
+.highlight pre {
+  margin: 0;
+  padding: 0.9rem 1.1rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  line-height: 1.55;
+  background-color: transparent;
+  overflow-x: auto;
+}
+
+.code-lang,
+.code-copy {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.45rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-code);
+  color: var(--color-muted);
+  transition: opacity var(--transition);
+}
+
+.code-copy {
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  opacity: 0;
+}
+
+.code-copy:hover {
+  color: var(--color-accent);
+}
+
+.highlight:hover .code-copy,
+.code-copy:focus-visible {
+  opacity: 1;
+}
+
+.highlight:hover .code-lang,
+.highlight:focus-within .code-lang {
+  opacity: 0;
+}
+
+code:not(pre code) {
+  background-color: var(--color-bg-code);
+  color: var(--color-text);
+  padding: 0.08em 0.32em;
+  border-radius: var(--radius-sm);
+  font-size: 0.85em;
+  font-weight: 500;
+  border: 1px solid var(--color-border);
+  font-family: var(--font-mono);
+}
+
+/* Keep long KaTeX display equations scrollable instead of overflowing. */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: 0.25rem;
+}
+
+/* Mermaid diagrams. Until (or unless) the script draws the SVG, the
+   block shows the escaped diagram source as quiet monospace text. */
+pre.mermaid {
+  display: flex;
+  justify-content: center;
+  margin-block: var(--space-block);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+
+pre.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* === 404 === */
+.error-page {
+  text-align: center;
+  padding-block: 4rem;
+}
+
+/* .error-page .error-title, not .error-title alone: the bare class loses
+   to .main-content h1's higher specificity (a class+type selector beats a
+   lone class), which was silently shrinking "404" down to a regular post
+   heading's size instead of the display numeral this is meant to be. */
+.error-page .error-title {
+  font-family: var(--font-serif);
+  font-size: 4rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  margin-block-end: 1rem;
+}
+
+.error-button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--color-heading);
+  color: var(--color-bg);
+  text-decoration: none;
+  border-radius: var(--radius);
+  font-weight: 500;
+  margin-block-start: 1rem;
+}
+
+.error-button:hover {
+  background-color: var(--color-muted);
+}
+
+/* === Responsive === */
+@media (max-width: 640px) {
+  .site-header {
+    padding-inline: 1rem;
+    padding-block-end: 0.6rem;
+    margin-block-end: 1.5rem;
+  }
+
+  .theme-toggle {
+    padding: 0.45rem;
+  }
+
+  /* Nav scrolls sideways rather than wrapping or shrinking, so links stay
+     tappable however many of them there are; the toggle sits outside the
+     scroll area so it never scrolls away with them. */
+  .nav-list {
+    overflow-x: auto;
+    scrollbar-width: none;
+    /* Room for the underline so it never clips against the border. */
+    padding-block-end: 0.15rem;
+  }
+
+  .nav-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-link {
+    padding: 0.45rem 0.55rem;
+  }
+
+  .site-container {
+    padding-inline: 1rem;
+  }
+
+  .site-footer {
+    padding-inline: 1rem;
+  }
+
+  .footer-cols {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .highlight {
+    margin-inline: -1rem;
+    border-radius: 0;
+    border-inline: none;
+  }
+
+  .blog-timeline-entry,
+  .has-thumb .blog-timeline-entry {
+    flex-direction: column;
+    /* Cancels .has-thumb's row-only centering: stacked, everything should
+       hug the left edge like any other entry. Matches .has-thumb's own
+       specificity so it actually wins here. */
+    align-items: stretch;
+    gap: 0.125rem;
+  }
+
+  .blog-timeline-thumb {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin-block-start: 0.4rem;
+  }
+
+  .blog-timeline-date,
+  .timeline-year .blog-timeline-date {
+    text-align: left;
+    width: auto;
+  }
+
+  .post-nav {
+    flex-direction: column;
+  }
+
+  .post-nav-link,
+  .post-nav-newer {
+    max-width: none;
+    margin-inline-start: 0;
+    text-align: left;
+  }
+}
+
+/* === Print === */
+@media print {
+  @page {
+    margin: 2.5cm;
+  }
+
+  :root,
+  :root[data-theme="dark"] {
+    color-scheme: light;
+  }
+
+  .site-header,
+  .site-footer,
+  .back-link,
+  .toc,
+  .post-nav,
+  .to-top {
+    display: none;
+  }
+
+  .site-container {
+    max-width: none;
+    padding: 0;
+  }
+
+  .prose a {
+    text-decoration: none;
+  }
+
+  /* Show where external links point since paper has no hover - opacity: 1
+     overrides the screen-only hover-reveal above, which would otherwise
+     leave this invisible on a medium with no hover state at all. */
+  .prose a[href^="http"]:not([href*="kirillbobyrev.com"])::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    vertical-align: baseline;
+    color: var(--color-muted);
+    word-break: break-all;
+    opacity: 1;
+  }
+
+  .highlight pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}
+
+/* === Reduced motion === */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* === Syntax highlighting (Chroma classes) ===
+   Merged from `hugo gen chromastyles --style=github` (light) and
+   `--style=github-dark` (dark): every token declares both colours via
+   light-dark(). Backgrounds are stripped in favour of --color-bg-code,
+   token classes that only one palette defines fall back to the other
+   theme's base text colour, and dark-only bold/italic accents are
+   dropped so both themes share one typography. Regenerate with those
+   commands on bumps. */
+.chroma {
+  color: light-dark(#212529, #e6edf3);
+  -webkit-text-size-adjust: none;
+}
+/* LineLink */
+.chroma .lnlinks {
+  outline: none;
+  text-decoration: none;
+  color: inherit;
+}
+/* LineTableTD */
+.chroma .lntd {
+  vertical-align: top;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+/* LineTable */
+.chroma .lntable {
+  border-spacing: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+/* LineNumbersTable */
+.chroma .lnt {
+  white-space: pre;
+  -webkit-user-select: none;
+  user-select: none;
+  margin-right: 0.4em;
+  padding: 0 0.4em 0 0.4em;
+  color: light-dark(#7f7f7f, #737679);
+}
+/* LineNumbers */
+.chroma .ln {
+  white-space: pre;
+  -webkit-user-select: none;
+  user-select: none;
+  margin-right: 0.4em;
+  padding: 0 0.4em 0 0.4em;
+  color: light-dark(#7f7f7f, #6e7681);
+}
+/* Line */
+.chroma .line {
+  display: flex;
+}
+/* Error */
+.chroma .err {
+  color: light-dark(#cf222e, #f85149);
+}
+/* Keyword, KeywordDeclaration, KeywordNamespace, KeywordReserved, KeywordType */
+.chroma .k,
+.chroma .kd,
+.chroma .kn,
+.chroma .kr,
+.chroma .kt {
+  color: light-dark(#cf222e, #ff7b72);
+}
+/* KeywordConstant, KeywordPseudo */
+.chroma .kc,
+.chroma .kp {
+  color: light-dark(#cf222e, #79c0ff);
+}
+/* NameAttribute, NameOther */
+.chroma .na,
+.chroma .nx {
+  color: light-dark(#1f2328, #e6edf3);
+}
+/* NameClass, NameException */
+.chroma .nc,
+.chroma .ne {
+  color: light-dark(#1f2328, #f0883e);
+}
+/* NameConstant */
+.chroma .no {
+  color: light-dark(#0550ae, #79c0ff);
+}
+/* NameDecorator */
+.chroma .nd {
+  color: light-dark(#0550ae, #d2a8ff);
+}
+/* NameEntity */
+.chroma .ni {
+  color: light-dark(#6639ba, #ffa657);
+}
+/* NameLabel */
+.chroma .nl {
+  color: light-dark(#990000, #79c0ff);
+  font-weight: bold;
+}
+/* NameNamespace */
+.chroma .nn {
+  color: light-dark(#24292e, #ff7b72);
+}
+/* NameTag */
+.chroma .nt {
+  color: light-dark(#0550ae, #7ee787);
+}
+/* NameBuiltin */
+.chroma .nb {
+  color: light-dark(#6639ba, #e6edf3);
+}
+/* NameBuiltinPseudo */
+.chroma .bp {
+  color: light-dark(#6a737d, #e6edf3);
+}
+/* NameVariable, NameVariableClass, NameVariableGlobal, NameVariableInstance,
+   NameVariableMagic */
+.chroma .nv,
+.chroma .vc,
+.chroma .vg,
+.chroma .vi,
+.chroma .vm {
+  color: light-dark(#953800, #79c0ff);
+}
+/* NameFunction, NameFunctionMagic */
+.chroma .nf,
+.chroma .fm {
+  color: light-dark(#6639ba, #d2a8ff);
+}
+/* NameProperty */
+.chroma .py {
+  color: light-dark(#1f2328, #79c0ff);
+}
+/* Literal */
+.chroma .l {
+  color: light-dark(#1f2328, #a5d6ff);
+}
+/* LiteralDate */
+.chroma .ld {
+  color: light-dark(#1f2328, #79c0ff);
+}
+/* LiteralString, LiteralStringBacktick, LiteralStringChar, LiteralStringDoc,
+   LiteralStringDouble, LiteralStringInterpol, LiteralStringOther,
+   LiteralStringSingle */
+.chroma .s,
+.chroma .sb,
+.chroma .sc,
+.chroma .sd,
+.chroma .s2,
+.chroma .si,
+.chroma .sx,
+.chroma .s1 {
+  color: light-dark(#0a3069, #a5d6ff);
+}
+/* LiteralStringAffix, LiteralStringDelimiter, LiteralStringEscape,
+   LiteralStringHeredoc, LiteralStringRegex */
+.chroma .sa,
+.chroma .dl,
+.chroma .se,
+.chroma .sh,
+.chroma .sr {
+  color: light-dark(#0a3069, #79c0ff);
+}
+/* LiteralStringSymbol */
+.chroma .ss {
+  color: light-dark(#032f62, #a5d6ff);
+}
+/* LiteralNumber, LiteralNumberBin, LiteralNumberFloat, LiteralNumberHex,
+   LiteralNumberInteger, LiteralNumberIntegerLong, LiteralNumberOct */
+.chroma .m,
+.chroma .mb,
+.chroma .mf,
+.chroma .mh,
+.chroma .mi,
+.chroma .il,
+.chroma .mo {
+  color: light-dark(#0550ae, #a5d6ff);
+}
+/* Operator, OperatorWord, OperatorReserved */
+.chroma .o,
+.chroma .ow,
+.chroma .or {
+  color: light-dark(#0550ae, #ff7b72);
+}
+/* Punctuation */
+.chroma .p {
+  color: light-dark(#1f2328, #e6edf3);
+}
+/* Comment, CommentHashbang, CommentMultiline, CommentSingle, CommentSpecial,
+   CommentPreproc, CommentPreprocFile */
+.chroma .c,
+.chroma .ch,
+.chroma .cm,
+.chroma .c1,
+.chroma .cs,
+.chroma .cp,
+.chroma .cpf {
+  color: light-dark(#57606a, #8b949e);
+}
+/* GenericDeleted */
+.chroma .gd {
+  color: light-dark(#82071e, #ffa198);
+}
+/* GenericEmph */
+.chroma .ge {
+  color: light-dark(#1f2328, #e6edf3);
+  font-style: italic;
+}
+/* GenericError */
+.chroma .gr {
+  color: light-dark(#1f2328, #ffa198);
+}
+/* GenericHeading, GenericSubheading */
+.chroma .gh,
+.chroma .gu {
+  color: light-dark(#1f2328, #79c0ff);
+}
+/* GenericInserted */
+.chroma .gi {
+  color: light-dark(#116329, #56d364);
+}
+/* GenericOutput, GenericPrompt */
+.chroma .go,
+.chroma .gp {
+  color: light-dark(#1f2328, #8b949e);
+}
+/* GenericStrong */
+.chroma .gs {
+  font-weight: bold;
+}
+/* GenericTraceback */
+.chroma .gt {
+  color: light-dark(#1f2328, #ff7b72);
+}
+/* GenericUnderline */
+.chroma .gl {
+  text-decoration: underline;
+}
+/* TextWhitespace */
+.chroma .w {
+  color: light-dark(#ffffff, #6e7681);
+}

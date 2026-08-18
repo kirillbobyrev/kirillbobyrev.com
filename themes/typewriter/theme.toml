@@ -1,0 +1,9 @@
+name = "typewriter"
+license = "MIT"
+licenselink = "https://github.com/kirillbobyrev/kirillbobyrev.com/blob/main/LICENSE"
+description = "A warm, quiet, editorial Hugo theme inspired by brentfitzgerald.com: a Newsreader/Inter serif-and-sans pairing with JetBrains Mono for code, thin hairline rules, a paper-toned palette, and the same interactive touches as quietprint (light/dark toggle, reading progress, a places map, a taste page) built for a personal blog."
+homepage = "https://github.com/kirillbobyrev/kirillbobyrev.com"
+
+[author]
+  name = "Kirill Bobyrev"
+  homepage = "https://kirillbobyrev.com"

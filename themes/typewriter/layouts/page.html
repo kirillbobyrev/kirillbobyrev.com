@@ -1,0 +1,56 @@
+{{- define "main" -}}
+  {{- if ge .WordCount 1500 -}}
+    <div class="reading-progress" hidden aria-hidden="true">
+      <div class="reading-progress-bar"></div>
+    </div>
+  {{- end -}}
+  <article class="main-content">
+    <a href="/blog/" class="back-link">&larr; Back to blog</a>
+    <header class="article-header">
+      <h1>{{ .Title }}</h1>
+      {{- if .Date -}}
+        <div class="article-meta">
+          <time class="article-date" datetime="{{ .Date.Format "2006-01-02" }}"
+            >{{ .Date.Format "January 2, 2006" }}</time
+          >
+          <span class="article-reading-time"
+            >&approx;&nbsp;{{ .ReadingTime }} min</span
+          >
+          {{- /* Show the git last-modified date only for real updates (>1 day after publish). */ -}}
+          {{- if gt (sub .Lastmod.Unix .Date.Unix) 86400 -}}
+            <span class="article-updated"
+              >Updated {{ .Lastmod.Format "January 2, 2006" }}</span
+            >
+          {{- end -}}
+        </div>
+      {{- end -}}
+    </header>
+    {{- if ge .WordCount 1500 -}}
+      <details class="toc">
+        <summary>Contents</summary>
+        {{ .TableOfContents }}
+      </details>
+    {{- end -}}
+    <div class="prose post-body">{{ .Content }}</div>
+    {{- if or .PrevInSection .NextInSection -}}
+      <nav class="post-nav" aria-label="More posts">
+        {{- with .PrevInSection -}}
+          <a class="post-nav-link" rel="prev" href="{{ .RelPermalink }}">
+            <span class="post-nav-label">&larr; Older</span>
+            <span class="post-nav-title">{{ .Title }}</span>
+          </a>
+        {{- end -}}
+        {{- with .NextInSection -}}
+          <a
+            class="post-nav-link post-nav-newer"
+            rel="next"
+            href="{{ .RelPermalink }}"
+          >
+            <span class="post-nav-label">Newer &rarr;</span>
+            <span class="post-nav-title">{{ .Title }}</span>
+          </a>
+        {{- end -}}
+      </nav>
+    {{- end -}}
+  </article>
+{{- end -}}

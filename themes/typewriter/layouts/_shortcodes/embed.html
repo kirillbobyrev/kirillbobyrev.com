@@ -1,0 +1,55 @@
+{{- /*
+  Embed shortcode: drops a sandboxed iframe pointing at a self-contained
+  static HTML file (own inline JS/CSS, no dependency on the site's build -
+  e.g. a D3 chart or an exported Observable notebook) for interactive
+  figures that a plain image/Mermaid diagram can't express.
+  API: src (required, path to the embed's HTML file, e.g. /embeds/foo.html),
+  height (required, px), caption (optional), wide (optional, default true).
+
+  Theming: the embed is a separate document, so it only sees prefers-
+  color-scheme (OS-level), not the site's manual dark-mode toggle. To follow
+  the toggle too, an embed's own script should listen for a postMessage from
+  the parent and set data-theme on its own <html>. The iframe has no
+  allow-same-origin (deliberately, to avoid sandbox-escape via allow-scripts
+  + allow-same-origin together), which makes it an opaque origin - targeting
+  it with location.origin instead of "*" would silently fail to deliver, and
+  e.source === window.parent is unreliable for the same reason, so validate
+  the message's value instead of its sender (harmless payload, so that's a
+  fine tradeoff here):
+
+  window.addEventListener("message", (e) => {
+  if (e.data?.kbTheme === "light" || e.data?.kbTheme === "dark") {
+  document.documentElement.dataset.theme = e.data.kbTheme;
+  }
+  });
+
+  paired with `:root[data-theme="light"] { color-scheme: light; }` /
+  `:root[data-theme="dark"] { color-scheme: dark; }` overrides next to the
+  default `color-scheme: light dark;`. See static/embeds/demo-bars.html for
+  a full example. This is opt-in per embed, not automatic.
+  */
+-}}
+{{- $src := .Get "src" -}}
+{{- $height := .Get "height" -}}
+{{- $class := "figure-block" -}}
+{{- if ne (.Get "wide") "false" -}}
+  {{- $class = printf "%s figure-wide" $class -}}
+{{- end -}}
+<figure class="{{ $class }}">
+  <iframe
+    class="embed-frame"
+    src="{{ $src }}"
+    height="{{ $height }}"
+    loading="lazy"
+    sandbox="allow-scripts"
+    referrerpolicy="no-referrer"
+    title="{{ .Get "caption" | default "Interactive embed" }}"
+  ></iframe>
+  {{- if .Inner -}}
+    <figcaption class="figure-caption">{{ .Inner | markdownify }}</figcaption>
+  {{- else if .Get "caption" -}}
+    <figcaption class="figure-caption">
+      {{ .Get "caption" | markdownify }}
+    </figcaption>
+  {{- end -}}
+</figure>
