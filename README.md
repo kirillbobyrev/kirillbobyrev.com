@@ -6,11 +6,13 @@ My personal website built with [Hugo](https://gohugo.io) (extended, pinned to
 `0.164.0` - see `.github/actions/setup-hugo/action.yml` and
 `.devcontainer/devcontainer.json`).
 
-Presentation lives in its own theme, `themes/quietprint/` (see its
-[README](themes/quietprint/README.md)), wired in via `theme = 'quietprint'`
+Presentation lives in its own theme, `themes/typewriter/` (see its
+[README](themes/typewriter/README.md)), wired in via `theme = 'typewriter'`
 in `hugo.toml`. `content/`, `data/`, and `archetypes/` stay at the repo root
 and are theme-agnostic; trying a different look later means adding a sibling
 theme directory and changing that one config line, without touching content.
+`themes/quietprint/` is the previous theme, kept in the repo as a fallback
+and a reference implementation rather than deleted.
 
 CI: pull requests build the site, validate internal links, and check
 formatting (`.github/workflows/ci.yml`); merges to `main` build and deploy to
@@ -31,8 +33,8 @@ Two caveats:
 
 - Keep Go template comments (`{{ /* ... */ }}`) on a single line: the plugin
   splits multiline comments across lines, which breaks Hugo's template parser.
-- `themes/quietprint/layouts/rss.xml` is hand-formatted and excluded: the
-  plugin parses input as HTML, where `<link>` is a void element, so RSS's
-  `<link>...</link>` container breaks its parser. The template uses
-  `{{- -}}` whitespace-trim markers around text content, so indentation
-  never leaks into the feed.
+- Each theme's `layouts/rss.xml` is hand-formatted and untouched by the
+  `*.html` glob above: the plugin parses input as HTML, where `<link>` is a
+  void element, so RSS's `<link>...</link>` container breaks its parser. The
+  template uses `{{- -}}` whitespace-trim markers around text content, so
+  indentation never leaks into the feed.

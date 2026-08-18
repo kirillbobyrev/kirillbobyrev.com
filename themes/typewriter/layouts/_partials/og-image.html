@@ -1,0 +1,35 @@
+{{- /* Returns a generated 1200x630 Open Graph card for a blog post (or "" for anything else). */ -}}
+{{- /* Composed at build time: the light-theme base canvas (assets/images/og-base.png) plus the */ -}}
+{{- /* post title and a site/date line, both set in JetBrains Mono. The TTFs in assets/fonts/ */ -}}
+{{- /* exist only for this partial - images.Text cannot read the woff2 files the site serves. */ -}}
+{{- $img := "" -}}
+{{- if and .IsPage (eq .Section "blog") -}}
+  {{- /* Greedy-wrap the title: images.Text only breaks lines at the image edge, which would */ -}}
+  {{- /* leave no right margin. Monospace at a fixed size wraps deterministically - JetBrains */ -}}
+  {{- /* Mono's advance width is ~0.6em, so 28 runes fits the 1040px column at size 60. */ -}}
+  {{- $lines := slice -}}
+  {{- $cur := "" -}}
+  {{- range split .Title " " -}}
+    {{- $try := trim (printf "%s %s" $cur .) " " -}}
+    {{- if gt (strings.RuneCount $try) 28 -}}
+      {{- with $cur }}{{ $lines = $lines | append . }}{{ end -}}
+      {{- $cur = . -}}
+    {{- else -}}
+      {{- $cur = $try -}}
+    {{- end -}}
+  {{- end -}}
+  {{- with $cur }}{{ $lines = $lines | append . }}{{ end -}}
+  {{- $title := delimit $lines "\n" -}}
+  {{- /* Center the block around y=250: each line is ~72px tall. */ -}}
+  {{- $y := sub 250 (mul (len $lines) 36) -}}
+  {{- $meta := printf "kirillbobyrev.com · %s" (.Date.Format "January 2006") -}}
+  {{- $base := resources.Get "images/og-base.png" -}}
+  {{- $titleFont := resources.Get "fonts/JetBrainsMono-Bold.ttf" -}}
+  {{- $metaFont := resources.Get "fonts/JetBrainsMono-Regular.ttf" -}}
+  {{- $card := $base | images.Filter
+    (images.Text $title (dict "x" 80 "y" $y "size" 60 "linespacing" 12 "color" "#211c14" "font" $titleFont))
+    (images.Text $meta (dict "x" 80 "y" 508 "size" 26 "color" "#84796a" "font" $metaFont))
+  -}}
+  {{- $img = resources.Copy (printf "og/%s.png" .File.ContentBaseName) $card -}}
+{{- end -}}
+{{- return $img -}}

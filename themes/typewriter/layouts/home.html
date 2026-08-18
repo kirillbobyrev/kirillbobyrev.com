@@ -1,0 +1,24 @@
+{{- define "main" -}}
+  <article class="main-content homepage">
+    <header class="home-hero">
+      {{- /* Name is already in the site header; keep an h1 for SEO/a11y but hide it visually. */ -}}
+      <h1 class="visually-hidden">{{ .Title }}</h1>
+      {{- with .Params.tagline -}}
+        <p class="lede">{{ . }}</p>
+      {{- end -}}
+    </header>
+    <div class="prose">{{ .Content }}</div>
+    {{- $posts := where site.RegularPages "Section" "blog" | first 3 -}}
+    {{- with $posts -}}
+      <section class="home-recent" aria-labelledby="recent-writing">
+        <h2 id="recent-writing">Recent writing</h2>
+        <ul class="blog-timeline">
+          {{- range . -}}
+            {{- partial "blog-timeline-entry.html" (dict "page" . "dateFormat" "Jan 02, 2006") -}}
+          {{- end -}}
+        </ul>
+        <a href="/blog/" class="more-link">All posts &rarr;</a>
+      </section>
+    {{- end -}}
+  </article>
+{{- end -}}

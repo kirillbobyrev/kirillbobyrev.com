@@ -1,0 +1,4 @@
+{{- /* ```mermaid blocks become client-rendered diagrams. The escaped */ -}}
+{{- /* source stays readable text until (or if) the script draws it. */ -}}
+{{- .Page.Store.Set "hasMermaid" true -}}
+<pre class="mermaid">{{ .Inner | htmlEscape | safeHTML }}</pre>

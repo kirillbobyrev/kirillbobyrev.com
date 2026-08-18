@@ -1,0 +1,60 @@
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.16.0/dist/mermaid.esm.min.mjs";
+
+  const blocks = [...document.querySelectorAll("pre.mermaid")];
+  const sources = blocks.map((el) => el.textContent.trim());
+  const mq = window.matchMedia("(prefers-color-scheme: dark)");
+  const dark = () =>
+    (document.documentElement.dataset.theme ||
+      (mq.matches ? "dark" : "light")) === "dark";
+
+  // Diagrams are drawn from the saved sources on every theme change, so
+  // they always match the site palette instead of a baked-in mermaid look.
+  let pass = 0;
+  const render = async () => {
+    const n = ++pass;
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: "base",
+      themeVariables: dark()
+        ? {
+            darkMode: true,
+            background: "#14161a",
+            primaryColor: "#1a2028",
+            primaryTextColor: "#cfd3d7",
+            primaryBorderColor: "#6cabdd",
+            secondaryColor: "#1b1e23",
+            tertiaryColor: "#14161a",
+            lineColor: "#8f959b",
+            edgeLabelBackground: "#14161a",
+            fontFamily: 'Inter, -apple-system, "Segoe UI", Roboto, sans-serif',
+          }
+        : {
+            background: "#fcfcfc",
+            primaryColor: "#f2f7fb",
+            primaryTextColor: "#212529",
+            primaryBorderColor: "#6cabdd",
+            secondaryColor: "#f4f5f5",
+            tertiaryColor: "#fcfcfc",
+            lineColor: "#6a7076",
+            edgeLabelBackground: "#fcfcfc",
+            fontFamily: 'Inter, -apple-system, "Segoe UI", Roboto, sans-serif',
+          },
+    });
+    for (const [i, el] of blocks.entries()) {
+      try {
+        const { svg } = await mermaid.render(`mermaid-${n}-${i}`, sources[i]);
+        if (pass === n) el.innerHTML = svg;
+      } catch (e) {
+        // Bad diagram source: keep the readable text fallback.
+      }
+    }
+  };
+
+  render();
+  mq.addEventListener("change", render);
+  new MutationObserver(render).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme"],
+  });
+</script>
