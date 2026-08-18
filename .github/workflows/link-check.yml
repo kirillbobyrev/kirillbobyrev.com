@@ -53,7 +53,7 @@ jobs:
 
       - name: Check external links
         id: lychee
-        uses: lycheeverse/lychee-action@v2.8.0
+        uses: lycheeverse/lychee-action@v2.9.0
         with:
           # 429 is accepted: rate-limited hosts are not broken links.
           # Big social networks are excluded because they answer bots
