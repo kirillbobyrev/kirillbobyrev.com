@@ -146,8 +146,7 @@
   --space-row-inline: 0.6rem;
 
   /* Warm "paper" palette instead of quietprint's neutral gray-on-white -
-     the reference site's signature. The accent stays quietprint's sky
-     blue rather than the reference's terracotta, on purpose. */
+     the reference site's signature. */
   --color-bg: light-dark(#faf7f0, #1d1b18);
   --color-text: light-dark(#3a3226, #d6d0c4);
   --color-heading: light-dark(#211c14, #f1ece3);
@@ -160,13 +159,22 @@
      (5.0:1) and is untouched. */
   --color-muted: light-dark(#7a6f62, #96897a);
   --color-border: light-dark(#e3dbc9, #362f27);
-  /* A second blue, kept deliberately narrow: only ::selection (needs a
-     light background regardless of theme) and the places map (its own
-     page, own legend) use it. Decorative UI uses --color-accent instead -
-     one accent color reads calmer than two blues that are never quite the
-     same one. */
+  /* Kept deliberately narrow: only ::selection (needs a light background
+     regardless of theme) and the places map (its own page, own legend) use
+     this. It used to also be the nav's current-page indicator and the
+     :target flash, back when --color-accent was blue too - two blues
+     doing the same job. Now that the accent is red (below), this is the
+     site's one remaining nod to Manchester City rather than a color
+     competing with it. */
   --color-sky: #6cabdd;
-  --color-accent: light-dark(#1c74b4, #85b8e6);
+  /* A brick/oxblood red rather than Bayern's stadium red: their crest red
+     (#dc052d) is calibrated for a kit and signage, too saturated and cool
+     to sit on warm paper as body-size link text. Darkened and warmed a few
+     degrees toward orange instead - reads as "considered accent," not
+     "team color," and the warmth actually fits the palette's existing
+     browns better than the old blue did (light-mode contrast against
+     --color-bg: 7.29:1, well past WCAG AA's 4.5:1; dark-mode: 6.50:1). */
+  --color-accent: light-dark(#952e23, #e58576);
   --color-selection-text: #08263c;
   --color-bg-code: light-dark(#f0ece1, #242220);
   --color-bg-hover: light-dark(#f2ecdd, #29241d);
@@ -196,19 +204,21 @@
 }
 
 html {
-  /* Fluid, not stepped: flat at 16px (1em) up to ~1600px of viewport, then
-     grows in a straight line to 18px (1.125em) by ~2200px and holds there -
-     a smaller range than the first pass (17-20px), since even the base size
-     was reading heavier than this page wants once the bigger steps above
-     were already cut down. Same method as before: em, not px, so a
-     reader's browser-level text-size preference (not just pinch/ctrl-zoom)
-     still scales the whole clamp; solved from
-     font-size = 0.6667em + 0.3333vw, a line that crosses 1em at exactly
-     1600px of viewport and 1.125em at exactly 2200px, fixing the clamp's
-     flat/fluid/flat breakpoints without a media query. Because everything
-     else is sized in rem, the whole UI (text, nav, footer, --measure)
-     scales together as this one value moves. */
-  font-size: clamp(1em, 0.6667em + 0.3333vw, 1.125em);
+  /* Fluid, not stepped: flat at 17px (1.0625em) up to ~1600px of viewport,
+     then grows in a straight line to 19px (1.1875em) by ~2200px and holds
+     there. Nudged back up half a step from the previous 16-18px pass - the
+     heading scale's ratio (see the --step tokens above) was the real
+     source of "too loud", not the base size on its own, so this moves the
+     whole page slightly larger again without undoing that fix. Same
+     method as before: em, not px, so a reader's browser-level text-size
+     preference (not just pinch/ctrl-zoom) still scales the whole clamp;
+     solved from font-size = 0.7292em + 0.3333vw, a line that crosses
+     1.0625em at exactly 1600px of viewport and 1.1875em at exactly
+     2200px, fixing the clamp's flat/fluid/flat breakpoints without a
+     media query. Because everything else is sized in rem, the whole UI
+     (text, nav, footer, --measure) scales together as this one value
+     moves. */
+  font-size: clamp(1.0625em, 0.7292em + 0.3333vw, 1.1875em);
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -379,9 +389,9 @@ video {
 
 /* The rule hugs the label rather than the padded hit area: painting it as a
    background image anchored to the content box keeps it under the text
-   whatever the padding is. --color-accent, not a second "sky" blue: one
-   accent color for the whole page reads calmer than two blues that are
-   never quite the same one. */
+   whatever the padding is. --color-accent, not --color-sky: one accent
+   color for the whole page reads calmer than a second one competing with
+   it (see --color-sky's own comment above). */
 .nav-link[aria-current] {
   color: var(--color-heading);
   background-image: linear-gradient(var(--color-accent), var(--color-accent));
