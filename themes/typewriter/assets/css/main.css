@@ -84,13 +84,20 @@
    weight 600, not 700: browsers happily substitute the nearest real weight
    the family declares, but writing the true weight documents what's
    actually rendered instead of leaving a false "700" for the next reader.
-   Type rides the same modular scale quietprint uses (ratio 1.2):
-     --step--2  0.6944rem  table headers, overline labels
-     --step--1  0.8333rem  meta, dates, labels, code, tables
+   Type rides a gentler ratio than quietprint's 1.2 (1.125, a "major
+   second"): the goal here is a quiet page, and 1.2 was making the big
+   steps (h1/h2/the site title) louder than that page wants. Going with a
+   flatter ratio rather than just shrinking the root keeps the two ends
+   moving in different directions - the biggest steps shrink the most,
+   the smallest two (meta/code, overline labels) actually get a hair
+   *bigger* than the 1.2 scale gave them, since they were the ones under
+   the most pressure to stay legible:
+     --step--2  0.79rem    table headers, overline labels
+     --step--1  0.8889rem  meta, dates, labels, code, tables
      --step-0   1rem       body, nav
-     --step-1   1.2rem     site title, lede, h3
-     --step-2   1.44rem    h2, homepage title
-     --step-3   1.728rem   post h1
+     --step-1   1.125rem   site title, lede, h3
+     --step-2   1.2656rem  h2, homepage title
+     --step-3   1.4238rem  post h1
    (px results depend on the root font-size set below.)
 
    Themes: every color is declared exactly once via light-dark(). The
@@ -109,12 +116,12 @@
     "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono",
     Consolas, "Courier New", monospace;
 
-  --step--2: 0.6944rem;
-  --step--1: 0.8333rem;
+  --step--2: 0.79rem;
+  --step--1: 0.8889rem;
   --step-0: 1rem;
-  --step-1: 1.2rem;
-  --step-2: 1.44rem;
-  --step-3: 1.728rem;
+  --step-1: 1.125rem;
+  --step-2: 1.2656rem;
+  --step-3: 1.4238rem;
 
   /* Shared shape + motion tokens (kept consistent across the whole UI).
      Slightly softer corners than the theme's original 4px/2px - still a
@@ -153,6 +160,11 @@
      (5.0:1) and is untouched. */
   --color-muted: light-dark(#7a6f62, #96897a);
   --color-border: light-dark(#e3dbc9, #362f27);
+  /* A second blue, kept deliberately narrow: only ::selection (needs a
+     light background regardless of theme) and the places map (its own
+     page, own legend) use it. Decorative UI uses --color-accent instead -
+     one accent color reads calmer than two blues that are never quite the
+     same one. */
   --color-sky: #6cabdd;
   --color-accent: light-dark(#1c74b4, #85b8e6);
   --color-selection-text: #08263c;
@@ -184,18 +196,19 @@
 }
 
 html {
-  /* Fluid, not stepped: flat at 17px (1.0625em) up to ~1600px of viewport,
-     then grows in a straight line to 20px (1.25em) by ~2200px and holds
-     there - the same two endpoints the old two-breakpoint version jumped
-     between, but as one continuous curve instead of a pair of visible
-     snaps. em, not px, so a reader's browser-level text-size preference
-     (not just pinch/ctrl-zoom) still scales the whole clamp.
-     Solved from font-size = 0.5625em + 0.5vw: that line crosses 1.0625em
-     at exactly 1600px of viewport and 1.25em at exactly 2200px, which is
-     what fixes the clamp's flat/fluid/flat breakpoints without a media
-     query. Because everything else is sized in rem, the whole UI (text,
-     nav, footer, --measure) scales together as this one value moves. */
-  font-size: clamp(1.0625em, 0.5625em + 0.5vw, 1.25em);
+  /* Fluid, not stepped: flat at 16px (1em) up to ~1600px of viewport, then
+     grows in a straight line to 18px (1.125em) by ~2200px and holds there -
+     a smaller range than the first pass (17-20px), since even the base size
+     was reading heavier than this page wants once the bigger steps above
+     were already cut down. Same method as before: em, not px, so a
+     reader's browser-level text-size preference (not just pinch/ctrl-zoom)
+     still scales the whole clamp; solved from
+     font-size = 0.6667em + 0.3333vw, a line that crosses 1em at exactly
+     1600px of viewport and 1.125em at exactly 2200px, fixing the clamp's
+     flat/fluid/flat breakpoints without a media query. Because everything
+     else is sized in rem, the whole UI (text, nav, footer, --measure)
+     scales together as this one value moves. */
+  font-size: clamp(1em, 0.6667em + 0.3333vw, 1.125em);
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -311,9 +324,11 @@ video {
   font-size: var(--step-2);
   font-weight: 600;
   line-height: 1.15;
-  /* A hair of negative tracking on the one place the serif runs large and
-     bold: it reads tighter and more considered instead of merely bigger. */
-  letter-spacing: -0.015em;
+  /* A hair of negative tracking reads tighter and more considered instead
+     of merely bigger - kept light now that the scale itself runs smaller,
+     since tight tracking is a large-display-type move and overdoing it at
+     a more modest size starts to look cramped instead of considered. */
+  letter-spacing: -0.008em;
   color: var(--color-heading);
   text-decoration: none;
   transition: color var(--transition);
@@ -351,23 +366,25 @@ video {
   border-radius: var(--radius-sm);
   font-size: var(--step-0);
   font-weight: 500;
-  transition:
-    color var(--transition),
-    background-color var(--transition);
+  transition: color var(--transition);
 }
 
+/* Color alone, no fill: the current page already has its own indicator (the
+   underline below), so a hover-only page also getting a filled pill on top
+   of that was two different "state" languages doing the same job in one
+   small row. */
 .nav-link:hover {
   color: var(--color-heading);
-  background-color: var(--color-bg-hover);
 }
 
 /* The rule hugs the label rather than the padded hit area: painting it as a
    background image anchored to the content box keeps it under the text
-   whatever the padding is, while background-color stays free for the hover
-   pill (which fills the whole tap target). */
+   whatever the padding is. --color-accent, not a second "sky" blue: one
+   accent color for the whole page reads calmer than two blues that are
+   never quite the same one. */
 .nav-link[aria-current] {
   color: var(--color-heading);
-  background-image: linear-gradient(var(--color-sky), var(--color-sky));
+  background-image: linear-gradient(var(--color-accent), var(--color-accent));
   background-repeat: no-repeat;
   background-size: 100% 2px;
   background-position: bottom;
@@ -476,7 +493,10 @@ video {
 .badge {
   display: inline-block;
   line-height: 0;
-  filter: grayscale(0.5) opacity(0.75);
+  /* Muted enough at rest to sit at the same quiet register as the social
+     icons beside it (see .social-link) rather than reading as its own,
+     more colorful "card" - the reveal to full color on hover is unchanged. */
+  filter: grayscale(0.85) opacity(0.6);
   transition: filter var(--transition);
 }
 
@@ -485,8 +505,10 @@ video {
 }
 
 .badge img {
-  width: 30px;
-  height: 30px;
+  /* Matches .social-link's icon size (see social-icons.html): the two
+     groups read as one register, not two. */
+  width: 20px;
+  height: 20px;
   object-fit: contain;
   display: block;
 }
@@ -635,7 +657,11 @@ a.taste-name:hover {
   text-decoration-color: var(--color-accent);
 }
 
-/* Mark links that leave the site with a small north-east arrow. */
+/* Mark links that leave the site with a small north-east arrow - revealed
+   on hover/focus rather than always on, same pattern as a.heading-anchor
+   below. On link-dense prose (several outbound links in a couple of short
+   paragraphs) having every one of them permanently marked reads as clutter;
+   the arrow is still there for anyone who hovers or tabs through. */
 .prose a[href^="http"]:not([href*="kirillbobyrev.com"])::after,
 a.taste-name[href^="http"]::after {
   content: "\2197";
@@ -643,6 +669,15 @@ a.taste-name[href^="http"]::after {
   margin-inline-start: 0.1em;
   vertical-align: 0.2em;
   color: var(--color-muted);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.prose a[href^="http"]:not([href*="kirillbobyrev.com"]):hover::after,
+.prose a[href^="http"]:not([href*="kirillbobyrev.com"]):focus-visible::after,
+a.taste-name[href^="http"]:hover::after,
+a.taste-name[href^="http"]:focus-visible::after {
+  opacity: 1;
 }
 
 .main-content h1 {
@@ -652,8 +687,9 @@ a.taste-name[href^="http"]::after {
   line-height: 1.2;
   /* Tracking eases back toward zero as the heading steps down (h1 tighter
      than h2, h3 left alone) - the same reasoning as .site-title, scaled to
-     how much size there is to tighten. */
-  letter-spacing: -0.02em;
+     how much size there is to tighten, and kept light for the same reason
+     .site-title's is: this is a modest-sized scale now, not display type. */
+  letter-spacing: -0.012em;
   margin: 2.25rem 0 0.75rem;
   color: var(--color-heading);
   text-wrap: balance;
@@ -664,7 +700,7 @@ a.taste-name[href^="http"]::after {
   font-size: var(--step-2);
   font-weight: 600;
   line-height: 1.25;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.008em;
   margin: 2.25rem 0 0.75rem;
   color: var(--color-heading);
   text-wrap: balance;
@@ -886,7 +922,7 @@ a.taste-name[href^="http"]::after {
 @keyframes target-highlight {
   0%,
   30% {
-    background-color: color-mix(in srgb, var(--color-sky) 22%, transparent);
+    background-color: color-mix(in srgb, var(--color-accent) 22%, transparent);
   }
   100% {
     background-color: transparent;
@@ -1798,13 +1834,16 @@ pre.mermaid svg {
     text-decoration: none;
   }
 
-  /* Show where external links point since paper has no hover. */
+  /* Show where external links point since paper has no hover - opacity: 1
+     overrides the screen-only hover-reveal above, which would otherwise
+     leave this invisible on a medium with no hover state at all. */
   .prose a[href^="http"]:not([href*="kirillbobyrev.com"])::after {
     content: " (" attr(href) ")";
     font-size: 0.85em;
     vertical-align: baseline;
     color: var(--color-muted);
     word-break: break-all;
+    opacity: 1;
   }
 
   .highlight pre {
