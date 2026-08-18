@@ -146,19 +146,22 @@
   --space-row-inline: 0.6rem;
 
   /* Warm "paper" palette instead of quietprint's neutral gray-on-white -
-     the reference site's signature. */
-  --color-bg: light-dark(#faf7f0, #1d1b18);
+     the reference site's signature. Muted rather than bright/vivid: low
+     saturation in both modes (the light value used to run S=0.50 - closer
+     to a warm cream than paper), and dark mode's is deliberately not
+     near-black (L=0.17, not the previous 0.10) - a bleak overcast charcoal
+     instead of ink. */
+  --color-bg: light-dark(#f2f1ed, #2e2c29);
   --color-text: light-dark(#3a3226, #d6d0c4);
   --color-heading: light-dark(#211c14, #f1ece3);
-  /* The light value is a hair darker than the first pass at this warm gray
-     (#84796a): that read nicely against the paper but only hit 4.0:1
-     against --color-bg, short of WCAG AA's 4.5:1 for normal text - and this
-     token sits under the nav links and lede paragraph at body size, not
-     just captions. Same hue and saturation, just enough darker to clear
-     4.5:1 with a small margin (4.59:1); dark mode's value already passed
-     (5.0:1) and is untouched. */
-  --color-muted: light-dark(#7a6f62, #96897a);
-  --color-border: light-dark(#e3dbc9, #362f27);
+  /* Retuned alongside --color-bg above: a muted, less saturated background
+     shifts contrast even at the same text color, so this needed
+     re-verifying against the new bg, not just carried over. Same hue,
+     just enough lighter/darker to clear WCAG AA's 4.5:1 with a small
+     margin (light: 4.97:1 against the new bg; dark: 5.04:1, matching what
+     the pre-mute dark value had against the pre-mute dark bg). */
+  --color-muted: light-dark(#70665a, #a59a8d);
+  --color-border: light-dark(#dad4c8, #504b44);
   /* Kept deliberately narrow: only ::selection (needs a light background
      regardless of theme) and the places map (its own page, own legend) use
      this. It used to also be the nav's current-page indicator and the
@@ -173,11 +176,13 @@
      degrees toward orange instead - reads as "considered accent," not
      "team color," and the warmth actually fits the palette's existing
      browns better than the old blue did (light-mode contrast against
-     --color-bg: 7.29:1, well past WCAG AA's 4.5:1; dark-mode: 6.50:1). */
+     --color-bg: 6.90:1, well past WCAG AA's 4.5:1; dark-mode: 5.27:1 -
+     re-verified against the muted background below, not just carried
+     over from the brighter/darker one this was originally tuned against). */
   --color-accent: light-dark(#952e23, #e58576);
   --color-selection-text: #08263c;
-  --color-bg-code: light-dark(#f0ece1, #242220);
-  --color-bg-hover: light-dark(#f2ecdd, #29241d);
+  --color-bg-code: light-dark(#e9e7e2, #343230);
+  --color-bg-hover: light-dark(#eae8e3, #383531);
   --color-underline: light-dark(#c9bfa8, #4a4237);
   --color-land: light-dark(#e6ddc8, #332c22); /* unvisited map land */
 
@@ -204,21 +209,20 @@
 }
 
 html {
-  /* Fluid, not stepped: flat at 17px (1.0625em) up to ~1600px of viewport,
-     then grows in a straight line to 19px (1.1875em) by ~2200px and holds
-     there. Nudged back up half a step from the previous 16-18px pass - the
-     heading scale's ratio (see the --step tokens above) was the real
-     source of "too loud", not the base size on its own, so this moves the
-     whole page slightly larger again without undoing that fix. Same
-     method as before: em, not px, so a reader's browser-level text-size
-     preference (not just pinch/ctrl-zoom) still scales the whole clamp;
-     solved from font-size = 0.7292em + 0.3333vw, a line that crosses
-     1.0625em at exactly 1600px of viewport and 1.1875em at exactly
-     2200px, fixing the clamp's flat/fluid/flat breakpoints without a
-     media query. Because everything else is sized in rem, the whole UI
-     (text, nav, footer, --measure) scales together as this one value
-     moves. */
-  font-size: clamp(1.0625em, 0.7292em + 0.3333vw, 1.1875em);
+  /* Fluid, not stepped: flat at 18px (1.125em) up to ~1600px of viewport,
+     then grows in a straight line to 20px (1.25em) by ~2200px and holds
+     there. A second nudge up (17-19px before this) - the heading scale's
+     ratio (see the --step tokens above) was the real source of "too
+     loud", not the base size on its own, so this keeps moving the whole
+     page larger without undoing that fix. Same method as before: em, not
+     px, so a reader's browser-level text-size preference (not just
+     pinch/ctrl-zoom) still scales the whole clamp; solved from
+     font-size = 0.7917em + 0.3333vw, a line that crosses 1.125em at
+     exactly 1600px of viewport and 1.25em at exactly 2200px, fixing the
+     clamp's flat/fluid/flat breakpoints without a media query. Because
+     everything else is sized in rem, the whole UI (text, nav, footer,
+     --measure) scales together as this one value moves. */
+  font-size: clamp(1.125em, 0.7917em + 0.3333vw, 1.25em);
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -1213,9 +1217,13 @@ a.taste-name {
 
 .map-ocean {
   vector-effect: non-scaling-stroke;
+  /* var(--color-bg), not a hardcoded fallback: this was still mixing
+     against quietprint's neutral #fcfcfc/#171b21 from before the theme was
+     re-skinned warm, so the ocean never actually matched this theme's own
+     background - it now inherits whatever --color-bg is automatically. */
   fill: light-dark(
-    color-mix(in srgb, var(--color-sky) 4%, #fcfcfc),
-    color-mix(in srgb, var(--color-sky) 6%, #171b21)
+    color-mix(in srgb, var(--color-sky) 4%, var(--color-bg)),
+    color-mix(in srgb, var(--color-sky) 6%, var(--color-bg))
   );
   stroke: var(--color-border);
   stroke-width: 1;
