@@ -468,7 +468,6 @@ video {
 
 /* === Page chrome: eyebrow / heading (About, Now) === */
 .page-header {
-  position: relative;
   margin-block: var(--space-xl) var(--space-m);
 }
 
@@ -480,23 +479,21 @@ video {
   color: var(--color-accent);
 }
 
-/* Lives in the margin outside the text column (see the min-width gate
-   below), not inline with it - a signature graphic, not page content, so
-   it's absolutely positioned off .page-header rather than taking up flow
-   space that would otherwise push the prose around on resize. */
-.hero-mark {
-  display: none;
-  position: absolute;
-  top: -0.5rem;
-  left: calc(100% + var(--space-2xl));
-  width: 13.75rem;
-  height: auto;
+/* The top margin lives here, not on .page-heading (see below) - flex
+   items don't margin-collapse with their container the way a block-level
+   h1 does on its own, so putting it on the heading itself (as if this
+   were the standalone case) threw off align-items: center between the
+   heading and the marks beside it by exactly that margin. */
+.page-heading-row {
+  margin-top: var(--space-m);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-m) var(--space-l);
 }
 
-@media (min-width: 87.5rem) {
-  .hero-mark {
-    display: block;
-  }
+.page-heading-row .page-heading {
+  margin-top: 0;
 }
 
 /* Medium weight and tight tracking, not the thin/decorated treatment this
@@ -529,6 +526,42 @@ video {
 
 .accent-dot {
   color: var(--color-accent);
+}
+
+/* Lean, single-line mark straight from the source design: a filled
+   circle, an outlined square, a filled diamond, then a rule trailing off
+   - all small, all on the heading's own line, not a separate composition. */
+.heading-marks {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 9px; /* matches the source design's own value, off the space scale */
+}
+
+.mark {
+  flex: none;
+  width: 15px;
+  height: 15px;
+}
+
+.mark-circle {
+  border-radius: 50%;
+  background-color: var(--color-accent);
+}
+
+.mark-square {
+  border: 1.5px solid var(--color-muted);
+}
+
+.mark-diamond {
+  background-color: var(--color-muted);
+  transform: rotate(45deg);
+}
+
+.mark-rule {
+  width: 44px;
+  height: 1.5px;
+  background-color: var(--color-underline);
 }
 
 .heading-rule {
@@ -616,7 +649,7 @@ video {
   gap: var(--space-xs);
   color: var(--color-muted);
   font-family: var(--font-mono);
-  font-size: var(--step--1);
+  font-size: var(--step-0);
 }
 
 /* === Prose typography === */
@@ -728,9 +761,11 @@ video {
 }
 
 .prose ul > li::before {
-  content: "\2014"; /* — */
+  content: "\2013"; /* – (en dash: a full em dash reads too heavy/anchoring
+    repeated down a list, competing with the text instead of marking it) */
   position: absolute;
   left: 0;
+  font-size: 0.85em;
   color: var(--color-faint);
 }
 
