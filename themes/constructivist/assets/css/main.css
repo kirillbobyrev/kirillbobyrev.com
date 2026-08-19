@@ -31,39 +31,41 @@
 /* ==========================================================================
    Design tokens
 
-   Two voices instead of typewriter's one: Space Grotesk for display type
-   (headings, the lede, body prose) and Space Mono for everything that
-   functions as a label rather than a sentence - the site mark, nav,
-   section numerals, dates, tables, code. That split (not the accent color
-   alone) is most of what makes this theme read as a poster/manifesto
-   rather than an editorial page.
+   One voice: Space Grotesk for everything - headings, nav, body, dates,
+   captions. Space Mono is reserved strictly for code (inline and blocks);
+   it does not appear anywhere else. Nothing sets letter-spacing/uppercase
+   as a device for turning ordinary words into a "label" - metadata reads
+   as quieter, smaller text in the same typeface, not a different one
+   dressed up to look official. That restraint (editorial-modernist -
+   iA, Anthropic's research blog, Increment, Stripe Press, Works in
+   Progress: generous type, restrained hierarchy, quiet sans, no tiny
+   shouting metadata) is the actual design system here, more than any one
+   color or shape.
 
-   The --step scale below is hand-tuned to the source design's own sizes
-   rather than one constant ratio - the design itself doesn't follow a
-   strict Bringhurst scale (a 40px "About." heading and a 44px post title
-   sit half a step apart, e.g.), so forcing a single ratio through both
-   would either blur that or invent sizes nothing asked for. Same family
-   as the --space-* scale further down (px results depend on the root
-   font-size clamp set below):
-     --step--2  0.6875rem  eyebrows, section numerals, overline labels
-     --step--1  0.8125rem  nav, meta, dates, tables, code
-     --step-0   1rem       numbered h2 labels
-     --step-1   1.09rem    lede, prose paragraphs (the body-text baseline)
-     --step-2   1.375rem   h3, blog list titles
-     --step-4   2rem       (unused directly; kept for spacing symmetry)
-     --step-5   2.5rem     h1 (About, Now)
-     --step-6   2.75rem    post title
+   Four sizes, each with exactly one job - a strict, small scale on
+   purpose (Ulm/Bauhaus rigor: few fixed steps, no one-off values) rather
+   than a size for every element that touches it:
+     --text-sm    0.875rem  everything secondary: nav, dates, captions,
+                            footnotes, table text, the About-page eyebrow
+     --text-base  1.15rem   body copy - paragraphs, list items, the lede;
+                            a genuinely generous reading size, not 1rem
+     --text-lg    1.5rem    h2, blog-index titles, pull-quotes
+     --text-xl    2.5rem    h1 - About, Now, and post titles alike; one
+                            size for every top-level heading, not two
+                            barely-different ones
+   (h3 reuses --text-base at a bolder weight rather than claiming a fifth
+   size - see .prose h3.)
 
    Themes: every color is declared exactly once via light-dark(). The
    default color-scheme follows the OS; the header toggle forces one by
    setting html[data-theme] (persisted in localStorage), which flips
-   color-scheme and with it every token. Unlike typewriter's warm paper
-   palette, both modes here share one near-black/near-cream pair pushed
-   hard toward its extreme (dark: L=0.07; light: L=0.94) with a single
-   accent that does NOT itself change between themes - #d8402a reads as
-   "the poster's ink," not a mode-dependent UI color, the same way it
-   doesn't change between the design's own light and dark states.
-   ========================================================================== */
+   color-scheme and with it every token. Both modes share one near-black/
+   near-cream pair pushed hard toward its extreme (dark: L=0.07; light:
+   L=0.94) with a single accent that does NOT itself change between
+   themes - #d8402a is used sparingly (a heading's trailing dot, the rule
+   under it, a link on hover), not as a device to draw the eye around the
+   page. Three text tiers, not four: --color-heading, --color-text,
+   --color-muted covers everything from a paragraph to a footnote: */
 :root {
   color-scheme: light dark;
 
@@ -74,34 +76,30 @@
     "Space Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas,
     "Courier New", monospace;
 
-  --step--2: 0.6875rem;
-  --step--1: 0.8125rem;
-  --step-0: 1rem;
-  --step-1: 1.09rem;
-  --step-2: 1.375rem;
-  --step-4: 2rem;
-  --step-5: 2.5rem;
-  --step-6: 2.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1.15rem;
+  --text-lg: 1.5rem;
+  --text-xl: 2.5rem;
 
-  /* Flat, poster-like geometry: no soft UI rounding anywhere except the
-     genuinely circular marks (the header dot, the theme toggle, the "o"
-     in the About-page mark row) - those stay literal circles via
+  /* Flat geometry: no soft UI rounding anywhere except the genuinely
+     circular marks (the header dot, the theme toggle, the "o" in the
+     About-page mark row) - those stay literal circles via
      border-radius: 50% in place, not a token. */
   --radius: 0;
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
   --transition: 0.15s var(--ease);
 
-  /* Same fluid space scale as typewriter (utopia.fyi-style T-shirt sizes,
-     --space-m tied to --step-0) - a generic, well-tuned convention, not a
-     typewriter-specific aesthetic choice, so it's reused rather than
-     reinvented. Every margin/padding/gap below should use one of these; a
-     genuinely sub-3xs hairline nudge is the only accepted exception, and
-     should say so in a comment. */
+  /* Same fluid space scale as typewriter (utopia.fyi-style T-shirt sizes)
+     - a generic, well-tuned convention, not a typewriter-specific
+     aesthetic choice, so it's reused rather than reinvented. Every
+     margin/padding/gap below should use one of these; a genuinely
+     sub-3xs hairline nudge is the only accepted exception, and should
+     say so in a comment. */
   --space-3xs: 0.25rem;
   --space-2xs: 0.375rem;
   --space-xs: 0.5rem;
   --space-s: 0.75rem;
-  --space-m: 1rem; /* = --step-0, "one line" */
+  --space-m: 1rem; /* "one line" at the root font-size */
   --space-l: 1.5rem;
   --space-xl: 2.25rem;
   --space-2xl: 2.75rem;
@@ -109,17 +107,11 @@
 
   --color-bg: light-dark(#f2efe8, #141310);
   --color-heading: light-dark(#14120d, #f4f1e9);
-  /* Primary prose color - contrast against --color-bg: light 15.9:1, dark 16.4:1. */
+  /* Body copy - contrast against --color-bg: light 15.9:1, dark 16.4:1. */
   --color-text: light-dark(rgba(20, 18, 13, 0.92), rgba(235, 231, 221, 0.92));
-  /* One tier down: de-emphasized body copy, still well past AA (light 12.9:1, dark 13.3:1). */
-  --color-text-soft: light-dark(
-    rgba(20, 18, 13, 0.78),
-    rgba(235, 231, 221, 0.82)
-  );
-  /* Meta tier - nav, dates, table headers, footer (light 8.4:1, dark 8.0:1). */
+  /* Everything secondary - nav, dates, captions, footnotes, table text -
+     one muted tier, not several barely-different ones (light 8.4:1, dark 8.0:1). */
   --color-muted: light-dark(rgba(20, 18, 13, 0.55), rgba(235, 231, 221, 0.52));
-  /* Quietest tier - "Inspired by nownownow.com", figure captions; still clears AA at this size. */
-  --color-faint: light-dark(rgba(20, 18, 13, 0.45), rgba(235, 231, 221, 0.4));
   --color-border: light-dark(rgba(20, 18, 13, 0.25), rgba(235, 231, 221, 0.22));
   --color-underline: light-dark(
     rgba(20, 18, 13, 0.32),
@@ -143,9 +135,13 @@
      preference the same way the font-size clamp below does. Deliberately
      static (unlike typewriter's --measure, which widens past 1600px/2200px
      viewports) - this design's narrow column against generous empty
-     margins is the point on a wide display, not something to fill. */
-  --measure: 53.75rem; /* 860px @ 16px root */
-  --measure-wide: 68.75rem; /* 1100px @ 16px root: the header/footer row */
+     margins is the point on a wide display, not something to fill.
+     Narrower than a typical text column on purpose: at --text-base's
+     genuinely generous size, a wider measure runs past a comfortable
+     line length (roughly 70-75 characters) before the column itself
+     looks wide. */
+  --measure: 44rem; /* 704px @ 16px root */
+  --measure-wide: 68.75rem; /* 1100px @ 16px root: the header row */
 }
 
 :root[data-theme="light"] {
@@ -209,7 +205,7 @@ video {
   background-color: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-sans);
-  font-size: var(--step-0);
+  font-size: var(--text-base);
   line-height: 1.7;
   font-synthesis: none;
   font-variant-numeric: tabular-nums;
@@ -306,11 +302,9 @@ video {
   gap: var(--space-2xs);
   text-decoration: none;
   color: var(--color-heading);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-weight: 500;
-  font-size: var(--step--1);
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
+  font-size: var(--text-sm);
   transition: color var(--transition);
 }
 
@@ -351,7 +345,6 @@ video {
 .site-title-short {
   max-width: 0;
   opacity: 0;
-  letter-spacing: 0.1em;
 }
 
 .site-header[data-condensed] .site-title-full {
@@ -381,17 +374,17 @@ video {
   white-space: nowrap;
 }
 
+/* Current page reads from color and weight alone, no painted dot or
+   underline - the same "typography over paint" state language as the
+   rest of the theme's chrome. */
 .nav-link {
   display: flex;
   align-items: center;
-  gap: var(--space-2xs);
   color: var(--color-muted);
   text-decoration: none;
-  font-family: var(--font-mono);
-  font-size: var(--step--1);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
   font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
   padding: var(--space-2xs) 0;
   transition: color var(--transition);
 }
@@ -402,23 +395,7 @@ video {
 
 .nav-link[aria-current] {
   color: var(--color-heading);
-}
-
-.nav-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background-color: var(--color-accent);
-  opacity: 0;
-  transform: scale(0.4);
-  transition:
-    opacity 200ms ease,
-    transform 200ms ease;
-}
-
-.nav-link[aria-current] .nav-dot {
-  opacity: 1;
-  transform: scale(1);
+  font-weight: 700;
 }
 
 .theme-toggle {
@@ -472,11 +449,10 @@ video {
 }
 
 .page-eyebrow {
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-accent);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-muted);
 }
 
 /* The top margin lives here, not on .page-heading (see below) - flex
@@ -496,8 +472,9 @@ video {
   margin-top: 0;
 }
 
-/* Medium weight and tight tracking, not the thin/decorated treatment this
-   had before: a plain, confident display heading (the accent-dot and the
+/* One heading size for every top-level page/post title (--text-xl) - no
+   separate, barely-different post-title size. Medium weight and tight
+   tracking: a plain, confident display heading (the accent-dot and the
    rule beneath it are the only ornament) reads cleaner at this size than
    a lighter weight leaning on extra decoration to not look flat. */
 .page-heading,
@@ -505,8 +482,8 @@ video {
   margin: var(--space-m) 0 0;
   font-family: var(--font-sans);
   font-weight: 500;
-  font-size: var(--step-5);
-  line-height: 1.08;
+  font-size: var(--text-xl);
+  line-height: 1.15;
   letter-spacing: -0.02em;
   color: var(--color-heading);
   text-wrap: balance;
@@ -573,18 +550,16 @@ video {
 
 .lede {
   margin: 0;
-  font-size: var(--step-1);
+  font-size: var(--text-base);
   line-height: 1.6;
-  color: var(--color-text-soft);
+  color: var(--color-text);
 }
 
 .page-footnote {
   margin-block-start: var(--space-xl);
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-faint);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
 }
 
 /* Underlined-arrow link row - Email/GitHub/etc under the About prose, and
@@ -594,11 +569,9 @@ video {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2xs) var(--space-l);
-  font-family: var(--font-mono);
-  font-size: var(--step--1);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
   font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
 }
 
 .link-row a,
@@ -633,11 +606,11 @@ video {
   text-align: center;
 }
 
+/* Same --text-xl as every other h1 (see .page-heading above) - just
+   width-constrained and centered, not a bigger size of its own. */
 .main-content .article-header h1 {
   max-width: 22em;
   margin-inline: auto;
-  font-size: var(--step-6);
-  line-height: 1.18;
 }
 
 .article-meta {
@@ -648,8 +621,8 @@ video {
   flex-wrap: wrap;
   gap: var(--space-xs);
   color: var(--color-muted);
-  font-family: var(--font-mono);
-  font-size: var(--step-0);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
 }
 
 /* === Prose typography === */
@@ -657,64 +630,60 @@ video {
   margin-block-start: var(--space-xs);
 }
 
-.prose {
-  counter-reset: section;
-}
-
+/* Quiet by default - the same color as the surrounding sentence, not a
+   scattering of accent-red words competing with the reading; the accent
+   only shows up once a link is actually being interacted with. */
 .prose a {
-  color: var(--color-accent);
+  color: var(--color-text);
   text-decoration: underline;
   text-decoration-color: var(--color-border);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.19em;
-  transition: text-decoration-color var(--transition);
+  transition:
+    color var(--transition),
+    text-decoration-color var(--transition);
 }
 
 .prose a:hover {
+  color: var(--color-accent);
   text-decoration-color: var(--color-accent);
 }
 
 /* Scoped to .prose, not .main-content, on purpose: chrome headings like
    "Recent writing" (home.html) and a blog-index year label are h2s too,
-   but aren't post/page content and shouldn't pick up the numbered-section
-   treatment (or increment a counter neither one means to share). */
-/* Not a flex row: the numeral prefix is an inline ::before, not a flex
-   sibling, so a heading long enough to wrap on narrow screens wraps like
-   ordinary text - continuation lines return to the left margin instead of
-   indenting past the numeral (which a flex layout would do, since the
-   heading text would be a single flex item wrapping inside its own box). */
+   but aren't post/page content and shouldn't pick up this treatment.
+   Plain and quiet on purpose - no numeral, no mono, no uppercase: one
+   clear size and weight step above the body text is enough to read as a
+   section break without turning into a manifesto label. */
 .prose h2 {
-  counter-increment: section;
   margin: var(--space-3xl) 0 var(--space-l);
-  font-family: var(--font-mono);
-  font-size: var(--step-0);
-  font-weight: 500;
-  line-height: 1.4;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-family: var(--font-sans);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
   color: var(--color-heading);
+  text-wrap: balance;
 }
 
-.prose h2::before {
-  content: counter(section, decimal-leading-zero) " / ";
-  color: var(--color-accent);
-}
-
+/* Reuses --text-base (the body size) rather than claiming its own size
+   step - bold weight is what marks it as a sub-heading, same idiom as
+   iA Writer's own site. Still clearly a level below h2 (smaller, and
+   h2's semibold outranks nothing here since h3 is plain bold). */
 .prose h3 {
   margin: var(--space-l) 0 var(--space-xs);
   font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: var(--step-2);
-  line-height: 1.3;
-  letter-spacing: -0.008em;
+  font-weight: 700;
+  font-size: var(--text-base);
+  line-height: 1.4;
   color: var(--color-heading);
   text-wrap: balance;
 }
 
 .prose p {
-  margin-block: 0.9em;
-  font-size: var(--step-1);
-  line-height: 1.72;
+  margin-block: 1em;
+  font-size: var(--text-base);
+  line-height: 1.75;
   color: var(--color-text);
 }
 
@@ -723,72 +692,48 @@ video {
   text-wrap: pretty;
 }
 
-/* Mono numeral column, generated from a plain Markdown ordered list -
-   no per-item markup needed to get the "01 / 02 / 03" look used
-   throughout the source design's lists. */
-.prose ol {
-  margin-block: 0.9em;
-  padding: 0;
-  list-style: none;
-  counter-reset: line;
-}
-
-.prose ol > li {
-  counter-increment: line;
-  position: relative;
-  padding-inline-start: 2.25em;
-}
-
-.prose ol > li::before {
-  content: counter(line, decimal-leading-zero);
-  position: absolute;
-  left: 0;
-  top: 0.15em;
-  font-family: var(--font-mono);
-  font-size: 0.72em;
-  color: var(--color-faint);
+/* Native list markers throughout, not a custom-drawn column: a plain
+   disc/decimal, muted, is quieter and less "anchoring" against the text
+   than the theme's earlier hand-built bullets/numerals. */
+.prose ol,
+.prose ul {
+  margin-block: 1em;
+  padding-inline-start: 1.25em;
 }
 
 .prose ul {
-  margin-block: 0.9em;
-  padding: 0;
-  list-style: none;
+  list-style: disc;
 }
 
-.prose ul > li {
-  position: relative;
-  padding-inline-start: 1.75em;
+.prose ol {
+  list-style: decimal;
 }
 
-.prose ul > li::before {
-  content: "\2013"; /* – (en dash: a full em dash reads too heavy/anchoring
-    repeated down a list, competing with the text instead of marking it) */
-  position: absolute;
-  left: 0;
-  font-size: 0.85em;
-  color: var(--color-faint);
+.prose ul > li::marker,
+.prose ol > li::marker {
+  color: var(--color-muted);
 }
 
 .prose li {
   margin-block: 0.4em;
-  font-size: var(--step-1);
+  font-size: var(--text-base);
   line-height: 1.68;
   color: var(--color-text);
 }
 
-/* A centered pull-quote statement, not a citation: no border, no italic -
-   the accent color and a step up in size are what set it apart. */
+/* A quiet pull-quote, not a shout: left-aligned with the rest of the
+   prose (not centered), a thin accent rule instead of accent-colored
+   text, one size step up from body copy. */
 .prose blockquote {
-  margin: var(--space-2xl) auto;
-  max-width: 32em;
-  padding: 0;
-  text-align: center;
+  margin: var(--space-2xl) 0;
+  padding-inline-start: var(--space-l);
+  border-inline-start: 2px solid var(--color-accent);
   font-family: var(--font-sans);
   font-weight: 400;
-  font-size: var(--step-2);
+  font-size: var(--text-lg);
   line-height: 1.5;
-  letter-spacing: -0.012em;
-  color: var(--color-accent);
+  letter-spacing: -0.008em;
+  color: var(--color-heading);
 }
 
 .prose blockquote p {
@@ -805,8 +750,7 @@ video {
 }
 
 /* Definition lists aren't reachable from standard Markdown, but raw HTML
-   passes through Goldmark unchanged, so a hand-written <dl> (the "three
-   terms worth separating" idiom from the source design) still gets a
+   passes through Goldmark unchanged, so a hand-written <dl> still gets a
    considered treatment instead of the UA default. */
 .prose dl {
   margin-block: var(--space-l);
@@ -816,16 +760,15 @@ video {
 }
 
 .prose dt {
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-accent);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-heading);
 }
 
 .prose dd {
   margin: var(--space-3xs) 0 0;
-  font-size: var(--step-1);
+  font-size: var(--text-base);
   line-height: 1.68;
   color: var(--color-text);
 }
@@ -846,8 +789,8 @@ video {
   margin-block-start: var(--space-2xl);
   padding-block-start: var(--space-m);
   border-top: 1px solid var(--color-border);
-  font-family: var(--font-mono);
-  font-size: var(--step--1);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
   color: var(--color-muted);
 }
 
@@ -893,7 +836,7 @@ video {
   content: "\220e"; /* ∎ */
   display: block;
   text-align: center;
-  color: var(--color-faint);
+  color: var(--color-muted);
   margin-block-start: var(--space-xl);
 }
 
@@ -906,18 +849,15 @@ video {
 .prose table {
   width: 100%;
   border-collapse: collapse;
-  font-family: var(--font-mono);
-  font-size: var(--step--1);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
   line-height: 1.5;
 }
 
 .prose th {
   padding: 0 var(--space-l) var(--space-xs) 0;
   text-align: left;
-  font-size: var(--step--2);
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-weight: 700;
   color: var(--color-muted);
   border-block-end: 1px solid var(--color-border);
 }
@@ -985,11 +925,10 @@ video {
 
 .main-content .timeline-year-label {
   margin: var(--space-l) 0 var(--space-xs);
-  font-family: var(--font-mono);
-  font-size: var(--step--1);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-faint);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-muted);
 }
 
 .timeline-year .blog-timeline {
@@ -1023,9 +962,9 @@ video {
   flex-shrink: 0;
   width: 11ch;
   text-align: right;
-  color: var(--color-faint);
-  font-family: var(--font-mono);
-  font-size: var(--step--1);
+  color: var(--color-muted);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
   white-space: nowrap;
   line-height: 1.7;
 }
@@ -1051,7 +990,7 @@ video {
   display: block;
   margin-block-start: 0.15rem; /* sub-scale hairline: tighter than --space-3xs allows */
   color: var(--color-muted);
-  font-size: var(--step--1);
+  font-size: var(--text-sm);
   line-height: 1.5;
   text-wrap: pretty;
 }
@@ -1068,7 +1007,7 @@ video {
 .blog-timeline-entry-lg .blog-timeline-title {
   display: block;
   font-family: var(--font-sans);
-  font-size: var(--step-2);
+  font-size: var(--text-lg);
   font-weight: 500;
   line-height: 1.3;
   letter-spacing: -0.008em;
@@ -1168,9 +1107,9 @@ video {
 
 .figure-caption {
   margin-block-start: var(--space-xs);
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  color: var(--color-faint);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
 }
 
 .figure-wide img {
@@ -1205,7 +1144,7 @@ video {
   margin: 0;
   padding: var(--space-m);
   font-family: var(--font-mono);
-  font-size: var(--step--1);
+  font-size: var(--text-sm);
   line-height: 1.7;
   background-color: transparent;
   overflow-x: auto;
@@ -1242,9 +1181,9 @@ pre.mermaid {
   background-color: var(--color-panel);
   overflow-x: auto;
   font-family: var(--font-mono);
-  font-size: var(--step--1);
+  font-size: var(--text-sm);
   line-height: 1.6;
-  color: var(--color-faint);
+  color: var(--color-muted);
 }
 
 pre.mermaid svg {
@@ -1259,8 +1198,8 @@ pre.mermaid svg {
 }
 
 .error-page .error-title {
-  font-family: var(--font-mono);
-  font-size: var(--step-6);
+  font-family: var(--font-sans);
+  font-size: var(--text-xl);
   font-weight: 700;
   letter-spacing: -0.02em;
   margin-block-end: var(--space-m);
@@ -1273,10 +1212,9 @@ pre.mermaid svg {
   background-color: var(--color-heading);
   color: var(--color-bg);
   text-decoration: none;
-  font-family: var(--font-mono);
-  font-size: var(--step--1);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--text-sm);
   margin-block-start: var(--space-m);
 }
 
@@ -1303,10 +1241,6 @@ pre.mermaid svg {
 
   .site-container {
     padding-inline: var(--space-m);
-  }
-
-  .main-content .article-header h1 {
-    font-size: var(--step-5);
   }
 
   .highlight {

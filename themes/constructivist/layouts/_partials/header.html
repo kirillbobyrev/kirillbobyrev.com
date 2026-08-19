@@ -23,10 +23,8 @@
               href="{{ .URL }}"
               class="nav-link"
               {{ if $current }}aria-current="page"{{ end }}
+              >{{ .Name }}</a
             >
-              <span class="nav-dot" aria-hidden="true"></span>
-              <span>{{ .Name }}</span>
-            </a>
           </li>
         {{- end -}}
       </ul>

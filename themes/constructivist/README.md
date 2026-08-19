@@ -1,15 +1,19 @@
 # constructivist
 
-A poster-like, constructivist-inspired Hugo theme for
-[kirillbobyrev.com](https://kirillbobyrev.com): a warm near-black default
-(light mode is the same palette inverted, not a separate design) with one
-brick-red accent that stays constant across both modes, Space Grotesk for
-display type and body prose,
-Space Mono for everything that functions as a label - the site mark, nav,
-dates, tables, code, and the numbered "01 / Section Name" headings that
-run through every page's prose. The header condenses to initials on
-scroll; the theme toggle is a plain half-filled circle rather than a
-sun/moon swap.
+An editorial-modernist Hugo theme for
+[kirillbobyrev.com](https://kirillbobyrev.com), with a quiet constructivist
+accent: a warm near-black default (light mode is the same palette
+inverted, not a separate design) with one brick-red accent used sparingly
+(a heading's trailing dot, the rule beneath it, a link on hover), not
+scattered through the page. One typeface, Space Grotesk, for everything;
+Space Mono appears only inside actual code. Four fixed type sizes, no
+one-off values, restrained hierarchy, no tiny uppercase-tracked metadata:
+generous reading size and quiet typography over decoration (think iA,
+Anthropic's research blog, Increment, Stripe Press, Works in Progress).
+The header condenses to initials on scroll; the theme toggle is a plain
+half-filled circle rather than a sun/moon swap; a small circle/square/
+diamond mark sits on the "About." heading's own line, straight from the
+source design.
 
 This theme lives in the same repo as the site that uses it
 (`themes/constructivist/`), same layered convention as its sibling themes
