@@ -44,20 +44,31 @@
 
    Five sizes, each with exactly one job - a strict, small scale on
    purpose (Ulm/Bauhaus rigor: few fixed steps, no one-off values) rather
-   than a size for every element that touches it:
-     --text-sm    0.875rem  everything secondary: dates, captions,
-                            footnotes, table text, the About-page eyebrow
-     --text-base  1rem      body copy - paragraphs, list items, the lede
-     --text-md    1.2rem    site chrome that has to hold its own against
-                            body text on the same line: the site title/
-                            wordmark and the main nav (see kirillbobyrev.com's
-                            own header, the reference for this one)
-     --text-lg    1.75rem   h2, blog-index titles, pull-quotes
-     --text-xl    3rem      h1 - About, Now, and post titles alike; one
-                            size for every top-level heading, not two
-                            barely-different ones
+   than a size for every element that touches it. Anchored to a real
+   modular scale rather than hand-picked per size (Bringhurst's "The
+   Elements of Typographic Style"; the same method type-scale.com and
+   Material Design's type scale are built from): a fixed ratio applied
+   repeatedly to a base size. Ratio 1.25 ("major third," one of the
+   handful of named musical ratios typography borrows this technique
+   from - a quieter step than 1.333/"perfect fourth," enough to tell
+   sizes apart without a size shouting over its neighbor), base 1.125rem:
+     --text-sm    0.9rem    1.125 / 1.25   - everything secondary: dates,
+                            captions, footnotes, table text, the eyebrow
+     --text-base  1.125rem  1.125 * 1.25^0 - body copy: paragraphs, list
+                            items, the lede
+     --text-md    1.4rem    1.125 * 1.25^1 - site chrome sharing a line
+                            with body text: the site title/wordmark and
+                            the main nav (see kirillbobyrev.com's own
+                            header, the reference for this one)
+     --text-lg    1.75rem   1.125 * 1.25^2 - h2, blog-index titles,
+                            pull-quotes
+     --text-xl    3rem      (a deliberate exception, not 1.125 * 1.25^4's
+                            2.75rem - h1 wanted more presence than the
+                            strict ratio gave it once every top-level
+                            heading was unified onto this one size)
    (h3 reuses --text-base at a bolder weight rather than claiming a sixth
-   size - see .prose h3.)
+   size - see .prose h3. Values rounded to a clean rem for readability in
+   the source; the ratio is the point, not four-decimal precision.)
 
    Themes: every color is declared exactly once via light-dark(). The
    default color-scheme follows the OS; the header toggle forces one by
@@ -79,9 +90,9 @@
     "Space Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas,
     "Courier New", monospace;
 
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-md: 1.2rem;
+  --text-sm: 0.9rem;
+  --text-base: 1.125rem;
+  --text-md: 1.4rem;
   --text-lg: 1.75rem;
   --text-xl: 3rem;
 
@@ -135,15 +146,14 @@
      contrast against --color-bg: 5.3:1; dark-mode: 5.9:1). */
   --color-accent: #d8402a;
 
-  /* rem, not px: still scales with a reader's browser-level text-size
-     preference the same way the font-size clamp below does. Deliberately
-     static (unlike typewriter's --measure, which widens past 1600px/2200px
-     viewports) - this design's narrow column against generous empty
-     margins is the point on a wide display, not something to fill.
-     Narrower than a typical text column on purpose: a comfortable line
-     length (roughly 70-75 characters) at --text-base's size, not the
-     ~90+ a full-width column would run to. */
-  --measure: 40rem; /* 640px @ 16px root */
+  /* Matches typewriter's own --measure formula exactly (the explicit
+     reference site for this value): flat at 45.5rem through 1600px of
+     viewport, growing in a straight line to 58rem by 2200px, then flat
+     again - a column stuck at ~728px forever would waste most of a
+     wide/ultrawide display instead of using the room it has. Same
+     linear-interpolation technique as the root font-size clamp above,
+     just solved for a wider pair of bounds. */
+  --measure: clamp(45.5rem, 28.7317rem + 15.2439vw, 58rem);
   --measure-wide: 68.75rem; /* 1100px @ 16px root: the header row */
 }
 
@@ -839,15 +849,6 @@ video {
   color: var(--color-accent);
 }
 
-/* === Post body easter egg (single posts only, via .post-body) === */
-.post-body::after {
-  content: "\220e"; /* ∎ */
-  display: block;
-  text-align: center;
-  color: var(--color-muted);
-  margin-block-start: var(--space-xl);
-}
-
 /* === Tables === */
 .table-wrapper {
   margin-block: var(--space-l);
@@ -1197,6 +1198,19 @@ pre.mermaid {
 pre.mermaid svg {
   max-width: 100%;
   height: auto;
+}
+
+/* Mermaid's own edge-label sizing (the foreignObject/div box behind a
+   flowchart edge label like "yes"/"no") is computed from an internal
+   text-measurement pass that doesn't always match how the label's real
+   HTML actually lays out with this font - narrow labels then clip a
+   character or two against a box just slightly too small for them.
+   Letting the label overflow its (invisibly undersized) box rather than
+   clip it is a strictly safer default: the label reads in full, sitting
+   on the plain diagram background past a background rect too narrow to
+   fully hide it - not perfectly tidy, never broken. */
+pre.mermaid svg foreignObject {
+  overflow: visible;
 }
 
 /* === 404 === */

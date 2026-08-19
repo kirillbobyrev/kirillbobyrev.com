@@ -16,6 +16,12 @@
   // (short edge labels like "yes"/"no" render wider than their computed
   // background box and clip). No explicit fontSize either, same reason.
   let pass = 0;
+  // Second half of that same fix: Mermaid measures label text to size
+  // those boxes before Space Grotesk (self-hosted, @font-face'd in
+  // main.css) has necessarily finished loading - a first paint before it
+  // does measures against the fallback font's (different) metrics, then
+  // swaps to the real one, which can then overflow the box the fallback
+  // sized. Waiting for the font load closes that race.
   const render = async () => {
     const n = ++pass;
     mermaid.initialize({
@@ -56,6 +62,7 @@
     }
   };
 
+  await document.fonts.ready;
   render();
   mq.addEventListener("change", render);
   new MutationObserver(render).observe(document.documentElement, {

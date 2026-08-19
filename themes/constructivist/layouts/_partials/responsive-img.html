@@ -22,9 +22,10 @@
 <img
   src="{{ $fallback.RelPermalink }}"
   srcset="{{ delimit $srcset ", " }}"
-  {{- /* Mirrors --measure in main.css: unlike typewriter's, this theme's */ -}}
-  {{- /* column doesn't grow on ultrawide viewports, so one fixed width covers it. */ -}}
-  sizes="(max-width: 40rem) 100vw, 40rem"
+  {{- /* Mirrors the --measure breakpoints in main.css (now identical to */ -}}
+  {{- /* typewriter's own formula): the column widens to 50rem at 1600px */ -}}
+  {{- /* and 54rem at 2200px viewports. */ -}}
+  sizes="(min-width: 2200px) 54rem, (min-width: 1600px) 50rem, (max-width: 45.5rem) 100vw, 45.5rem"
   width="{{ $fallback.Width }}"
   height="{{ $fallback.Height }}"
   alt="{{ .alt }}"
