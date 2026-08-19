@@ -3,25 +3,7 @@
     <a href="/" class="site-title">{{ site.Title }}</a>
     <nav class="site-nav" aria-label="Main">
       <ul class="nav-list">
-        <li>
-          <a
-            href="/"
-            class="nav-link"
-            {{ if .IsHome }}aria-current="page"{{ end }}
-            >Home</a
-          >
-        </li>
-        {{- /* Resolved rather than hardcoded, so the link appears only once the page is real (see footer.html/me-nav.html for the same pattern) - stays invisible while content/now.md is still draft = true. */ -}}
-        {{- with site.GetPage "/now" -}}
-          <li>
-            <a
-              href="{{ .RelPermalink }}"
-              class="nav-link"
-              {{ if $.Eq . }}aria-current="page"{{ end }}
-              >Now</a
-            >
-          </li>
-        {{- end -}}
+        {{- /* No "Home" entry: the site title on the left already links there. Now's own menu entry (content/now.md front matter) drops out on its own while draft = true - no special-casing needed here. */ -}}
         {{- range .Site.Menus.main -}}
           <li>
             <a

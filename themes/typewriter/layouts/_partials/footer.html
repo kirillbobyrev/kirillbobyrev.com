@@ -1,25 +1,19 @@
 <footer class="site-footer">
-  <div class="footer-cols">
-    <div class="footer-col">
+  <div class="footer-row">
+    <span class="footer-elsewhere">
       <span class="footer-label">Elsewhere</span>
       <span class="footer-icons">
         {{- partial "social-icons.html" . -}}
       </span>
-    </div>
-    <div class="footer-col footer-col-colours">
-      <span class="footer-label">Colours</span>
-      {{- partial "badges.html" . -}}
-    </div>
+    </span>
+    <nav class="footer-nav" aria-label="Footer">
+      {{- /* Now lives in the main header nav (see header.html) - no need for it here too. */ -}}
+      <a href="/index.xml">RSS</a>
+      <a
+        href="https://github.com/kirillbobyrev/kirillbobyrev.com"
+        rel="noopener noreferrer"
+        >Source</a
+      >
+    </nav>
   </div>
-  <nav class="footer-nav" aria-label="Footer">
-    {{- /* Now lives in the main header nav (see header.html) - no need for it here too. */ -}}
-    <a href="/taste/">Taste</a>
-    <a href="/places/">Places</a>
-    <a href="/index.xml">RSS</a>
-    <a
-      href="https://github.com/kirillbobyrev/kirillbobyrev.com"
-      rel="noopener noreferrer"
-      >Source</a
-    >
-  </nav>
 </footer>

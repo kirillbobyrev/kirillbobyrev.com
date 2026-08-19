@@ -11,16 +11,10 @@
       } catch (e) {}
     })();
   </script>
+  {{- /* One preload covers headings, body, and nav: Space Grotesk ships as one variable-weight file (see the @font-face comment in main.css). */ -}}
   <link
     rel="preload"
-    href="/fonts/Inter-Regular.woff2"
-    as="font"
-    type="font/woff2"
-    crossorigin
-  />
-  <link
-    rel="preload"
-    href="/fonts/Newsreader-SemiBold.woff2"
+    href="/fonts/SpaceGrotesk-Variable.woff2"
     as="font"
     type="font/woff2"
     crossorigin
@@ -55,15 +49,16 @@
     href="{{ "index.xml" | absURL }}"
     title="{{ .Site.Title }}"
   />
+  {{- /* Kept in sync with --color-bg in main.css by hand - browser chrome can't read a CSS custom property. */ -}}
   <meta
     name="theme-color"
     media="(prefers-color-scheme: light)"
-    content="#faf7f0"
+    content="#f8f5ef"
   />
   <meta
     name="theme-color"
     media="(prefers-color-scheme: dark)"
-    content="#1d1b18"
+    content="#151413"
   />
   <link
     rel="icon"
