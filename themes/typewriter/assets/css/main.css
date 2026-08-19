@@ -91,7 +91,11 @@
    moving in different directions - the biggest steps shrink the most,
    the smallest two (meta/code, overline labels) actually get a hair
    *bigger* than the 1.2 scale gave them, since they were the ones under
-   the most pressure to stay legible:
+   the most pressure to stay legible. This is a Bringhurst-style modular
+   scale (The Elements of Typographic Style): one constant ratio applied
+   repeatedly to a base size, same family as the --space-* scale below -
+   named explicitly here so it reads as a system, not six independently
+   chosen numbers:
      --step--2  0.79rem    table headers, overline labels
      --step--1  0.8889rem  meta, dates, labels, code, tables
      --step-0   1rem       body, nav
@@ -136,22 +140,43 @@
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
   --transition: 0.15s var(--ease);
 
-  /* Spacing tokens for the rhythms that repeat across the site: display
-     blocks inside prose (code, tables, figures, quotes), major section
-     boundaries (footer, post nav, homepage sections), and the hover-row
-     padding shared by .blog-timeline-entry and .taste-list li. */
-  --space-block: 1.75rem;
-  --space-section: 2.75rem;
-  --space-row-block: 0.55rem;
-  --space-row-inline: 0.6rem;
+  /* Fluid space scale, T-shirt sized after Utopia's fluid type/space-scale
+     convention (utopia.fyi) - a step's relative size is legible at the call
+     site without cross-referencing a table. --space-m is exactly --step-0,
+     so spacing rides the fluid root the same way type already does. Steps
+     get proportionally larger as they grow (not a single constant ratio):
+     the eye stops distinguishing small absolute differences at large sizes
+     (4px vs 8px is obvious, 64px vs 65px isn't), the tiering rationale
+     behind Tailwind/Refactoring UI's default spacing scale. This replaces
+     four independently eyeballed values (--space-block, --space-section,
+     --space-row-block, --space-row-inline) and every other hardcoded
+     margin/padding/gap in this file - previously 30 distinct, undocumented
+     magnitudes for what should be one rhythm. Two steps land exactly on
+     values already in use (2xl = the old --space-section, 3xl = the 404
+     numeral's size), which is a sanity check that this names a rhythm
+     already partly present rather than inventing an arbitrary one. */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.375rem;
+  --space-xs: 0.5rem;
+  --space-s: 0.75rem;
+  --space-m: 1rem; /* = --step-0, "one line" */
+  --space-l: 1.5rem;
+  --space-xl: 2.25rem;
+  --space-2xl: 2.75rem;
+  --space-3xl: 4rem;
 
   /* Warm "paper" palette instead of quietprint's neutral gray-on-white -
      the reference site's signature. Muted rather than bright/vivid: low
      saturation in both modes (the light value used to run S=0.50 - closer
      to a warm cream than paper), and dark mode's is deliberately not
      near-black (L=0.17, not the previous 0.10) - a bleak overcast charcoal
-     instead of ink. */
-  --color-bg: light-dark(#f2f1ed, #2e2c29);
+     instead of ink. The light value's hue was later corrected from 48°
+     (yellow-green) to 40° (orange-tan) with a matching saturation bump -
+     every other warm token below (border, underline, bg-code, land) already
+     sat at 40-43°, so the background alone drifting toward yellow-green was
+     reading as cold/gray next to them rather than as the warmest surface on
+     the page. */
+  --color-bg: light-dark(#f2efe9, #2e2c29);
   --color-text: light-dark(#3a3226, #d6d0c4);
   --color-heading: light-dark(#211c14, #f1ece3);
   /* Retuned alongside --color-bg above: a muted, less saturated background
@@ -293,7 +318,7 @@ video {
   left: -9999px;
   top: 0;
   z-index: 100;
-  padding: 0.5rem 1rem;
+  padding: var(--space-xs) var(--space-m);
   background-color: var(--color-heading);
   color: var(--color-bg);
   text-decoration: none;
@@ -308,17 +333,19 @@ video {
 .site-container {
   max-width: var(--measure);
   margin-inline: auto;
-  padding-inline: 1.5rem;
-  padding-block-end: 2rem;
+  padding-inline: var(--space-l);
+  padding-block-end: var(--space-xl);
 }
 
 .site-header {
   max-width: var(--measure);
   margin-inline: auto;
-  padding: 1.5rem;
-  padding-block-end: 1.25rem;
+  padding: var(--space-l);
+  /* Slightly tighter than the other three sides, on purpose: a hair less
+     room is wanted right before the border-bottom below. */
+  padding-block-end: var(--space-m);
   border-bottom: 1px solid var(--color-border);
-  margin-block-end: 2rem;
+  margin-block-end: var(--space-xl);
 }
 
 /* A plain static row: title on one side, nav + toggle on the other, all on
@@ -330,7 +357,7 @@ video {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 0.5rem 1rem;
+  gap: var(--space-xs) var(--space-m);
 }
 
 .site-title {
@@ -362,13 +389,13 @@ video {
   display: flex;
   align-items: center;
   min-width: 0;
-  gap: 0.15rem;
+  gap: 0.15rem; /* sub-scale hairline: tighter than --space-3xs allows */
   list-style: none;
   margin: 0;
   /* Cancels the links' own inline padding so their labels, not their tap
      areas, line up with the toggle beside them. */
   padding: 0;
-  margin-inline-start: -0.55rem;
+  margin-inline-start: calc(var(--space-xs) * -1);
   white-space: nowrap;
 }
 
@@ -376,7 +403,7 @@ video {
   display: block;
   color: var(--color-muted);
   text-decoration: none;
-  padding: 0.3rem 0.55rem;
+  padding: 0.3rem var(--space-xs); /* 0.3rem: sub-scale hairline */
   border-radius: var(--radius-sm);
   font-size: var(--step-0);
   font-weight: 500;
@@ -410,8 +437,8 @@ video {
   align-items: center;
   justify-content: center;
   border: 0;
-  margin-inline-start: 0.35rem;
-  padding: 0.4rem;
+  margin-inline-start: var(--space-2xs);
+  padding: var(--space-2xs);
   border-radius: var(--radius-sm);
   background: none;
   color: var(--color-muted);
@@ -459,8 +486,8 @@ video {
 /* === Footer === */
 .site-footer {
   max-width: var(--measure);
-  margin: var(--space-section) auto 0;
-  padding: 1.5rem 1.5rem 2rem;
+  margin: var(--space-2xl) auto 0;
+  padding: var(--space-l) var(--space-l) var(--space-xl);
   font-size: var(--step--1);
   line-height: 1.5;
   color: var(--color-muted);
@@ -471,7 +498,7 @@ video {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 2rem;
+  gap: var(--space-xl);
   flex-wrap: wrap;
 }
 
@@ -479,12 +506,12 @@ video {
   display: block;
   font-weight: 500;
   color: var(--color-muted);
-  margin-block-end: 0.7rem;
+  margin-block-end: var(--space-s);
 }
 
 .footer-icons {
   display: flex;
-  gap: 1rem;
+  gap: var(--space-m);
   align-items: center;
 }
 
@@ -500,7 +527,7 @@ video {
 
 .badges {
   display: flex;
-  gap: 0.8rem;
+  gap: var(--space-s);
   align-items: center;
 }
 
@@ -533,10 +560,10 @@ video {
 
 .footer-nav {
   display: flex;
-  gap: 1rem;
+  gap: var(--space-m);
   justify-content: flex-end;
-  margin-block-start: 1.5rem;
-  padding-block-start: 1rem;
+  margin-block-start: var(--space-l);
+  padding-block-start: var(--space-m);
   border-top: 1px solid var(--color-border);
 }
 
@@ -552,18 +579,26 @@ video {
 
 /* === Article meta === */
 .article-header {
-  margin-block-end: 1.5rem;
+  margin-block-end: var(--space-l);
 }
 
-.article-header h1 {
-  margin-block-end: 0.4rem;
+/* .main-content .article-header h1, not .article-header h1: bare
+   .article-header h1 has the exact same specificity as .main-content h1
+   below, and source order (that rule comes later in the file) was
+   silently letting it win - so the post title has been getting the
+   standard --space-s bottom margin, not the tighter gap this rule was
+   actually meant to set. The extra .main-content ancestor is real (see
+   page.html: .article-header always sits inside .main-content), so this
+   raises specificity without becoming a coincidence. */
+.main-content .article-header h1 {
+  margin-block-end: var(--space-2xs);
 }
 
 .article-meta {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: var(--space-xs);
   color: var(--color-muted);
   font-size: var(--step--1);
   font-variant-numeric: tabular-nums;
@@ -572,13 +607,13 @@ video {
 .article-reading-time::before,
 .article-updated::before {
   content: "\00b7";
-  margin-inline-end: 0.5rem;
+  margin-inline-end: var(--space-xs);
 }
 
 /* === Table of contents (long posts) === */
 .toc {
-  margin-block: 1.5rem 2rem;
-  padding-block-end: 1.1rem;
+  margin-block: var(--space-l) var(--space-xl);
+  padding-block-end: var(--space-m);
   border-bottom: 1px solid var(--color-border);
   font-size: var(--step--1);
 }
@@ -601,7 +636,7 @@ video {
 .toc summary::before {
   content: "▸";
   display: inline-block;
-  margin-inline-end: 0.5rem;
+  margin-inline-end: var(--space-xs);
   color: var(--color-muted);
   transition: transform var(--transition);
 }
@@ -612,8 +647,8 @@ video {
 
 .toc nav ul {
   list-style: none;
-  margin: 0.6rem 0 0;
-  padding-inline-start: 0.75rem;
+  margin: var(--space-xs) 0 0;
+  padding-inline-start: var(--space-s);
 }
 
 .toc nav > ul {
@@ -621,7 +656,7 @@ video {
 }
 
 .toc nav li {
-  margin-block: 0.2rem;
+  margin-block: 0.2rem; /* sub-scale hairline: tighter than --space-3xs allows */
   line-height: 1.5;
 }
 
@@ -640,7 +675,7 @@ video {
   color: var(--color-muted);
   text-decoration: none;
   font-size: var(--step--1);
-  margin-block-end: 1.25rem;
+  margin-block-end: var(--space-m);
   transition: color var(--transition);
 }
 
@@ -650,7 +685,7 @@ video {
 
 /* === Prose typography === */
 .main-content {
-  margin-block-start: 0.5rem;
+  margin-block-start: var(--space-xs);
 }
 
 .prose a,
@@ -704,7 +739,7 @@ a.taste-name[href^="http"]:focus-visible::after {
      how much size there is to tighten, and kept light for the same reason
      .site-title's is: this is a modest-sized scale now, not display type. */
   letter-spacing: -0.012em;
-  margin: 2.25rem 0 0.75rem;
+  margin: var(--space-xl) 0 var(--space-s);
   color: var(--color-heading);
   text-wrap: balance;
 }
@@ -715,7 +750,7 @@ a.taste-name[href^="http"]:focus-visible::after {
   font-weight: 600;
   line-height: 1.25;
   letter-spacing: -0.008em;
-  margin: 2.25rem 0 0.75rem;
+  margin: var(--space-xl) 0 var(--space-s);
   color: var(--color-heading);
   text-wrap: balance;
 }
@@ -725,7 +760,7 @@ a.taste-name[href^="http"]:focus-visible::after {
   font-size: var(--step-1);
   font-weight: 600;
   line-height: 1.3;
-  margin: 1.75rem 0 0.6rem;
+  margin: var(--space-l) 0 var(--space-xs);
   color: var(--color-heading);
   text-wrap: balance;
 }
@@ -742,12 +777,12 @@ a.taste-name[href^="http"]:focus-visible::after {
 
 .prose ul {
   margin-block: 0.9em;
-  padding-inline-start: 1.25rem;
+  padding-inline-start: var(--space-l);
 }
 
 .prose ol {
   margin-block: 0.9em;
-  padding-inline-start: 1.25rem;
+  padding-inline-start: var(--space-l);
 }
 
 .prose li {
@@ -773,8 +808,8 @@ a.taste-name[href^="http"]:focus-visible::after {
 .prose blockquote {
   font-style: italic;
   color: var(--color-muted);
-  margin-block: var(--space-block);
-  padding-inline: 1.5rem;
+  margin-block: var(--space-l);
+  padding-inline: var(--space-l);
   /* Lets a leading/trailing quotation mark (Goldmark renders smart quotes
      by default) sit just outside the text's optical edge instead of
      indenting the whole first line to make room for it. Safari-only today;
@@ -785,7 +820,7 @@ a.taste-name[href^="http"]:focus-visible::after {
 .prose hr {
   border: 0;
   border-top: 1px solid var(--color-border);
-  margin-block: 2.25rem;
+  margin-block: var(--space-xl);
 }
 
 /* === Footnotes ===
@@ -801,8 +836,8 @@ a.taste-name[href^="http"]:focus-visible::after {
 }
 
 .prose .footnotes {
-  margin-block-start: var(--space-section);
-  padding-block-start: 1rem;
+  margin-block-start: var(--space-2xl);
+  padding-block-start: var(--space-m);
   border-top: 1px solid var(--color-border);
   font-size: var(--step--1);
   color: var(--color-muted);
@@ -816,7 +851,7 @@ a.taste-name[href^="http"]:focus-visible::after {
 
 .footnotes ol {
   margin: 0;
-  padding-inline-start: 1.25rem;
+  padding-inline-start: var(--space-l);
 }
 
 .footnotes li {
@@ -846,23 +881,28 @@ a.taste-name[href^="http"]:focus-visible::after {
   display: block;
   text-align: end;
   color: var(--color-muted);
-  margin-block-start: 2.25rem;
+  margin-block-start: var(--space-xl);
 }
 
 /* === Post navigation (older / newer) === */
 .post-nav {
   display: flex;
   justify-content: space-between;
-  gap: 1.5rem;
-  margin-block-start: var(--space-section);
-  padding-block-start: 1.25rem;
+  gap: var(--space-l);
+  margin-block-start: var(--space-2xl);
+  /* Same role as .home-recent/.now-about/.prose .footnotes below: padding
+     after a section-boundary rule stays tighter (--space-m) than the
+     --space-2xl gap before it - a deliberately asymmetric "hug the rule"
+     shape shared by every section boundary on the site, not a value
+     specific to this one. */
+  padding-block-start: var(--space-m);
   border-top: 1px solid var(--color-border);
 }
 
 .post-nav-link {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.3rem; /* sub-scale hairline: tighter than --space-3xs allows */
   max-width: 48%;
   text-decoration: none;
 }
@@ -889,7 +929,7 @@ a.taste-name[href^="http"]:focus-visible::after {
 
 /* === Tables === */
 .table-wrapper {
-  margin-block: var(--space-block);
+  margin-block: var(--space-l);
   overflow-x: auto;
 }
 
@@ -902,7 +942,10 @@ a.taste-name[href^="http"]:focus-visible::after {
 }
 
 .prose th {
-  padding: 0.4rem 0.75rem;
+  /* Vertical padding matches .prose td below - a header row and a body
+     row in the same table get the same row height, not two values that
+     merely happened to round differently pre-refactor. */
+  padding: var(--space-xs) var(--space-s);
   text-align: left;
   font-size: var(--step--2);
   font-weight: 700;
@@ -913,7 +956,7 @@ a.taste-name[href^="http"]:focus-visible::after {
 }
 
 .prose td {
-  padding: 0.45rem 0.75rem;
+  padding: var(--space-xs) var(--space-s);
   border-block-end: 1px solid var(--color-border);
 }
 
@@ -923,7 +966,7 @@ a.taste-name[href^="http"]:focus-visible::after {
 
 /* === Heading anchors === */
 .main-content :is(h2, h3, h4) {
-  scroll-margin-block-start: 2rem;
+  scroll-margin-block-start: var(--space-xl);
 }
 
 /* Flash the element a fragment link points at (headings, footnotes) so the
@@ -946,7 +989,7 @@ a.taste-name[href^="http"]:focus-visible::after {
 a.heading-anchor {
   font-family: var(--font-sans);
   font-size: 0.8em;
-  margin-inline-start: 0.375rem;
+  margin-inline-start: var(--space-2xs);
   color: var(--color-muted);
   text-decoration: none;
   opacity: 0;
@@ -980,22 +1023,24 @@ a.heading-anchor:hover {
 }
 
 .home-hero {
-  margin-block: 1.5rem 1rem;
+  margin-block: var(--space-l) var(--space-m);
 }
 
 /* Lede paragraph under a page title (homepage tagline, taste, places).
    Body size, not a step up - muted color alone marks it as a subtitle, so
    the page doesn't add a size that's used nowhere else. */
 .lede {
-  margin: 0 0 0.75rem;
+  margin: 0 0 var(--space-s);
   font-size: var(--step-0);
   line-height: 1.6;
   color: var(--color-muted);
 }
 
 .home-recent {
-  margin-block-start: var(--space-section);
-  padding-block-start: 1.5rem;
+  margin-block-start: var(--space-2xl);
+  /* Matches .post-nav/.now-about/.prose .footnotes: --space-m after every
+     section-boundary rule, site-wide. */
+  padding-block-start: var(--space-m);
   border-top: 1px solid var(--color-border);
 }
 
@@ -1004,13 +1049,13 @@ a.heading-anchor:hover {
 }
 
 .home-recent .blog-timeline {
-  margin-block: 0.75rem 0.5rem;
+  margin-block: var(--space-s) var(--space-xs);
 }
 
 /* Quiet trailing link after a section ("All posts", "more"). */
 .more-link {
   display: inline-block;
-  margin-block-start: 0.5rem;
+  margin-block-start: var(--space-xs);
   color: var(--color-muted);
   text-decoration: none;
   font-size: var(--step--1);
@@ -1023,22 +1068,26 @@ a.heading-anchor:hover {
 }
 
 /* === Taste page === */
+/* Bottom margin matches .main-content .timeline-year-label below:
+   both are a small label sitting directly above the group of items it
+   names, so both get the same tight gap - not two different values that
+   happened to survive from before the two roles were ever compared. */
 .taste-overline {
-  margin: 1.5rem 0 0.9rem;
+  margin: var(--space-l) 0 var(--space-xs);
 }
 
 .crest-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(7.2rem, 1fr));
-  gap: 1.6rem 0.8rem;
-  margin-block: 1rem;
+  gap: var(--space-l) var(--space-s);
+  margin-block: var(--space-m);
 }
 
 .crest-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.65rem;
+  gap: var(--space-s);
   text-align: center;
 }
 
@@ -1088,14 +1137,16 @@ a.heading-anchor:hover {
 
 .taste-list {
   list-style: none;
-  margin-block: 0.75rem;
+  margin-block: var(--space-s);
   padding: 0;
 }
 
 .taste-list li {
-  /* Same hover-row geometry as .blog-timeline-entry. */
-  padding: var(--space-row-block) var(--space-row-inline);
-  margin-inline: calc(var(--space-row-inline) * -1);
+  /* Same hover-row geometry as .blog-timeline-entry - equal padding on
+     every side now that the old asymmetric 0.55rem/0.6rem block/inline
+     split both round to the same --space-xs step. */
+  padding: var(--space-xs);
+  margin-inline: calc(var(--space-xs) * -1);
   border-radius: var(--radius);
   transition: background-color var(--transition);
 }
@@ -1126,7 +1177,7 @@ a.taste-name {
 
 /* === Places page === */
 .me-nav {
-  margin: 0 0 1rem;
+  margin: 0 0 var(--space-m);
   font-size: var(--step--1);
   font-weight: 500;
   color: var(--color-heading);
@@ -1144,19 +1195,22 @@ a.taste-name {
 
 .me-nav-sep {
   color: var(--color-muted);
-  margin-inline: 0.15rem;
+  margin-inline: 0.15rem; /* sub-scale hairline: tighter than --space-3xs allows */
 }
 
+/* Matches .places-stats below: both are a single stat/meta line right
+   after .me-nav, before the page's main content starts - same role on
+   sibling pages, same gap beneath it. */
 .now-updated {
-  margin: 0 0 var(--space-block);
+  margin: 0 0 var(--space-m);
   color: var(--color-muted);
   font-size: var(--step--1);
   font-variant-numeric: tabular-nums;
 }
 
 .now-about {
-  margin-block-start: var(--space-section);
-  padding-block-start: 1rem;
+  margin-block-start: var(--space-2xl);
+  padding-block-start: var(--space-m);
   border-top: 1px solid var(--color-border);
   color: var(--color-muted);
   font-size: var(--step--1);
@@ -1177,7 +1231,7 @@ a.taste-name {
 }
 
 .places-stats {
-  margin: 0 0 1.25rem;
+  margin: 0 0 var(--space-m);
   color: var(--color-muted);
   font-size: var(--step--1);
   font-variant-numeric: tabular-nums;
@@ -1190,7 +1244,7 @@ a.taste-name {
 
 .map-wrap {
   position: relative;
-  margin-block: 1rem 2rem;
+  margin-block: var(--space-m) var(--space-xl);
 }
 
 /* Let the map break out of the text column on wide screens. */
@@ -1289,7 +1343,7 @@ a.taste-name {
   background: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
-  padding: 0.45rem 0.7rem;
+  padding: var(--space-xs) var(--space-s);
   pointer-events: none;
   box-shadow: 0 2px 8px color-mix(in srgb, #000 12%, transparent);
   white-space: nowrap;
@@ -1308,7 +1362,7 @@ a.taste-name {
 }
 
 .places-line {
-  margin-block: 0 0.5rem;
+  margin-block: 0 var(--space-xs);
   color: var(--color-muted);
   font-size: var(--step--1);
   line-height: 1.9;
@@ -1316,7 +1370,7 @@ a.taste-name {
 }
 
 .places-line:last-of-type {
-  margin-block-end: 2rem;
+  margin-block-end: var(--space-xl);
 }
 
 .line-item {
@@ -1343,13 +1397,13 @@ a.taste-name {
 .line-label {
   font-weight: 500;
   color: var(--color-heading);
-  margin-inline-end: 0.35rem;
+  margin-inline-end: var(--space-2xs);
 }
 
 /* === Blog timeline === */
 .blog-timeline {
   list-style: none;
-  margin-block: 0.75rem;
+  margin-block: var(--space-s);
   padding: 0;
 }
 
@@ -1366,7 +1420,7 @@ a.taste-name {
 }
 
 .main-content .timeline-year-label {
-  margin: 1.75rem 0 0.25rem;
+  margin: var(--space-l) 0 var(--space-xs);
 }
 
 .timeline-year .blog-timeline {
@@ -1384,9 +1438,9 @@ a.taste-name {
 .blog-timeline-entry {
   display: flex;
   align-items: baseline;
-  gap: 1.25rem;
-  padding: var(--space-row-block) var(--space-row-inline);
-  margin-inline: calc(var(--space-row-inline) * -1);
+  gap: var(--space-l);
+  padding: var(--space-xs);
+  margin-inline: calc(var(--space-xs) * -1);
   text-decoration: none;
   color: inherit;
   border-radius: var(--radius);
@@ -1432,7 +1486,7 @@ a.taste-name {
    under a page of prose rather than somewhere you pick what to read. */
 .blog-timeline-summary {
   display: block;
-  margin-block-start: 0.1rem;
+  margin-block-start: 0.1rem; /* sub-scale hairline: tighter than --space-3xs allows */
   color: var(--color-muted);
   font-size: var(--step--1);
   line-height: 1.5;
@@ -1444,11 +1498,12 @@ a.taste-name {
    the `compact` front matter param) for minor, low-effort posts. */
 .blog-timeline-entry-lg {
   align-items: flex-start;
-  padding-block: 0.85rem;
+  padding-block: var(--space-s);
 }
 
 .blog-timeline-entry-lg .blog-timeline-date {
-  /* Sits at the title's cap height, not the full first line box. */
+  /* Sits at the title's cap height, not the full first line box.
+     Sub-scale hairline: tighter than --space-3xs allows. */
   padding-block-start: 0.2rem;
 }
 
@@ -1461,7 +1516,7 @@ a.taste-name {
 }
 
 .blog-timeline-entry-lg .blog-timeline-summary {
-  margin-block-start: 0.3rem;
+  margin-block-start: var(--space-3xs);
 }
 
 .blog-timeline-summary-inline {
@@ -1513,14 +1568,14 @@ a.taste-name {
    already see the top of. */
 .to-top {
   position: fixed;
-  inset-block-end: 1.5rem;
-  inset-inline-end: 1.5rem;
+  inset-block-end: var(--space-l);
+  inset-inline-end: var(--space-l);
   z-index: 60;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: var(--space-xl);
+  height: var(--space-xl);
   flex-shrink: 0;
   /* The stronger hairline, not --color-border: this floats over the page
      rather than dividing it, and at --color-border it reads as a smudge
@@ -1533,7 +1588,9 @@ a.taste-name {
   text-decoration: none;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(0.35rem);
+  transform: translateY(
+    0.35rem
+  ); /* motion offset, not a layout gap - kept off the spacing scale */
   transition:
     opacity var(--transition),
     visibility var(--transition),
@@ -1562,7 +1619,7 @@ a.taste-name {
 
 /* === Figures === */
 .figure-block {
-  margin-block: var(--space-block);
+  margin-block: var(--space-l);
   text-align: center;
 }
 
@@ -1573,7 +1630,7 @@ a.taste-name {
 }
 
 .figure-caption {
-  margin-block-start: 0.6rem;
+  margin-block-start: var(--space-xs);
   font-size: var(--step--1);
   color: var(--color-muted);
   font-style: italic;
@@ -1619,13 +1676,13 @@ a.taste-name {
   position: relative;
   border-radius: var(--radius);
   border: 1px solid var(--color-border);
-  margin-block: var(--space-block);
+  margin-block: var(--space-l);
   background-color: var(--color-bg-code);
 }
 
 .highlight pre {
   margin: 0;
-  padding: 0.9rem 1.1rem;
+  padding: var(--space-m);
   font-family: var(--font-mono);
   font-size: var(--step--1);
   line-height: 1.55;
@@ -1636,14 +1693,14 @@ a.taste-name {
 .code-lang,
 .code-copy {
   position: absolute;
-  top: 0.45rem;
-  right: 0.55rem;
+  top: var(--space-xs);
+  right: var(--space-xs);
   font-family: var(--font-mono);
   font-size: var(--step--2);
   line-height: 1;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  padding: 0.3rem 0.45rem;
+  padding: 0.3rem var(--space-xs); /* 0.3rem: sub-scale hairline */
   border-radius: var(--radius-sm);
   background-color: var(--color-bg-code);
   color: var(--color-muted);
@@ -1685,7 +1742,7 @@ code:not(pre code) {
 .katex-display {
   overflow-x: auto;
   overflow-y: hidden;
-  padding-block: 0.25rem;
+  padding-block: var(--space-3xs);
 }
 
 /* Mermaid diagrams. Until (or unless) the script draws the SVG, the
@@ -1693,7 +1750,7 @@ code:not(pre code) {
 pre.mermaid {
   display: flex;
   justify-content: center;
-  margin-block: var(--space-block);
+  margin-block: var(--space-l);
   overflow-x: auto;
   font-family: var(--font-mono);
   font-size: var(--step--1);
@@ -1709,7 +1766,7 @@ pre.mermaid svg {
 /* === 404 === */
 .error-page {
   text-align: center;
-  padding-block: 4rem;
+  padding-block: var(--space-3xl);
 }
 
 /* .error-page .error-title, not .error-title alone: the bare class loses
@@ -1718,22 +1775,28 @@ pre.mermaid svg {
    heading's size instead of the display numeral this is meant to be. */
 .error-page .error-title {
   font-family: var(--font-serif);
+  /* Display-only exception: a big numeral deliberately breaks from the
+     --step-* text scale (Bringhurst's own scale governs text sizes; large
+     display treatments are conventionally chosen separately) rather than
+     extending the modular scale seven more steps to reach it. It does
+     happen to land exactly on --space-3xl, which is a nice coincidence,
+     not a reason to reuse a spacing token as a font-size. */
   font-size: 4rem;
   font-weight: 600;
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
-  margin-block-end: 1rem;
+  margin-block-end: var(--space-m);
 }
 
 .error-button {
   display: inline-block;
-  padding: 0.75rem 1.5rem;
+  padding: var(--space-s) var(--space-l);
   background-color: var(--color-heading);
   color: var(--color-bg);
   text-decoration: none;
   border-radius: var(--radius);
   font-weight: 500;
-  margin-block-start: 1rem;
+  margin-block-start: var(--space-m);
 }
 
 .error-button:hover {
@@ -1743,13 +1806,13 @@ pre.mermaid svg {
 /* === Responsive === */
 @media (max-width: 640px) {
   .site-header {
-    padding-inline: 1rem;
-    padding-block-end: 0.6rem;
-    margin-block-end: 1.5rem;
+    padding-inline: var(--space-m);
+    padding-block-end: var(--space-xs);
+    margin-block-end: var(--space-l);
   }
 
   .theme-toggle {
-    padding: 0.45rem;
+    padding: var(--space-xs);
   }
 
   /* Nav scrolls sideways rather than wrapping or shrinking, so links stay
@@ -1758,7 +1821,8 @@ pre.mermaid svg {
   .nav-list {
     overflow-x: auto;
     scrollbar-width: none;
-    /* Room for the underline so it never clips against the border. */
+    /* Room for the underline so it never clips against the border.
+       Sub-scale hairline: tighter than --space-3xs allows. */
     padding-block-end: 0.15rem;
   }
 
@@ -1767,24 +1831,24 @@ pre.mermaid svg {
   }
 
   .nav-link {
-    padding: 0.45rem 0.55rem;
+    padding: var(--space-xs);
   }
 
   .site-container {
-    padding-inline: 1rem;
+    padding-inline: var(--space-m);
   }
 
   .site-footer {
-    padding-inline: 1rem;
+    padding-inline: var(--space-m);
   }
 
   .footer-cols {
     flex-direction: column;
-    gap: 1.5rem;
+    gap: var(--space-l);
   }
 
   .highlight {
-    margin-inline: -1rem;
+    margin-inline: calc(var(--space-m) * -1);
     border-radius: 0;
     border-inline: none;
   }
@@ -1796,13 +1860,13 @@ pre.mermaid svg {
        hug the left edge like any other entry. Matches .has-thumb's own
        specificity so it actually wins here. */
     align-items: stretch;
-    gap: 0.125rem;
+    gap: 0.125rem; /* sub-scale hairline: tighter than --space-3xs allows */
   }
 
   .blog-timeline-thumb {
     width: 100%;
     aspect-ratio: 16 / 9;
-    margin-block-start: 0.4rem;
+    margin-block-start: var(--space-2xs);
   }
 
   .blog-timeline-date,
