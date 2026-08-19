@@ -12,10 +12,7 @@
     </div>
   </div>
   <nav class="footer-nav" aria-label="Footer">
-    {{- /* Resolved rather than hardcoded, so the link appears only once the page is real (see me-nav.html). */ -}}
-    {{- with site.GetPage "/now" -}}
-      <a href="{{ .RelPermalink }}">Now</a>
-    {{- end -}}
+    {{- /* Now lives in the main header nav (see header.html) - no need for it here too. */ -}}
     <a href="/taste/">Taste</a>
     <a href="/places/">Places</a>
     <a href="/index.xml">RSS</a>

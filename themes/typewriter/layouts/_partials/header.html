@@ -11,6 +11,17 @@
             >Home</a
           >
         </li>
+        {{- /* Resolved rather than hardcoded, so the link appears only once the page is real (see footer.html/me-nav.html for the same pattern) - stays invisible while content/now.md is still draft = true. */ -}}
+        {{- with site.GetPage "/now" -}}
+          <li>
+            <a
+              href="{{ .RelPermalink }}"
+              class="nav-link"
+              {{ if $.Eq . }}aria-current="page"{{ end }}
+              >Now</a
+            >
+          </li>
+        {{- end -}}
         {{- range .Site.Menus.main -}}
           <li>
             <a
