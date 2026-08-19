@@ -47,8 +47,8 @@
    font-size clamp set below):
      --step--2  0.6875rem  eyebrows, section numerals, overline labels
      --step--1  0.8125rem  nav, meta, dates, tables, code
-     --step-0   1rem       body baseline, numbered h2 labels
-     --step-1   1.1875rem  lede, prose paragraphs
+     --step-0   1rem       numbered h2 labels
+     --step-1   1.09rem    lede, prose paragraphs (the body-text baseline)
      --step-2   1.375rem   h3, blog list titles
      --step-4   2rem       (unused directly; kept for spacing symmetry)
      --step-5   2.5rem     h1 (About, Now)
@@ -77,7 +77,7 @@
   --step--2: 0.6875rem;
   --step--1: 0.8125rem;
   --step-0: 1rem;
-  --step-1: 1.1875rem;
+  --step-1: 1.09rem;
   --step-2: 1.375rem;
   --step-4: 2rem;
   --step-5: 2.5rem;
@@ -130,7 +130,6 @@
     rgba(20, 18, 13, 0.08),
     rgba(235, 231, 221, 0.07)
   );
-  --color-bg-code: var(--color-panel);
   --color-header-bg: light-dark(
     rgba(242, 239, 232, 0.86),
     rgba(20, 19, 16, 0.86)
@@ -467,8 +466,9 @@ video {
 /* No sitewide footer chrome in this theme - see .link-row below, the */
 /* one place social links appear, on the About page only. */
 
-/* === Page chrome: eyebrow / heading / accent marks (About, Now) === */
+/* === Page chrome: eyebrow / heading (About, Now) === */
 .page-header {
+  position: relative;
   margin-block: var(--space-xl) var(--space-m);
 }
 
@@ -480,22 +480,37 @@ video {
   color: var(--color-accent);
 }
 
-.page-heading-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-l);
-  flex-wrap: wrap;
+/* Lives in the margin outside the text column (see the min-width gate
+   below), not inline with it - a signature graphic, not page content, so
+   it's absolutely positioned off .page-header rather than taking up flow
+   space that would otherwise push the prose around on resize. */
+.hero-mark {
+  display: none;
+  position: absolute;
+  top: -0.5rem;
+  left: calc(100% + var(--space-2xl));
+  width: 13.75rem;
+  height: auto;
 }
 
+@media (min-width: 87.5rem) {
+  .hero-mark {
+    display: block;
+  }
+}
+
+/* Medium weight and tight tracking, not the thin/decorated treatment this
+   had before: a plain, confident display heading (the accent-dot and the
+   rule beneath it are the only ornament) reads cleaner at this size than
+   a lighter weight leaning on extra decoration to not look flat. */
 .page-heading,
 .main-content h1 {
   margin: var(--space-m) 0 0;
   font-family: var(--font-sans);
-  font-weight: 400;
+  font-weight: 500;
   font-size: var(--step-5);
   line-height: 1.08;
-  letter-spacing: -0.014em;
+  letter-spacing: -0.02em;
   color: var(--color-heading);
   text-wrap: balance;
 }
@@ -521,42 +536,6 @@ video {
   height: 3px;
   background-color: var(--color-accent);
   margin: var(--space-l) 0 var(--space-l);
-}
-
-/* A quiet constructivist flourish next to the About heading: circle,
-   square, diamond, then a thin rule trailing off - the same geometric
-   vocabulary as .site-mark and .nav-dot, just given room to be decorative. */
-.heading-marks {
-  flex: none;
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-}
-
-.mark {
-  flex: none;
-  width: 13px;
-  height: 13px;
-}
-
-.mark-circle {
-  border-radius: 50%;
-  background-color: var(--color-accent);
-}
-
-.mark-square {
-  border: 1.5px solid var(--color-muted);
-}
-
-.mark-diamond {
-  background-color: var(--color-muted);
-  transform: rotate(45deg);
-}
-
-.mark-rule {
-  width: 40px;
-  height: 1.5px;
-  background-color: var(--color-underline);
 }
 
 .lede {
@@ -666,24 +645,25 @@ video {
    "Recent writing" (home.html) and a blog-index year label are h2s too,
    but aren't post/page content and shouldn't pick up the numbered-section
    treatment (or increment a counter neither one means to share). */
+/* Not a flex row: the numeral prefix is an inline ::before, not a flex
+   sibling, so a heading long enough to wrap on narrow screens wraps like
+   ordinary text - continuation lines return to the left margin instead of
+   indenting past the numeral (which a flex layout would do, since the
+   heading text would be a single flex item wrapping inside its own box). */
 .prose h2 {
   counter-increment: section;
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-s);
   margin: var(--space-3xl) 0 var(--space-l);
   font-family: var(--font-mono);
   font-size: var(--step-0);
   font-weight: 500;
-  line-height: 1.3;
+  line-height: 1.4;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--color-heading);
 }
 
 .prose h2::before {
-  content: counter(section, decimal-leading-zero) " /";
-  flex: none;
+  content: counter(section, decimal-leading-zero) " / ";
   color: var(--color-accent);
 }
 
@@ -882,47 +862,6 @@ video {
   margin-block-start: var(--space-xl);
 }
 
-/* === Post navigation (older / newer) === */
-.post-nav {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-l);
-  margin-block-start: var(--space-2xl);
-  padding-block-start: var(--space-m);
-  border-top: 1px solid var(--color-border);
-}
-
-.post-nav-link {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3xs);
-  max-width: 48%;
-  text-decoration: none;
-}
-
-.post-nav-newer {
-  margin-inline-start: auto;
-  text-align: right;
-}
-
-.post-nav-label {
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-faint);
-}
-
-.post-nav-title {
-  font-weight: 500;
-  color: var(--color-heading);
-  transition: color var(--transition);
-}
-
-.post-nav-link:hover .post-nav-title {
-  color: var(--color-accent);
-}
-
 /* === Tables === */
 .table-wrapper {
   margin-block: var(--space-l);
@@ -958,7 +897,10 @@ video {
   background-color: var(--color-bg-hover);
 }
 
-/* === Heading anchors === */
+/* === Heading anchors ===
+   No visible "link to this section" icon (cut as low-value churn) - just
+   scroll-margin so a fragment link (from elsewhere) doesn't land flush
+   under the sticky header, and a brief highlight so the eye finds it. */
 .main-content :is(h2, h3, h4) {
   scroll-margin-block-start: var(--space-xl);
 }
@@ -975,27 +917,6 @@ video {
   100% {
     background-color: transparent;
   }
-}
-
-a.heading-anchor {
-  font-family: var(--font-mono);
-  font-size: 0.8em;
-  margin-inline-start: var(--space-2xs);
-  color: var(--color-muted);
-  text-decoration: none;
-  opacity: 0;
-  transition:
-    opacity var(--transition),
-    color var(--transition);
-}
-
-:is(h2, h3, h4):hover a.heading-anchor,
-a.heading-anchor:focus-visible {
-  opacity: 1;
-}
-
-a.heading-anchor:hover {
-  color: var(--color-accent);
 }
 
 /* Club crests dropped inline into prose via the {{< crests >}} shortcode
@@ -1189,9 +1110,19 @@ a.heading-anchor:hover {
   display: none;
 }
 
-/* === Figures === */
+/* === Figures ===
+   Figures break out of the prose measure and re-center on the viewport by
+   default - a wider "figure column" than the text column, the way
+   Anthropic's research blog treats images, rather than an opt-in. A
+   figure's image still displays at its natural/resized size within that
+   wider box (small screenshots don't get blown up); `wide="true"` (the
+   `figure`/`embed` shortcodes) additionally stretches the image/iframe to
+   fill the whole breakout width, for diagrams and embeds that want it. */
 .figure-block {
+  --breakout-width: min(92vw, 62rem);
+  width: var(--breakout-width);
   margin-block: var(--space-l);
+  margin-inline: calc(50% - 50vw + (100vw - var(--breakout-width)) / 2);
   text-align: center;
 }
 
@@ -1205,15 +1136,6 @@ a.heading-anchor:hover {
   font-family: var(--font-mono);
   font-size: var(--step--2);
   color: var(--color-faint);
-}
-
-/* Break a figure out of the prose measure and re-center it on the viewport
-   instead of the text column, for diagrams/embeds that benefit from more
-   width than a comfortable reading line allows. */
-.figure-wide {
-  --breakout-width: min(92vw, 62rem);
-  width: var(--breakout-width);
-  margin-inline: calc(50% - 50vw + (100vw - var(--breakout-width)) / 2);
 }
 
 .figure-wide img {
@@ -1240,7 +1162,6 @@ a.heading-anchor:hover {
 
 /* === Code === */
 .highlight {
-  position: relative;
   margin-block: var(--space-l);
   background-color: var(--color-panel);
 }
@@ -1253,42 +1174,6 @@ a.heading-anchor:hover {
   line-height: 1.7;
   background-color: transparent;
   overflow-x: auto;
-}
-
-.code-lang,
-.code-copy {
-  position: absolute;
-  top: var(--space-xs);
-  right: var(--space-xs);
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  line-height: 1;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  padding: 0.3rem var(--space-xs); /* 0.3rem: sub-scale hairline */
-  background-color: var(--color-bg-code);
-  color: var(--color-muted);
-  transition: opacity var(--transition);
-}
-
-.code-copy {
-  border: 1px solid var(--color-border);
-  cursor: pointer;
-  opacity: 0;
-}
-
-.code-copy:hover {
-  color: var(--color-accent);
-}
-
-.highlight:hover .code-copy,
-.code-copy:focus-visible {
-  opacity: 1;
-}
-
-.highlight:hover .code-lang,
-.highlight:focus-within .code-lang {
-  opacity: 0;
 }
 
 code:not(pre code) {
@@ -1308,11 +1193,16 @@ code:not(pre code) {
 }
 
 /* Mermaid diagrams. Until (or unless) the script draws the SVG, the
-   block shows the escaped diagram source as quiet monospace text. */
+   block shows the escaped diagram source as quiet monospace text. Same
+   breakout width as .figure-block, for the same reason - a diagram is a
+   figure, and gets the wider default figure column too. */
 pre.mermaid {
+  --breakout-width: min(92vw, 62rem);
   display: flex;
   justify-content: center;
+  width: var(--breakout-width);
   margin-block: var(--space-l);
+  margin-inline: calc(50% - 50vw + (100vw - var(--breakout-width)) / 2);
   padding: var(--space-xl) var(--space-l);
   background-color: var(--color-panel);
   overflow-x: auto;
@@ -1380,23 +1270,11 @@ pre.mermaid svg {
     padding-inline: var(--space-m);
   }
 
-  .page-heading-row {
-    gap: var(--space-m);
-  }
-
-  .heading-marks {
-    display: none;
-  }
-
   .main-content .article-header h1 {
     font-size: var(--step-5);
   }
 
   .highlight {
-    margin-inline: calc(var(--space-m) * -1);
-  }
-
-  pre.mermaid {
     margin-inline: calc(var(--space-m) * -1);
   }
 
@@ -1419,16 +1297,6 @@ pre.mermaid svg {
     width: auto;
   }
 
-  .post-nav {
-    flex-direction: column;
-  }
-
-  .post-nav-link,
-  .post-nav-newer {
-    max-width: none;
-    margin-inline-start: 0;
-    text-align: left;
-  }
 }
 
 /* === Print === */
@@ -1443,7 +1311,6 @@ pre.mermaid svg {
   }
 
   .site-header,
-  .post-nav,
   .to-top {
     display: none;
   }
@@ -1490,7 +1357,7 @@ pre.mermaid svg {
 /* === Syntax highlighting (Chroma classes) ===
    Merged from `hugo gen chromastyles --style=github` (light) and
    `--style=github-dark` (dark): every token declares both colours via
-   light-dark(). Backgrounds are stripped in favour of --color-bg-code,
+   light-dark(). Backgrounds are stripped in favour of --color-panel,
    token classes that only one palette defines fall back to the other
    theme's base text colour, and dark-only bold/italic accents are
    dropped so both themes share one typography. Identical to typewriter's

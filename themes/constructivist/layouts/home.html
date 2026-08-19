@@ -6,21 +6,55 @@
       {{- with .Site.Params.author.location -}}
         <div class="page-eyebrow">{{ . }}</div>
       {{- end -}}
-      <div class="page-heading-row">
-        <h1 class="page-heading">About<span class="accent-dot">.</span></h1>
-        {{- /* A quiet constructivist flourish: the same circle / square / diamond */ -}}
-        {{- /* vocabulary as the theme's other geometric marks, purely decorative. */ -}}
-        <div class="heading-marks" aria-hidden="true">
-          <span class="mark mark-circle"></span>
-          <span class="mark mark-square"></span>
-          <span class="mark mark-diamond"></span>
-          <span class="mark mark-rule"></span>
-        </div>
-      </div>
+      <h1 class="page-heading">About<span class="accent-dot">.</span></h1>
       <div class="heading-rule"></div>
       {{- with .Params.tagline -}}
         <p class="lede">{{ . }}</p>
       {{- end -}}
+      {{- /* A Bauhaus/Kandinsky-style geometric mark in the margin beside the heading. */ -}}
+      {{- /* Wide viewports only (see .hero-mark) - the margin it lives in doesn't exist */ -}}
+      {{- /* at narrower widths. */ -}}
+      <svg
+        class="hero-mark"
+        viewBox="0 0 220 260"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <line
+          x1="8"
+          y1="244"
+          x2="204"
+          y2="18"
+          style="stroke: var(--color-underline)"
+          stroke-width="1"
+        />
+        <circle
+          cx="132"
+          cy="70"
+          r="62"
+          style="stroke: var(--color-accent)"
+          stroke-width="1.5"
+          fill="none"
+        />
+        <circle cx="66" cy="124" r="13" style="fill: var(--color-accent)" />
+        <polygon
+          points="150,150 212,150 181,203"
+          style="stroke: var(--color-muted)"
+          stroke-width="1.5"
+          fill="none"
+        />
+        <rect
+          x="26"
+          y="186"
+          width="26"
+          height="26"
+          transform="rotate(12 39 199)"
+          style="stroke: var(--color-muted)"
+          stroke-width="1.5"
+          fill="none"
+        />
+        <circle cx="192" cy="232" r="3" style="fill: var(--color-faint)" />
+      </svg>
     </header>
     <div class="prose">{{ .Content }}</div>
     {{- with partial "social-links.html" . -}}

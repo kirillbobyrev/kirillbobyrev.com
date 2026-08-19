@@ -10,6 +10,11 @@
 
   // Diagrams are drawn from the saved sources on every theme change, so
   // they always match the site palette instead of a baked-in mermaid look.
+  // Space Grotesk (sans), not Space Mono: Mermaid sizes node/edge-label
+  // boxes from its own internal text-measurement heuristics, which are
+  // tuned for a proportional font - a monospace family throws that off
+  // (short edge labels like "yes"/"no" render wider than their computed
+  // background box and clip). No explicit fontSize either, same reason.
   let pass = 0;
   const render = async () => {
     const n = ++pass;
@@ -27,7 +32,7 @@
             tertiaryColor: "transparent",
             lineColor: "#d8402a",
             edgeLabelBackground: "#141310",
-            fontFamily: "Space Mono, monospace",
+            fontFamily: "Space Grotesk, -apple-system, sans-serif",
           }
         : {
             background: "#f2efe8",
@@ -38,7 +43,7 @@
             tertiaryColor: "transparent",
             lineColor: "#d8402a",
             edgeLabelBackground: "#f2efe8",
-            fontFamily: "Space Mono, monospace",
+            fontFamily: "Space Grotesk, -apple-system, sans-serif",
           },
     });
     for (const [i, el] of blocks.entries()) {
