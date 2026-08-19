@@ -1,0 +1,1685 @@
+@font-face {
+  font-family: "Space Mono";
+  src: url("/fonts/SpaceMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Space Mono";
+  src: url("/fonts/SpaceMono-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Space Grotesk ships only as a variable font - one file covers the whole
+   300-700 weight range (a font-weight range in @font-face, not a fixed
+   value, is what tells the browser to read it as variable). No italic
+   style exists for it - italic content (blockquotes, captions) falls
+   through to the next stack entry with a real italic instead of a
+   synthesized oblique, same as font-synthesis: none below. */
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/SpaceGrotesk-Variable.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   Design tokens
+
+   Two voices instead of typewriter's one: Space Grotesk for display type
+   (headings, the lede, body prose) and Space Mono for everything that
+   functions as a label rather than a sentence - the site mark, nav,
+   section numerals, dates, tables, code. That split (not the accent color
+   alone) is most of what makes this theme read as a poster/manifesto
+   rather than an editorial page.
+
+   The --step scale below is hand-tuned to the source design's own sizes
+   rather than one constant ratio - the design itself doesn't follow a
+   strict Bringhurst scale (a 40px "About." heading and a 44px post title
+   sit half a step apart, e.g.), so forcing a single ratio through both
+   would either blur that or invent sizes nothing asked for. Same family
+   as the --space-* scale further down (px results depend on the root
+   font-size clamp set below):
+     --step--2  0.6875rem  eyebrows, section numerals, overline labels
+     --step--1  0.8125rem  nav, meta, dates, tables, code
+     --step-0   1rem       body baseline, numbered h2 labels
+     --step-1   1.1875rem  lede, prose paragraphs
+     --step-2   1.375rem   h3, blog list titles
+     --step-4   2rem       (unused directly; kept for spacing symmetry)
+     --step-5   2.5rem     h1 (About, Now)
+     --step-6   2.75rem    post title
+
+   Themes: every color is declared exactly once via light-dark(). The
+   default color-scheme follows the OS; the header toggle forces one by
+   setting html[data-theme] (persisted in localStorage), which flips
+   color-scheme and with it every token. Unlike typewriter's warm paper
+   palette, both modes here share one near-black/near-cream pair pushed
+   hard toward its extreme (dark: L=0.07; light: L=0.94) with a single
+   accent that does NOT itself change between themes - #d8402a reads as
+   "the poster's ink," not a mode-dependent UI color, the same way it
+   doesn't change between the design's own light and dark states.
+   ========================================================================== */
+:root {
+  color-scheme: light dark;
+
+  --font-sans:
+    "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono:
+    "Space Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas,
+    "Courier New", monospace;
+
+  --step--2: 0.6875rem;
+  --step--1: 0.8125rem;
+  --step-0: 1rem;
+  --step-1: 1.1875rem;
+  --step-2: 1.375rem;
+  --step-4: 2rem;
+  --step-5: 2.5rem;
+  --step-6: 2.75rem;
+
+  /* Flat, poster-like geometry: no soft UI rounding anywhere except the
+     genuinely circular marks (the header dot, the theme toggle, the "o"
+     in the About-page mark row) - those stay literal circles via
+     border-radius: 50% in place, not a token. */
+  --radius: 0;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: 0.15s var(--ease);
+
+  /* Same fluid space scale as typewriter (utopia.fyi-style T-shirt sizes,
+     --space-m tied to --step-0) - a generic, well-tuned convention, not a
+     typewriter-specific aesthetic choice, so it's reused rather than
+     reinvented. Every margin/padding/gap below should use one of these; a
+     genuinely sub-3xs hairline nudge is the only accepted exception, and
+     should say so in a comment. */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.375rem;
+  --space-xs: 0.5rem;
+  --space-s: 0.75rem;
+  --space-m: 1rem; /* = --step-0, "one line" */
+  --space-l: 1.5rem;
+  --space-xl: 2.25rem;
+  --space-2xl: 2.75rem;
+  --space-3xl: 4rem;
+
+  --color-bg: light-dark(#f2efe8, #141310);
+  --color-heading: light-dark(#14120d, #f4f1e9);
+  /* Primary prose color - contrast against --color-bg: light 15.9:1, dark 16.4:1. */
+  --color-text: light-dark(rgba(20, 18, 13, 0.92), rgba(235, 231, 221, 0.92));
+  /* One tier down: de-emphasized body copy, still well past AA (light 12.9:1, dark 13.3:1). */
+  --color-text-soft: light-dark(
+    rgba(20, 18, 13, 0.78),
+    rgba(235, 231, 221, 0.82)
+  );
+  /* Meta tier - nav, dates, table headers, footer (light 8.4:1, dark 8.0:1). */
+  --color-muted: light-dark(rgba(20, 18, 13, 0.55), rgba(235, 231, 221, 0.52));
+  /* Quietest tier - "Inspired by nownownow.com", figure captions; still clears AA at this size. */
+  --color-faint: light-dark(rgba(20, 18, 13, 0.45), rgba(235, 231, 221, 0.4));
+  --color-border: light-dark(rgba(20, 18, 13, 0.25), rgba(235, 231, 221, 0.22));
+  --color-underline: light-dark(
+    rgba(20, 18, 13, 0.32),
+    rgba(235, 231, 221, 0.3)
+  );
+  --color-panel: light-dark(rgba(20, 18, 13, 0.05), rgba(235, 231, 221, 0.04));
+  --color-bg-hover: light-dark(
+    rgba(20, 18, 13, 0.08),
+    rgba(235, 231, 221, 0.07)
+  );
+  --color-bg-code: var(--color-panel);
+  --color-header-bg: light-dark(
+    rgba(242, 239, 232, 0.86),
+    rgba(20, 19, 16, 0.86)
+  );
+  /* The one color that does NOT flip with light-dark(): a considered ink
+     color, not a UI accent, so it stays put across modes (light-mode
+     contrast against --color-bg: 5.3:1; dark-mode: 5.9:1). */
+  --color-accent: #d8402a;
+
+  /* rem, not px: still scales with a reader's browser-level text-size
+     preference the same way the font-size clamp below does. Deliberately
+     static (unlike typewriter's --measure, which widens past 1600px/2200px
+     viewports) - this design's narrow column against generous empty
+     margins is the point on a wide display, not something to fill. */
+  --measure: 53.75rem; /* 860px @ 16px root */
+  --measure-wide: 68.75rem; /* 1100px @ 16px root: the header/footer row */
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* === Reset / base === */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Fluid, not stepped: flat at 16px up to ~1600px of viewport, then grows
+     in a straight line to 18px by ~2200px and holds there. em, not px, so
+     a reader's browser-level text-size preference still scales the whole
+     clamp; solved from font-size = 0.6667em + 0.3333vw, a line that
+     crosses 1em (16px) at exactly 1600px of viewport and 1.125em (18px)
+     at exactly 2200px. Same technique and breakpoints as typewriter's own
+     clamp, just re-solved for this theme's lower base size. */
+  font-size: clamp(1em, 0.6667em + 0.3333vw, 1.125em);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scrollbar-color: var(--color-underline) transparent;
+}
+
+.highlight pre,
+.table-wrapper {
+  scrollbar-width: thin;
+}
+
+body {
+  margin: 0;
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.site-body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: 1.7;
+  font-synthesis: none;
+  font-variant-numeric: tabular-nums;
+}
+
+::selection {
+  /* The ink color as a highlight, text flipped to the page color - the
+     one place --color-accent supplies a background instead of foreground. */
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--color-accent) 18%, transparent);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: var(--space-xs) var(--space-m);
+  background-color: var(--color-heading);
+  color: var(--color-bg);
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+.scroll-sentinel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* === Layout === */
+.site-container {
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding-inline: var(--space-l);
+  padding-block-end: var(--space-3xl);
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background-color: var(--color-header-bg);
+  backdrop-filter: blur(14px) saturate(1.1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+}
+
+.header-row {
+  max-width: var(--measure-wide);
+  margin-inline: auto;
+  padding-inline: var(--space-xl);
+  padding-block: var(--space-l);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-l);
+  transition: padding-block 260ms var(--ease);
+}
+
+/* Condensed once the scroll-sentinel in baseof.html has scrolled off. */
+.site-header[data-condensed] .header-row {
+  padding-block: var(--space-xs);
+}
+
+.site-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  text-decoration: none;
+  color: var(--color-heading);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: var(--step--1);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  transition: color var(--transition);
+}
+
+.site-title:hover {
+  color: var(--color-accent);
+}
+
+.site-mark {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+}
+
+.site-title-text {
+  display: inline-flex;
+  overflow: hidden;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.site-title-full,
+.site-title-short {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  transition:
+    max-width 300ms var(--ease),
+    opacity 220ms ease;
+}
+
+.site-title-full {
+  max-width: 16em;
+  opacity: 1;
+}
+
+.site-title-short {
+  max-width: 0;
+  opacity: 0;
+  letter-spacing: 0.1em;
+}
+
+.site-header[data-condensed] .site-title-full {
+  max-width: 0;
+  opacity: 0;
+}
+
+.site-header[data-condensed] .site-title-short {
+  max-width: 3em;
+  opacity: 1;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: var(--space-l);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  color: var(--color-muted);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: var(--space-2xs) 0;
+  transition: color var(--transition);
+}
+
+.nav-link:hover {
+  color: var(--color-accent);
+}
+
+.nav-link[aria-current] {
+  color: var(--color-heading);
+}
+
+.nav-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  opacity: 0;
+  transform: scale(0.4);
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
+}
+
+.nav-link[aria-current] .nav-dot {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  margin-inline-start: var(--space-xs);
+  padding: var(--space-2xs);
+  background: none;
+  color: var(--color-muted);
+  cursor: pointer;
+  line-height: 0;
+  transition: color var(--transition);
+}
+
+.theme-toggle:hover {
+  color: var(--color-accent);
+}
+
+/* An author-origin `display` beats the UA's `[hidden] { display: none }`
+   regardless of specificity, so restore it: the button ships hidden and only
+   the theme script unhides it, keeping it away from no-JS readers. */
+.theme-toggle[hidden] {
+  display: none;
+}
+
+.theme-toggle-mark {
+  position: relative;
+  display: block;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  overflow: hidden;
+}
+
+.theme-toggle-mark::before {
+  content: "";
+  position: absolute;
+  inset: 0 50% 0 0;
+  background-color: currentColor;
+}
+
+/* No sitewide footer chrome in this theme - see .link-row below, the */
+/* one place social links appear, on the About page only. */
+
+/* === Page chrome: eyebrow / heading / accent marks (About, Now) === */
+.page-header {
+  margin-block: var(--space-xl) var(--space-m);
+}
+
+.page-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.page-heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-l);
+  flex-wrap: wrap;
+}
+
+.page-heading,
+.main-content h1 {
+  margin: var(--space-m) 0 0;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--step-5);
+  line-height: 1.08;
+  letter-spacing: -0.014em;
+  color: var(--color-heading);
+  text-wrap: balance;
+}
+
+.page-heading a,
+.main-content h1 a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.page-heading a:hover,
+.main-content h1 a:hover {
+  color: var(--color-accent);
+}
+
+.accent-dot {
+  color: var(--color-accent);
+}
+
+.heading-rule {
+  width: 72px;
+  height: 3px;
+  background-color: var(--color-accent);
+  margin: var(--space-l) 0 var(--space-l);
+}
+
+/* A quiet constructivist flourish next to the About heading: circle,
+   square, diamond, then a thin rule trailing off - the same geometric
+   vocabulary as .site-mark and .nav-dot, just given room to be decorative. */
+.heading-marks {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.mark {
+  flex: none;
+  width: 13px;
+  height: 13px;
+}
+
+.mark-circle {
+  border-radius: 50%;
+  background-color: var(--color-accent);
+}
+
+.mark-square {
+  border: 1.5px solid var(--color-muted);
+}
+
+.mark-diamond {
+  background-color: var(--color-muted);
+  transform: rotate(45deg);
+}
+
+.mark-rule {
+  width: 40px;
+  height: 1.5px;
+  background-color: var(--color-underline);
+}
+
+.lede {
+  margin: 0;
+  font-size: var(--step-1);
+  line-height: 1.6;
+  color: var(--color-text-soft);
+}
+
+.page-footnote {
+  margin-block-start: var(--space-xl);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-faint);
+}
+
+/* Underlined-arrow link row - Email/GitHub/etc under the About prose, and
+   the general idiom this theme uses for "a link that is also a button." */
+.link-row {
+  margin-block-start: var(--space-2xl);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs) var(--space-l);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.link-row a,
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  color: var(--color-text);
+  border-bottom: 2px solid var(--color-border);
+  text-decoration: none;
+  transition:
+    color var(--transition),
+    border-color var(--transition);
+}
+
+.link-row a::after,
+.social-link::after {
+  content: "\2192"; /* → */
+  margin-inline-start: var(--space-2xs);
+  opacity: 0.55;
+}
+
+.link-row a:hover,
+.social-link:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* === Article meta / post title === */
+.article-header {
+  margin-block: var(--space-3xl) var(--space-l);
+  text-align: center;
+}
+
+.main-content .article-header h1 {
+  max-width: 22em;
+  margin-inline: auto;
+  font-size: var(--step-6);
+  line-height: 1.18;
+}
+
+.article-meta {
+  margin-block-start: var(--space-l);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+}
+
+/* === Prose typography === */
+.main-content {
+  margin-block-start: var(--space-xs);
+}
+
+.prose {
+  counter-reset: section;
+}
+
+.prose a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: var(--color-border);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.19em;
+  transition: text-decoration-color var(--transition);
+}
+
+.prose a:hover {
+  text-decoration-color: var(--color-accent);
+}
+
+/* Scoped to .prose, not .main-content, on purpose: chrome headings like
+   "Recent writing" (home.html) and a blog-index year label are h2s too,
+   but aren't post/page content and shouldn't pick up the numbered-section
+   treatment (or increment a counter neither one means to share). */
+.prose h2 {
+  counter-increment: section;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-s);
+  margin: var(--space-3xl) 0 var(--space-l);
+  font-family: var(--font-mono);
+  font-size: var(--step-0);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-heading);
+}
+
+.prose h2::before {
+  content: counter(section, decimal-leading-zero) " /";
+  flex: none;
+  color: var(--color-accent);
+}
+
+.prose h3 {
+  margin: var(--space-l) 0 var(--space-xs);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--step-2);
+  line-height: 1.3;
+  letter-spacing: -0.008em;
+  color: var(--color-heading);
+  text-wrap: balance;
+}
+
+.prose p {
+  margin-block: 0.9em;
+  font-size: var(--step-1);
+  line-height: 1.72;
+  color: var(--color-text);
+}
+
+.prose p,
+.prose li {
+  text-wrap: pretty;
+}
+
+/* Mono numeral column, generated from a plain Markdown ordered list -
+   no per-item markup needed to get the "01 / 02 / 03" look used
+   throughout the source design's lists. */
+.prose ol {
+  margin-block: 0.9em;
+  padding: 0;
+  list-style: none;
+  counter-reset: line;
+}
+
+.prose ol > li {
+  counter-increment: line;
+  position: relative;
+  padding-inline-start: 2.25em;
+}
+
+.prose ol > li::before {
+  content: counter(line, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0.15em;
+  font-family: var(--font-mono);
+  font-size: 0.72em;
+  color: var(--color-faint);
+}
+
+.prose ul {
+  margin-block: 0.9em;
+  padding: 0;
+  list-style: none;
+}
+
+.prose ul > li {
+  position: relative;
+  padding-inline-start: 1.75em;
+}
+
+.prose ul > li::before {
+  content: "\2014"; /* — */
+  position: absolute;
+  left: 0;
+  color: var(--color-faint);
+}
+
+.prose li {
+  margin-block: 0.4em;
+  font-size: var(--step-1);
+  line-height: 1.68;
+  color: var(--color-text);
+}
+
+/* A centered pull-quote statement, not a citation: no border, no italic -
+   the accent color and a step up in size are what set it apart. */
+.prose blockquote {
+  margin: var(--space-2xl) auto;
+  max-width: 32em;
+  padding: 0;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--step-2);
+  line-height: 1.5;
+  letter-spacing: -0.012em;
+  color: var(--color-accent);
+}
+
+.prose blockquote p {
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  margin-block: var(--space-xl);
+}
+
+/* Definition lists aren't reachable from standard Markdown, but raw HTML
+   passes through Goldmark unchanged, so a hand-written <dl> (the "three
+   terms worth separating" idiom from the source design) still gets a
+   considered treatment instead of the UA default. */
+.prose dl {
+  margin-block: var(--space-l);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+}
+
+.prose dt {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.prose dd {
+  margin: var(--space-3xs) 0 0;
+  font-size: var(--step-1);
+  line-height: 1.68;
+  color: var(--color-text);
+}
+
+/* === Footnotes ===
+   Goldmark's default markup: an inline `sup#fnref:N > a.footnote-ref`,
+   and a trailing `.footnotes` block (its own <hr>, then an <ol> of
+   entries each ending in an a.footnote-backref arrow). */
+.footnote-ref {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-size: 0.75em;
+  vertical-align: super;
+  padding-inline: 0.05em;
+}
+
+.prose .footnotes {
+  margin-block-start: var(--space-2xl);
+  padding-block-start: var(--space-m);
+  border-top: 1px solid var(--color-border);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--color-muted);
+}
+
+.footnotes hr {
+  display: none;
+}
+
+.footnotes ol {
+  margin: 0;
+  padding-inline-start: var(--space-l);
+  list-style: decimal;
+}
+
+.footnotes ol > li::before {
+  content: none;
+}
+
+.footnotes li {
+  margin-block: 0.5em;
+  padding: 0;
+  line-height: 1.5;
+  font-size: inherit;
+}
+
+.footnotes li p {
+  margin: 0;
+  font-size: inherit;
+}
+
+.footnote-backref {
+  margin-inline-start: 0.35em;
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.footnote-backref:hover {
+  color: var(--color-accent);
+}
+
+/* === Post body easter egg (single posts only, via .post-body) === */
+.post-body::after {
+  content: "\220e"; /* ∎ */
+  display: block;
+  text-align: center;
+  color: var(--color-faint);
+  margin-block-start: var(--space-xl);
+}
+
+/* === Post navigation (older / newer) === */
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-l);
+  margin-block-start: var(--space-2xl);
+  padding-block-start: var(--space-m);
+  border-top: 1px solid var(--color-border);
+}
+
+.post-nav-link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  max-width: 48%;
+  text-decoration: none;
+}
+
+.post-nav-newer {
+  margin-inline-start: auto;
+  text-align: right;
+}
+
+.post-nav-label {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-faint);
+}
+
+.post-nav-title {
+  font-weight: 500;
+  color: var(--color-heading);
+  transition: color var(--transition);
+}
+
+.post-nav-link:hover .post-nav-title {
+  color: var(--color-accent);
+}
+
+/* === Tables === */
+.table-wrapper {
+  margin-block: var(--space-l);
+  overflow-x: auto;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  line-height: 1.5;
+}
+
+.prose th {
+  padding: 0 var(--space-l) var(--space-xs) 0;
+  text-align: left;
+  font-size: var(--step--2);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  border-block-end: 1px solid var(--color-border);
+}
+
+.prose td {
+  padding: var(--space-s) var(--space-l) var(--space-s) 0;
+  border-block-end: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.prose tbody tr:hover td {
+  background-color: var(--color-bg-hover);
+}
+
+/* === Heading anchors === */
+.main-content :is(h2, h3, h4) {
+  scroll-margin-block-start: var(--space-xl);
+}
+
+.main-content :target {
+  animation: target-highlight 2s ease-out;
+}
+
+@keyframes target-highlight {
+  0%,
+  30% {
+    background-color: color-mix(in srgb, var(--color-accent) 22%, transparent);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+a.heading-anchor {
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  margin-inline-start: var(--space-2xs);
+  color: var(--color-muted);
+  text-decoration: none;
+  opacity: 0;
+  transition:
+    opacity var(--transition),
+    color var(--transition);
+}
+
+:is(h2, h3, h4):hover a.heading-anchor,
+a.heading-anchor:focus-visible {
+  opacity: 1;
+}
+
+a.heading-anchor:hover {
+  color: var(--color-accent);
+}
+
+/* Club crests dropped inline into prose via the {{< crests >}} shortcode
+   (currently just /now, under "Away from the keyboard"). */
+.badges {
+  display: flex;
+  align-items: center;
+  gap: var(--space-l);
+  margin-block: var(--space-l);
+}
+
+.badge {
+  display: inline-block;
+  line-height: 0;
+  filter: saturate(0.7);
+}
+
+.badge img {
+  width: 5rem;
+  height: 5rem;
+  object-fit: contain;
+  display: block;
+}
+
+/* === Blog timeline === */
+.blog-timeline {
+  list-style: none;
+  margin-block: var(--space-s);
+  padding: 0;
+}
+
+.main-content .timeline-year-label {
+  margin: var(--space-l) 0 var(--space-xs);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-faint);
+}
+
+.timeline-year .blog-timeline {
+  margin-block-start: 0;
+}
+
+.timeline-year .blog-timeline-date {
+  width: 3.25rem;
+}
+
+.blog-timeline li {
+  margin: 0;
+}
+
+.blog-timeline-entry {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-l);
+  padding: var(--space-xs);
+  margin-inline: calc(var(--space-xs) * -1);
+  text-decoration: none;
+  color: inherit;
+  transition: background-color var(--transition);
+}
+
+.blog-timeline-entry:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.blog-timeline-date {
+  flex-shrink: 0;
+  width: 11ch;
+  text-align: right;
+  color: var(--color-faint);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  white-space: nowrap;
+  line-height: 1.7;
+}
+
+.blog-timeline-content {
+  display: block;
+  flex: 1;
+  min-width: 0;
+  line-height: 1.55;
+}
+
+.blog-timeline-title {
+  color: var(--color-heading);
+  font-weight: 500;
+  transition: color var(--transition);
+}
+
+.blog-timeline-entry:hover .blog-timeline-title {
+  color: var(--color-accent);
+}
+
+.blog-timeline-summary {
+  display: block;
+  margin-block-start: 0.15rem; /* sub-scale hairline: tighter than --space-3xs allows */
+  color: var(--color-muted);
+  font-size: var(--step--1);
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.blog-timeline-entry-lg {
+  align-items: flex-start;
+  padding-block: var(--space-s);
+}
+
+.blog-timeline-entry-lg .blog-timeline-date {
+  padding-block-start: 0.25rem; /* sits at the title's cap height, not the full line box */
+}
+
+.blog-timeline-entry-lg .blog-timeline-title {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: var(--step-2);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.008em;
+}
+
+.blog-timeline-entry-lg .blog-timeline-summary {
+  margin-block-start: var(--space-3xs);
+}
+
+.blog-timeline-summary-inline {
+  color: var(--color-muted);
+  font-weight: 400;
+  margin-inline-start: 0.5em;
+}
+
+.has-thumb .blog-timeline-entry {
+  align-items: center;
+}
+
+.blog-timeline-thumb {
+  flex-shrink: 0;
+  width: 5.5rem;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.blog-timeline-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* === Back to top === */
+.to-top {
+  position: fixed;
+  inset-block-end: var(--space-l);
+  inset-inline-end: var(--space-l);
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-xl);
+  height: var(--space-xl);
+  flex-shrink: 0;
+  border: 1px solid var(--color-underline);
+  background-color: var(--color-bg);
+  color: var(--color-muted);
+  text-decoration: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.35rem);
+  transition:
+    opacity var(--transition),
+    visibility var(--transition),
+    transform var(--transition),
+    color var(--transition),
+    background-color var(--transition),
+    border-color var(--transition);
+}
+
+.to-top[data-visible] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.to-top:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.to-top[hidden] {
+  display: none;
+}
+
+/* === Figures === */
+.figure-block {
+  margin-block: var(--space-l);
+  text-align: center;
+}
+
+.figure-block img {
+  margin-inline: auto;
+  border: 1px solid var(--color-border);
+}
+
+.figure-caption {
+  margin-block-start: var(--space-xs);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--color-faint);
+}
+
+/* Break a figure out of the prose measure and re-center it on the viewport
+   instead of the text column, for diagrams/embeds that benefit from more
+   width than a comfortable reading line allows. */
+.figure-wide {
+  --breakout-width: min(92vw, 62rem);
+  width: var(--breakout-width);
+  margin-inline: calc(50% - 50vw + (100vw - var(--breakout-width)) / 2);
+}
+
+.figure-wide img {
+  width: 100%;
+}
+
+.embed-frame {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+}
+
+/* Soften bright images against the dark background (filter values cannot
+   ride light-dark(), so this one rule keeps the dual theme scope). */
+:root[data-theme="dark"] .prose img {
+  filter: brightness(0.85) contrast(1.05);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .prose img {
+    filter: brightness(0.85) contrast(1.05);
+  }
+}
+
+/* === Code === */
+.highlight {
+  position: relative;
+  margin-block: var(--space-l);
+  background-color: var(--color-panel);
+}
+
+.highlight pre {
+  margin: 0;
+  padding: var(--space-m);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  line-height: 1.7;
+  background-color: transparent;
+  overflow-x: auto;
+}
+
+.code-lang,
+.code-copy {
+  position: absolute;
+  top: var(--space-xs);
+  right: var(--space-xs);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.3rem var(--space-xs); /* 0.3rem: sub-scale hairline */
+  background-color: var(--color-bg-code);
+  color: var(--color-muted);
+  transition: opacity var(--transition);
+}
+
+.code-copy {
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  opacity: 0;
+}
+
+.code-copy:hover {
+  color: var(--color-accent);
+}
+
+.highlight:hover .code-copy,
+.code-copy:focus-visible {
+  opacity: 1;
+}
+
+.highlight:hover .code-lang,
+.highlight:focus-within .code-lang {
+  opacity: 0;
+}
+
+code:not(pre code) {
+  background-color: var(--color-panel);
+  color: var(--color-heading);
+  padding: 1px 5px;
+  font-size: 0.86em;
+  font-weight: 500;
+  font-family: var(--font-mono);
+}
+
+/* Keep long KaTeX display equations scrollable instead of overflowing. */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: var(--space-3xs);
+}
+
+/* Mermaid diagrams. Until (or unless) the script draws the SVG, the
+   block shows the escaped diagram source as quiet monospace text. */
+pre.mermaid {
+  display: flex;
+  justify-content: center;
+  margin-block: var(--space-l);
+  padding: var(--space-xl) var(--space-l);
+  background-color: var(--color-panel);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: var(--color-faint);
+}
+
+pre.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* === 404 === */
+.error-page {
+  text-align: center;
+  padding-block: var(--space-3xl);
+}
+
+.error-page .error-title {
+  font-family: var(--font-mono);
+  font-size: var(--step-6);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-block-end: var(--space-m);
+  color: var(--color-heading);
+}
+
+.error-button {
+  display: inline-block;
+  padding: var(--space-s) var(--space-l);
+  background-color: var(--color-heading);
+  color: var(--color-bg);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-block-start: var(--space-m);
+}
+
+.error-button:hover {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* === Responsive === */
+@media (max-width: 640px) {
+  .header-row {
+    padding-inline: var(--space-m);
+    padding-block: var(--space-m);
+    gap: var(--space-xs) var(--space-m);
+  }
+
+  .site-header[data-condensed] .header-row {
+    padding-block: var(--space-xs);
+  }
+
+  .nav-list {
+    gap: var(--space-m);
+  }
+
+  .site-container {
+    padding-inline: var(--space-m);
+  }
+
+  .page-heading-row {
+    gap: var(--space-m);
+  }
+
+  .heading-marks {
+    display: none;
+  }
+
+  .main-content .article-header h1 {
+    font-size: var(--step-5);
+  }
+
+  .highlight {
+    margin-inline: calc(var(--space-m) * -1);
+  }
+
+  pre.mermaid {
+    margin-inline: calc(var(--space-m) * -1);
+  }
+
+  .blog-timeline-entry,
+  .has-thumb .blog-timeline-entry {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.125rem; /* sub-scale hairline: tighter than --space-3xs allows */
+  }
+
+  .blog-timeline-thumb {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin-block-start: var(--space-2xs);
+  }
+
+  .blog-timeline-date,
+  .timeline-year .blog-timeline-date {
+    text-align: left;
+    width: auto;
+  }
+
+  .post-nav {
+    flex-direction: column;
+  }
+
+  .post-nav-link,
+  .post-nav-newer {
+    max-width: none;
+    margin-inline-start: 0;
+    text-align: left;
+  }
+}
+
+/* === Print === */
+@media print {
+  @page {
+    margin: 2.5cm;
+  }
+
+  :root,
+  :root[data-theme="dark"] {
+    color-scheme: light;
+  }
+
+  .site-header,
+  .post-nav,
+  .to-top {
+    display: none;
+  }
+
+  .site-container {
+    max-width: none;
+    padding: 0;
+  }
+
+  .prose a {
+    text-decoration: none;
+  }
+
+  .prose a[href^="http"]:not([href*="kirillbobyrev.com"])::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    vertical-align: baseline;
+    color: var(--color-muted);
+    word-break: break-all;
+    opacity: 1;
+  }
+
+  .highlight pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}
+
+/* === Reduced motion === */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* === Syntax highlighting (Chroma classes) ===
+   Merged from `hugo gen chromastyles --style=github` (light) and
+   `--style=github-dark` (dark): every token declares both colours via
+   light-dark(). Backgrounds are stripped in favour of --color-bg-code,
+   token classes that only one palette defines fall back to the other
+   theme's base text colour, and dark-only bold/italic accents are
+   dropped so both themes share one typography. Identical to typewriter's
+   copy of the same generated stylesheet - the mapping is a color palette,
+   not a design choice specific to either theme. Regenerate with those
+   commands on bumps. */
+.chroma {
+  color: light-dark(#212529, #e6edf3);
+  -webkit-text-size-adjust: none;
+}
+.chroma .lnlinks {
+  outline: none;
+  text-decoration: none;
+  color: inherit;
+}
+.chroma .lntd {
+  vertical-align: top;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.chroma .lntable {
+  border-spacing: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.chroma .lnt {
+  white-space: pre;
+  -webkit-user-select: none;
+  user-select: none;
+  margin-right: 0.4em;
+  padding: 0 0.4em 0 0.4em;
+  color: light-dark(#7f7f7f, #737679);
+}
+.chroma .ln {
+  white-space: pre;
+  -webkit-user-select: none;
+  user-select: none;
+  margin-right: 0.4em;
+  padding: 0 0.4em 0 0.4em;
+  color: light-dark(#7f7f7f, #6e7681);
+}
+.chroma .line {
+  display: flex;
+}
+.chroma .err {
+  color: light-dark(#cf222e, #f85149);
+}
+.chroma .k,
+.chroma .kd,
+.chroma .kn,
+.chroma .kr,
+.chroma .kt {
+  color: light-dark(#cf222e, #ff7b72);
+}
+.chroma .kc,
+.chroma .kp {
+  color: light-dark(#cf222e, #79c0ff);
+}
+.chroma .na,
+.chroma .nx {
+  color: light-dark(#1f2328, #e6edf3);
+}
+.chroma .nc,
+.chroma .ne {
+  color: light-dark(#1f2328, #f0883e);
+}
+.chroma .no {
+  color: light-dark(#0550ae, #79c0ff);
+}
+.chroma .nd {
+  color: light-dark(#0550ae, #d2a8ff);
+}
+.chroma .ni {
+  color: light-dark(#6639ba, #ffa657);
+}
+.chroma .nl {
+  color: light-dark(#990000, #79c0ff);
+  font-weight: bold;
+}
+.chroma .nn {
+  color: light-dark(#24292e, #ff7b72);
+}
+.chroma .nt {
+  color: light-dark(#0550ae, #7ee787);
+}
+.chroma .nb {
+  color: light-dark(#6639ba, #e6edf3);
+}
+.chroma .bp {
+  color: light-dark(#6a737d, #e6edf3);
+}
+.chroma .nv,
+.chroma .vc,
+.chroma .vg,
+.chroma .vi,
+.chroma .vm {
+  color: light-dark(#953800, #79c0ff);
+}
+.chroma .nf,
+.chroma .fm {
+  color: light-dark(#6639ba, #d2a8ff);
+}
+.chroma .py {
+  color: light-dark(#1f2328, #79c0ff);
+}
+.chroma .l {
+  color: light-dark(#1f2328, #a5d6ff);
+}
+.chroma .ld {
+  color: light-dark(#1f2328, #79c0ff);
+}
+.chroma .s,
+.chroma .sb,
+.chroma .sc,
+.chroma .sd,
+.chroma .s2,
+.chroma .si,
+.chroma .sx,
+.chroma .s1 {
+  color: light-dark(#0a3069, #a5d6ff);
+}
+.chroma .sa,
+.chroma .dl,
+.chroma .se,
+.chroma .sh,
+.chroma .sr {
+  color: light-dark(#0a3069, #79c0ff);
+}
+.chroma .ss {
+  color: light-dark(#032f62, #a5d6ff);
+}
+.chroma .m,
+.chroma .mb,
+.chroma .mf,
+.chroma .mh,
+.chroma .mi,
+.chroma .il,
+.chroma .mo {
+  color: light-dark(#0550ae, #a5d6ff);
+}
+.chroma .o,
+.chroma .ow,
+.chroma .or {
+  color: light-dark(#0550ae, #ff7b72);
+}
+.chroma .p {
+  color: light-dark(#1f2328, #e6edf3);
+}
+.chroma .c,
+.chroma .ch,
+.chroma .cm,
+.chroma .c1,
+.chroma .cs,
+.chroma .cp,
+.chroma .cpf {
+  color: light-dark(#57606a, #8b949e);
+}
+.chroma .gd {
+  color: light-dark(#82071e, #ffa198);
+}
+.chroma .ge {
+  color: light-dark(#1f2328, #e6edf3);
+  font-style: italic;
+}
+.chroma .gr {
+  color: light-dark(#1f2328, #ffa198);
+}
+.chroma .gh,
+.chroma .gu {
+  color: light-dark(#1f2328, #79c0ff);
+}
+.chroma .gi {
+  color: light-dark(#116329, #56d364);
+}
+.chroma .go,
+.chroma .gp {
+  color: light-dark(#1f2328, #8b949e);
+}
+.chroma .gs {
+  font-weight: bold;
+}
+.chroma .gt {
+  color: light-dark(#1f2328, #ff7b72);
+}
+.chroma .gl {
+  text-decoration: underline;
+}
+.chroma .w {
+  color: light-dark(#ffffff, #6e7681);
+}

@@ -1,0 +1,24 @@
+{{- define "main" -}}
+  <article class="main-content">
+    <header class="page-header">
+      {{- if not .Lastmod.IsZero -}}
+        <div class="page-eyebrow">
+          Updated
+          <time datetime="{{ .Lastmod.Format "2006-01-02" }}"
+            >{{ .Lastmod.Format "January 2006" }}</time
+          >
+        </div>
+      {{- end -}}
+      {{- /* Linking the title to nownownow.com explains the format without a second paragraph doubling the footer below it. */ -}}
+      <h1 class="page-heading">
+        <a href="https://nownownow.com/about" rel="noopener noreferrer"
+          >{{ .Title }}</a
+        ><span class="accent-dot">.</span>
+      </h1>
+      <div class="heading-rule"></div>
+      <p class="lede">{{ .Description }}</p>
+    </header>
+    <div class="prose">{{ .Content }}</div>
+    <p class="page-footnote">Inspired by nownownow.com</p>
+  </article>
+{{- end -}}

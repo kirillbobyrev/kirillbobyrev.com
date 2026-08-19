@@ -1,0 +1,30 @@
+{{- define "main" -}}
+  <article class="main-content homepage">
+    <header class="page-header">
+      {{- /* Optional, additive to the content contract: set under [params.author] */ -}}
+      {{- /* in hugo.toml (e.g. location = "Mountain View, California") to show it. */ -}}
+      {{- with .Site.Params.author.location -}}
+        <div class="page-eyebrow">{{ . }}</div>
+      {{- end -}}
+      <div class="page-heading-row">
+        <h1 class="page-heading">About<span class="accent-dot">.</span></h1>
+        {{- /* A quiet constructivist flourish: the same circle / square / diamond */ -}}
+        {{- /* vocabulary as the theme's other geometric marks, purely decorative. */ -}}
+        <div class="heading-marks" aria-hidden="true">
+          <span class="mark mark-circle"></span>
+          <span class="mark mark-square"></span>
+          <span class="mark mark-diamond"></span>
+          <span class="mark mark-rule"></span>
+        </div>
+      </div>
+      <div class="heading-rule"></div>
+      {{- with .Params.tagline -}}
+        <p class="lede">{{ . }}</p>
+      {{- end -}}
+    </header>
+    <div class="prose">{{ .Content }}</div>
+    {{- with partial "social-links.html" . -}}
+      <div class="link-row">{{ . }}</div>
+    {{- end -}}
+  </article>
+{{- end -}}

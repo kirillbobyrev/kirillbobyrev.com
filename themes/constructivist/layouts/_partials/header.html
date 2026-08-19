@@ -1,0 +1,64 @@
+<header class="site-header">
+  <div class="header-row">
+    {{- /* No "Home" entry: the mark + name already link there, same convention as typewriter. */ -}}
+    {{- /* Initials shown once the header condenses (see the scroll-sentinel */ -}}
+    {{- /* script in baseof.html) - first letter of the first and last words of */ -}}
+    {{- /* the site title, kept as real text (not an image) so it stays selectable/searchable. */ -}}
+    {{- $words := split site.Title " " -}}
+    {{- $initials := printf "%s%s" (substr (index $words 0) 0 1) (substr (index $words (sub (len $words) 1)) 0 1) -}}
+    <a href="/" class="site-title">
+      <span class="site-mark" aria-hidden="true"></span>
+      <span class="site-title-text">
+        <span class="site-title-full">{{ site.Title }}</span>
+        <span class="site-title-short" aria-hidden="true">{{ $initials }}</span>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <ul class="nav-list">
+        {{- /* Now's own menu entry (content/now.md front matter) drops out on its own while draft = true - no special-casing needed here. */ -}}
+        {{- range .Site.Menus.main -}}
+          {{- $current := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) -}}
+          <li>
+            <a
+              href="{{ .URL }}"
+              class="nav-link"
+              {{ if $current }}aria-current="page"{{ end }}
+            >
+              <span class="nav-dot" aria-hidden="true"></span>
+              <span>{{ .Name }}</span>
+            </a>
+          </li>
+        {{- end -}}
+      </ul>
+      <button
+        type="button"
+        class="theme-toggle"
+        aria-label="Toggle dark mode"
+        hidden
+      >
+        <span class="theme-toggle-mark" aria-hidden="true"></span>
+      </button>
+    </nav>
+  </div>
+</header>
+{{- /* A plain fixed corner button, independent of the header: no pinned-masthead
+  pairing needed here either - it floats on its own regardless of the header's
+  condensed state. "#top" rather than "#content": with no element of that id,
+  browsers resolve it to the top of the document, so the masthead comes back too. */
+-}}
+<a href="#top" class="to-top" hidden>
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M12 19V5M5 12l7-7 7 7" />
+  </svg>
+  <span class="visually-hidden">Back to top</span>
+</a>

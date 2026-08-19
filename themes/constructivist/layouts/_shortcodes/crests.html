@@ -1,0 +1,23 @@
+{{- /* Decorative row of club crests, dropped inline into prose - currently
+  only used on /now under "Away from the keyboard". Plain, non-linking
+  images (see .badge/.badges in main.css for the quiet grayscale treatment). */
+-}}
+<span class="badges">
+  {{- range slice
+    (dict "file" "manchester-city.svg" "name" "Manchester City")
+    (dict "file" "bayern-munich.svg" "name" "Bayern Munich")
+    (dict "file" "chelsea.svg" "name" "Chelsea")
+    (dict "file" "barcelona.svg" "name" "Barcelona")
+  -}}
+    <span class="badge" title="{{ .name }}">
+      <img
+        src="/crests/{{ .file }}"
+        alt="{{ .name }}"
+        loading="lazy"
+        decoding="async"
+        width="30"
+        height="30"
+      />
+    </span>
+  {{- end -}}
+</span>
