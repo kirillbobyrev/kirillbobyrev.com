@@ -3,6 +3,8 @@ title = 'Now'
 description = 'What has my attention at the moment.'
 layout = 'now'
 draft = true
+menu = 'main'
+weight = 2
 +++
 
 ## Work
@@ -25,11 +27,14 @@ what you are putting into it is a natural fit.]_
 
 ## Away from the keyboard
 
-Football (soccer), chess, and three Abyssinian cats.
+Football, chess, and three Abyssinian cats. Watching these clubs closely this
+season:
 
-_[Anything you would want a friend to ask you about over coffee.]_
+{{< crests >}}
+
+_[Anything you would want a friend to ask you about over coffee - how
+City/Bayern/Chelsea/Barca are doing this week, a signing, a table position.]_
 
 ## Where
 
-_[Which city, and whether you are travelling anywhere soon - this is the line
-that pairs with the places page.]_
+_[Which city, and whether you are travelling anywhere soon.]_

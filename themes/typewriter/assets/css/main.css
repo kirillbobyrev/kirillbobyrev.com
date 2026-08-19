@@ -25,50 +25,19 @@
 /* No italic face is shipped for JetBrains Mono: code has no reason to go
    italic, so a fourth webfont download would buy nothing here. */
 
+/* Space Grotesk ships only as a variable font - one file covers the whole
+   300-700 weight range (a font-weight range in @font-face, not a fixed
+   value, is what tells the browser to read it as variable), so this is
+   one download instead of the four-plus static files a fixed-weight
+   family like the old Inter/Newsreader pairing needed. No italic style
+   exists for it at all - italic content (blockquotes, figure captions)
+   falls through to the next stack entry with a real italic instead of a
+   synthesized oblique, same as font-synthesis: none already enforces
+   everywhere else. */
 @font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-SemiBold.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-Italic.woff2") format("woff2");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Newsreader";
-  src: url("/fonts/Newsreader-SemiBold.woff2") format("woff2");
-  font-weight: 600;
+  font-family: "Space Grotesk";
+  src: url("/fonts/SpaceGrotesk-Variable.woff2") format("woff2");
+  font-weight: 300 700;
   font-style: normal;
   font-display: swap;
 }
@@ -76,13 +45,11 @@
 /* ==========================================================================
    Design tokens
 
-   A quiet editorial pairing: Newsreader (serif) carries the site title and
-   prose headings, Inter (sans) carries body copy, nav, and UI chrome, and
-   JetBrains Mono is kept only where it's earned - code and inline code.
-   Only Newsreader SemiBold (600) is shipped, so every serif use is set at
-   weight 600, not 700: browsers happily substitute the nearest real weight
-   the family declares, but writing the true weight documents what's
-   actually rendered instead of leaving a false "700" for the next reader.
+   One family, deliberately: Space Grotesk carries the site title, every
+   heading, body copy, and nav/UI chrome alike - no serif/sans split, the
+   single-voice minimalism is the point. JetBrains Mono is kept only where
+   it's earned - code and inline code. There is no --font-serif token any
+   more; every former serif use now reads var(--font-sans) directly.
    The --step scale below is a Bringhurst-style modular scale (The Elements
    of Typographic Style): one constant ratio (1.125, a "major second")
    applied repeatedly to a base size, same family as the --space-* scale
@@ -105,9 +72,8 @@
   color-scheme: light dark;
 
   --font-sans:
-    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
-  --font-serif: "Newsreader", Georgia, "Times New Roman", serif;
   --font-mono:
     "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono",
     Consolas, "Courier New", monospace;
@@ -156,28 +122,37 @@
      40-43° (orange-tan); --color-bg is no exception, which keeps the
      background reading as the warmest surface on the page rather than a
      colder outlier next to the border/underline/bg-code tokens below it.
-     Dark mode's value sits at L=0.11, in the range real dark themes target
-     (VS Code ~10%, GitHub dark ~13%) rather than the dim, low-contrast
-     "charcoal" territory above L=0.15 - contrast against --color-text:
-     11.20:1; against --color-muted: 6.23:1. */
-  --color-bg: light-dark(#f2efe9, #1c1b1a);
-  --color-text: light-dark(#3a3226, #d6d0c4);
+     Both modes are pushed a bit further toward their extreme than a
+     "neutral paper" bg would sit - paler in light mode, darker in dark -
+     specifically to buy every foreground token more contrast without
+     touching the foreground colors themselves. Light mode's bg has had
+     two such nudges now (each "a bit more" than the last, deliberately
+     incremental); dark mode instead got its second nudge on the text
+     token below, since its bg was already close to true black. Dark
+     mode's bg sits at L=0.08 (HSL lightness), darker than VS Code (~10%)
+     or GitHub dark (~13%) and still clear of the dim "charcoal" territory
+     above L=0.15. */
+  --color-bg: light-dark(#f8f5ef, #151413);
+  /* Dark mode's value brightened a step past its first pass - contrast
+     against --color-bg: light 11.6:1, dark 12.84:1. */
+  --color-text: light-dark(#3a3226, #ddd7cb);
   --color-heading: light-dark(#211c14, #f1ece3);
   /* Same hue as --color-bg, lightened/darkened just enough to clear WCAG
-     AA's 4.5:1 with a small margin (light: 4.97:1; dark: 6.23:1). */
+     AA's 4.5:1 with real margin (light: 5.16:1; dark: 6.66:1) - the
+     weakest-contrast token on the page, since it's the one used most
+     often for secondary text (timestamps, footer, ledes). */
   --color-muted: light-dark(#70665a, #a59a8d);
   --color-border: light-dark(#dad4c8, #504b44);
   /* Kept deliberately narrow: only ::selection (needs a light background
-     regardless of theme) and the places map (its own page, own legend) use
-     this - the site's one nod to Manchester City, not a second accent
-     color competing with --color-accent below. */
+     regardless of theme) uses this - the site's one nod to Manchester
+     City, not a second accent color competing with --color-accent below. */
   --color-sky: #6cabdd;
   /* A brick/oxblood red rather than Bayern's stadium red: their crest red
      (#dc052d) is calibrated for a kit and signage, too saturated and cool
      to sit on warm paper as body-size link text. Darkened and warmed a few
      degrees toward orange instead - reads as "considered accent," not
      "team color," and the warmth fits the palette's browns (light-mode
-     contrast against --color-bg: 6.90:1; dark-mode: 5.27:1). */
+     contrast against --color-bg: 7.17:1; dark-mode: 6.96:1). */
   --color-accent: light-dark(#952e23, #e58576);
   --color-selection-text: #08263c;
   --color-bg-code: light-dark(#e9e7e2, #343230);
@@ -337,15 +312,17 @@ video {
 }
 
 .site-title {
-  font-family: var(--font-serif);
-  font-size: var(--step-2);
-  font-weight: 600;
+  font-family: var(--font-sans);
+  /* Deliberately below h2's step-2: the title lives in header chrome, on
+     every page, competing with nothing - it should read as present, not
+     as another content heading. One step above .nav-link keeps it clearly
+     the more important thing in that row without matching in-page text. */
+  font-size: var(--step-1);
+  font-weight: 700;
   line-height: 1.15;
-  /* A hair of negative tracking reads tighter and more considered instead
-     of merely bigger - kept light now that the scale itself runs smaller,
-     since tight tracking is a large-display-type move and overdoing it at
-     a more modest size starts to look cramped instead of considered. */
-  letter-spacing: -0.008em;
+  /* Space Grotesk's own geometry already reads tight and considered at
+     weight 700 - less tracking to fight than a serif needed here before. */
+  letter-spacing: -0.012em;
   color: var(--color-heading);
   text-decoration: none;
   transition: color var(--transition);
@@ -373,6 +350,10 @@ video {
   padding: 0;
   margin-inline-start: calc(var(--space-xs) * -1);
   white-space: nowrap;
+  /* No optical baseline correction needed any more: .site-title and
+     .nav-link are now the same font at the same step (step-1), and
+     measuring directly confirms their baselines already land within a
+     fraction of a px of each other under .header-row's align-items. */
   /* Overrides the inherited --line-height: 1.7 from .site-body (tuned for
      paragraph prose, not a single line of nav text). Left inherited, the
      nav-link line-box was noticeably taller than its glyphs, so its
@@ -388,7 +369,10 @@ video {
   text-decoration: none;
   padding: 0.3rem var(--space-xs); /* 0.3rem: sub-scale hairline */
   border-radius: var(--radius-sm);
-  font-size: var(--step-0);
+  /* Matches .site-title's step-1: nav shouldn't read as an afterthought
+     next to it. Still clearly secondary to content headings (h1 is two
+     steps up) via weight and --color-muted, not size alone. */
+  font-size: var(--step-1);
   font-weight: 500;
   transition: color var(--transition);
 }
@@ -472,19 +456,24 @@ video {
   border-top: 1px solid var(--color-border);
 }
 
-.footer-cols {
+/* One line: "Elsewhere" + icons on the left, RSS/Source on the right. */
+.footer-row {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: var(--space-xl);
+  gap: var(--space-l);
   flex-wrap: wrap;
 }
 
+.footer-elsewhere {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+}
+
 .footer-label {
-  display: block;
   font-weight: 500;
   color: var(--color-muted);
-  margin-block-end: var(--space-s);
 }
 
 .footer-icons {
@@ -503,46 +492,9 @@ video {
   color: var(--color-accent);
 }
 
-.badges {
-  display: flex;
-  gap: var(--space-s);
-  align-items: center;
-}
-
-.badge {
-  display: inline-block;
-  line-height: 0;
-  /* Muted enough at rest to sit at the same quiet register as the social
-     icons beside it (see .social-link) rather than reading as its own,
-     more colorful "card" - the reveal to full color on hover is unchanged. */
-  filter: grayscale(0.85) opacity(0.6);
-  transition: filter var(--transition);
-}
-
-.badge:hover {
-  filter: none;
-}
-
-.badge img {
-  /* Matches .social-link's icon size (see social-icons.html): the two
-     groups read as one register, not two. */
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
-  display: block;
-}
-
-.badges-link {
-  white-space: nowrap;
-}
-
 .footer-nav {
   display: flex;
   gap: var(--space-m);
-  justify-content: flex-end;
-  margin-block-start: var(--space-l);
-  padding-block-start: var(--space-m);
-  border-top: 1px solid var(--color-border);
 }
 
 .site-footer a {
@@ -585,8 +537,7 @@ video {
   margin-block-start: var(--space-xs);
 }
 
-.prose a,
-a.taste-name {
+.prose a {
   color: var(--color-text);
   text-decoration: underline;
   text-decoration-color: var(--color-underline);
@@ -597,65 +548,52 @@ a.taste-name {
     text-decoration-color var(--transition);
 }
 
-.prose a:hover,
-a.taste-name:hover {
+.prose a:hover {
   color: var(--color-accent);
   text-decoration-color: var(--color-accent);
 }
 
-/* Mark links that leave the site with a small north-east arrow - revealed
-   on hover/focus rather than always on, same pattern as a.heading-anchor
-   below. On link-dense prose (several outbound links in a couple of short
-   paragraphs) having every one of them permanently marked reads as clutter;
-   the arrow is still there for anyone who hovers or tabs through. */
-.prose a[href^="http"]:not([href*="kirillbobyrev.com"])::after,
-a.taste-name[href^="http"]::after {
-  content: "\2197";
-  font-size: 0.7em;
-  margin-inline-start: 0.1em;
-  vertical-align: 0.2em;
-  color: var(--color-muted);
-  opacity: 0;
-  transition: opacity var(--transition);
-}
-
-.prose a[href^="http"]:not([href*="kirillbobyrev.com"]):hover::after,
-.prose a[href^="http"]:not([href*="kirillbobyrev.com"]):focus-visible::after,
-a.taste-name[href^="http"]:hover::after,
-a.taste-name[href^="http"]:focus-visible::after {
-  opacity: 1;
-}
-
 .main-content h1 {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: var(--step-3);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.2;
   /* Tracking eases back toward zero as the heading steps down (h1 tighter
      than h2, h3 left alone) - the same reasoning as .site-title, scaled to
-     how much size there is to tighten, and kept light for the same reason
-     .site-title's is: this is a modest-sized scale now, not display type. */
+     how much size there is to tighten. */
+  letter-spacing: -0.02em;
+  margin: var(--space-xl) 0 var(--space-s);
+  color: var(--color-heading);
+  text-wrap: balance;
+}
+
+/* Only /now currently wraps its h1 in a link (the nownownow.com
+   convention) - same quiet treatment as .site-title, just inherited size. */
+.main-content h1 a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.main-content h1 a:hover {
+  color: var(--color-accent);
+}
+
+.main-content h2 {
+  font-family: var(--font-sans);
+  font-size: var(--step-2);
+  font-weight: 700;
+  line-height: 1.25;
   letter-spacing: -0.012em;
   margin: var(--space-xl) 0 var(--space-s);
   color: var(--color-heading);
   text-wrap: balance;
 }
 
-.main-content h2 {
-  font-family: var(--font-serif);
-  font-size: var(--step-2);
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.008em;
-  margin: var(--space-xl) 0 var(--space-s);
-  color: var(--color-heading);
-  text-wrap: balance;
-}
-
 .main-content h3 {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: var(--step-1);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.3;
   margin: var(--space-l) 0 var(--space-xs);
   color: var(--color-heading);
@@ -787,11 +725,11 @@ a.taste-name[href^="http"]:focus-visible::after {
   justify-content: space-between;
   gap: var(--space-l);
   margin-block-start: var(--space-2xl);
-  /* Same role as .home-recent/.now-about/.prose .footnotes below: padding
-     after a section-boundary rule stays tighter (--space-m) than the
-     --space-2xl gap before it - a deliberately asymmetric "hug the rule"
-     shape shared by every section boundary on the site, not a value
-     specific to this one. */
+  /* Same role as .home-recent/.prose .footnotes below: padding after a
+     section-boundary rule stays tighter (--space-m) than the --space-2xl
+     gap before it - a deliberately asymmetric "hug the rule" shape shared
+     by every section boundary on the site, not a value specific to this
+     one. */
   padding-block-start: var(--space-m);
   border-top: 1px solid var(--color-border);
 }
@@ -922,9 +860,9 @@ a.heading-anchor:hover {
   margin-block: var(--space-l) var(--space-m);
 }
 
-/* Lede paragraph under a page title (homepage tagline, taste, places).
-   Body size, not a step up - muted color alone marks it as a subtitle, so
-   the page doesn't add a size that's used nowhere else. */
+/* Lede paragraph under a page title (homepage tagline, now). Body size,
+   not a step up - muted color alone marks it as a subtitle, so the page
+   doesn't add a size that's used nowhere else. */
 .lede {
   margin: 0 0 var(--space-s);
   font-size: var(--step-0);
@@ -934,7 +872,7 @@ a.heading-anchor:hover {
 
 .home-recent {
   margin-block-start: var(--space-2xl);
-  /* Matches .post-nav/.now-about/.prose .footnotes: --space-m after every
+  /* Matches .post-nav/.prose .footnotes: --space-m after every
      section-boundary rule, site-wide. */
   padding-block-start: var(--space-m);
   border-top: 1px solid var(--color-border);
@@ -963,138 +901,7 @@ a.heading-anchor:hover {
   color: var(--color-accent);
 }
 
-/* === Taste page === */
-/* Bottom margin matches .main-content .timeline-year-label below: both are
-   a small label sitting directly above the group of items it names, so
-   both get the same tight gap. */
-.taste-overline {
-  margin: var(--space-l) 0 var(--space-xs);
-}
-
-.crest-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(7.2rem, 1fr));
-  gap: var(--space-l) var(--space-s);
-  margin-block: var(--space-m);
-}
-
-.crest-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-s);
-  text-align: center;
-}
-
-.crest-card img {
-  height: 84px;
-  width: auto;
-  max-width: 100%;
-  object-fit: contain;
-}
-
-.crest-name {
-  font-weight: 500;
-  color: var(--color-heading);
-  font-size: var(--step--1);
-  line-height: 1.3;
-}
-
-/* Theme-aware crest pairs (display cannot ride light-dark(), so this
-   follows the theme-icon pattern). */
-.crest-dark {
-  display: none;
-}
-
-:root[data-theme="dark"] .crest-dark {
-  display: block;
-}
-
-:root[data-theme="dark"] .crest-light {
-  display: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .crest-dark {
-    display: block;
-  }
-
-  :root:not([data-theme="light"]) .crest-light {
-    display: none;
-  }
-}
-
-.crest-note {
-  color: var(--color-muted);
-  font-size: var(--step--2);
-  line-height: 1.35;
-}
-
-.taste-list {
-  list-style: none;
-  margin-block: var(--space-s);
-  padding: 0;
-}
-
-.taste-list li {
-  /* Same hover-row geometry as .blog-timeline-entry - equal padding on
-     every side. */
-  padding: var(--space-xs);
-  margin-inline: calc(var(--space-xs) * -1);
-  border-radius: var(--radius);
-  transition: background-color var(--transition);
-}
-
-.taste-list li:hover {
-  background-color: var(--color-bg-hover);
-}
-
-.taste-name {
-  font-weight: 500;
-  color: var(--color-heading);
-}
-
-/* Underline treatment is shared with prose links (see .prose a); this
-   keeps the heading ink of the non-link siblings on link names too. */
-a.taste-name {
-  color: var(--color-heading);
-}
-
-.taste-sep,
-.taste-note {
-  color: var(--color-muted);
-}
-
-.taste-note {
-  font-size: var(--step--1);
-}
-
-/* === Places page === */
-.me-nav {
-  margin: 0 0 var(--space-m);
-  font-size: var(--step--1);
-  font-weight: 500;
-  color: var(--color-heading);
-}
-
-.me-nav a {
-  color: var(--color-muted);
-  text-decoration: none;
-  transition: color var(--transition);
-}
-
-.me-nav a:hover {
-  color: var(--color-accent);
-}
-
-.me-nav-sep {
-  color: var(--color-muted);
-  margin-inline: 0.15rem; /* sub-scale hairline: tighter than --space-3xs allows */
-}
-
-/* Matches .places-stats below: both are a single stat/meta line right
-   after .me-nav, before the page's main content starts - same role on
-   sibling pages, same gap beneath it. */
+/* === Now page === */
 .now-updated {
   margin: 0 0 var(--space-m);
   color: var(--color-muted);
@@ -1102,194 +909,31 @@ a.taste-name {
   font-variant-numeric: tabular-nums;
 }
 
-.now-about {
-  margin-block-start: var(--space-2xl);
-  padding-block-start: var(--space-m);
-  border-top: 1px solid var(--color-border);
-  color: var(--color-muted);
-  font-size: var(--step--1);
-  text-wrap: pretty;
+/* Club crests dropped inline into prose via the {{< crests >}} shortcode
+   (currently just /now, under "Away from the keyboard"). A deliberately
+   large row rather than an inline detail - the crests are the point here,
+   not a footnote to the sentence above them - but content-sized and
+   left-aligned, not stretched to fill the measure. */
+.badges {
+  display: flex;
+  align-items: center;
+  gap: var(--space-l);
+  margin-block: var(--space-l);
 }
 
-.now-about a {
-  color: inherit;
-  text-decoration: underline;
-  text-decoration-color: var(--color-underline);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.19em;
-  transition: color var(--transition);
+.badge {
+  display: inline-block;
+  line-height: 0;
+  /* Flat, constant (no hover state) - at this size, full-saturation crest
+     colors read as glossy/plastic against the matte paper palette. */
+  filter: saturate(0.7);
 }
 
-.now-about a:hover {
-  color: var(--color-accent);
-}
-
-.places-stats {
-  margin: 0 0 var(--space-m);
-  color: var(--color-muted);
-  font-size: var(--step--1);
-  font-variant-numeric: tabular-nums;
-}
-
-.places-stats strong {
-  color: var(--color-heading);
-  font-weight: 500;
-}
-
-.map-wrap {
-  position: relative;
-  margin-block: var(--space-m) var(--space-xl);
-}
-
-/* Let the map break out of the text column on wide screens. */
-@media (min-width: 1100px) {
-  .map-wrap {
-    --map-width: min(62rem, calc(100vw - 4rem));
-    width: var(--map-width);
-    margin-inline: calc((100% - var(--map-width)) / 2);
-  }
-}
-
-#places-map {
+.badge img {
+  width: 5rem;
+  height: 5rem;
+  object-fit: contain;
   display: block;
-  width: 100%;
-  height: auto;
-  /* One finger scrolls the page past the map; pinch is handled in JS. */
-  touch-action: pan-y;
-}
-
-/* Once zoomed the map owns its touches: one finger pans the view. */
-#places-map.is-zoomed {
-  touch-action: none;
-}
-
-.map-ocean {
-  vector-effect: non-scaling-stroke;
-  /* var(--color-bg), not a hardcoded fallback, so the ocean always matches
-     the page background automatically, in both themes. */
-  fill: light-dark(
-    color-mix(in srgb, var(--color-sky) 4%, var(--color-bg)),
-    color-mix(in srgb, var(--color-sky) 6%, var(--color-bg))
-  );
-  stroke: var(--color-border);
-  stroke-width: 1;
-}
-
-/* Unvisited land is one silhouette: stroke = fill seals the seams
-   between neighbouring countries so no interior borders show. */
-.map-country {
-  vector-effect: non-scaling-stroke;
-  fill: var(--color-land);
-  stroke: var(--color-land);
-  stroke-width: 0.5;
-  /* Any land is clickable: it zooms to its continent. */
-  cursor: zoom-in;
-}
-
-.map-visited {
-  fill: color-mix(in srgb, var(--color-sky) 36%, var(--color-land));
-  stroke: color-mix(in srgb, var(--color-sky) 65%, var(--color-land));
-  stroke-width: 1;
-  cursor: zoom-in;
-  transition: fill var(--transition);
-}
-
-.map-visited:hover,
-.map-visited.is-hot {
-  fill: color-mix(in srgb, var(--color-sky) 48%, var(--color-land));
-}
-
-#places-map.is-zoomed .map-visited {
-  cursor: zoom-out;
-}
-
-#places-map.is-zoomed .map-ocean {
-  cursor: zoom-out;
-}
-
-.map-dot-halo {
-  fill: var(--color-sky);
-  opacity: 0.28;
-  transition: opacity var(--transition);
-}
-
-.map-dot-mark {
-  fill: var(--color-accent);
-  stroke: var(--color-bg);
-  stroke-width: 1.5;
-  transition: r var(--transition);
-}
-
-.map-dot:hover .map-dot-mark,
-.map-dot.is-active .map-dot-mark {
-  transform: scale(1.45);
-}
-
-.map-dot:hover .map-dot-halo {
-  opacity: 0.45;
-}
-
-.map-tip {
-  position: absolute;
-  translate: -50% calc(-100% - 12px);
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  padding: var(--space-xs) var(--space-s);
-  pointer-events: none;
-  box-shadow: 0 2px 8px color-mix(in srgb, #000 12%, transparent);
-  white-space: nowrap;
-  font-size: var(--step--1);
-  line-height: 1.4;
-}
-
-.tip-city {
-  display: block;
-  font-weight: 500;
-  color: var(--color-heading);
-}
-
-.tip-meta {
-  color: var(--color-muted);
-}
-
-.places-line {
-  margin-block: 0 var(--space-xs);
-  color: var(--color-muted);
-  font-size: var(--step--1);
-  line-height: 1.9;
-  text-wrap: pretty;
-}
-
-.places-line:last-of-type {
-  margin-block-end: var(--space-xl);
-}
-
-.line-item {
-  border: 0;
-  padding: 0;
-  background: none;
-  font: inherit;
-  color: var(--color-muted);
-  cursor: pointer;
-  transition: color var(--transition);
-  /* Breathing room around the bare "·" text separators. */
-  margin-inline: 0.15em;
-}
-
-.line-item:hover {
-  color: var(--color-accent);
-}
-
-/* The pinned target stays highlighted until the pin is released. */
-.line-item[aria-pressed="true"] {
-  color: var(--color-accent);
-}
-
-.line-label {
-  font-weight: 500;
-  color: var(--color-heading);
-  margin-inline-end: var(--space-2xs);
 }
 
 /* === Blog timeline === */
@@ -1299,10 +943,9 @@ a.taste-name {
   padding: 0;
 }
 
-/* Overline labels: quiet muted group labels (taste groups, blog years).
-   The year selector outranks the .main-content h2 heading style on
-   purpose: the year is a label, not a section heading. */
-.taste-overline,
+/* Overline label: a quiet muted group label above a year's posts. Outranks
+   the .main-content h2 heading style on purpose: the year is a label, not
+   a section heading. */
 .main-content .timeline-year-label {
   font-family: var(--font-sans);
   font-size: var(--step--1);
@@ -1401,9 +1044,9 @@ a.taste-name {
 
 .blog-timeline-entry-lg .blog-timeline-title {
   display: block;
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: var(--step-1);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.3;
 }
 
@@ -1648,7 +1291,7 @@ pre.mermaid svg {
    lone class), which was silently shrinking "404" down to a regular post
    heading's size instead of the display numeral this is meant to be. */
 .error-page .error-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   /* Display-only exception: a big numeral deliberately breaks from the
      --step-* text scale (Bringhurst's own scale governs text sizes; large
      display treatments are conventionally chosen separately) rather than
@@ -1656,7 +1299,7 @@ pre.mermaid svg {
      happen to land exactly on --space-3xl, which is a nice coincidence,
      not a reason to reuse a spacing token as a font-size. */
   font-size: 4rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
   margin-block-end: var(--space-m);
@@ -1716,9 +1359,10 @@ pre.mermaid svg {
     padding-inline: var(--space-m);
   }
 
-  .footer-cols {
+  .footer-row {
     flex-direction: column;
-    gap: var(--space-l);
+    align-items: flex-start;
+    gap: var(--space-m);
   }
 
   .highlight {
@@ -1788,9 +1432,8 @@ pre.mermaid svg {
     text-decoration: none;
   }
 
-  /* Show where external links point since paper has no hover - opacity: 1
-     overrides the screen-only hover-reveal above, which would otherwise
-     leave this invisible on a medium with no hover state at all. */
+  /* Show where external links point since paper has no hover to reveal
+     anything on click - print is the one place this is worth the space. */
   .prose a[href^="http"]:not([href*="kirillbobyrev.com"])::after {
     content: " (" attr(href) ")";
     font-size: 0.85em;

@@ -39,7 +39,7 @@ theme = 'typewriter'
 [[menus.main]]
   name = 'Resume'
   url = '/resume.pdf'
-  weight = 2
+  weight = 3
 
 [sitemap]
   changefreq = 'weekly'

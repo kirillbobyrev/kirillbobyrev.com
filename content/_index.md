@@ -28,6 +28,6 @@ intersection of ML and safety-critical systems.
 
 ## Beyond Code
 
-I really enjoy learning something new - playing football (soccer), exploring
-chess, or traveling to new places. I speak English,
-Russian, and German and share my home with three crazy Abyssinian cats.
+I really enjoy learning something new - playing football, exploring chess, or
+traveling to new places. I speak English, Russian, and German and share my
+home with three crazy Abyssinian cats.
