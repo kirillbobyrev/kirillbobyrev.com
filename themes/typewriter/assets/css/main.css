@@ -76,26 +76,18 @@
 /* ==========================================================================
    Design tokens
 
-   A quiet editorial pairing rather than the mono-everywhere look this theme
-   started with: Newsreader (serif) carries the site title and prose
-   headings, Inter (sans) carries body copy, nav, and UI chrome, and
+   A quiet editorial pairing: Newsreader (serif) carries the site title and
+   prose headings, Inter (sans) carries body copy, nav, and UI chrome, and
    JetBrains Mono is kept only where it's earned - code and inline code.
    Only Newsreader SemiBold (600) is shipped, so every serif use is set at
    weight 600, not 700: browsers happily substitute the nearest real weight
    the family declares, but writing the true weight documents what's
    actually rendered instead of leaving a false "700" for the next reader.
-   Type rides a gentler ratio than quietprint's 1.2 (1.125, a "major
-   second"): the goal here is a quiet page, and 1.2 was making the big
-   steps (h1/h2/the site title) louder than that page wants. Going with a
-   flatter ratio rather than just shrinking the root keeps the two ends
-   moving in different directions - the biggest steps shrink the most,
-   the smallest two (meta/code, overline labels) actually get a hair
-   *bigger* than the 1.2 scale gave them, since they were the ones under
-   the most pressure to stay legible. This is a Bringhurst-style modular
-   scale (The Elements of Typographic Style): one constant ratio applied
-   repeatedly to a base size, same family as the --space-* scale below -
-   named explicitly here so it reads as a system, not six independently
-   chosen numbers:
+   The --step scale below is a Bringhurst-style modular scale (The Elements
+   of Typographic Style): one constant ratio (1.125, a "major second")
+   applied repeatedly to a base size, same family as the --space-* scale
+   further down - a quiet ratio, chosen so the biggest steps (h1/h2/the
+   site title) don't shout:
      --step--2  0.79rem    table headers, overline labels
      --step--1  0.8889rem  meta, dates, labels, code, tables
      --step-0   1rem       body, nav
@@ -127,14 +119,11 @@
   --step-2: 1.2656rem;
   --step-3: 1.4238rem;
 
-  /* Shared shape + motion tokens (kept consistent across the whole UI).
-     Slightly softer corners than the theme's original 4px/2px - still a
-     touch crisper than quietprint's 8px/4px, enough to stay visually
-     distinct without reading as mechanical. A standard "ease-out"-leaning
-     curve reads calmer than the browser's default `ease` on the quick,
-     small movements everything here uses (hover fades, the toggle, the
-     back-to-top button) - it starts a touch faster and settles instead of
-     easing in from a dead stop. */
+  /* Shared shape + motion tokens (kept consistent across the whole UI). A
+     standard "ease-out"-leaning curve reads calmer than the browser's
+     default `ease` on the quick, small movements everything here uses
+     (hover fades, the toggle, the back-to-top button) - it starts a touch
+     faster and settles instead of easing in from a dead stop. */
   --radius: 6px; /* cards, code blocks, tables, buttons */
   --radius-sm: 3px; /* inline code, chips, small marks */
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
@@ -147,14 +136,10 @@
      get proportionally larger as they grow (not a single constant ratio):
      the eye stops distinguishing small absolute differences at large sizes
      (4px vs 8px is obvious, 64px vs 65px isn't), the tiering rationale
-     behind Tailwind/Refactoring UI's default spacing scale. This replaces
-     four independently eyeballed values (--space-block, --space-section,
-     --space-row-block, --space-row-inline) and every other hardcoded
-     margin/padding/gap in this file - previously 30 distinct, undocumented
-     magnitudes for what should be one rhythm. Two steps land exactly on
-     values already in use (2xl = the old --space-section, 3xl = the 404
-     numeral's size), which is a sanity check that this names a rhythm
-     already partly present rather than inventing an arbitrary one. */
+     behind Tailwind/Refactoring UI's default spacing scale. Every
+     margin/padding/gap in this file should use one of these steps; a
+     genuinely sub-3xs hairline nudge is the only accepted exception, and
+     should say so in a comment. */
   --space-3xs: 0.25rem;
   --space-2xs: 0.375rem;
   --space-xs: 0.5rem;
@@ -165,45 +150,34 @@
   --space-2xl: 2.75rem;
   --space-3xl: 4rem;
 
-  /* Warm "paper" palette instead of quietprint's neutral gray-on-white -
-     the reference site's signature. Muted rather than bright/vivid: low
-     saturation in both modes (the light value used to run S=0.50 - closer
-     to a warm cream than paper), and dark mode's is deliberately not
-     near-black (L=0.17, not the previous 0.10) - a bleak overcast charcoal
-     instead of ink. The light value's hue was later corrected from 48°
-     (yellow-green) to 40° (orange-tan) with a matching saturation bump -
-     every other warm token below (border, underline, bg-code, land) already
-     sat at 40-43°, so the background alone drifting toward yellow-green was
-     reading as cold/gray next to them rather than as the warmest surface on
-     the page. */
-  --color-bg: light-dark(#f2efe9, #2e2c29);
+  /* Warm "paper" palette - the site's signature, not a neutral
+     gray-on-white. Muted rather than bright/vivid: low saturation in both
+     modes. Every warm token in this block shares a hue family around
+     40-43° (orange-tan); --color-bg is no exception, which keeps the
+     background reading as the warmest surface on the page rather than a
+     colder outlier next to the border/underline/bg-code tokens below it.
+     Dark mode's value sits at L=0.11, in the range real dark themes target
+     (VS Code ~10%, GitHub dark ~13%) rather than the dim, low-contrast
+     "charcoal" territory above L=0.15 - contrast against --color-text:
+     11.20:1; against --color-muted: 6.23:1. */
+  --color-bg: light-dark(#f2efe9, #1c1b1a);
   --color-text: light-dark(#3a3226, #d6d0c4);
   --color-heading: light-dark(#211c14, #f1ece3);
-  /* Retuned alongside --color-bg above: a muted, less saturated background
-     shifts contrast even at the same text color, so this needed
-     re-verifying against the new bg, not just carried over. Same hue,
-     just enough lighter/darker to clear WCAG AA's 4.5:1 with a small
-     margin (light: 4.97:1 against the new bg; dark: 5.04:1, matching what
-     the pre-mute dark value had against the pre-mute dark bg). */
+  /* Same hue as --color-bg, lightened/darkened just enough to clear WCAG
+     AA's 4.5:1 with a small margin (light: 4.97:1; dark: 6.23:1). */
   --color-muted: light-dark(#70665a, #a59a8d);
   --color-border: light-dark(#dad4c8, #504b44);
   /* Kept deliberately narrow: only ::selection (needs a light background
      regardless of theme) and the places map (its own page, own legend) use
-     this. It used to also be the nav's current-page indicator and the
-     :target flash, back when --color-accent was blue too - two blues
-     doing the same job. Now that the accent is red (below), this is the
-     site's one remaining nod to Manchester City rather than a color
-     competing with it. */
+     this - the site's one nod to Manchester City, not a second accent
+     color competing with --color-accent below. */
   --color-sky: #6cabdd;
   /* A brick/oxblood red rather than Bayern's stadium red: their crest red
      (#dc052d) is calibrated for a kit and signage, too saturated and cool
      to sit on warm paper as body-size link text. Darkened and warmed a few
      degrees toward orange instead - reads as "considered accent," not
-     "team color," and the warmth actually fits the palette's existing
-     browns better than the old blue did (light-mode contrast against
-     --color-bg: 6.90:1, well past WCAG AA's 4.5:1; dark-mode: 5.27:1 -
-     re-verified against the muted background below, not just carried
-     over from the brighter/darker one this was originally tuned against). */
+     "team color," and the warmth fits the palette's browns (light-mode
+     contrast against --color-bg: 6.90:1; dark-mode: 5.27:1). */
   --color-accent: light-dark(#952e23, #e58576);
   --color-selection-text: #08263c;
   --color-bg-code: light-dark(#e9e7e2, #343230);
@@ -211,11 +185,17 @@
   --color-underline: light-dark(#c9bfa8, #4a4237);
   --color-land: light-dark(#e6ddc8, #332c22); /* unvisited map land */
 
-  /* rem, not ch: rides the fluid root font-size above on its own (no
-     per-breakpoint override needed), the column widening a little on large
-     displays as a side effect of the root growing rather than as a second,
-     independent rule to keep in sync with it. */
-  --measure: 45.5rem;
+  /* rem, not ch: still scales with a reader's browser-level text-size
+     preference the same way the font-size clamp above does. Flat at
+     45.5rem through 2200px of viewport (where the font-size clamp above
+     also caps), then grows independently on wider displays - a column
+     stuck at ~910px forever regardless of screen size wastes most of a
+     4K/ultrawide monitor. Same linear-interpolation technique as the
+     font-size clamp, solved to cross 45.5rem at 2200px and 58rem at 3840px
+     (4K), holding flat past that: 2560px (QHD) -> ~965px, 3440px
+     (ultrawide) -> ~1099px, 3840px+ -> 1160px (~115 characters/line at the
+     largest size - a real widening, short of spanning the whole screen). */
+  --measure: clamp(45.5rem, 28.7317rem + 15.2439vw, 58rem);
 }
 
 :root[data-theme="light"] {
@@ -236,12 +216,8 @@
 html {
   /* Fluid, not stepped: flat at 18px (1.125em) up to ~1600px of viewport,
      then grows in a straight line to 20px (1.25em) by ~2200px and holds
-     there. A second nudge up (17-19px before this) - the heading scale's
-     ratio (see the --step tokens above) was the real source of "too
-     loud", not the base size on its own, so this keeps moving the whole
-     page larger without undoing that fix. Same method as before: em, not
-     px, so a reader's browser-level text-size preference (not just
-     pinch/ctrl-zoom) still scales the whole clamp; solved from
+     there. em, not px, so a reader's browser-level text-size preference
+     (not just pinch/ctrl-zoom) still scales the whole clamp; solved from
      font-size = 0.7917em + 0.3333vw, a line that crosses 1.125em at
      exactly 1600px of viewport and 1.25em at exactly 2200px, fixing the
      clamp's flat/fluid/flat breakpoints without a media query. Because
@@ -397,6 +373,13 @@ video {
   padding: 0;
   margin-inline-start: calc(var(--space-xs) * -1);
   white-space: nowrap;
+  /* Overrides the inherited --line-height: 1.7 from .site-body (tuned for
+     paragraph prose, not a single line of nav text). Left inherited, the
+     nav-link line-box was noticeably taller than its glyphs, so its
+     optical center sat visibly higher than the row's geometric center -
+     .theme-toggle, flex-centered on that same geometric center, read as
+     hanging low relative to the text next to it. */
+  line-height: 1;
 }
 
 .nav-link {
@@ -418,18 +401,13 @@ video {
   color: var(--color-heading);
 }
 
-/* The rule hugs the label rather than the padded hit area: painting it as a
-   background image anchored to the content box keeps it under the text
-   whatever the padding is. --color-accent, not --color-sky: one accent
-   color for the whole page reads calmer than a second one competing with
-   it (see --color-sky's own comment above). */
+/* Color and weight only, no painted underline: a colored accent was the
+   only color in an otherwise all-muted nav row, so it drew far more
+   attention than "which page is current" needs. Matches how hierarchy is
+   signaled everywhere else on the page - typography over paint. */
 .nav-link[aria-current] {
   color: var(--color-heading);
-  background-image: linear-gradient(var(--color-accent), var(--color-accent));
-  background-repeat: no-repeat;
-  background-size: 100% 2px;
-  background-position: bottom;
-  background-origin: content-box;
+  font-weight: 600;
 }
 
 .theme-toggle {
@@ -584,12 +562,10 @@ video {
 
 /* .main-content .article-header h1, not .article-header h1: bare
    .article-header h1 has the exact same specificity as .main-content h1
-   below, and source order (that rule comes later in the file) was
-   silently letting it win - so the post title has been getting the
-   standard --space-s bottom margin, not the tighter gap this rule was
-   actually meant to set. The extra .main-content ancestor is real (see
-   page.html: .article-header always sits inside .main-content), so this
-   raises specificity without becoming a coincidence. */
+   below and would lose the cascade tiebreak to it by source order. The
+   extra .main-content ancestor is real (see page.html: .article-header
+   always sits inside .main-content), so this raises specificity without
+   becoming a coincidence. */
 .main-content .article-header h1 {
   margin-block-end: var(--space-2xs);
 }
@@ -602,85 +578,6 @@ video {
   color: var(--color-muted);
   font-size: var(--step--1);
   font-variant-numeric: tabular-nums;
-}
-
-.article-reading-time::before,
-.article-updated::before {
-  content: "\00b7";
-  margin-inline-end: var(--space-xs);
-}
-
-/* === Table of contents (long posts) === */
-.toc {
-  margin-block: var(--space-l) var(--space-xl);
-  padding-block-end: var(--space-m);
-  border-bottom: 1px solid var(--color-border);
-  font-size: var(--step--1);
-}
-
-.toc summary {
-  cursor: pointer;
-  font-weight: 700;
-  color: var(--color-heading);
-  list-style: none;
-}
-
-.toc summary:hover {
-  color: var(--color-accent);
-}
-
-.toc summary::-webkit-details-marker {
-  display: none;
-}
-
-.toc summary::before {
-  content: "▸";
-  display: inline-block;
-  margin-inline-end: var(--space-xs);
-  color: var(--color-muted);
-  transition: transform var(--transition);
-}
-
-.toc[open] summary::before {
-  transform: rotate(90deg);
-}
-
-.toc nav ul {
-  list-style: none;
-  margin: var(--space-xs) 0 0;
-  padding-inline-start: var(--space-s);
-}
-
-.toc nav > ul {
-  padding-inline-start: 0;
-}
-
-.toc nav li {
-  margin-block: 0.2rem; /* sub-scale hairline: tighter than --space-3xs allows */
-  line-height: 1.5;
-}
-
-.toc nav a {
-  color: var(--color-text);
-  text-decoration: none;
-}
-
-.toc nav a:hover {
-  color: var(--color-accent);
-  text-decoration: underline;
-}
-
-.back-link {
-  display: inline-block;
-  color: var(--color-muted);
-  text-decoration: none;
-  font-size: var(--step--1);
-  margin-block-end: var(--space-m);
-  transition: color var(--transition);
-}
-
-.back-link:hover {
-  color: var(--color-accent);
 }
 
 /* === Prose typography === */
@@ -943,8 +840,7 @@ a.taste-name[href^="http"]:focus-visible::after {
 
 .prose th {
   /* Vertical padding matches .prose td below - a header row and a body
-     row in the same table get the same row height, not two values that
-     merely happened to round differently pre-refactor. */
+     row in the same table get the same row height. */
   padding: var(--space-xs) var(--space-s);
   text-align: left;
   font-size: var(--step--2);
@@ -1068,10 +964,9 @@ a.heading-anchor:hover {
 }
 
 /* === Taste page === */
-/* Bottom margin matches .main-content .timeline-year-label below:
-   both are a small label sitting directly above the group of items it
-   names, so both get the same tight gap - not two different values that
-   happened to survive from before the two roles were ever compared. */
+/* Bottom margin matches .main-content .timeline-year-label below: both are
+   a small label sitting directly above the group of items it names, so
+   both get the same tight gap. */
 .taste-overline {
   margin: var(--space-l) 0 var(--space-xs);
 }
@@ -1143,8 +1038,7 @@ a.heading-anchor:hover {
 
 .taste-list li {
   /* Same hover-row geometry as .blog-timeline-entry - equal padding on
-     every side now that the old asymmetric 0.55rem/0.6rem block/inline
-     split both round to the same --space-xs step. */
+     every side. */
   padding: var(--space-xs);
   margin-inline: calc(var(--space-xs) * -1);
   border-radius: var(--radius);
@@ -1271,10 +1165,8 @@ a.taste-name {
 
 .map-ocean {
   vector-effect: non-scaling-stroke;
-  /* var(--color-bg), not a hardcoded fallback: this was still mixing
-     against quietprint's neutral #fcfcfc/#171b21 from before the theme was
-     re-skinned warm, so the ocean never actually matched this theme's own
-     background - it now inherits whatever --color-bg is automatically. */
+  /* var(--color-bg), not a hardcoded fallback, so the ocean always matches
+     the page background automatically, in both themes. */
   fill: light-dark(
     color-mix(in srgb, var(--color-sky) 4%, var(--color-bg)),
     color-mix(in srgb, var(--color-sky) 6%, var(--color-bg))
@@ -1542,24 +1434,6 @@ a.taste-name {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-/* === Reading progress ===
-   Rendered only on long posts (see page.html), tracking scroll through
-   .post-body. Ships hidden; the script in baseof.html reveals and drives it,
-   so a no-JS reader never sees a bar stuck at zero width. */
-.reading-progress {
-  position: fixed;
-  inset-block-start: 0;
-  inset-inline: 0;
-  z-index: 60;
-  height: 2px;
-}
-
-.reading-progress-bar {
-  height: 100%;
-  width: 0%;
-  background-color: var(--color-accent);
 }
 
 /* === Back to top ===
@@ -1900,8 +1774,6 @@ pre.mermaid svg {
 
   .site-header,
   .site-footer,
-  .back-link,
-  .toc,
   .post-nav,
   .to-top {
     display: none;
