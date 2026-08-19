@@ -42,18 +42,21 @@
    shouting metadata) is the actual design system here, more than any one
    color or shape.
 
-   Four sizes, each with exactly one job - a strict, small scale on
+   Five sizes, each with exactly one job - a strict, small scale on
    purpose (Ulm/Bauhaus rigor: few fixed steps, no one-off values) rather
    than a size for every element that touches it:
-     --text-sm    0.875rem  everything secondary: nav, dates, captions,
+     --text-sm    0.875rem  everything secondary: dates, captions,
                             footnotes, table text, the About-page eyebrow
-     --text-base  1.05rem   body copy - paragraphs, list items, the lede;
-                            a comfortable reading size, not 1rem flat
+     --text-base  1rem      body copy - paragraphs, list items, the lede
+     --text-md    1.2rem    site chrome that has to hold its own against
+                            body text on the same line: the site title/
+                            wordmark and the main nav (see kirillbobyrev.com's
+                            own header, the reference for this one)
      --text-lg    1.75rem   h2, blog-index titles, pull-quotes
      --text-xl    3rem      h1 - About, Now, and post titles alike; one
                             size for every top-level heading, not two
                             barely-different ones
-   (h3 reuses --text-base at a bolder weight rather than claiming a fifth
+   (h3 reuses --text-base at a bolder weight rather than claiming a sixth
    size - see .prose h3.)
 
    Themes: every color is declared exactly once via light-dark(). The
@@ -77,7 +80,8 @@
     "Courier New", monospace;
 
   --text-sm: 0.875rem;
-  --text-base: 1.05rem;
+  --text-base: 1rem;
+  --text-md: 1.2rem;
   --text-lg: 1.75rem;
   --text-xl: 3rem;
 
@@ -302,8 +306,9 @@ video {
   text-decoration: none;
   color: var(--color-heading);
   font-family: var(--font-sans);
-  font-weight: 500;
-  font-size: var(--text-sm);
+  font-weight: 700;
+  font-size: var(--text-md);
+  letter-spacing: -0.012em;
   transition: color var(--transition);
 }
 
@@ -376,13 +381,17 @@ video {
 /* Current page reads from color and weight alone, no painted dot or
    underline - the same "typography over paint" state language as the
    rest of the theme's chrome. */
+/* Same size as .site-title (not a smaller "chrome" size) - weight and
+   color are what mark it as secondary, matching the reference site's own
+   header (kirillbobyrev.com): the wordmark and the nav share one step,
+   bold vs. medium. */
 .nav-link {
   display: flex;
   align-items: center;
   color: var(--color-muted);
   text-decoration: none;
   font-family: var(--font-sans);
-  font-size: var(--text-sm);
+  font-size: var(--text-md);
   font-weight: 500;
   padding: var(--space-2xs) 0;
   transition: color var(--transition);
