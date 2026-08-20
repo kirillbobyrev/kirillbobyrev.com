@@ -16,9 +16,9 @@ diamond mark sits on the "About." heading's own line, straight from the
 source design.
 
 This theme lives in the same repo as the site that uses it
-(`themes/constructivist/`), same layered convention as its sibling themes
-`typewriter` and `quietprint`, and is the active theme (`theme =
-"constructivist"` in the site's `hugo.toml`).
+(`themes/constructivist/`), same layered convention as its sibling theme
+`typewriter`, and is the active theme (`theme = "constructivist"` in the
+site's `hugo.toml`).
 
 ## Content contract
 
@@ -32,9 +32,9 @@ if left unset:
 | `[params.author] location` | `hugo.toml` | eyebrow line above the "About." heading (e.g. `location = "Mountain View, California"`) |
 | `[params.social] email`    | `hugo.toml` | adds an "Email" entry to the arrow-link row on the About page                           |
 
-Deliberately different from `typewriter`/`quietprint`: there is no
-sitewide footer. The social arrow-link row is About-page-only chrome, not
-repeated on every page.
+Deliberately different from `typewriter`: there is no sitewide footer. The
+social arrow-link row is About-page-only chrome, not repeated on every
+page.
 
 ## Previewing
 
@@ -50,8 +50,8 @@ hugo --gc --minify -d /tmp/constructivist-build
 
 ## Switching back to a sibling theme
 
-Change `theme = "constructivist"` to `theme = "typewriter"` (or
-`"quietprint"`) in the site's `hugo.toml`; each implements the same
-content contract, so no changes to `content/`, `data/`, or `archetypes/`
-are required. To preview one without switching the live config, pass
-`--theme <name>` to `hugo server`/`hugo` for that invocation only.
+Change `theme = "constructivist"` to `theme = "typewriter"` in the site's
+`hugo.toml`; it implements the same content contract, so no changes to
+`content/`, `data/`, or `archetypes/` are required. To preview it without
+switching the live config, pass `--theme typewriter` to `hugo
+server`/`hugo` for that invocation only.

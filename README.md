@@ -11,9 +11,9 @@ Presentation lives in its own theme, `themes/constructivist/` (see its
 `theme = 'constructivist'` in `hugo.toml`. `content/`, `data/`, and
 `archetypes/` stay at the repo root and are theme-agnostic; trying a
 different look later means adding a sibling theme directory and changing
-that one config line, without touching content. `themes/typewriter/` and
-`themes/quietprint/` are earlier themes, kept in the repo as fallbacks and
-reference implementations rather than deleted.
+that one config line, without touching content. `themes/typewriter/` is the
+prior theme, kept in the repo as a fallback and reference implementation
+rather than deleted.
 
 CI: pull requests build the site, validate internal links, and check
 formatting (`.github/workflows/ci.yml`); merges to `main` build and deploy to
