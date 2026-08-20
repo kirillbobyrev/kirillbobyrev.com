@@ -11,8 +11,10 @@ reference site doesn't have: a manual light/dark toggle, reading progress,
 and a table of contents on long posts.
 
 This theme lives in the same repo as the site that uses it
-(`themes/typewriter/`), wired in via `theme = "typewriter"` in the site's
-`hugo.toml`. It owns presentation only — `layouts/`, `assets/`
+(`themes/typewriter/`), same layered convention as its sibling themes
+`constructivist` (currently active — `theme = "constructivist"` in the
+site's `hugo.toml`) and `quietprint`. It owns presentation only —
+`layouts/`, `assets/`
 (CSS/JS/OG-image fonts), and `static/fonts/` (webfonts). Site-level
 `content/`, `data/`, `archetypes/`, and the rest of `static/` stay at the
 repo root and are layered on top by Hugo.
@@ -46,11 +48,10 @@ render the same site content.
   social handles (GitHub/Twitter/LinkedIn/Instagram icons in the footer),
   default meta description, and the GA property ID.
 
-## Swapping this theme out later
+## Switching to this theme
 
-1. Add a sibling directory, e.g. `themes/<new-theme>/`, with its own
-   `layouts/`/`assets/`/`static/` implementing the content contract above.
-2. Change `theme = "typewriter"` to `theme = "<new-theme>"` (e.g. back to
-   `"quietprint"`) in the site's `hugo.toml`.
-
-No changes to `content/`, `data/`, or `archetypes/` should be required.
+Change `theme = "constructivist"` (or `"quietprint"`) to `theme =
+"typewriter"` in the site's `hugo.toml`; each implements the same content
+contract, so no changes to `content/`, `data/`, or `archetypes/` should be
+required. To preview it without switching the live config, pass `--theme
+typewriter` to `hugo server`/`hugo` for that invocation only.

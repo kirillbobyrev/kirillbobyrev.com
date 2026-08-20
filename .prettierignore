@@ -1,3 +1,4 @@
 # prettier-plugin-go-template cannot parse dynamic tag names (<h{{ .Level }}>)
 themes/quietprint/layouts/_markup/render-heading.html
 themes/typewriter/layouts/_markup/render-heading.html
+themes/constructivist/layouts/_markup/render-heading.html

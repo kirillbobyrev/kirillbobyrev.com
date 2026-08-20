@@ -1,0 +1,69 @@
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.16.0/dist/mermaid.esm.min.mjs";
+
+  const blocks = [...document.querySelectorAll("pre.mermaid")];
+  const sources = blocks.map((el) => el.textContent.trim());
+  const mq = window.matchMedia("(prefers-color-scheme: dark)");
+  const dark = () =>
+    (document.documentElement.dataset.theme ||
+      (mq.matches ? "dark" : "light")) === "dark";
+
+  // Diagrams are drawn from the saved sources on every theme change, so
+  // they always match the site palette instead of a baked-in mermaid look.
+  let pass = 0;
+  const render = async () => {
+    const n = ++pass;
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: "base",
+      // Space Grotesk (sans), not Space Mono: Mermaid measures label text
+      // to size each label's box using metrics tuned for a proportional
+      // font, so a monospace family throws that sizing off (see the
+      // foreignObject overflow fix in main.css for the rest of that
+      // story). No explicit fontSize either, same reason.
+      themeVariables: dark()
+        ? {
+            darkMode: true,
+            background: "#141310",
+            primaryColor: "#1c1a16",
+            primaryTextColor: "#ebe7dd",
+            primaryBorderColor: "#4a4237",
+            secondaryColor: "transparent",
+            tertiaryColor: "transparent",
+            lineColor: "#d8402a",
+            edgeLabelBackground: "#141310",
+            fontFamily: "Space Grotesk, -apple-system, sans-serif",
+          }
+        : {
+            background: "#f2efe8",
+            primaryColor: "#e9e4d6",
+            primaryTextColor: "#1b1913",
+            primaryBorderColor: "#c9c2b0",
+            secondaryColor: "transparent",
+            tertiaryColor: "transparent",
+            lineColor: "#d8402a",
+            edgeLabelBackground: "#f2efe8",
+            fontFamily: "Space Grotesk, -apple-system, sans-serif",
+          },
+    });
+    for (const [i, el] of blocks.entries()) {
+      try {
+        const { svg } = await mermaid.render(`mermaid-${n}-${i}`, sources[i]);
+        if (pass === n) el.innerHTML = svg;
+      } catch (e) {
+        // Bad diagram source: keep the readable text fallback.
+      }
+    }
+  };
+
+  // Wait for Space Grotesk to finish loading before the first render, so
+  // Mermaid's label-sizing pass measures against the real font instead of
+  // a fallback.
+  await document.fonts.ready;
+  render();
+  mq.addEventListener("change", render);
+  new MutationObserver(render).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme"],
+  });
+</script>

@@ -1,0 +1,80 @@
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  {{- /* Apply a stored theme override before first paint to avoid flashing. */ -}}
+  <script>
+    (() => {
+      try {
+        const t = localStorage.getItem("theme");
+        if (t === "light" || t === "dark")
+          document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  {{- /* Space Grotesk covers headings, body, and nav (one variable-weight file); */ -}}
+  {{- /* Space Mono covers labels, meta, and code - both preloaded regular weights. */ -}}
+  <link
+    rel="preload"
+    href="/fonts/SpaceGrotesk-Variable.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+  />
+  <link
+    rel="preload"
+    href="/fonts/SpaceMono-Regular.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+  />
+  <title>
+    {{- if .IsHome }}
+      {{ .Site.Title }}
+    {{ else }}
+      {{ .Title }} ·
+      {{ .Site.Title }}
+    {{ end -}}
+  </title>
+  <meta
+    name="description"
+    content="{{ with .Description }}
+      {{ . }}
+    {{ else }}
+      {{ .Site.Params.description }}
+    {{ end }}"
+  />
+  <meta name="author" content="{{ .Site.Params.author.name }}" />
+  {{- partial "social-meta.html" . -}}
+  {{- partial "schema.html" . -}}
+  {{- /* Guard analytics so local `hugo server` sessions don't pollute stats. */ -}}
+  {{- if hugo.IsProduction -}}
+    {{- partial "google_analytics.html" . -}}
+  {{- end -}}
+  <link rel="canonical" href="{{ .Permalink }}" />
+  <link
+    rel="alternate"
+    type="application/rss+xml"
+    href="{{ "index.xml" | absURL }}"
+    title="{{ .Site.Title }}"
+  />
+  {{- /* Kept in sync with --color-bg in main.css by hand - browser chrome can't read a CSS custom property. */ -}}
+  <meta
+    name="theme-color"
+    media="(prefers-color-scheme: light)"
+    content="#f2efe8"
+  />
+  <meta
+    name="theme-color"
+    media="(prefers-color-scheme: dark)"
+    content="#141310"
+  />
+  <link
+    rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>😼</text></svg>"
+  />
+  {{- partialCached "css.html" . -}}
+  {{- if .Page.Store.Get "hasMath" -}}
+    {{- partialCached "math.html" . -}}
+  {{- end -}}
+  {{ hugo.Generator }}
+</head>

@@ -1,0 +1,1543 @@
+@font-face {
+  font-family: "Space Mono";
+  src: url("/fonts/SpaceMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Space Mono";
+  src: url("/fonts/SpaceMono-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Space Grotesk ships only as a variable font - one file covers the whole
+   300-700 weight range (a font-weight range in @font-face, not a fixed
+   value, is what tells the browser to read it as variable). No italic
+   style exists for it - italic content (blockquotes, captions) falls
+   through to the next stack entry with a real italic instead of a
+   synthesized oblique, same as font-synthesis: none below. */
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/SpaceGrotesk-Variable.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   Design tokens
+
+   One voice: Space Grotesk for everything - headings, nav, body, dates,
+   captions. Space Mono is reserved for code (inline and blocks); the only
+   other place it appears is the generated Open Graph card image (see
+   og-image.html), which isn't part of the rendered page. Nothing sets
+   letter-spacing/uppercase as a device for turning ordinary words into a
+   "label" - metadata reads
+   as quieter, smaller text in the same typeface, not a different one
+   dressed up to look official. That restraint (editorial-modernist -
+   iA, Anthropic's research blog, Increment, Stripe Press, Works in
+   Progress: generous type, restrained hierarchy, quiet sans, no tiny
+   shouting metadata) is the actual design system here, more than any one
+   color or shape.
+
+   Five sizes, each with exactly one job - a strict, small scale on
+   purpose (Ulm/Bauhaus rigor: few fixed steps, no one-off values) rather
+   than a size for every element that touches it. Anchored to a real
+   modular scale rather than hand-picked per size (Bringhurst's "The
+   Elements of Typographic Style"; the same method type-scale.com and
+   Material Design's type scale are built from): a fixed ratio applied
+   repeatedly to a base size. Ratio 1.25 ("major third," one of the
+   handful of named musical ratios typography borrows this technique
+   from - a quieter step than 1.333/"perfect fourth," enough to tell
+   sizes apart without a size shouting over its neighbor), base 1.125rem:
+     --text-sm    1rem      (another deliberate exception, not the ratio's
+                            0.9rem - dates/captions/footnotes/table text
+                            read too quiet at the strict value) - dates,
+                            captions, footnotes, table text, the eyebrow
+     --text-base  1.125rem  1.125 * 1.25^0 - body copy: paragraphs, list
+                            items, the lede
+     --text-md    1.4rem    1.125 * 1.25^1 - site chrome sharing a line
+                            with body text: the site title/wordmark and
+                            the main nav (see kirillbobyrev.com's own
+                            header, the reference for this one)
+     --text-lg    1.75rem   1.125 * 1.25^2 - h2, blog-index titles,
+                            pull-quotes
+     --text-xl    3rem      (a deliberate exception, not 1.125 * 1.25^4's
+                            2.75rem - h1 reads better with more presence
+                            than the ratio gives it) - h1: About, Now,
+                            and post titles alike, one size for every
+                            top-level heading
+   (h3 reuses --text-base at a bolder weight rather than claiming a sixth
+   size - see .prose h3. Values rounded to a clean rem for readability in
+   the source; the ratio is the point, not four-decimal precision.)
+
+   Themes: every color is declared exactly once via light-dark(). The
+   default color-scheme follows the OS; the header toggle forces one by
+   setting html[data-theme] (persisted in localStorage), which flips
+   color-scheme and with it every token. Both modes share one near-black/
+   near-cream pair pushed hard toward its extreme (dark: L=0.07; light:
+   L=0.94) with a single accent that does NOT itself change between
+   themes - #d8402a is used sparingly (a heading's trailing dot, the rule
+   under it, a link on hover), not as a device to draw the eye around the
+   page. Three text tiers, not four: --color-heading, --color-text,
+   --color-muted covers everything from a paragraph to a footnote: */
+:root {
+  color-scheme: light dark;
+
+  --font-sans:
+    "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono:
+    "Space Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas,
+    "Courier New", monospace;
+
+  --text-sm: 1rem;
+  --text-base: 1.125rem;
+  --text-md: 1.4rem;
+  --text-lg: 1.75rem;
+  --text-xl: 3rem;
+
+  /* Flat geometry: no soft UI rounding anywhere except the genuinely
+     circular marks (the header dot, the theme toggle, the "o" in the
+     About-page mark row) - those stay literal circles via
+     border-radius: 50% in place, not a token. */
+  --radius: 0;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: 0.15s var(--ease);
+
+  /* Same fluid space scale as typewriter (utopia.fyi-style T-shirt sizes)
+     - a generic, well-tuned convention, not a typewriter-specific
+     aesthetic choice, so it's reused rather than reinvented. Every
+     margin/padding/gap below should use one of these; a genuinely
+     sub-3xs hairline nudge is the only accepted exception, and should
+     say so in a comment. */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.375rem;
+  --space-xs: 0.5rem;
+  --space-s: 0.75rem;
+  --space-m: 1rem; /* "one line" at the root font-size */
+  --space-l: 1.5rem;
+  --space-xl: 2.25rem;
+  --space-2xl: 2.75rem;
+  --space-3xl: 4rem;
+
+  --color-bg: light-dark(#f2efe8, #141310);
+  --color-heading: light-dark(#14120d, #f4f1e9);
+  /* Body copy - contrast against --color-bg: light 15.9:1, dark 16.4:1. */
+  --color-text: light-dark(rgba(20, 18, 13, 0.92), rgba(235, 231, 221, 0.92));
+  /* Everything secondary: nav, dates, captions, footnotes, table text
+     (light 8.4:1, dark 8.0:1). */
+  --color-muted: light-dark(rgba(20, 18, 13, 0.55), rgba(235, 231, 221, 0.52));
+  --color-border: light-dark(rgba(20, 18, 13, 0.25), rgba(235, 231, 221, 0.22));
+  --color-underline: light-dark(
+    rgba(20, 18, 13, 0.32),
+    rgba(235, 231, 221, 0.3)
+  );
+  --color-panel: light-dark(rgba(20, 18, 13, 0.05), rgba(235, 231, 221, 0.04));
+  --color-bg-hover: light-dark(
+    rgba(20, 18, 13, 0.08),
+    rgba(235, 231, 221, 0.07)
+  );
+  --color-header-bg: light-dark(
+    rgba(242, 239, 232, 0.86),
+    rgba(20, 19, 16, 0.86)
+  );
+  /* The one color that does NOT flip with light-dark(): a considered ink
+     color, not a UI accent, so it stays put across modes (light-mode
+     contrast against --color-bg: 5.3:1; dark-mode: 5.9:1). */
+  --color-accent: #d8402a;
+
+  /* Matches typewriter's own --measure formula exactly (the explicit
+     reference site for this value): flat at 45.5rem through 1600px of
+     viewport, growing in a straight line to 58rem by 2200px, then flat
+     again - a column stuck at ~728px forever would waste most of a
+     wide/ultrawide display instead of using the room it has. Same
+     linear-interpolation technique as the root font-size clamp above,
+     just solved for a wider pair of bounds. */
+  --measure: clamp(45.5rem, 28.7317rem + 15.2439vw, 58rem);
+  /* The site's other, wider frame: figures/diagrams break out to this
+     width (see .figure-block/pre.mermaid) rather than staying inside
+     --measure, and the header row matches it too - the header and the
+     page's widest content share one outer edge, with the (narrower)
+     reading column inset within it, not the other way around. */
+  --measure-wide: min(92vw, 62rem);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* === Reset / base === */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Fluid, not stepped: flat at 16px up to ~1600px of viewport, then grows
+     in a straight line to 18px by ~2200px and holds there. em, not px, so
+     a reader's browser-level text-size preference still scales the whole
+     clamp; solved from font-size = 0.6667em + 0.3333vw, a line that
+     crosses 1em (16px) at exactly 1600px of viewport and 1.125em (18px)
+     at exactly 2200px. Same technique and breakpoints as typewriter's own
+     clamp, just re-solved for this theme's lower base size. */
+  font-size: clamp(1em, 0.6667em + 0.3333vw, 1.125em);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scrollbar-color: var(--color-underline) transparent;
+}
+
+.highlight pre,
+.table-wrapper {
+  scrollbar-width: thin;
+}
+
+body {
+  margin: 0;
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.site-body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.7;
+  font-synthesis: none;
+  font-variant-numeric: tabular-nums;
+}
+
+::selection {
+  /* The ink color as a highlight, text flipped to the page color - the
+     one place --color-accent supplies a background instead of foreground. */
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--color-accent) 18%, transparent);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: var(--space-xs) var(--space-m);
+  background-color: var(--color-heading);
+  color: var(--color-bg);
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+.scroll-sentinel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* === Layout === */
+.site-container {
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding-inline: var(--space-l);
+  padding-block-end: var(--space-3xl);
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background-color: var(--color-header-bg);
+  backdrop-filter: blur(14px) saturate(1.1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+}
+
+/* --measure-wide, not --measure: the header lines up with the site's
+   widest content (figures/diagrams, which break out to --measure-wide -
+   see .figure-block) rather than the narrower reading column, so the
+   logo and nav ("the interactive elements") sit flush with the same
+   left/right edges a wide figure's would, expanded or collapsed. */
+.header-row {
+  max-width: var(--measure-wide);
+  margin-inline: auto;
+  padding-inline: var(--space-l);
+  padding-block: var(--space-l);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-l);
+  transition: padding-block 260ms var(--ease);
+}
+
+/* Condensed once the scroll-sentinel in baseof.html has scrolled off. */
+.site-header[data-condensed] .header-row {
+  padding-block: var(--space-xs);
+}
+
+.site-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  text-decoration: none;
+  color: var(--color-heading);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: var(--text-md);
+  letter-spacing: -0.012em;
+  transition: color var(--transition);
+}
+
+.site-title:hover {
+  color: var(--color-accent);
+}
+
+.site-mark {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+}
+
+.site-title-text {
+  display: inline-flex;
+  overflow: hidden;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.site-title-full,
+.site-title-short {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  transition:
+    max-width 300ms var(--ease),
+    opacity 220ms ease;
+}
+
+.site-title-full {
+  max-width: 16em;
+  opacity: 1;
+}
+
+.site-title-short {
+  max-width: 0;
+  opacity: 0;
+}
+
+.site-header[data-condensed] .site-title-full {
+  max-width: 0;
+  opacity: 0;
+}
+
+.site-header[data-condensed] .site-title-short {
+  max-width: 3em;
+  opacity: 1;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: var(--space-l);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+/* Same size as .site-title, matching kirillbobyrev.com's own header:
+   the wordmark and the nav share one step, weight and color (not size)
+   marking the nav as secondary. The current page reads from color and
+   weight alone too, no painted dot or underline - "typography over
+   paint" throughout the theme's chrome. */
+.nav-link {
+  display: flex;
+  align-items: center;
+  color: var(--color-muted);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: var(--text-md);
+  font-weight: 500;
+  padding: var(--space-2xs) 0;
+  transition: color var(--transition);
+}
+
+.nav-link:hover {
+  color: var(--color-accent);
+}
+
+.nav-link[aria-current] {
+  color: var(--color-heading);
+  font-weight: 700;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  margin-inline-start: var(--space-xs);
+  padding: var(--space-2xs);
+  background: none;
+  color: var(--color-muted);
+  cursor: pointer;
+  line-height: 0;
+  transition: color var(--transition);
+}
+
+.theme-toggle:hover {
+  color: var(--color-accent);
+}
+
+/* An author-origin `display` beats the UA's `[hidden] { display: none }`
+   regardless of specificity, so restore it: the button ships hidden and only
+   the theme script unhides it, keeping it away from no-JS readers. */
+.theme-toggle[hidden] {
+  display: none;
+}
+
+.theme-toggle-mark {
+  position: relative;
+  display: block;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  overflow: hidden;
+}
+
+.theme-toggle-mark::before {
+  content: "";
+  position: absolute;
+  inset: 0 50% 0 0;
+  background-color: currentColor;
+}
+
+/* No sitewide footer chrome - see .link-row below, the one place
+   social links appear, on the About page only. */
+
+/* === Page chrome: eyebrow / heading (About, Now) === */
+.page-header {
+  margin-block: var(--space-xl) var(--space-m);
+}
+
+.page-eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-muted);
+}
+
+/* The top margin lives here, not on .page-heading (see below): flex
+   items don't margin-collapse with their container the way a block-level
+   h1 does on its own, so a margin on the heading itself would offset it
+   from the marks beside it under align-items: center. */
+.page-heading-row {
+  margin-top: var(--space-m);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-m) var(--space-l);
+}
+
+.page-heading-row .page-heading {
+  margin-top: 0;
+}
+
+/* Medium weight and tight tracking: a plain, confident display heading -
+   the accent-dot and the rule beneath it are the only ornament. */
+.page-heading,
+.main-content h1 {
+  margin: var(--space-m) 0 0;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--text-xl);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-heading);
+  text-wrap: balance;
+}
+
+.page-heading a,
+.main-content h1 a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.page-heading a:hover,
+.main-content h1 a:hover {
+  color: var(--color-accent);
+}
+
+.accent-dot {
+  color: var(--color-accent);
+}
+
+/* A filled circle, an outlined square, a filled diamond, then a rule
+   trailing off - small, on the heading's own line, straight from the
+   source design. */
+.heading-marks {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 9px; /* matches the source design's own value, off the space scale */
+}
+
+.mark {
+  flex: none;
+  width: 15px;
+  height: 15px;
+}
+
+.mark-circle {
+  border-radius: 50%;
+  background-color: var(--color-accent);
+}
+
+.mark-square {
+  border: 1.5px solid var(--color-muted);
+}
+
+.mark-diamond {
+  background-color: var(--color-muted);
+  transform: rotate(45deg);
+}
+
+.mark-rule {
+  width: 44px;
+  height: 1.5px;
+  background-color: var(--color-underline);
+}
+
+.heading-rule {
+  width: 72px;
+  height: 3px;
+  background-color: var(--color-accent);
+  margin: var(--space-l) 0 var(--space-l);
+}
+
+.lede {
+  margin: 0;
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+.page-footnote {
+  margin-block-start: var(--space-xl);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+/* Underlined-arrow link row - Email/GitHub/etc under the About prose, and
+   the general idiom this theme uses for "a link that is also a button." */
+.link-row {
+  margin-block-start: var(--space-2xl);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs) var(--space-l);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: 500;
+}
+
+.link-row a,
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  color: var(--color-text);
+  border-bottom: 2px solid var(--color-border);
+  text-decoration: none;
+  transition:
+    color var(--transition),
+    border-color var(--transition);
+}
+
+.link-row a::after,
+.social-link::after {
+  content: "\2192"; /* → */
+  margin-inline-start: var(--space-2xs);
+  opacity: 0.55;
+}
+
+.link-row a:hover,
+.social-link:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* === Article meta / post title === */
+.article-header {
+  margin-block: var(--space-3xl) var(--space-l);
+  text-align: center;
+}
+
+/* Same --text-xl as every other h1 (see .page-heading above) - just
+   width-constrained and centered, not a bigger size of its own. */
+.main-content .article-header h1 {
+  max-width: 22em;
+  margin-inline: auto;
+}
+
+.article-meta {
+  margin-block-start: var(--space-l);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  color: var(--color-muted);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+}
+
+/* === Prose typography === */
+.main-content {
+  margin-block-start: var(--space-xs);
+}
+
+/* Quiet by default - the same color as the surrounding sentence; the
+   accent only shows up once a link is actually being interacted with. */
+.prose a {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-color: var(--color-border);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.19em;
+  transition:
+    color var(--transition),
+    text-decoration-color var(--transition);
+}
+
+.prose a:hover {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+}
+
+/* Scoped to .prose, not .main-content, on purpose: chrome headings like
+   "Recent writing" (home.html) and a blog-index year label are h2s too,
+   but aren't post/page content and shouldn't pick up this treatment. */
+.prose h2 {
+  margin: var(--space-3xl) 0 var(--space-l);
+  font-family: var(--font-sans);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--color-heading);
+  text-wrap: balance;
+}
+
+/* Reuses --text-base (the body size) rather than claiming its own size
+   step - bold weight is what marks it as a sub-heading, same idiom as
+   iA Writer's own site. Still clearly a level below h2 (smaller, and
+   h2's semibold outranks nothing here since h3 is plain bold). */
+.prose h3 {
+  margin: var(--space-l) 0 var(--space-xs);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: var(--text-base);
+  line-height: 1.4;
+  color: var(--color-heading);
+  text-wrap: balance;
+}
+
+.prose p {
+  margin-block: 1em;
+  font-size: var(--text-base);
+  line-height: 1.75;
+  color: var(--color-text);
+}
+
+.prose p,
+.prose li {
+  text-wrap: pretty;
+}
+
+/* Plain disc/decimal markers, muted: quieter against the text than a
+   heavier custom mark would be. */
+.prose ol,
+.prose ul {
+  margin-block: 1em;
+  padding-inline-start: 1.25em;
+}
+
+.prose ul {
+  list-style: disc;
+}
+
+.prose ol {
+  list-style: decimal;
+}
+
+.prose ul > li::marker,
+.prose ol > li::marker {
+  color: var(--color-muted);
+}
+
+.prose li {
+  margin-block: 0.4em;
+  font-size: var(--text-base);
+  line-height: 1.68;
+  color: var(--color-text);
+}
+
+/* A quiet pull-quote: left-aligned with the rest of the prose, a thin
+   accent rule, one size step up from body copy. */
+.prose blockquote {
+  margin: var(--space-2xl) 0;
+  padding-inline-start: var(--space-l);
+  border-inline-start: 2px solid var(--color-accent);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--text-lg);
+  line-height: 1.5;
+  letter-spacing: -0.008em;
+  color: var(--color-heading);
+}
+
+.prose blockquote p {
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  margin-block: var(--space-xl);
+}
+
+/* Definition lists aren't reachable from standard Markdown, but raw HTML
+   passes through Goldmark unchanged, so a hand-written <dl> still gets a
+   considered treatment instead of the UA default. */
+.prose dl {
+  margin-block: var(--space-l);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+}
+
+.prose dt {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-heading);
+}
+
+.prose dd {
+  margin: var(--space-3xs) 0 0;
+  font-size: var(--text-base);
+  line-height: 1.68;
+  color: var(--color-text);
+}
+
+/* === Footnotes ===
+   Goldmark's default markup: an inline `sup#fnref:N > a.footnote-ref`,
+   and a trailing `.footnotes` block (its own <hr>, then an <ol> of
+   entries each ending in an a.footnote-backref arrow). */
+.footnote-ref {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-size: 0.75em;
+  vertical-align: super;
+  padding-inline: 0.05em;
+}
+
+.prose .footnotes {
+  margin-block-start: var(--space-2xl);
+  padding-block-start: var(--space-m);
+  border-top: 1px solid var(--color-border);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.footnotes hr {
+  display: none;
+}
+
+.footnotes ol {
+  margin: 0;
+  padding-inline-start: var(--space-l);
+  list-style: decimal;
+}
+
+.footnotes ol > li::before {
+  content: none;
+}
+
+.footnotes li {
+  margin-block: 0.5em;
+  padding: 0;
+  line-height: 1.5;
+  font-size: inherit;
+}
+
+.footnotes li p {
+  margin: 0;
+  font-size: inherit;
+}
+
+.footnote-backref {
+  margin-inline-start: 0.35em;
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.footnote-backref:hover {
+  color: var(--color-accent);
+}
+
+/* === Tables === */
+.table-wrapper {
+  margin-block: var(--space-l);
+  overflow-x: auto;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.prose th {
+  padding: 0 var(--space-l) var(--space-xs) 0;
+  text-align: left;
+  font-weight: 700;
+  color: var(--color-muted);
+  border-block-end: 1px solid var(--color-border);
+}
+
+.prose td {
+  padding: var(--space-s) var(--space-l) var(--space-s) 0;
+  border-block-end: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.prose tbody tr:hover td {
+  background-color: var(--color-bg-hover);
+}
+
+/* === Heading anchors ===
+   No visible "link to this section" icon - just scroll-margin so a
+   fragment link (from elsewhere) doesn't land flush under the sticky
+   header, and a brief highlight so the eye finds it. */
+.main-content :is(h2, h3, h4) {
+  scroll-margin-block-start: var(--space-xl);
+}
+
+.main-content :target {
+  animation: target-highlight 2s ease-out;
+}
+
+@keyframes target-highlight {
+  0%,
+  30% {
+    background-color: color-mix(in srgb, var(--color-accent) 22%, transparent);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+/* Club crests dropped inline into prose via the {{< crests >}} shortcode
+   (currently just /now, under "Away from the keyboard"). */
+.badges {
+  display: flex;
+  align-items: center;
+  gap: var(--space-l);
+  margin-block: var(--space-l);
+}
+
+.badge {
+  display: inline-block;
+  line-height: 0;
+  filter: saturate(0.7);
+}
+
+.badge img {
+  width: 5rem;
+  height: 5rem;
+  object-fit: contain;
+  display: block;
+}
+
+/* === Blog timeline === */
+.blog-timeline {
+  list-style: none;
+  margin-block: var(--space-s);
+  padding: 0;
+}
+
+.main-content .timeline-year-label {
+  margin: var(--space-l) 0 var(--space-xs);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-muted);
+}
+
+.timeline-year .blog-timeline {
+  margin-block-start: 0;
+}
+
+.timeline-year .blog-timeline-date {
+  width: 3.25rem;
+}
+
+.blog-timeline li {
+  margin: 0;
+}
+
+.blog-timeline-entry {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-l);
+  padding: var(--space-xs);
+  margin-inline: calc(var(--space-xs) * -1);
+  text-decoration: none;
+  color: inherit;
+  transition: background-color var(--transition);
+}
+
+.blog-timeline-entry:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.blog-timeline-date {
+  flex-shrink: 0;
+  width: 11ch;
+  text-align: right;
+  color: var(--color-muted);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  white-space: nowrap;
+  line-height: 1.7;
+}
+
+.blog-timeline-content {
+  display: block;
+  flex: 1;
+  min-width: 0;
+  line-height: 1.55;
+}
+
+.blog-timeline-title {
+  color: var(--color-heading);
+  font-weight: 500;
+  transition: color var(--transition);
+}
+
+.blog-timeline-entry:hover .blog-timeline-title {
+  color: var(--color-accent);
+}
+
+.blog-timeline-summary {
+  display: block;
+  margin-block-start: 0.15rem; /* sub-scale hairline: tighter than --space-3xs allows */
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.blog-timeline-entry-lg {
+  align-items: flex-start;
+  padding-block: var(--space-s);
+}
+
+.blog-timeline-entry-lg .blog-timeline-date {
+  padding-block-start: 0.25rem; /* sits at the title's cap height, not the full line box */
+}
+
+.blog-timeline-entry-lg .blog-timeline-title {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: var(--text-lg);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.008em;
+}
+
+.blog-timeline-entry-lg .blog-timeline-summary {
+  margin-block-start: var(--space-3xs);
+}
+
+.blog-timeline-summary-inline {
+  color: var(--color-muted);
+  font-weight: 400;
+  margin-inline-start: 0.5em;
+}
+
+.has-thumb .blog-timeline-entry {
+  align-items: center;
+}
+
+.blog-timeline-thumb {
+  flex-shrink: 0;
+  width: 5.5rem;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.blog-timeline-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* === Back to top === */
+.to-top {
+  position: fixed;
+  inset-block-end: var(--space-l);
+  inset-inline-end: var(--space-l);
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-xl);
+  height: var(--space-xl);
+  flex-shrink: 0;
+  border: 1px solid var(--color-underline);
+  background-color: var(--color-bg);
+  color: var(--color-muted);
+  text-decoration: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.35rem);
+  transition:
+    opacity var(--transition),
+    visibility var(--transition),
+    transform var(--transition),
+    color var(--transition),
+    background-color var(--transition),
+    border-color var(--transition);
+}
+
+.to-top[data-visible] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.to-top:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.to-top[hidden] {
+  display: none;
+}
+
+/* === Figures ===
+   Every figure breaks out of the prose measure and re-centers on the
+   viewport - a wider "figure column" than the text column, the way
+   Anthropic's research blog treats images. A figure's image still
+   displays at its natural/resized size within that wider box (small
+   screenshots don't get blown up) - an embed's iframe fills it instead
+   (see .embed-frame), since there's no "natural size" for an interactive
+   figure to default to. */
+.figure-block {
+  width: var(--measure-wide);
+  margin-block: var(--space-l);
+  margin-inline: calc(50% - 50vw + (100vw - var(--measure-wide)) / 2);
+  text-align: center;
+}
+
+.figure-block img {
+  margin-inline: auto;
+  border: 1px solid var(--color-border);
+}
+
+.figure-caption {
+  margin-block-start: var(--space-xs);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.embed-frame {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+}
+
+/* Soften bright images against the dark background (filter values cannot
+   ride light-dark(), so this one rule keeps the dual theme scope). */
+:root[data-theme="dark"] .prose img {
+  filter: brightness(0.85) contrast(1.05);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .prose img {
+    filter: brightness(0.85) contrast(1.05);
+  }
+}
+
+/* === Code === */
+.highlight {
+  margin-block: var(--space-l);
+  background-color: var(--color-panel);
+}
+
+.highlight pre {
+  margin: 0;
+  padding: var(--space-m);
+  font-family: var(--font-mono);
+  /* Relative, matching inline code's own 0.86em (see code:not(pre code)
+     below), so a code block reads a size below body text regardless of
+     what --text-sm/--text-base happen to be. */
+  font-size: 0.86em;
+  line-height: 1.7;
+  background-color: transparent;
+  overflow-x: auto;
+}
+
+code:not(pre code) {
+  background-color: var(--color-panel);
+  color: var(--color-heading);
+  padding: 1px 5px;
+  font-size: 0.86em;
+  font-weight: 500;
+  font-family: var(--font-mono);
+}
+
+/* Keep long KaTeX display equations scrollable instead of overflowing. */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: var(--space-3xs);
+}
+
+/* Mermaid diagrams. Until (or unless) the script draws the SVG, the
+   block shows the escaped diagram source as quiet monospace text. Same
+   breakout width as .figure-block, for the same reason - a diagram is a
+   figure, and gets the wider default figure column too. */
+pre.mermaid {
+  display: flex;
+  justify-content: center;
+  width: var(--measure-wide);
+  margin-block: var(--space-l);
+  margin-inline: calc(50% - 50vw + (100vw - var(--measure-wide)) / 2);
+  padding: var(--space-xl) var(--space-l);
+  background-color: var(--color-panel);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+
+pre.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Mermaid's own edge-label sizing (the foreignObject/div box behind a
+   flowchart edge label like "yes"/"no") is computed from an internal
+   text-measurement pass that doesn't always match how the label's real
+   HTML actually lays out with this font - narrow labels then clip a
+   character or two against a box just slightly too small for them.
+   Letting the label overflow its (invisibly undersized) box rather than
+   clip it is a strictly safer default: the label reads in full, sitting
+   on the plain diagram background past a background rect too narrow to
+   fully hide it - not perfectly tidy, never broken. */
+pre.mermaid svg foreignObject {
+  overflow: visible;
+}
+
+/* === 404 === */
+.error-page {
+  text-align: center;
+  padding-block: var(--space-3xl);
+}
+
+.error-page .error-title {
+  font-family: var(--font-sans);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-block-end: var(--space-m);
+  color: var(--color-heading);
+}
+
+.error-button {
+  display: inline-block;
+  padding: var(--space-s) var(--space-l);
+  background-color: var(--color-heading);
+  color: var(--color-bg);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--text-sm);
+  margin-block-start: var(--space-m);
+}
+
+.error-button:hover {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* === Responsive === */
+@media (max-width: 640px) {
+  .header-row {
+    padding-inline: var(--space-m);
+    padding-block: var(--space-m);
+    gap: var(--space-xs) var(--space-m);
+  }
+
+  .site-header[data-condensed] .header-row {
+    padding-block: var(--space-xs);
+  }
+
+  .nav-list {
+    gap: var(--space-m);
+  }
+
+  .site-container {
+    padding-inline: var(--space-m);
+  }
+
+  .highlight {
+    margin-inline: calc(var(--space-m) * -1);
+  }
+
+  .blog-timeline-entry,
+  .has-thumb .blog-timeline-entry {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.125rem; /* sub-scale hairline: tighter than --space-3xs allows */
+  }
+
+  .blog-timeline-thumb {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin-block-start: var(--space-2xs);
+  }
+
+  .blog-timeline-date,
+  .timeline-year .blog-timeline-date {
+    text-align: left;
+    width: auto;
+  }
+
+}
+
+/* === Print === */
+@media print {
+  @page {
+    margin: 2.5cm;
+  }
+
+  :root,
+  :root[data-theme="dark"] {
+    color-scheme: light;
+  }
+
+  .site-header,
+  .to-top {
+    display: none;
+  }
+
+  .site-container {
+    max-width: none;
+    padding: 0;
+  }
+
+  .prose a {
+    text-decoration: none;
+  }
+
+  .prose a[href^="http"]:not([href*="kirillbobyrev.com"])::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    vertical-align: baseline;
+    color: var(--color-muted);
+    word-break: break-all;
+    opacity: 1;
+  }
+
+  .highlight pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}
+
+/* === Reduced motion === */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* === Syntax highlighting (Chroma classes) ===
+   Merged from `hugo gen chromastyles --style=github` (light) and
+   `--style=github-dark` (dark): every token declares both colours via
+   light-dark(). Backgrounds are stripped in favour of --color-panel,
+   token classes that only one palette defines fall back to the other
+   theme's base text colour, and dark-only bold/italic accents are
+   dropped so both themes share one typography. Identical to typewriter's
+   copy of the same generated stylesheet - the mapping is a color palette,
+   not a design choice specific to either theme. Regenerate with those
+   commands on bumps. */
+.chroma {
+  color: light-dark(#212529, #e6edf3);
+  -webkit-text-size-adjust: none;
+}
+.chroma .lnlinks {
+  outline: none;
+  text-decoration: none;
+  color: inherit;
+}
+.chroma .lntd {
+  vertical-align: top;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.chroma .lntable {
+  border-spacing: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.chroma .lnt {
+  white-space: pre;
+  -webkit-user-select: none;
+  user-select: none;
+  margin-right: 0.4em;
+  padding: 0 0.4em 0 0.4em;
+  color: light-dark(#7f7f7f, #737679);
+}
+.chroma .ln {
+  white-space: pre;
+  -webkit-user-select: none;
+  user-select: none;
+  margin-right: 0.4em;
+  padding: 0 0.4em 0 0.4em;
+  color: light-dark(#7f7f7f, #6e7681);
+}
+.chroma .line {
+  display: flex;
+}
+.chroma .err {
+  color: light-dark(#cf222e, #f85149);
+}
+.chroma .k,
+.chroma .kd,
+.chroma .kn,
+.chroma .kr,
+.chroma .kt {
+  color: light-dark(#cf222e, #ff7b72);
+}
+.chroma .kc,
+.chroma .kp {
+  color: light-dark(#cf222e, #79c0ff);
+}
+.chroma .na,
+.chroma .nx {
+  color: light-dark(#1f2328, #e6edf3);
+}
+.chroma .nc,
+.chroma .ne {
+  color: light-dark(#1f2328, #f0883e);
+}
+.chroma .no {
+  color: light-dark(#0550ae, #79c0ff);
+}
+.chroma .nd {
+  color: light-dark(#0550ae, #d2a8ff);
+}
+.chroma .ni {
+  color: light-dark(#6639ba, #ffa657);
+}
+.chroma .nl {
+  color: light-dark(#990000, #79c0ff);
+  font-weight: bold;
+}
+.chroma .nn {
+  color: light-dark(#24292e, #ff7b72);
+}
+.chroma .nt {
+  color: light-dark(#0550ae, #7ee787);
+}
+.chroma .nb {
+  color: light-dark(#6639ba, #e6edf3);
+}
+.chroma .bp {
+  color: light-dark(#6a737d, #e6edf3);
+}
+.chroma .nv,
+.chroma .vc,
+.chroma .vg,
+.chroma .vi,
+.chroma .vm {
+  color: light-dark(#953800, #79c0ff);
+}
+.chroma .nf,
+.chroma .fm {
+  color: light-dark(#6639ba, #d2a8ff);
+}
+.chroma .py {
+  color: light-dark(#1f2328, #79c0ff);
+}
+.chroma .l {
+  color: light-dark(#1f2328, #a5d6ff);
+}
+.chroma .ld {
+  color: light-dark(#1f2328, #79c0ff);
+}
+.chroma .s,
+.chroma .sb,
+.chroma .sc,
+.chroma .sd,
+.chroma .s2,
+.chroma .si,
+.chroma .sx,
+.chroma .s1 {
+  color: light-dark(#0a3069, #a5d6ff);
+}
+.chroma .sa,
+.chroma .dl,
+.chroma .se,
+.chroma .sh,
+.chroma .sr {
+  color: light-dark(#0a3069, #79c0ff);
+}
+.chroma .ss {
+  color: light-dark(#032f62, #a5d6ff);
+}
+.chroma .m,
+.chroma .mb,
+.chroma .mf,
+.chroma .mh,
+.chroma .mi,
+.chroma .il,
+.chroma .mo {
+  color: light-dark(#0550ae, #a5d6ff);
+}
+.chroma .o,
+.chroma .ow,
+.chroma .or {
+  color: light-dark(#0550ae, #ff7b72);
+}
+.chroma .p {
+  color: light-dark(#1f2328, #e6edf3);
+}
+.chroma .c,
+.chroma .ch,
+.chroma .cm,
+.chroma .c1,
+.chroma .cs,
+.chroma .cp,
+.chroma .cpf {
+  color: light-dark(#57606a, #8b949e);
+}
+.chroma .gd {
+  color: light-dark(#82071e, #ffa198);
+}
+.chroma .ge {
+  color: light-dark(#1f2328, #e6edf3);
+  font-style: italic;
+}
+.chroma .gr {
+  color: light-dark(#1f2328, #ffa198);
+}
+.chroma .gh,
+.chroma .gu {
+  color: light-dark(#1f2328, #79c0ff);
+}
+.chroma .gi {
+  color: light-dark(#116329, #56d364);
+}
+.chroma .go,
+.chroma .gp {
+  color: light-dark(#1f2328, #8b949e);
+}
+.chroma .gs {
+  font-weight: bold;
+}
+.chroma .gt {
+  color: light-dark(#1f2328, #ff7b72);
+}
+.chroma .gl {
+  text-decoration: underline;
+}
+.chroma .w {
+  color: light-dark(#ffffff, #6e7681);
+}

@@ -1,0 +1,9 @@
+name = "constructivist"
+license = "MIT"
+licenselink = "https://github.com/kirillbobyrev/kirillbobyrev.com/blob/main/LICENSE"
+description = "A poster-like, constructivist-inspired Hugo theme: warm near-black default with a brick-red accent, Space Grotesk for display and body type, Space Mono for labels/meta/code, numbered manifesto-style section headers, and a header that condenses to initials on scroll."
+homepage = "https://github.com/kirillbobyrev/kirillbobyrev.com"
+
+[author]
+  name = "Kirill Bobyrev"
+  homepage = "https://kirillbobyrev.com"
