@@ -1,9 +1,0 @@
-name = "quietprint"
-license = "MIT"
-licenselink = "https://github.com/kirillbobyrev/kirillbobyrev.com/blob/main/LICENSE"
-description = "A calm, editorial, typography-first Hugo theme: prose-focused pages, a manual light/dark toggle, reading progress, and small interactive pages (a places map, a taste page) built for a personal blog."
-homepage = "https://github.com/kirillbobyrev/kirillbobyrev.com"
-
-[author]
-  name = "Kirill Bobyrev"
-  homepage = "https://kirillbobyrev.com"

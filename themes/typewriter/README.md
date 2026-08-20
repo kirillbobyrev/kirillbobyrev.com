@@ -5,16 +5,14 @@ A warm, quiet, editorial Hugo theme built for
 [brentfitzgerald.com](https://brentfitzgerald.com): one voice, Space
 Grotesk, for the site title, every heading, and body copy alike (JetBrains
 Mono kept for code only), a paper-toned palette, thin hairline rules, and
-compact date-first blog listings. It keeps
-the interactive touches from its sibling theme `quietprint` that the
+compact date-first blog listings. It adds interactive touches the
 reference site doesn't have: a manual light/dark toggle, reading progress,
 and a table of contents on long posts.
 
 This theme lives in the same repo as the site that uses it
-(`themes/typewriter/`), same layered convention as its sibling themes
+(`themes/typewriter/`), same layered convention as its sibling theme
 `constructivist` (currently active — `theme = "constructivist"` in the
-site's `hugo.toml`) and `quietprint`. It owns presentation only —
-`layouts/`, `assets/`
+site's `hugo.toml`). It owns presentation only — `layouts/`, `assets/`
 (CSS/JS/OG-image fonts), and `static/fonts/` (webfonts). Site-level
 `content/`, `data/`, `archetypes/`, and the rest of `static/` stay at the
 repo root and are layered on top by Hugo.
@@ -23,8 +21,8 @@ repo root and are layered on top by Hugo.
 
 Since content and theme are separate, this is the interface between them:
 what the site's content needs to provide for this theme to render it
-correctly. Identical to `themes/quietprint`'s contract, since both themes
-render the same site content.
+correctly. Identical to `themes/constructivist`'s contract, since both
+themes render the same site content.
 
 ### Front matter
 
@@ -50,8 +48,8 @@ render the same site content.
 
 ## Switching to this theme
 
-Change `theme = "constructivist"` (or `"quietprint"`) to `theme =
-"typewriter"` in the site's `hugo.toml`; each implements the same content
-contract, so no changes to `content/`, `data/`, or `archetypes/` should be
-required. To preview it without switching the live config, pass `--theme
-typewriter` to `hugo server`/`hugo` for that invocation only.
+Change `theme = "constructivist"` to `theme = "typewriter"` in the site's
+`hugo.toml`; it implements the same content contract, so no changes to
+`content/`, `data/`, or `archetypes/` should be required. To preview it
+without switching the live config, pass `--theme typewriter` to `hugo
+server`/`hugo` for that invocation only.
