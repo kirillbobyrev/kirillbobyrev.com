@@ -45,18 +45,6 @@
   browsers resolve it to the top of the document, so the masthead comes back too. */
 -}}
 <a href="#top" class="to-top" hidden>
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    aria-hidden="true"
-  >
-    <path d="M12 19V5M5 12l7-7 7 7" />
-  </svg>
+  {{- partial "icon.html" (dict "name" "arrow-up") -}}
   <span class="visually-hidden">Back to top</span>
 </a>

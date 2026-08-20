@@ -125,6 +125,21 @@
   --space-2xl: 2.75rem;
   --space-3xl: 4rem;
 
+  /* Baseline rhythm for .prose only: .prose p's own line-height (1.75 -
+     not .site-body's 1.7, which is chrome's line-height, not reading
+     copy's) times --text-base, so a paragraph's line-box height and the
+     grid unit are the same number by construction, not by coincidence.
+     Structural gaps between prose blocks (paragraphs, h2, hr,
+     blockquote) are set in multiples of this rather than off
+     --space-*, which was tuned for chrome and was never meant to
+     double as a reading rhythm - Josef Müller-Brockmann, Grid Systems
+     in Graphic Design. Tight, same-group gaps (h3 to the paragraph
+     under it, list items, dt/dd) stay off --space-* on purpose:
+     locking every gap in prose to this unit would either bloat those
+     into full lines or round them down to touching, and grid rigor
+     isn't the point there - grouping is. */
+  --rhythm: calc(var(--text-base) * 1.75);
+
   --color-bg: light-dark(#f2efe8, #141310);
   --color-heading: light-dark(#14120d, #f4f1e9);
   /* Body copy - contrast against --color-bg: light 15.9:1, dark 16.4:1. */
@@ -141,10 +156,6 @@
   --color-bg-hover: light-dark(
     rgba(20, 18, 13, 0.08),
     rgba(235, 231, 221, 0.07)
-  );
-  --color-header-bg: light-dark(
-    rgba(242, 239, 232, 0.86),
-    rgba(20, 19, 16, 0.86)
   );
   /* The one color that does NOT flip with light-dark(): a considered ink
      color, not a UI accent, so it stays put across modes (light-mode
@@ -292,13 +303,19 @@ video {
   padding-block-end: var(--space-3xl);
 }
 
+/* Solid, not glass: a backdrop-filter blur used to sit here, the one
+   surface in the theme claiming any depth in a system that otherwise
+   argues everything should look exactly as flat as it is (--radius: 0,
+   no shadows, no gradients elsewhere). A fully opaque --color-bg plus a
+   hairline border does the same job at rest and mid-scroll, for no
+   compositing cost - Dieter Rams, "good design is honest" and "as
+   little design as possible." */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 20;
-  background-color: var(--color-header-bg);
-  backdrop-filter: blur(14px) saturate(1.1);
-  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  background-color: var(--color-bg);
+  border-block-end: 1px solid var(--color-border);
 }
 
 /* --measure-wide, not --measure: the header lines up with the site's
@@ -614,9 +631,11 @@ video {
     border-color var(--transition);
 }
 
-.link-row a::after,
-.social-link::after {
-  content: "\2192"; /* → */
+/* The arrow is real markup now (icon.html, via social-links.html), not a
+   generated "\2192" glyph - currentColor means the hover rule below
+   recolors it for free, no separate rule needed here. */
+.social-link-arrow {
+  flex: none;
   margin-inline-start: var(--space-2xs);
   opacity: 0.55;
 }
@@ -679,7 +698,9 @@ video {
    "Recent writing" (home.html) and a blog-index year label are h2s too,
    but aren't post/page content and shouldn't pick up this treatment. */
 .prose h2 {
-  margin: var(--space-3xl) 0 var(--space-l);
+  /* 2x/1x --rhythm, not --space-3xl/--space-l - the nearest multiples of
+     the paragraph baseline unit to those original values, not a round-up. */
+  margin: calc(var(--rhythm) * 2) 0 var(--rhythm);
   font-family: var(--font-sans);
   font-size: var(--text-lg);
   font-weight: 600;
@@ -693,6 +714,9 @@ video {
    step - bold weight is what marks it as a sub-heading, same idiom as
    iA Writer's own site. Still clearly a level below h2 (smaller, and
    h2's semibold outranks nothing here since h3 is plain bold). */
+/* Off --rhythm on purpose: h3 is a run-in label bound tight to the
+   paragraph under it, not a section break - snapping its gap to the grid
+   would either triple it or round it to touching. Grouping wins here. */
 .prose h3 {
   margin: var(--space-l) 0 var(--space-xs);
   font-family: var(--font-sans);
@@ -704,10 +728,18 @@ video {
 }
 
 .prose p {
-  margin-block: 1em;
+  /* --rhythm, not 1em (1.125rem): a full line-height of space between
+     paragraphs, not three-quarters of one - the classic "one blank
+     line" reading gap, and the reason this unit exists at all. */
+  margin-block: var(--rhythm);
   font-size: var(--text-base);
   line-height: 1.75;
   color: var(--color-text);
+  /* Robert Bringhurst, Elements of Typographic Style §2.1.5: an opening
+     quotation mark carries almost no ink, so left flush it reads as a
+     dent in the column rather than a straight edge. Safari-only today;
+     a harmless no-op everywhere else. */
+  hanging-punctuation: first last;
 }
 
 .prose p,
@@ -719,7 +751,9 @@ video {
    heavier custom mark would be. */
 .prose ol,
 .prose ul {
-  margin-block: 1em;
+  /* --rhythm: a list sits between other prose blocks the same way a
+     paragraph does, so it takes the same structural gap. */
+  margin-block: var(--rhythm);
   padding-inline-start: 1.25em;
 }
 
@@ -736,6 +770,8 @@ video {
   color: var(--color-muted);
 }
 
+/* Off --rhythm too, same reason as h3: list items group with each
+   other, they don't each open a new structural break. */
 .prose li {
   margin-block: 0.4em;
   font-size: var(--text-base);
@@ -746,7 +782,12 @@ video {
 /* A quiet pull-quote: left-aligned with the rest of the prose, a thin
    accent rule, one size step up from body copy. */
 .prose blockquote {
-  margin: var(--space-2xl) 0;
+  /* --rhythm, not --space-2xl: the nearest multiple (1x) of the
+     paragraph unit, same reasoning as h2/hr. The quote's own line-height
+     stays 1.5, not locked to the grid - M-B locks a block's margins to
+     the rhythm, not the internal leading of display type set at a
+     different size. */
+  margin: var(--rhythm) 0;
   padding-inline-start: var(--space-l);
   border-inline-start: 2px solid var(--color-accent);
   font-family: var(--font-sans);
@@ -755,6 +796,7 @@ video {
   line-height: 1.5;
   letter-spacing: -0.008em;
   color: var(--color-heading);
+  hanging-punctuation: first last;
 }
 
 .prose blockquote p {
@@ -767,14 +809,14 @@ video {
 .prose hr {
   border: 0;
   border-top: 1px solid var(--color-border);
-  margin-block: var(--space-xl);
+  margin-block: var(--rhythm); /* nearest multiple (1x) of --space-xl */
 }
 
 /* Definition lists aren't reachable from standard Markdown, but raw HTML
    passes through Goldmark unchanged, so a hand-written <dl> still gets a
    considered treatment instead of the UA default. */
 .prose dl {
-  margin-block: var(--space-l);
+  margin-block: var(--rhythm); /* nearest multiple (1x) of --space-l */
   display: flex;
   flex-direction: column;
   gap: var(--space-m);
@@ -807,7 +849,7 @@ video {
 }
 
 .prose .footnotes {
-  margin-block-start: var(--space-2xl);
+  margin-block-start: var(--rhythm); /* nearest multiple (1x) of --space-2xl */
   padding-block-start: var(--space-m);
   border-top: 1px solid var(--color-border);
   font-family: var(--font-sans);
@@ -854,7 +896,7 @@ video {
 
 /* === Tables === */
 .table-wrapper {
-  margin-block: var(--space-l);
+  margin-block: var(--rhythm); /* nearest multiple (1x) of --space-l */
   overflow-x: auto;
 }
 
@@ -1106,7 +1148,7 @@ video {
    figure to default to. */
 .figure-block {
   width: var(--measure-wide);
-  margin-block: var(--space-l);
+  margin-block: var(--rhythm); /* nearest multiple (1x) of --space-l */
   margin-inline: calc(50% - 50vw + (100vw - var(--measure-wide)) / 2);
   text-align: center;
 }
@@ -1143,7 +1185,7 @@ video {
 
 /* === Code === */
 .highlight {
-  margin-block: var(--space-l);
+  margin-block: var(--rhythm); /* nearest multiple (1x) of --space-l */
   background-color: var(--color-panel);
 }
 
@@ -1184,7 +1226,7 @@ pre.mermaid {
   display: flex;
   justify-content: center;
   width: var(--measure-wide);
-  margin-block: var(--space-l);
+  margin-block: var(--rhythm); /* nearest multiple (1x) of --space-l */
   margin-inline: calc(50% - 50vw + (100vw - var(--measure-wide)) / 2);
   padding: var(--space-xl) var(--space-l);
   background-color: var(--color-panel);
