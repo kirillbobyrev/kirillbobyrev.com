@@ -32,9 +32,11 @@
    Design tokens
 
    One voice: Space Grotesk for everything - headings, nav, body, dates,
-   captions. Space Mono is reserved strictly for code (inline and blocks);
-   it does not appear anywhere else. Nothing sets letter-spacing/uppercase
-   as a device for turning ordinary words into a "label" - metadata reads
+   captions. Space Mono is reserved for code (inline and blocks); the only
+   other place it appears is the generated Open Graph card image (see
+   og-image.html), which isn't part of the rendered page. Nothing sets
+   letter-spacing/uppercase as a device for turning ordinary words into a
+   "label" - metadata reads
    as quieter, smaller text in the same typeface, not a different one
    dressed up to look official. That restraint (editorial-modernist -
    iA, Anthropic's research blog, Increment, Stripe Press, Works in
@@ -65,9 +67,10 @@
      --text-lg    1.75rem   1.125 * 1.25^2 - h2, blog-index titles,
                             pull-quotes
      --text-xl    3rem      (a deliberate exception, not 1.125 * 1.25^4's
-                            2.75rem - h1 wanted more presence than the
-                            strict ratio gave it once every top-level
-                            heading was unified onto this one size)
+                            2.75rem - h1 reads better with more presence
+                            than the ratio gives it) - h1: About, Now,
+                            and post titles alike, one size for every
+                            top-level heading
    (h3 reuses --text-base at a bolder weight rather than claiming a sixth
    size - see .prose h3. Values rounded to a clean rem for readability in
    the source; the ratio is the point, not four-decimal precision.)
@@ -126,8 +129,8 @@
   --color-heading: light-dark(#14120d, #f4f1e9);
   /* Body copy - contrast against --color-bg: light 15.9:1, dark 16.4:1. */
   --color-text: light-dark(rgba(20, 18, 13, 0.92), rgba(235, 231, 221, 0.92));
-  /* Everything secondary - nav, dates, captions, footnotes, table text -
-     one muted tier, not several barely-different ones (light 8.4:1, dark 8.0:1). */
+  /* Everything secondary: nav, dates, captions, footnotes, table text
+     (light 8.4:1, dark 8.0:1). */
   --color-muted: light-dark(rgba(20, 18, 13, 0.55), rgba(235, 231, 221, 0.52));
   --color-border: light-dark(rgba(20, 18, 13, 0.25), rgba(235, 231, 221, 0.22));
   --color-underline: light-dark(
@@ -400,13 +403,11 @@ video {
   white-space: nowrap;
 }
 
-/* Current page reads from color and weight alone, no painted dot or
-   underline - the same "typography over paint" state language as the
-   rest of the theme's chrome. */
-/* Same size as .site-title (not a smaller "chrome" size) - weight and
-   color are what mark it as secondary, matching the reference site's own
-   header (kirillbobyrev.com): the wordmark and the nav share one step,
-   bold vs. medium. */
+/* Same size as .site-title, matching kirillbobyrev.com's own header:
+   the wordmark and the nav share one step, weight and color (not size)
+   marking the nav as secondary. The current page reads from color and
+   weight alone too, no painted dot or underline - "typography over
+   paint" throughout the theme's chrome. */
 .nav-link {
   display: flex;
   align-items: center;
@@ -470,8 +471,8 @@ video {
   background-color: currentColor;
 }
 
-/* No sitewide footer chrome in this theme - see .link-row below, the */
-/* one place social links appear, on the About page only. */
+/* No sitewide footer chrome - see .link-row below, the one place
+   social links appear, on the About page only. */
 
 /* === Page chrome: eyebrow / heading (About, Now) === */
 .page-header {
@@ -485,11 +486,10 @@ video {
   color: var(--color-muted);
 }
 
-/* The top margin lives here, not on .page-heading (see below) - flex
+/* The top margin lives here, not on .page-heading (see below): flex
    items don't margin-collapse with their container the way a block-level
-   h1 does on its own, so putting it on the heading itself (as if this
-   were the standalone case) threw off align-items: center between the
-   heading and the marks beside it by exactly that margin. */
+   h1 does on its own, so a margin on the heading itself would offset it
+   from the marks beside it under align-items: center. */
 .page-heading-row {
   margin-top: var(--space-m);
   display: flex;
@@ -502,11 +502,8 @@ video {
   margin-top: 0;
 }
 
-/* One heading size for every top-level page/post title (--text-xl) - no
-   separate, barely-different post-title size. Medium weight and tight
-   tracking: a plain, confident display heading (the accent-dot and the
-   rule beneath it are the only ornament) reads cleaner at this size than
-   a lighter weight leaning on extra decoration to not look flat. */
+/* Medium weight and tight tracking: a plain, confident display heading -
+   the accent-dot and the rule beneath it are the only ornament. */
 .page-heading,
 .main-content h1 {
   margin: var(--space-m) 0 0;
@@ -535,9 +532,9 @@ video {
   color: var(--color-accent);
 }
 
-/* Lean, single-line mark straight from the source design: a filled
-   circle, an outlined square, a filled diamond, then a rule trailing off
-   - all small, all on the heading's own line, not a separate composition. */
+/* A filled circle, an outlined square, a filled diamond, then a rule
+   trailing off - small, on the heading's own line, straight from the
+   source design. */
 .heading-marks {
   flex: none;
   display: flex;
@@ -660,9 +657,8 @@ video {
   margin-block-start: var(--space-xs);
 }
 
-/* Quiet by default - the same color as the surrounding sentence, not a
-   scattering of accent-red words competing with the reading; the accent
-   only shows up once a link is actually being interacted with. */
+/* Quiet by default - the same color as the surrounding sentence; the
+   accent only shows up once a link is actually being interacted with. */
 .prose a {
   color: var(--color-text);
   text-decoration: underline;
@@ -681,10 +677,7 @@ video {
 
 /* Scoped to .prose, not .main-content, on purpose: chrome headings like
    "Recent writing" (home.html) and a blog-index year label are h2s too,
-   but aren't post/page content and shouldn't pick up this treatment.
-   Plain and quiet on purpose - no numeral, no mono, no uppercase: one
-   clear size and weight step above the body text is enough to read as a
-   section break without turning into a manifesto label. */
+   but aren't post/page content and shouldn't pick up this treatment. */
 .prose h2 {
   margin: var(--space-3xl) 0 var(--space-l);
   font-family: var(--font-sans);
@@ -722,9 +715,8 @@ video {
   text-wrap: pretty;
 }
 
-/* Native list markers throughout, not a custom-drawn column: a plain
-   disc/decimal, muted, is quieter and less "anchoring" against the text
-   than the theme's earlier hand-built bullets/numerals. */
+/* Plain disc/decimal markers, muted: quieter against the text than a
+   heavier custom mark would be. */
 .prose ol,
 .prose ul {
   margin-block: 1em;
@@ -751,9 +743,8 @@ video {
   color: var(--color-text);
 }
 
-/* A quiet pull-quote, not a shout: left-aligned with the rest of the
-   prose (not centered), a thin accent rule instead of accent-colored
-   text, one size step up from body copy. */
+/* A quiet pull-quote: left-aligned with the rest of the prose, a thin
+   accent rule, one size step up from body copy. */
 .prose blockquote {
   margin: var(--space-2xl) 0;
   padding-inline-start: var(--space-l);
@@ -894,9 +885,9 @@ video {
 }
 
 /* === Heading anchors ===
-   No visible "link to this section" icon (cut as low-value churn) - just
-   scroll-margin so a fragment link (from elsewhere) doesn't land flush
-   under the sticky header, and a brief highlight so the eye finds it. */
+   No visible "link to this section" icon - just scroll-margin so a
+   fragment link (from elsewhere) doesn't land flush under the sticky
+   header, and a brief highlight so the eye finds it. */
 .main-content :is(h2, h3, h4) {
   scroll-margin-block-start: var(--space-xl);
 }
@@ -1106,13 +1097,13 @@ video {
 }
 
 /* === Figures ===
-   Figures break out of the prose measure and re-center on the viewport by
-   default - a wider "figure column" than the text column, the way
-   Anthropic's research blog treats images, rather than an opt-in. A
-   figure's image still displays at its natural/resized size within that
-   wider box (small screenshots don't get blown up) - an embed's iframe
-   fills it instead (see .embed-frame), since there's no "natural size"
-   for an interactive figure to default to. */
+   Every figure breaks out of the prose measure and re-centers on the
+   viewport - a wider "figure column" than the text column, the way
+   Anthropic's research blog treats images. A figure's image still
+   displays at its natural/resized size within that wider box (small
+   screenshots don't get blown up) - an embed's iframe fills it instead
+   (see .embed-frame), since there's no "natural size" for an interactive
+   figure to default to. */
 .figure-block {
   width: var(--measure-wide);
   margin-block: var(--space-l);
@@ -1160,9 +1151,9 @@ video {
   margin: 0;
   padding: var(--space-m);
   font-family: var(--font-mono);
-  /* Relative, not --text-sm: matches inline code's own 0.86em (see
-     code:not(pre code) below) rather than a fixed size that had crept up
-     to nearly body-text size once --text-sm itself grew. */
+  /* Relative, matching inline code's own 0.86em (see code:not(pre code)
+     below), so a code block reads a size below body text regardless of
+     what --text-sm/--text-base happen to be. */
   font-size: 0.86em;
   line-height: 1.7;
   background-color: transparent;
