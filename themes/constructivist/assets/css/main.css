@@ -52,7 +52,9 @@
    handful of named musical ratios typography borrows this technique
    from - a quieter step than 1.333/"perfect fourth," enough to tell
    sizes apart without a size shouting over its neighbor), base 1.125rem:
-     --text-sm    0.9rem    1.125 / 1.25   - everything secondary: dates,
+     --text-sm    1rem      (another deliberate exception, not the ratio's
+                            0.9rem - dates/captions/footnotes/table text
+                            read too quiet at the strict value) - dates,
                             captions, footnotes, table text, the eyebrow
      --text-base  1.125rem  1.125 * 1.25^0 - body copy: paragraphs, list
                             items, the lede
@@ -90,7 +92,7 @@
     "Space Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas,
     "Courier New", monospace;
 
-  --text-sm: 0.9rem;
+  --text-sm: 1rem;
   --text-base: 1.125rem;
   --text-md: 1.4rem;
   --text-lg: 1.75rem;
@@ -154,7 +156,12 @@
      linear-interpolation technique as the root font-size clamp above,
      just solved for a wider pair of bounds. */
   --measure: clamp(45.5rem, 28.7317rem + 15.2439vw, 58rem);
-  --measure-wide: 68.75rem; /* 1100px @ 16px root: the header row */
+  /* The site's other, wider frame: figures/diagrams break out to this
+     width (see .figure-block/pre.mermaid) rather than staying inside
+     --measure, and the header row matches it too - the header and the
+     page's widest content share one outer edge, with the (narrower)
+     reading column inset within it, not the other way around. */
+  --measure-wide: min(92vw, 62rem);
 }
 
 :root[data-theme="light"] {
@@ -291,10 +298,15 @@ video {
   -webkit-backdrop-filter: blur(14px) saturate(1.1);
 }
 
+/* --measure-wide, not --measure: the header lines up with the site's
+   widest content (figures/diagrams, which break out to --measure-wide -
+   see .figure-block) rather than the narrower reading column, so the
+   logo and nav ("the interactive elements") sit flush with the same
+   left/right edges a wide figure's would, expanded or collapsed. */
 .header-row {
   max-width: var(--measure-wide);
   margin-inline: auto;
-  padding-inline: var(--space-xl);
+  padding-inline: var(--space-l);
   padding-block: var(--space-l);
   display: flex;
   align-items: center;
@@ -1098,14 +1110,13 @@ video {
    default - a wider "figure column" than the text column, the way
    Anthropic's research blog treats images, rather than an opt-in. A
    figure's image still displays at its natural/resized size within that
-   wider box (small screenshots don't get blown up); `wide="true"` (the
-   `figure`/`embed` shortcodes) additionally stretches the image/iframe to
-   fill the whole breakout width, for diagrams and embeds that want it. */
+   wider box (small screenshots don't get blown up) - an embed's iframe
+   fills it instead (see .embed-frame), since there's no "natural size"
+   for an interactive figure to default to. */
 .figure-block {
-  --breakout-width: min(92vw, 62rem);
-  width: var(--breakout-width);
+  width: var(--measure-wide);
   margin-block: var(--space-l);
-  margin-inline: calc(50% - 50vw + (100vw - var(--breakout-width)) / 2);
+  margin-inline: calc(50% - 50vw + (100vw - var(--measure-wide)) / 2);
   text-align: center;
 }
 
@@ -1119,10 +1130,6 @@ video {
   font-family: var(--font-sans);
   font-size: var(--text-sm);
   color: var(--color-muted);
-}
-
-.figure-wide img {
-  width: 100%;
 }
 
 .embed-frame {
@@ -1153,7 +1160,10 @@ video {
   margin: 0;
   padding: var(--space-m);
   font-family: var(--font-mono);
-  font-size: var(--text-sm);
+  /* Relative, not --text-sm: matches inline code's own 0.86em (see
+     code:not(pre code) below) rather than a fixed size that had crept up
+     to nearly body-text size once --text-sm itself grew. */
+  font-size: 0.86em;
   line-height: 1.7;
   background-color: transparent;
   overflow-x: auto;
@@ -1180,12 +1190,11 @@ code:not(pre code) {
    breakout width as .figure-block, for the same reason - a diagram is a
    figure, and gets the wider default figure column too. */
 pre.mermaid {
-  --breakout-width: min(92vw, 62rem);
   display: flex;
   justify-content: center;
-  width: var(--breakout-width);
+  width: var(--measure-wide);
   margin-block: var(--space-l);
-  margin-inline: calc(50% - 50vw + (100vw - var(--breakout-width)) / 2);
+  margin-inline: calc(50% - 50vw + (100vw - var(--measure-wide)) / 2);
   padding: var(--space-xl) var(--space-l);
   background-color: var(--color-panel);
   overflow-x: auto;

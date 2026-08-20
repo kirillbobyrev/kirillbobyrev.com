@@ -4,7 +4,10 @@
   e.g. a D3 chart or an exported Observable notebook) for interactive
   figures that a plain image/Mermaid diagram can't express.
   API: src (required, path to the embed's HTML file, e.g. /embeds/foo.html),
-  height (required, px), caption (optional), wide (optional, default true).
+  height (required, px), caption (optional). No `wide` param: every figure
+  already breaks out of the prose measure by default (see .figure-block in
+  main.css), and the iframe itself is unconditionally full-width (see
+  .embed-frame) regardless.
 
   Theming: the embed is a separate document, so it only sees prefers-
   color-scheme (OS-level), not the site's manual dark-mode toggle. To follow
@@ -31,11 +34,7 @@
 -}}
 {{- $src := .Get "src" -}}
 {{- $height := .Get "height" -}}
-{{- $class := "figure-block" -}}
-{{- if ne (.Get "wide") "false" -}}
-  {{- $class = printf "%s figure-wide" $class -}}
-{{- end -}}
-<figure class="{{ $class }}">
+<figure class="figure-block">
   <iframe
     class="embed-frame"
     src="{{ $src }}"
