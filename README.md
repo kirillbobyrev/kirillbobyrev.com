@@ -6,13 +6,14 @@ My personal website built with [Hugo](https://gohugo.io) (extended, pinned to
 `0.164.0` - see `.github/actions/setup-hugo/action.yml` and
 `.devcontainer/devcontainer.json`).
 
-Presentation lives in its own theme, `themes/typewriter/` (see its
-[README](themes/typewriter/README.md)), wired in via `theme = 'typewriter'`
-in `hugo.toml`. `content/`, `data/`, and `archetypes/` stay at the repo root
-and are theme-agnostic; trying a different look later means adding a sibling
-theme directory and changing that one config line, without touching content.
-`themes/quietprint/` is the previous theme, kept in the repo as a fallback
-and a reference implementation rather than deleted.
+Presentation lives in its own theme, `themes/constructivist/` (see its
+[README](themes/constructivist/README.md)), wired in via
+`theme = 'constructivist'` in `hugo.toml`. `content/`, `data/`, and
+`archetypes/` stay at the repo root and are theme-agnostic; trying a
+different look later means adding a sibling theme directory and changing
+that one config line, without touching content. `themes/typewriter/` and
+`themes/quietprint/` are earlier themes, kept in the repo as fallbacks and
+reference implementations rather than deleted.
 
 CI: pull requests build the site, validate internal links, and check
 formatting (`.github/workflows/ci.yml`); merges to `main` build and deploy to

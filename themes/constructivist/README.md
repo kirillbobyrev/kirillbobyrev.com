@@ -6,7 +6,7 @@ accent: a warm near-black default (light mode is the same palette
 inverted, not a separate design) with one brick-red accent used sparingly
 (a heading's trailing dot, the rule beneath it, a link on hover), not
 scattered through the page. One typeface, Space Grotesk, for everything;
-Space Mono appears only inside actual code. Four fixed type sizes, no
+Space Mono appears only inside actual code. Five fixed type sizes, no
 one-off values, restrained hierarchy, no tiny uppercase-tracked metadata:
 generous reading size and quiet typography over decoration (think iA,
 Anthropic's research blog, Increment, Stripe Press, Works in Progress).
@@ -17,8 +17,8 @@ source design.
 
 This theme lives in the same repo as the site that uses it
 (`themes/constructivist/`), same layered convention as its sibling themes
-`typewriter` and `quietprint`. It is **not** wired in via `hugo.toml` yet -
-see "Previewing" below.
+`typewriter` and `quietprint`, and is the active theme (`theme =
+"constructivist"` in the site's `hugo.toml`).
 
 ## Content contract
 
@@ -36,24 +36,22 @@ Deliberately different from `typewriter`/`quietprint`: there is no
 sitewide footer. The social arrow-link row is About-page-only chrome, not
 repeated on every page.
 
-## Previewing without switching the live theme
-
-`hugo.toml` still has `theme = 'typewriter'`. To look at this theme
-locally without touching that:
+## Previewing
 
 ```sh
-hugo server -D --theme constructivist
+hugo server -D
 ```
 
-(`--theme` overrides the config value for that invocation only.) A build
-can be sanity-checked the same way:
+A build can be sanity-checked the same way:
 
 ```sh
-hugo --gc --minify --theme constructivist -d /tmp/constructivist-build
+hugo --gc --minify -d /tmp/constructivist-build
 ```
 
-## Switching it in for real
+## Switching back to a sibling theme
 
-Change `theme = "typewriter"` to `theme = "constructivist"` in the site's
-`hugo.toml`. No changes to `content/`, `data/`, or `archetypes/` are
-required.
+Change `theme = "constructivist"` to `theme = "typewriter"` (or
+`"quietprint"`) in the site's `hugo.toml`; each implements the same
+content contract, so no changes to `content/`, `data/`, or `archetypes/`
+are required. To preview one without switching the live config, pass
+`--theme <name>` to `hugo server`/`hugo` for that invocation only.
