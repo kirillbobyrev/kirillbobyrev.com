@@ -1,22 +1,25 @@
 {{- /*
   Text social links ("Email →", "GitHub →" ...), the arrow-link idiom used
-  throughout this theme (see .link-row on the homepage) instead of icon
-  glyphs. Handles come from params.social in hugo.toml; `email` is optional
-  and, unlike the others, not rendered anywhere else in the theme - add
-  `email = "you@example.com"` under [params.social] to show it.
+  throughout this theme (see .link-row on the homepage). The arrow is the
+  theme's house icon (see icon.html), not a Unicode glyph - it was one
+  until the icon system replaced it, same spec as the header's to-top
+  chevron. Handles come from params.social in hugo.toml; `email` is
+  optional and, unlike the others, not rendered anywhere else in the
+  theme - add `email = "you@example.com"` under [params.social] to show it.
   */
 -}}
+{{- $arrow := partial "icon.html" (dict "name" "arrow-right" "size" 13 "class" "social-link-arrow") -}}
 {{- with .Site.Params.social.email -}}
-  <a href="mailto:{{ . }}" class="social-link">Email</a>
+  <a href="mailto:{{ . }}" class="social-link">Email{{ $arrow }}</a>
 {{- end -}}
 {{- with .Site.Params.social.github -}}
   <a href="https://github.com/{{ . }}" class="social-link" rel="me noopener"
-    >GitHub</a
+    >GitHub{{ $arrow }}</a
   >
 {{- end -}}
 {{- with .Site.Params.social.twitter -}}
   <a href="https://twitter.com/{{ . }}" class="social-link" rel="me noopener"
-    >Twitter</a
+    >Twitter{{ $arrow }}</a
   >
 {{- end -}}
 {{- with .Site.Params.social.linkedin -}}
@@ -24,11 +27,11 @@
     href="https://linkedin.com/in/{{ . }}"
     class="social-link"
     rel="me noopener"
-    >LinkedIn</a
+    >LinkedIn{{ $arrow }}</a
   >
 {{- end -}}
 {{- with .Site.Params.social.instagram -}}
   <a href="https://instagram.com/{{ . }}" class="social-link" rel="me noopener"
-    >Instagram</a
+    >Instagram{{ $arrow }}</a
   >
 {{- end -}}

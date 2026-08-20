@@ -1,0 +1,39 @@
+{{- /*
+  One house icon spec, reused wherever the theme used to reach for a
+  Unicode glyph instead - Massimo Vignelli's "design is one": a single
+  construction rule (24x24 viewBox, 2px stroke, round caps/joins,
+  currentColor) applied without exception, the way Otl Aicher's Munich
+  1972 pictograms share one grid and stroke across every sign. Every
+  caller gets the same weight and the same free hover/theme color via
+  currentColor - no per-icon color rule anywhere in main.css.
+
+  Usage: {{ partial "icon.html" (dict "name" "arrow-up") }}
+  "size" is optional and defaults to 16 (px, matching --text-base's
+  reading-line scale); pass a "class" to hang extra CSS on the <svg>.
+
+  This is decorative-only markup: every caller pairs it with visible
+  link text or a .visually-hidden label, so aria-hidden is fixed here
+  rather than exposed as a per-call option.
+  */ -}}
+{{- $paths := dict
+  "arrow-up" "M12 19V5M5 12l7-7 7 7"
+  "arrow-right" "M5 12h14M13 6l6 6-6 6"
+-}}
+{{- $d := index $paths .name -}}
+{{- if not $d -}}
+  {{- errorf "icon.html: unknown icon name %q" .name -}}
+{{- end -}}
+{{- $size := .size | default 16 -}}
+<svg
+  width="{{ $size }}"
+  height="{{ $size }}"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  {{ with .class }}class="{{ . }}"{{ end }}
+  aria-hidden="true"
+  ><path d="{{ $d }}" /></svg
+>
