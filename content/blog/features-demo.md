@@ -157,12 +157,10 @@ Use `const variable = "value"` for inline code snippets. You can also use `npm i
 
 ## Figure Examples
 
+Every figure breaks out of the prose measure by default - there's no narrower
+mode to opt into, so images and diagrams always get the extra horizontal room:
+
 {{< figure src="/images/og.jpg" caption="A figure with a caption, via the figure shortcode." alt="Site Open Graph image" />}}
-
-A `wide="true"` figure breaks out of the prose measure for images or diagrams
-that benefit from more horizontal room:
-
-{{< figure src="/images/og.jpg" wide="true" caption="The same image, rendered wide via figure's wide=\"true\" parameter." alt="Site Open Graph image, wide" />}}
 
 ## Interactive Embeds
 

@@ -1,42 +1,19 @@
 {{- /*
   Renders a single <li> entry in a .blog-timeline list.
-  Params (dict): page (Page, required), dateFormat (string) — shows a date
-  column when set; omit it to skip the date entirely (the blog index groups
-  by year instead, so a per-entry date is redundant there). summary ("none"
-  | "inline" | "block", default "none") — how (or whether) to show the
-  page's Description. large (bool) — heading-sized serif title, for the
-  blog index rather than the homepage teaser list. image (Resource,
-  optional) — a thumbnail, shown beside a large entry only.
+  Params (dict): page (Page, required), image (Resource, optional) — a
+  thumbnail, shown beside the entry.
   */
 -}}
-{{- $summary := .summary | default "none" -}}
 {{- $itemClass := "blog-timeline-item" -}}
 {{- if .image -}}
   {{- $itemClass = printf "%s has-thumb" $itemClass -}}
 {{- end -}}
-{{- $entryClass := "blog-timeline-entry" -}}
-{{- if .large -}}
-  {{- $entryClass = printf "%s blog-timeline-entry-lg" $entryClass -}}
-{{- end -}}
 <li class="{{ $itemClass }}">
-  <a href="{{ .page.RelPermalink }}" class="{{ $entryClass }}">
-    {{- with .dateFormat -}}
-      <time
-        datetime="{{ $.page.Date.Format "2006-01-02" }}"
-        class="blog-timeline-date"
-        >{{ $.page.Date.Format . }}</time
-      >
-    {{- end -}}
+  <a href="{{ .page.RelPermalink }}" class="blog-timeline-entry">
     <span class="blog-timeline-content">
       <span class="blog-timeline-title">{{ .page.Title }}</span>
-      {{- if eq $summary "inline" -}}
-        {{- with .page.Description -}}
-          <span class="blog-timeline-summary-inline">{{ . }}</span>
-        {{- end -}}
-      {{- else if eq $summary "block" -}}
-        {{- with .page.Description -}}
-          <span class="blog-timeline-summary">{{ . }}</span>
-        {{- end -}}
+      {{- with .page.Description -}}
+        <span class="blog-timeline-summary">{{ . }}</span>
       {{- end -}}
     </span>
     {{- with .image -}}
