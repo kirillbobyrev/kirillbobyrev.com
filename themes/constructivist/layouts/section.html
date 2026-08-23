@@ -8,15 +8,12 @@
         <ul class="blog-timeline">
           {{- range .Pages -}}
             {{- $post := . -}}
-            {{- $compact := $post.Params.compact -}}
             {{- $image := "" -}}
             {{- with $post.Params.image -}}
               {{- $image = $post.Resources.GetMatch . -}}
             {{- end -}}
             {{- partial "blog-timeline-entry.html" (dict
               "page" $post
-              "summary" (cond $compact "inline" "block")
-              "large" (not $compact)
               "image" $image
               )
             -}}

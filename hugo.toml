@@ -43,3 +43,17 @@ theme = 'constructivist'
 
 [sitemap]
   changefreq = 'weekly'
+
+# `hugo server`-only (never applies to the static `hugo` build, so
+# production is unaffected). The sandboxed embed iframes (static/embeds/)
+# have no allow-same-origin, making them an opaque "null" origin - fetching
+# the site's self-hosted fonts from inside one is a cross-origin font
+# request, which the CORS spec requires even for a same-path URL. GitHub
+# Pages already answers every static asset with
+# `Access-Control-Allow-Origin: *`, so this is only needed to make local
+# preview match what production already does.
+[server]
+  [[server.headers]]
+    for = '/fonts/**'
+    [server.headers.values]
+      Access-Control-Allow-Origin = '*'
