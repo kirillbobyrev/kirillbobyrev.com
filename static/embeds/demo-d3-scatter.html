@@ -6,14 +6,28 @@
 <title>D3 embed demo</title>
 <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
 <style>
+  /* Space Grotesk is self-hosted on the parent site's own origin
+     (/fonts/...), so a same-origin fetch works fine here even though this
+     iframe is sandboxed without allow-same-origin - the sandbox restricts
+     script/DOM access to the parent, not fetches for its own resources. */
+  @font-face {
+    font-family: "Space Grotesk";
+    src: url("/fonts/SpaceGrotesk-Variable.woff2") format("woff2");
+    font-weight: 300 700;
+    font-style: normal;
+    font-display: swap;
+  }
   :root {
     color-scheme: light dark;
-    --bg: light-dark(#fcfcfc, #14161a);
-    --text: light-dark(#212529, #cfd3d7);
-    --muted: light-dark(#6a7076, #8f959b);
-    --border: light-dark(#e7e8e9, #2a2d32);
-    --point: light-dark(#1c74b4, #85b8e6);
-    --point-hover: light-dark(#0b0d0f, #f1f2f3);
+    /* Same tokens as the parent site's main.css, copied rather than
+       shared because a sandboxed cross-document iframe can't read the
+       parent's CSS custom properties. */
+    --bg: light-dark(#f2efe8, #141310);
+    --text: light-dark(rgba(20, 18, 13, 0.92), rgba(235, 231, 221, 0.92));
+    --muted: light-dark(rgba(20, 18, 13, 0.55), rgba(235, 231, 221, 0.52));
+    --border: light-dark(rgba(20, 18, 13, 0.25), rgba(235, 231, 221, 0.22));
+    --point: #d8402a;
+    --point-hover: light-dark(#14120d, #f4f1e9);
   }
   /* Follow the parent site's manual dark-mode toggle (see the message
      listener below) instead of only the OS-level prefers-color-scheme. */
@@ -25,7 +39,7 @@
     height: 100%;
     background: var(--bg);
     color: var(--text);
-    font: 13px/1.4 -apple-system, "Segoe UI", Roboto, sans-serif;
+    font: 13px/1.4 "Space Grotesk", -apple-system, "Segoe UI", Roboto, sans-serif;
   }
   main {
     height: 100%;
