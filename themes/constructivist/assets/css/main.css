@@ -408,6 +408,7 @@ video {
   display: flex;
   align-items: center;
   min-width: 0;
+  gap: var(--space-l);
 }
 
 .nav-list {
@@ -452,7 +453,10 @@ video {
   align-items: center;
   justify-content: center;
   border: 0;
-  margin-inline-start: var(--space-xs);
+  /* .site-nav's gap already spaces this from .nav-list like any two nav
+     items; cancel the button's own padding so that hit-area padding
+     doesn't add on top and widen this particular gap. */
+  margin-inline-start: calc(-1 * var(--space-2xs));
   padding: var(--space-2xs);
   background: none;
   color: var(--color-muted);
@@ -1203,6 +1207,10 @@ pre.mermaid svg foreignObject {
 
   .site-header[data-condensed] .header-row {
     padding-block: var(--space-xs);
+  }
+
+  .site-nav {
+    gap: var(--space-m);
   }
 
   .nav-list {
