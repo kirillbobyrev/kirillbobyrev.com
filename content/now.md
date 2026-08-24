@@ -2,7 +2,6 @@
 title = 'Now'
 description = 'What has my attention at the moment.'
 layout = 'now'
-draft = true
 menu = 'main'
 weight = 2
 +++
@@ -10,20 +9,20 @@ weight = 2
 ## Work
 
 Machine learning models for autonomous vehicle simulation at Waymo - making
-simulations more realistic, robust, and performant.
-
-_[One or two sentences on what specifically has your attention this quarter.
-This is the part people actually read.]_
+simulations more realistic, robust, and performant. Lately that means
+improving our 3D Gaussian Splatting algorithms and working on generative 3D
+geometry.
 
 ## Writing
 
-_[Anything in progress. The chess post ends by promising "a consequent study
-which I want to publish soon" - if that is still alive, say so here.]_
+Nothing in progress. The [long win streaks
+post](/blog/analyzing-long-win-streaks/) ends by promising "a consequent
+study" - that one has stalled.
 
 ## Learning
 
-_[A language, a course, a paper, a technique. You already write about Anki, so
-what you are putting into it is a natural fit.]_
+Football skills, on the pitch rather than in a book: dribbling, first touch,
+turns, striking the ball properly.
 
 ## Away from the keyboard
 
@@ -32,9 +31,8 @@ season:
 
 {{< crests >}}
 
-_[Anything you would want a friend to ask you about over coffee - how
-City/Bayern/Chelsea/Barca are doing this week, a signing, a table position.]_
+Just enjoying the start of a new one.
 
 ## Where
 
-_[Which city, and whether you are travelling anywhere soon.]_
+San Jose. Working from the Bay and going into the office.
