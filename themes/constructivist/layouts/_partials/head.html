@@ -68,10 +68,15 @@
     media="(prefers-color-scheme: dark)"
     content="#141310"
   />
-  <link
-    rel="icon"
-    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>😼</text></svg>"
-  />
+  {{- /* The bisected-disc mark: paper ground, ink/accent split tilted 60°
+    so it never reads as a plain dot. It carries its own background
+    rather than currentColor - the tab strip is the one place the mark
+    can't inherit a page color. SVG covers modern browsers; the PNGs are
+    the fallback for the rest and for bookmarks/home-screen icons. */ -}}
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   {{- partialCached "css.html" . -}}
   {{- if .Page.Store.Get "hasMath" -}}
     {{- partialCached "math.html" . -}}
