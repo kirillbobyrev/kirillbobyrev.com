@@ -1199,6 +1199,20 @@ pre.mermaid svg foreignObject {
 
 /* === Responsive === */
 @media (max-width: 640px) {
+  /* No pinned masthead on mobile: at this width the title and nav already
+     wrap to two lines at rest (see .header-row's flex-wrap), so a sticky
+     header would either stay two lines tall for the whole scroll or need
+     the name-to-initials shrink to claw back one line. Simpler to just let
+     the header scroll away with the page, like the rest of the content -
+     same "no pinned masthead" call the desktop-era comments already
+     describe. The condense/shrink rules below still exist (the scroll
+     listener in baseof.html keeps toggling data-condensed regardless of
+     width), so they're neutralized here rather than left to fire on an
+     unsticky header. */
+  .site-header {
+    position: static;
+  }
+
   .header-row {
     padding-inline: var(--space-m);
     padding-block: var(--space-m);
@@ -1206,7 +1220,17 @@ pre.mermaid svg foreignObject {
   }
 
   .site-header[data-condensed] .header-row {
-    padding-block: var(--space-xs);
+    padding-block: var(--space-m);
+  }
+
+  .site-header[data-condensed] .site-title-full {
+    max-width: 16em;
+    opacity: 1;
+  }
+
+  .site-header[data-condensed] .site-title-short {
+    max-width: 0;
+    opacity: 0;
   }
 
   .site-nav {
