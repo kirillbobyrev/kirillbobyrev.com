@@ -8,25 +8,21 @@ weight = 2
 
 ## Work
 
-Machine learning models for autonomous vehicle simulation at Waymo. Lately
-that means improving 3D Gaussian Splatting for scene reconstruction and
-working on generative 3D geometry.
+Generative diffusion models, world models and simulation at Waymo.
 
 ## Writing
 
-Nothing in progress. The [long win streaks
-post](/blog/analyzing-long-win-streaks/) ends by promising "a consequent
-study" - that one has stalled.
+Nothing in progress.
 
 ## Learning
 
-Football skills, on the pitch rather than in a book: dribbling, first touch,
-turns, striking the ball properly.
+Football skills: first touch, turns, striking.
+
+Watching [CS 336](https://cs336.stanford.edu/) lectures.
 
 ## Away from the keyboard
 
-Football, chess, and three Abyssinian cats. Rooting for these clubs this
-season:
+EPL, UCL, chess, and three Abyssinian cats. Rooting for these clubs this season:
 
 {{< crests >}}
 
