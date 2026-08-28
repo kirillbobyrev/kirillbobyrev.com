@@ -8,10 +8,9 @@ weight = 2
 
 ## Work
 
-Machine learning models for autonomous vehicle simulation at Waymo - making
-simulations more realistic, robust, and performant. Lately that means
-improving our 3D Gaussian Splatting algorithms and working on generative 3D
-geometry.
+Machine learning models for autonomous vehicle simulation at Waymo. Lately
+that means improving 3D Gaussian Splatting for scene reconstruction and
+working on generative 3D geometry.
 
 ## Writing
 
@@ -26,13 +25,11 @@ turns, striking the ball properly.
 
 ## Away from the keyboard
 
-Football, chess, and three Abyssinian cats. Watching these clubs closely this
+Football, chess, and three Abyssinian cats. Rooting for these clubs this
 season:
 
 {{< crests >}}
 
-Just enjoying the start of a new one.
-
 ## Where
 
-San Jose. Working from the Bay and going into the office.
+San Jose, going into the office regularly.
