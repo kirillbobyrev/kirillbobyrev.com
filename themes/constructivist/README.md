@@ -20,6 +20,19 @@ This theme lives in the same repo as the site that uses it
 `typewriter`, and is the active theme (`theme = "constructivist"` in the
 site's `hugo.toml`).
 
+## Keyboard navigation
+
+Vim motions, for readers who never left the home row: `j`/`k` steps through
+the posts on the blog index (and scrolls on a page that has no list),
+`gg`/`G` jumps to the top/bottom, `o` (or Enter) opens the selected post,
+`?` shows the list and Esc dismisses it. No `/` search (the site has no
+index for one to drive) and no Ctrl/Cmd chord anywhere, so no browser
+shortcut is ever taken over. Selection is real DOM focus rather than a
+bespoke highlight, so it reuses the theme's focus ring and improves Tab
+navigation for free. It lives in `layouts/_partials/keyboard-nav.html` and
+is entirely additive: with JavaScript off, the site behaves exactly as it
+did before.
+
 ## Content contract
 
 Identical to `themes/typewriter`'s contract (see that theme's README for
