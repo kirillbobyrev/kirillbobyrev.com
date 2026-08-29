@@ -23,7 +23,7 @@ site's `hugo.toml`).
 ## Keyboard navigation
 
 Vim motions, for readers who never left the home row: `j`/`k` steps through
-the posts on the blog index (and scrolls on a page that has no list),
+the posts on the Writing index (and scrolls on a page that has no list),
 `gg`/`G` jumps to the top/bottom, `o` (or Enter) opens the selected post,
 `?` shows the list and Esc dismisses it. No `/` search (the site has no
 index for one to drive) and no Ctrl/Cmd chord anywhere, so no browser

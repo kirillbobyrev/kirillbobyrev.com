@@ -51,6 +51,10 @@
               localStorage.setItem("theme", theme);
             } catch (e) {}
           }
+          btn.setAttribute(
+            "aria-label",
+            theme === "dark" ? "Switch to light mode" : "Switch to dark mode",
+          );
           broadcastTheme(theme);
         };
         apply(current());

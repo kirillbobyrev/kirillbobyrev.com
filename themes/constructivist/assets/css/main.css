@@ -60,16 +60,18 @@
                             captions, footnotes, table text, the eyebrow
      --text-base  1.125rem  1.125 * 1.25^0 - body copy: paragraphs, list
                             items, the lede
-     --text-md    1.4rem    1.125 * 1.25^1 - site chrome sharing a line
-                            with body text: the site title/wordmark and
-                            the main nav (see kirillbobyrev.com's own
-                            header, the reference for this one)
-     --text-lg    1.75rem   1.125 * 1.25^2 - h2, blog-index titles,
+     --text-md    1.2rem    (a deliberate exception, not 1.125 * 1.25^1's
+                            1.4rem - the wordmark reads as a quiet
+                            masthead, not a headline, at the smaller
+                            size) - the site title/wordmark only; the
+                            main nav sits one step below it, on --text-sm
+     --text-lg    1.625rem  (a deliberate exception, not 1.125 * 1.25^2's
+                            1.75rem - reads too large across h2,
+                            blog-index titles, and pull-quotes at the
+                            pure ratio value) - h2, blog-index titles,
                             pull-quotes
-     --text-xl    3rem      (a deliberate exception, not 1.125 * 1.25^4's
-                            2.75rem - h1 reads better with more presence
-                            than the ratio gives it) - h1: About, Now,
-                            and post titles alike, one size for every
+     --text-xl    2.75rem   1.125 * 1.25^4 - h1: About, Now, Writing, and
+                            post titles alike, one size for every
                             top-level heading
    (h3 reuses --text-base at a bolder weight rather than claiming a sixth
    size - see .prose h3. Values rounded to a clean rem for readability in
@@ -97,15 +99,14 @@
 
   --text-sm: 1rem;
   --text-base: 1.125rem;
-  --text-md: 1.4rem;
-  --text-lg: 1.75rem;
-  --text-xl: 3rem;
+  --text-md: 1.2rem;
+  --text-lg: 1.625rem;
+  --text-xl: 2.75rem;
 
   /* Flat geometry: no soft UI rounding anywhere except the genuinely
-     circular marks (the header dot, the theme toggle, the "o" in the
-     About-page mark row) - those stay literal circles via
-     border-radius: 50% in place, not a token; nothing else in the theme
-     ever sets a border-radius at all. */
+     circular marks (the header dot and the theme toggle) - those stay
+     literal circles via border-radius: 50% in place, not a token;
+     nothing else in the theme ever sets a border-radius at all. */
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
   --transition: 0.15s var(--ease);
 
@@ -162,14 +163,13 @@
      contrast against --color-bg: 5.3:1; dark-mode: 5.9:1). */
   --color-accent: #d8402a;
 
-  /* Matches typewriter's own --measure formula exactly (the explicit
-     reference site for this value): flat at 45.5rem through 1600px of
-     viewport, growing in a straight line to 58rem by 2200px, then flat
-     again - a column stuck at ~728px forever would waste most of a
-     wide/ultrawide display instead of using the room it has. Same
-     linear-interpolation technique as the root font-size clamp above,
-     just solved for a wider pair of bounds. */
-  --measure: clamp(45.5rem, 28.7317rem + 15.2439vw, 58rem);
+  /* Fixed, not fluid: a wider viewport doesn't earn a longer line of prose
+     - past ~75-90 characters a line gets harder to track back to its own
+     start, and the root font-size clamp above already grows the physical
+     measure somewhat on very large displays. --measure-wide (figures,
+     diagrams, the header) is the frame that's meant to exploit a big
+     screen; the reading column deliberately isn't. */
+  --measure: 45.5rem;
   /* The site's other, wider frame: figures/diagrams break out to this
      width (see .figure-block/pre.mermaid) rather than staying inside
      --measure, and the header row matches it too - the header and the
@@ -215,16 +215,6 @@ html {
 
 body {
   margin: 0;
-}
-
-@view-transition {
-  navigation: auto;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  @view-transition {
-    navigation: none;
-  }
 }
 
 img,
@@ -328,7 +318,7 @@ video {
   max-width: var(--measure-wide);
   margin-inline: auto;
   padding-inline: var(--space-l);
-  padding-block: var(--space-l);
+  padding-block: var(--space-m);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -422,10 +412,10 @@ video {
   white-space: nowrap;
 }
 
-/* Same size as .site-title, matching kirillbobyrev.com's own header:
-   the wordmark and the nav share one step, weight and color (not size)
-   marking the nav as secondary. The current page reads from color and
-   weight alone too, no painted dot or underline - "typography over
+/* One step below .site-title (--text-sm, not --text-md): size itself
+   now marks the nav as secondary to the wordmark, on top of the
+   existing color/weight cues. The current page still reads from color
+   and weight alone, no painted dot or underline - "typography over
    paint" throughout the theme's chrome. */
 .nav-link {
   display: flex;
@@ -433,7 +423,7 @@ video {
   color: var(--color-muted);
   text-decoration: none;
   font-family: var(--font-sans);
-  font-size: var(--text-md);
+  font-size: var(--text-sm);
   font-weight: 500;
   padding: var(--space-2xs) 0;
   transition: color var(--transition);
@@ -508,22 +498,6 @@ video {
   color: var(--color-muted);
 }
 
-/* The top margin lives here, not on .page-heading (see below): flex
-   items don't margin-collapse with their container the way a block-level
-   h1 does on its own, so a margin on the heading itself would offset it
-   from the marks beside it under align-items: center. */
-.page-heading-row {
-  margin-top: var(--space-m);
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-m) var(--space-l);
-}
-
-.page-heading-row .page-heading {
-  margin-top: 0;
-}
-
 /* Medium weight and tight tracking: a plain, confident display heading -
    the accent-dot and the rule beneath it are the only ornament. */
 .page-heading,
@@ -554,47 +528,17 @@ video {
   color: var(--color-accent);
 }
 
-/* A filled circle, an outlined square, a filled diamond, then a rule
-   trailing off - small, on the heading's own line, straight from the
-   source design. */
-.heading-marks {
-  flex: none;
-  display: flex;
-  align-items: center;
-  gap: 9px; /* matches the source design's own value, off the space scale */
-}
-
-.mark {
-  flex: none;
-  width: 15px;
-  height: 15px;
-}
-
-.mark-circle {
-  border-radius: 50%;
-  background-color: var(--color-accent);
-}
-
-.mark-square {
-  border: 1.5px solid var(--color-muted);
-}
-
-.mark-diamond {
-  background-color: var(--color-muted);
-  transform: rotate(45deg);
-}
-
-.mark-rule {
-  width: 44px;
-  height: 1.5px;
-  background-color: var(--color-underline);
-}
-
+/* The one ornament left on a heading beyond the accent-dot: a short rule
+   trailing beneath it. About, Now, and Writing all share this same pair -
+   repeating one primitive builds identity more than several would. */
 .heading-rule {
   width: 72px;
   height: 3px;
   background-color: var(--color-accent);
-  margin: var(--space-l) 0 var(--space-l);
+  /* Asymmetric on purpose: less space above than below binds the rule to
+     the heading it trails rather than splitting the difference evenly
+     between heading and lede. */
+  margin: var(--space-m) 0 var(--space-l);
 }
 
 .lede {
@@ -676,6 +620,31 @@ video {
   font-size: var(--text-sm);
 }
 
+/* Editorial closure, not blog machinery: a single quiet link back to the
+   index after the prose ends, nothing more (no tags, no "you may also
+   like"). Same restrained idiom as .page-footnote/.social-link. */
+.post-nav {
+  margin-block-start: var(--space-3xl);
+  padding-block-start: var(--space-l);
+  border-block-start: 1px solid var(--color-border);
+}
+
+.post-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  color: var(--color-muted);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  transition: color var(--transition);
+}
+
+.post-nav-link:hover {
+  color: var(--color-accent);
+}
+
 /* === Prose typography === */
 .main-content {
   margin-block-start: var(--space-xs);
@@ -715,6 +684,16 @@ video {
   text-wrap: balance;
 }
 
+/* About/Now open with .page-header (eyebrow, h1, heading-rule, lede) right
+   before .prose - the full 2x--rhythm gap above reads fine between two
+   paragraphs deep in an article, but between the lede and the page's first
+   section heading it makes a short page feel like isolated blocks rather
+   than one continuous read. Scoped to :first-child so every h2 after the
+   first still gets the normal article-length rhythm. */
+.page-header + .prose > h2:first-child {
+  margin-block-start: var(--space-2xl); /* 44px */
+}
+
 /* Reuses --text-base (the body size) rather than claiming its own size
    step - bold weight is what marks it as a sub-heading, same idiom as
    iA Writer's own site. Still clearly a level below h2 (smaller, and
@@ -730,6 +709,18 @@ video {
   line-height: 1.4;
   color: var(--color-heading);
   text-wrap: balance;
+}
+
+/* Adjacent margins collapse to their max, not their sum - left alone, h3's
+   8px bottom margin would collapse against the ~31.5px (or larger) top
+   margin on the p/ul/ol right under it, landing far looser than "bound
+   tight" implies. Pinning the following block's own top margin to the same
+   --space-xs keeps the collapsed gap at 8px instead of inheriting whatever
+   the next block's structural margin happens to be. */
+.prose h3 + p,
+.prose h3 + ul,
+.prose h3 + ol {
+  margin-block-start: var(--space-xs);
 }
 
 .prose p {
@@ -924,28 +915,17 @@ video {
   padding: 0;
 }
 
-.main-content .timeline-year-label {
-  margin: var(--space-l) 0 var(--space-xs);
-  font-family: var(--font-sans);
-  font-size: var(--text-sm);
-  font-weight: 500;
-  color: var(--color-muted);
-}
-
-.timeline-year .blog-timeline {
-  margin-block-start: 0;
-}
-
 .blog-timeline li {
   margin: 0;
 }
 
+/* No separators between rows - whitespace does the grouping instead of a
+   rule, so a short list of posts reads as typesetting rather than a
+   settings/list UI. */
 .blog-timeline-entry {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-l);
+  display: block;
   padding-inline: var(--space-xs);
-  padding-block: var(--space-s);
+  padding-block: var(--space-l);
   margin-inline: calc(var(--space-xs) * -1);
   text-decoration: none;
   color: inherit;
@@ -954,19 +934,6 @@ video {
      the top of the list comes to rest underneath the sticky header.
      Roughly the condensed header's height plus a line of air. */
   scroll-margin-block: calc(var(--space-2xl) + var(--space-s)) var(--space-l);
-  transition: background-color var(--transition);
-}
-
-.blog-timeline-entry:hover,
-.blog-timeline-entry:focus-visible {
-  background-color: var(--color-bg-hover);
-}
-
-.blog-timeline-content {
-  display: block;
-  flex: 1;
-  min-width: 0;
-  line-height: 1.55;
 }
 
 .blog-timeline-title {
@@ -985,31 +952,11 @@ video {
   color: var(--color-accent);
 }
 
-.blog-timeline-summary {
+.blog-timeline-date {
   display: block;
-  margin-block-start: var(--space-3xs);
+  margin-block-start: var(--space-2xs);
   color: var(--color-muted);
   font-size: var(--text-sm);
-  line-height: 1.5;
-  text-wrap: pretty;
-}
-
-.has-thumb .blog-timeline-entry {
-  align-items: center;
-}
-
-.blog-timeline-thumb {
-  flex-shrink: 0;
-  width: 5.5rem;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  border: 1px solid var(--color-border);
-}
-
-.blog-timeline-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 /* === Back to top === */
@@ -1200,18 +1147,6 @@ kbd {
   background-color: var(--color-bg);
 }
 
-/* Soften bright images against the dark background (filter values cannot
-   ride light-dark(), so this one rule keeps the dual theme scope). */
-:root[data-theme="dark"] .prose img {
-  filter: brightness(0.85) contrast(1.05);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .prose img {
-    filter: brightness(0.85) contrast(1.05);
-  }
-}
-
 /* === Code === */
 .highlight {
   margin-block: var(--rhythm); /* nearest multiple (1x) of --space-l */
@@ -1368,19 +1303,15 @@ pre.mermaid svg foreignObject {
     margin-inline: calc(var(--space-m) * -1);
   }
 
-  .blog-timeline-entry,
-  .has-thumb .blog-timeline-entry {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.125rem; /* sub-scale hairline: tighter than --space-3xs allows */
+  /* The 2x--rhythm top margin on .prose h2 (~63px) is tuned for desktop
+     reading measure; on a phone viewport it reads as an oversized gap
+     between sections. 1.5x keeps the heading clearly separated without
+     the same proportional weight. Doesn't affect the first h2 after a
+     page's lede - that's already pulled in by the more specific
+     .page-header + .prose > h2:first-child rule above. */
+  .prose h2 {
+    margin-block-start: calc(var(--rhythm) * 1.5);
   }
-
-  .blog-timeline-thumb {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    margin-block-start: var(--space-2xs);
-  }
-
 }
 
 /* === Print === */

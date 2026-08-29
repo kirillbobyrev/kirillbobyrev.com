@@ -1,33 +1,26 @@
 +++
 title = 'Kirill Bobyrev'
-tagline = 'I build machine learning models at Waymo and make the simulation more realistic.'
 +++
 
-## My Journey
+## Work
 
-My path started with competitive programming as a physics and math student at
-[MIPT](https://en.wikipedia.org/wiki/Moscow_Institute_of_Physics_and_Technology).
-I took a gap year to participate in [Google Summer of
-Code](https://summerofcode.withgoogle.com/), where I built
+I work on machine learning for autonomous-vehicle simulation at Waymo,
+building generative models that make simulated driving scenes more
+realistic. Before that, I spent several years on
+[clangd](https://clangd.llvm.org/) at Google - a search engine that made
+code completion 100x faster, an [include
+cleaner](https://clangd.llvm.org/guides/include-cleaner), and a renaming
+engine, all used by C++ developers worldwide.
+
+## Before that
+
+Physics and math at [MIPT](https://en.wikipedia.org/wiki/Moscow_Institute_of_Physics_and_Technology),
+competitive programming, and a year off for [Google Summer of
+Code](https://summerofcode.withgoogle.com/) building
 [tools](https://github.com/kirillbobyrev/code-clone-detection-llvm-devmtg15-poster)
-to detect duplicate code in open-source projects - work that caught Google's
-attention and launched my career.
+to detect duplicate code in open-source projects.
 
-At Google, I worked on making C++ development faster and more reliable. I built
-many features for [clangd](https://clangd.llvm.org/), including [search
-engine](https://youtu.be/VhxrFor3VyQ) that made code completion 100x faster,
-[include cleaner](https://clangd.llvm.org/guides/include-cleaner) and renaming
-engine. Beyond the technical work, I became the team's unofficial product
-manager - running user interviews, analyzing feedback, and shaping our roadmap
-to serve millions of developers worldwide.
+## Elsewhere
 
-At Waymo, I work on machine learning models for autonomous vehicle simulation.
-My team focuses on making simulations more realistic, robust, and performant to
-help ensure the safety of self-driving systems. It's challenging work at the
-intersection of ML and safety-critical systems.
-
-## Beyond Code
-
-I really enjoy learning something new - playing football, exploring chess, or
-traveling to new places. I speak English, Russian, and German and share my
-home with three crazy Abyssinian cats.
+Football, chess, travel, and three Abyssinian cats. I speak English,
+Russian, and German.
