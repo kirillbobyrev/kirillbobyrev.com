@@ -11,5 +11,10 @@
       {{- end -}}
     </header>
     <div class="prose post-body">{{ .Content }}</div>
+    <nav class="post-nav" aria-label="Post">
+      <a href="/blog/" class="post-nav-link"
+        >{{ partial "icon.html" (dict "name" "arrow-left" "size" 14) }}Writing</a
+      >
+    </nav>
   </article>
 {{- end -}}

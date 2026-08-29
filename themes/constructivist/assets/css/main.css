@@ -60,16 +60,18 @@
                             captions, footnotes, table text, the eyebrow
      --text-base  1.125rem  1.125 * 1.25^0 - body copy: paragraphs, list
                             items, the lede
-     --text-md    1.4rem    1.125 * 1.25^1 - site chrome sharing a line
-                            with body text: the site title/wordmark and
-                            the main nav (see kirillbobyrev.com's own
-                            header, the reference for this one)
-     --text-lg    1.75rem   1.125 * 1.25^2 - h2, blog-index titles,
+     --text-md    1.2rem    (a deliberate exception, not 1.125 * 1.25^1's
+                            1.4rem - the wordmark reads as a quiet
+                            masthead, not a headline, at the smaller
+                            size) - the site title/wordmark only; the
+                            main nav sits one step below it, on --text-sm
+     --text-lg    1.625rem  (a deliberate exception, not 1.125 * 1.25^2's
+                            1.75rem - reads too large across h2,
+                            blog-index titles, and pull-quotes at the
+                            pure ratio value) - h2, blog-index titles,
                             pull-quotes
-     --text-xl    3rem      (a deliberate exception, not 1.125 * 1.25^4's
-                            2.75rem - h1 reads better with more presence
-                            than the ratio gives it) - h1: About, Now,
-                            and post titles alike, one size for every
+     --text-xl    2.75rem   1.125 * 1.25^4 - h1: About, Now, Writing, and
+                            post titles alike, one size for every
                             top-level heading
    (h3 reuses --text-base at a bolder weight rather than claiming a sixth
    size - see .prose h3. Values rounded to a clean rem for readability in
@@ -97,15 +99,14 @@
 
   --text-sm: 1rem;
   --text-base: 1.125rem;
-  --text-md: 1.4rem;
-  --text-lg: 1.75rem;
-  --text-xl: 3rem;
+  --text-md: 1.2rem;
+  --text-lg: 1.625rem;
+  --text-xl: 2.75rem;
 
   /* Flat geometry: no soft UI rounding anywhere except the genuinely
-     circular marks (the header dot, the theme toggle, the "o" in the
-     About-page mark row) - those stay literal circles via
-     border-radius: 50% in place, not a token; nothing else in the theme
-     ever sets a border-radius at all. */
+     circular marks (the header dot and the theme toggle) - those stay
+     literal circles via border-radius: 50% in place, not a token;
+     nothing else in the theme ever sets a border-radius at all. */
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
   --transition: 0.15s var(--ease);
 
@@ -217,16 +218,6 @@ body {
   margin: 0;
 }
 
-@view-transition {
-  navigation: auto;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  @view-transition {
-    navigation: none;
-  }
-}
-
 img,
 svg,
 video {
@@ -328,7 +319,7 @@ video {
   max-width: var(--measure-wide);
   margin-inline: auto;
   padding-inline: var(--space-l);
-  padding-block: var(--space-l);
+  padding-block: var(--space-m);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -422,10 +413,10 @@ video {
   white-space: nowrap;
 }
 
-/* Same size as .site-title, matching kirillbobyrev.com's own header:
-   the wordmark and the nav share one step, weight and color (not size)
-   marking the nav as secondary. The current page reads from color and
-   weight alone too, no painted dot or underline - "typography over
+/* One step below .site-title (--text-sm, not --text-md): size itself
+   now marks the nav as secondary to the wordmark, on top of the
+   existing color/weight cues. The current page still reads from color
+   and weight alone, no painted dot or underline - "typography over
    paint" throughout the theme's chrome. */
 .nav-link {
   display: flex;
@@ -433,7 +424,7 @@ video {
   color: var(--color-muted);
   text-decoration: none;
   font-family: var(--font-sans);
-  font-size: var(--text-md);
+  font-size: var(--text-sm);
   font-weight: 500;
   padding: var(--space-2xs) 0;
   transition: color var(--transition);
@@ -508,22 +499,6 @@ video {
   color: var(--color-muted);
 }
 
-/* The top margin lives here, not on .page-heading (see below): flex
-   items don't margin-collapse with their container the way a block-level
-   h1 does on its own, so a margin on the heading itself would offset it
-   from the marks beside it under align-items: center. */
-.page-heading-row {
-  margin-top: var(--space-m);
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-m) var(--space-l);
-}
-
-.page-heading-row .page-heading {
-  margin-top: 0;
-}
-
 /* Medium weight and tight tracking: a plain, confident display heading -
    the accent-dot and the rule beneath it are the only ornament. */
 .page-heading,
@@ -554,42 +529,9 @@ video {
   color: var(--color-accent);
 }
 
-/* A filled circle, an outlined square, a filled diamond, then a rule
-   trailing off - small, on the heading's own line, straight from the
-   source design. */
-.heading-marks {
-  flex: none;
-  display: flex;
-  align-items: center;
-  gap: 9px; /* matches the source design's own value, off the space scale */
-}
-
-.mark {
-  flex: none;
-  width: 15px;
-  height: 15px;
-}
-
-.mark-circle {
-  border-radius: 50%;
-  background-color: var(--color-accent);
-}
-
-.mark-square {
-  border: 1.5px solid var(--color-muted);
-}
-
-.mark-diamond {
-  background-color: var(--color-muted);
-  transform: rotate(45deg);
-}
-
-.mark-rule {
-  width: 44px;
-  height: 1.5px;
-  background-color: var(--color-underline);
-}
-
+/* The one ornament left on a heading beyond the accent-dot: a short rule
+   trailing beneath it. About, Now, and Writing all share this same pair -
+   repeating one primitive builds identity more than several would. */
 .heading-rule {
   width: 72px;
   height: 3px;
@@ -674,6 +616,31 @@ video {
   color: var(--color-muted);
   font-family: var(--font-sans);
   font-size: var(--text-sm);
+}
+
+/* Editorial closure, not blog machinery: a single quiet link back to the
+   index after the prose ends, nothing more (no tags, no "you may also
+   like"). Same restrained idiom as .page-footnote/.social-link. */
+.post-nav {
+  margin-block-start: var(--space-3xl);
+  padding-block-start: var(--space-l);
+  border-block-start: 1px solid var(--color-border);
+}
+
+.post-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  color: var(--color-muted);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  transition: color var(--transition);
+}
+
+.post-nav-link:hover {
+  color: var(--color-accent);
 }
 
 /* === Prose typography === */
@@ -924,43 +891,22 @@ video {
   padding: 0;
 }
 
-.main-content .timeline-year-label {
-  margin: var(--space-l) 0 var(--space-xs);
-  font-family: var(--font-sans);
-  font-size: var(--text-sm);
-  font-weight: 500;
-  color: var(--color-muted);
-}
-
-.timeline-year .blog-timeline {
-  margin-block-start: 0;
-}
-
 .blog-timeline li {
   margin: 0;
 }
 
 .blog-timeline-entry {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-l);
+  display: block;
   padding-inline: var(--space-xs);
-  padding-block: var(--space-s);
+  padding-block: var(--space-xl);
   margin-inline: calc(var(--space-xs) * -1);
+  border-block-end: 1px solid var(--color-border);
   text-decoration: none;
   color: inherit;
-  transition: background-color var(--transition);
 }
 
-.blog-timeline-entry:hover {
-  background-color: var(--color-bg-hover);
-}
-
-.blog-timeline-content {
-  display: block;
-  flex: 1;
-  min-width: 0;
-  line-height: 1.55;
+.blog-timeline li:last-child .blog-timeline-entry {
+  border-block-end: none;
 }
 
 .blog-timeline-title {
@@ -978,31 +924,11 @@ video {
   color: var(--color-accent);
 }
 
-.blog-timeline-summary {
+.blog-timeline-date {
   display: block;
-  margin-block-start: var(--space-3xs);
+  margin-block-start: var(--space-2xs);
   color: var(--color-muted);
   font-size: var(--text-sm);
-  line-height: 1.5;
-  text-wrap: pretty;
-}
-
-.has-thumb .blog-timeline-entry {
-  align-items: center;
-}
-
-.blog-timeline-thumb {
-  flex-shrink: 0;
-  width: 5.5rem;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  border: 1px solid var(--color-border);
-}
-
-.blog-timeline-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 /* === Back to top === */
@@ -1079,18 +1005,6 @@ video {
   width: 100%;
   border: 1px solid var(--color-border);
   background-color: var(--color-bg);
-}
-
-/* Soften bright images against the dark background (filter values cannot
-   ride light-dark(), so this one rule keeps the dual theme scope). */
-:root[data-theme="dark"] .prose img {
-  filter: brightness(0.85) contrast(1.05);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .prose img {
-    filter: brightness(0.85) contrast(1.05);
-  }
 }
 
 /* === Code === */
@@ -1248,20 +1162,6 @@ pre.mermaid svg foreignObject {
   .highlight {
     margin-inline: calc(var(--space-m) * -1);
   }
-
-  .blog-timeline-entry,
-  .has-thumb .blog-timeline-entry {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.125rem; /* sub-scale hairline: tighter than --space-3xs allows */
-  }
-
-  .blog-timeline-thumb {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    margin-block-start: var(--space-2xs);
-  }
-
 }
 
 /* === Print === */

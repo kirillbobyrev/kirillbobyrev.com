@@ -1,25 +1,20 @@
 {{- /*
   Renders a single <li> entry in a .blog-timeline list.
-  Params (dict): page (Page, required), image (Resource, optional) — a
-  thumbnail, shown beside the entry.
+  Params (dict): page (Page, required). Title is the dominant interaction -
+  no summary, thumbnail, or hover-card treatment; just the title and the
+  exact publish date beneath it. See the theme's own README/comments on
+  main.css's "=== Blog timeline ===" block for the reasoning.
   */
 -}}
-{{- $itemClass := "blog-timeline-item" -}}
-{{- if .image -}}
-  {{- $itemClass = printf "%s has-thumb" $itemClass -}}
-{{- end -}}
-<li class="{{ $itemClass }}">
+<li>
   <a href="{{ .page.RelPermalink }}" class="blog-timeline-entry">
-    <span class="blog-timeline-content">
-      <span class="blog-timeline-title">{{ .page.Title }}</span>
-      {{- with .page.Description -}}
-        <span class="blog-timeline-summary">{{ . }}</span>
-      {{- end -}}
-    </span>
-    {{- with .image -}}
-      <span class="blog-timeline-thumb">
-        {{- partial "responsive-img.html" (dict "image" . "alt" "") -}}
-      </span>
+    <span class="blog-timeline-title">{{ .page.Title }}</span>
+    {{- if .page.Date -}}
+      <time
+        class="blog-timeline-date"
+        datetime="{{ .page.Date.Format "2006-01-02" }}"
+        >{{ .page.Date.Format "January 2, 2006" }}</time
+      >
     {{- end -}}
   </a>
 </li>
