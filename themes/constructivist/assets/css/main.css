@@ -1184,6 +1184,16 @@ pre.mermaid svg foreignObject {
   .highlight {
     margin-inline: calc(var(--space-m) * -1);
   }
+
+  /* The 2x--rhythm top margin on .prose h2 (~63px) is tuned for desktop
+     reading measure; on a phone viewport it reads as an oversized gap
+     between sections. 1.5x keeps the heading clearly separated without
+     the same proportional weight. Doesn't affect the first h2 after a
+     page's lede - that's already pulled in by the more specific
+     .page-header + .prose > h2:first-child rule above. */
+  .prose h2 {
+    margin-block-start: calc(var(--rhythm) * 1.5);
+  }
 }
 
 /* === Print === */
