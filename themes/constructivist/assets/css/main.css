@@ -163,14 +163,13 @@
      contrast against --color-bg: 5.3:1; dark-mode: 5.9:1). */
   --color-accent: #d8402a;
 
-  /* Matches typewriter's own --measure formula exactly (the explicit
-     reference site for this value): flat at 45.5rem through 1600px of
-     viewport, growing in a straight line to 58rem by 2200px, then flat
-     again - a column stuck at ~728px forever would waste most of a
-     wide/ultrawide display instead of using the room it has. Same
-     linear-interpolation technique as the root font-size clamp above,
-     just solved for a wider pair of bounds. */
-  --measure: clamp(45.5rem, 28.7317rem + 15.2439vw, 58rem);
+  /* Fixed, not fluid: a wider viewport doesn't earn a longer line of prose
+     - past ~75-90 characters a line gets harder to track back to its own
+     start, and the root font-size clamp above already grows the physical
+     measure somewhat on very large displays. --measure-wide (figures,
+     diagrams, the header) is the frame that's meant to exploit a big
+     screen; the reading column deliberately isn't. */
+  --measure: 45.5rem;
   /* The site's other, wider frame: figures/diagrams break out to this
      width (see .figure-block/pre.mermaid) rather than staying inside
      --measure, and the header row matches it too - the header and the
@@ -536,7 +535,10 @@ video {
   width: 72px;
   height: 3px;
   background-color: var(--color-accent);
-  margin: var(--space-l) 0 var(--space-l);
+  /* Asymmetric on purpose: less space above than below binds the rule to
+     the heading it trails rather than splitting the difference evenly
+     between heading and lede. */
+  margin: var(--space-m) 0 var(--space-l);
 }
 
 .lede {
@@ -682,6 +684,16 @@ video {
   text-wrap: balance;
 }
 
+/* About/Now open with .page-header (eyebrow, h1, heading-rule, lede) right
+   before .prose - the full 2x--rhythm gap above reads fine between two
+   paragraphs deep in an article, but between the lede and the page's first
+   section heading it makes a short page feel like isolated blocks rather
+   than one continuous read. Scoped to :first-child so every h2 after the
+   first still gets the normal article-length rhythm. */
+.page-header + .prose > h2:first-child {
+  margin-block-start: var(--space-2xl); /* 44px */
+}
+
 /* Reuses --text-base (the body size) rather than claiming its own size
    step - bold weight is what marks it as a sub-heading, same idiom as
    iA Writer's own site. Still clearly a level below h2 (smaller, and
@@ -697,6 +709,18 @@ video {
   line-height: 1.4;
   color: var(--color-heading);
   text-wrap: balance;
+}
+
+/* Adjacent margins collapse to their max, not their sum - left alone, h3's
+   8px bottom margin would collapse against the ~31.5px (or larger) top
+   margin on the p/ul/ol right under it, landing far looser than "bound
+   tight" implies. Pinning the following block's own top margin to the same
+   --space-xs keeps the collapsed gap at 8px instead of inheriting whatever
+   the next block's structural margin happens to be. */
+.prose h3 + p,
+.prose h3 + ul,
+.prose h3 + ol {
+  margin-block-start: var(--space-xs);
 }
 
 .prose p {
@@ -895,18 +919,16 @@ video {
   margin: 0;
 }
 
+/* No separators between rows - whitespace does the grouping instead of a
+   rule, so a short list of posts reads as typesetting rather than a
+   settings/list UI. */
 .blog-timeline-entry {
   display: block;
   padding-inline: var(--space-xs);
-  padding-block: var(--space-xl);
+  padding-block: var(--space-l);
   margin-inline: calc(var(--space-xs) * -1);
-  border-block-end: 1px solid var(--color-border);
   text-decoration: none;
   color: inherit;
-}
-
-.blog-timeline li:last-child .blog-timeline-entry {
-  border-block-end: none;
 }
 
 .blog-timeline-title {
