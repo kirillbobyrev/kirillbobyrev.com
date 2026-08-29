@@ -6,17 +6,9 @@
       {{- with .Site.Params.author.location -}}
         <div class="page-eyebrow">{{ . }}</div>
       {{- end -}}
-      {{- /* Lean, single-line geometric mark straight from the source design: */ -}}
-      {{- /* circle, square, diamond, then a trailing rule, all on the "About." baseline. */ -}}
-      <div class="page-heading-row">
-        <h1 class="page-heading">About<span class="accent-dot">.</span></h1>
-        <div class="heading-marks" aria-hidden="true">
-          <span class="mark mark-circle"></span>
-          <span class="mark mark-square"></span>
-          <span class="mark mark-diamond"></span>
-          <span class="mark mark-rule"></span>
-        </div>
-      </div>
+      {{- /* One ornament, not four: the accent-dot plus the rule beneath it, */ -}}
+      {{- /* same pair Now and Writing use for their own headings. */ -}}
+      <h1 class="page-heading">About<span class="accent-dot">.</span></h1>
       <div class="heading-rule"></div>
       {{- with .Params.tagline -}}
         <p class="lede">{{ . }}</p>

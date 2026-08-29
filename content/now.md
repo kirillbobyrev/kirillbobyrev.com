@@ -10,10 +10,6 @@ weight = 2
 
 Generative diffusion models, world models and simulation at Waymo.
 
-## Writing
-
-Nothing in progress.
-
 ## Learning
 
 Football skills: first touch, turns, striking.
