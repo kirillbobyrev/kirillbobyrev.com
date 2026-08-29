@@ -9,12 +9,7 @@
           >
         </div>
       {{- end -}}
-      {{- /* Linking the title to nownownow.com explains the format without a second paragraph doubling the footer below it. */ -}}
-      <h1 class="page-heading">
-        <a href="https://nownownow.com/about" rel="noopener noreferrer"
-          >{{ .Title }}</a
-        ><span class="accent-dot">.</span>
-      </h1>
+      <h1 class="page-heading">{{ .Title }}<span class="accent-dot">.</span></h1>
       <div class="heading-rule"></div>
       <p class="lede">{{ .Description }}</p>
     </header>
