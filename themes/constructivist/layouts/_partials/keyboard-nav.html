@@ -1,0 +1,193 @@
+{{- /* Vim motions for readers who keep their hands on the home row: j/k, */ -}}
+{{- /* gg/G, o, ? - and nothing else. Deliberately no "/" search (there is */ -}}
+{{- /* no index or search UI on the site to drive), and deliberately no */ -}}
+{{- /* Ctrl/Cmd chord anywhere, so no browser shortcut is ever stolen. */ -}}
+{{- /* Entirely additive: with JS off, or a reader who never presses these, */ -}}
+{{- /* the site behaves exactly as it did before. */ -}}
+{{- /* The panel is a real <dialog>: Esc-to-close, focus trapping and the */ -}}
+{{- /* ::backdrop come from the platform rather than from script here. */ -}}
+{{- /* Read-only, so no close button: nothing in here is operable, the last */ -}}
+{{- /* row names the key that dismisses it, and clicking off it works too - a */ -}}
+{{- /* panel only a keyboard can open doesn't need a mouse target to close. */ -}}
+{{- /* tabindex so the panel itself takes focus on open (see the script below), */ -}}
+{{- /* which is also what makes Esc and the focus trap the platform's job. */ -}}
+<dialog class="shortcuts" tabindex="-1" aria-labelledby="shortcuts-title">
+  <h2 class="shortcuts-title" id="shortcuts-title">Keyboard shortcuts</h2>
+  <dl class="shortcuts-list">
+    <div class="shortcut">
+      <dt><kbd>j</kbd> <kbd>k</kbd></dt>
+      <dd>Next / previous post, or scroll down / up</dd>
+    </div>
+    <div class="shortcut">
+      <dt><kbd>g</kbd><kbd>g</kbd> <kbd>G</kbd></dt>
+      <dd>Top / bottom of the page</dd>
+    </div>
+    <div class="shortcut">
+      <dt><kbd>o</kbd> <kbd>Enter</kbd></dt>
+      <dd>Open the selected post</dd>
+    </div>
+    <div class="shortcut">
+      <dt><kbd>?</kbd></dt>
+      <dd>This list</dd>
+    </div>
+    <div class="shortcut">
+      <dt><kbd>Esc</kbd></dt>
+      <dd>Close this, or drop the selection</dd>
+    </div>
+  </dl>
+</dialog>
+{{- /* The only discoverability affordance: shown once, ever, the first time */ -}}
+{{- /* a reader presses one of these keys, then remembered as seen. A key */ -}}
+{{- /* hint pinned to every page would be chrome this theme doesn't spend */ -}}
+{{- /* (it has no footer at all); a shortcut nobody can find isn't a feature. */ -}}
+<p class="key-hint" hidden>Press <kbd>?</kbd> for keyboard shortcuts</p>
+<script>
+  (() => {
+    const dialog = document.querySelector(".shortcuts");
+    const hint = document.querySelector(".key-hint");
+    // Vim moves one line per press; a page of prose needs a bigger bite than
+    // that to be readable at a held keypress. 64px is roughly two lines of
+    // body copy - the same order as every other in-page vim keymap.
+    const STEP = 64;
+    // The one list on the site with "entries" to move between; on every
+    // other page j/k fall back to scrolling.
+    const entries = () => [
+      ...document.querySelectorAll(".blog-timeline-entry"),
+    ];
+    const selected = () =>
+      document.activeElement?.closest?.(".blog-timeline-entry");
+
+    // Selection is real DOM focus, not a bespoke highlight: Enter-to-open,
+    // the theme's own :focus-visible ring, scroll-into-view and screen
+    // reader announcement all come for free, and nothing has to be kept in
+    // sync with the browser's idea of where the reader is.
+    const move = (delta) => {
+      const list = entries();
+      if (!list.length) {
+        window.scrollBy({ top: delta * STEP, behavior: "instant" });
+        return;
+      }
+      const current = selected();
+      let next;
+      if (current) {
+        const i = list.indexOf(current) + delta;
+        next = list[Math.min(Math.max(i, 0), list.length - 1)];
+      } else {
+        // Nothing picked yet: start from whatever the reader is already
+        // looking at rather than yanking them to the top of the list. The
+        // sticky header covers the first strip of the viewport, so measure
+        // from its bottom edge, not from 0.
+        const top = Math.max(
+          0,
+          document.querySelector(".site-header")?.getBoundingClientRect()
+            .bottom ?? 0,
+        );
+        next =
+          delta > 0
+            ? (list.find((el) => el.getBoundingClientRect().top > top) ??
+              list[list.length - 1])
+            : (list
+                .slice()
+                .reverse()
+                .find(
+                  (el) => el.getBoundingClientRect().bottom < innerHeight,
+                ) ?? list[0]);
+      }
+      next?.focus();
+    };
+
+    // gg/G stay literal document motions (Vim's own meaning) and additionally
+    // park the selection at that end, so a following j/k continues from
+    // where the reader just landed. preventScroll: the jump above already
+    // put the page exactly where it should be.
+    const jump = (toTop) => {
+      // No behavior: html { scroll-behavior: smooth } decides, which also
+      // means prefers-reduced-motion already turns this instant in CSS.
+      window.scrollTo({ top: toTop ? 0 : document.body.scrollHeight });
+      const list = entries();
+      if (!list.length) return;
+      (toTop ? list[0] : list[list.length - 1]).focus({ preventScroll: true });
+    };
+
+    const HINT_SEEN = "shortcutsHintSeen";
+    let hinted = false;
+    const hintOnce = () => {
+      if (hinted || !hint) return;
+      hinted = true;
+      try {
+        if (localStorage.getItem(HINT_SEEN)) return;
+        localStorage.setItem(HINT_SEEN, "1");
+      } catch (e) {}
+      hint.hidden = false;
+      requestAnimationFrame(() => hint.setAttribute("data-visible", ""));
+      setTimeout(() => hint.removeAttribute("data-visible"), 4000);
+    };
+
+    dialog?.addEventListener("click", (e) => {
+      // A modal <dialog> is its own backdrop as far as hit-testing goes:
+      // a click landing on the element itself (not on its content) is a
+      // click outside the panel.
+      if (e.target === dialog) dialog.close();
+    });
+
+    const typing = (el) =>
+      el?.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el?.tagName);
+
+    let gPending = 0;
+    document.addEventListener("keydown", (e) => {
+      // Shift is in play for G and ?, but a Ctrl/Alt/Cmd chord always
+      // belongs to the browser or the OS, never to this.
+      if (e.ctrlKey || e.metaKey || e.altKey || typing(e.target)) return;
+      if (e.key === "?") {
+        e.preventDefault();
+        if (dialog?.open) {
+          dialog.close();
+        } else if (dialog) {
+          dialog.showModal();
+          dialog.focus();
+        }
+        return;
+      }
+      // While the panel is open the platform owns the keyboard (Esc closes
+      // it) - a motion here would scroll a page nobody can see.
+      if (dialog?.open) return;
+
+      const g = gPending;
+      gPending = 0;
+      switch (e.key) {
+        case "j":
+        case "k":
+          e.preventDefault();
+          move(e.key === "j" ? 1 : -1);
+          hintOnce();
+          break;
+        case "g":
+          if (g && e.timeStamp - g < 1000) {
+            e.preventDefault();
+            jump(true);
+            hintOnce();
+          } else {
+            gPending = e.timeStamp;
+          }
+          break;
+        case "G":
+          e.preventDefault();
+          jump(false);
+          hintOnce();
+          break;
+        case "o": {
+          // Enter already opens a focused link without any help from us.
+          const current = selected();
+          if (current) {
+            e.preventDefault();
+            current.click();
+          }
+          break;
+        }
+        case "Escape":
+          selected()?.blur();
+          break;
+      }
+    });
+  })();
+</script>

@@ -929,6 +929,11 @@ video {
   margin-inline: calc(var(--space-xs) * -1);
   text-decoration: none;
   color: inherit;
+  /* j/k move real focus between entries (see keyboard-nav.html) and the
+     browser scrolls the focused one into view; without this, an entry near
+     the top of the list comes to rest underneath the sticky header.
+     Roughly the condensed header's height plus a line of air. */
+  scroll-margin-block: calc(var(--space-2xl) + var(--space-s)) var(--space-l);
 }
 
 .blog-timeline-title {
@@ -942,7 +947,8 @@ video {
   transition: color var(--transition);
 }
 
-.blog-timeline-entry:hover .blog-timeline-title {
+.blog-timeline-entry:hover .blog-timeline-title,
+.blog-timeline-entry:focus-visible .blog-timeline-title {
   color: var(--color-accent);
 }
 
@@ -993,6 +999,118 @@ video {
 }
 
 .to-top[hidden] {
+  display: none;
+}
+
+/* === Keyboard shortcuts ===
+   Vim motions (j/k, gg/G, o, ?) - see layouts/_partials/keyboard-nav.html.
+   Two pieces of chrome, both invisible until a key is pressed: the panel
+   ? opens, and a one-time hint pointing at it. Neither is a persistent
+   element on the page - a theme with no footer isn't going to grow a
+   permanent keyboard-legend strip. */
+
+/* A modal <dialog> is centered and hidden-when-closed by the UA stylesheet;
+   what's left is to make it look like the rest of the theme - flat, one
+   hairline border, page background, no radius and no shadow. */
+.shortcuts {
+  max-width: min(30rem, calc(100vw - var(--space-3xl)));
+  padding: var(--space-l);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+}
+
+/* The panel takes focus itself when it opens, so it is the element the
+   global :focus-visible ring would land on - an outline around the whole
+   modal marks nothing useful (there is nothing else in it to focus) and
+   fights the hairline border. */
+.shortcuts:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+/* The one color in the theme that can't come from a token: ::backdrop
+   only reliably inherits custom properties in recent browsers, and a
+   backdrop that falls back to transparent defeats the point. The ink
+   color at low alpha reads correctly over either mode's page. */
+.shortcuts::backdrop {
+  background-color: rgba(20, 18, 13, 0.55);
+}
+
+/* No sixth type size for a panel heading: --text-base at a bolder weight,
+   the same move .prose h3 makes. */
+.shortcuts-title {
+  margin: 0 0 var(--space-m);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-heading);
+}
+
+.shortcuts-list {
+  display: grid;
+  gap: var(--space-xs);
+  margin: 0;
+}
+
+/* Fixed key column so every description starts on one vertical line;
+   6.5rem is what the widest row (o / Enter) needs at --text-sm. */
+.shortcut {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: var(--space-s);
+  align-items: baseline;
+}
+
+.shortcut dd {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+/* The one place outside code where Space Mono earns its keep: a key cap is
+   a literal key, not prose about one. */
+kbd {
+  display: inline-block;
+  padding: 0 var(--space-3xs);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-panel);
+  color: var(--color-heading);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  line-height: 1.6;
+}
+
+/* Mirrors .to-top's reveal (opacity + a 0.35rem rise) on the opposite
+   corner, so the two bits of floating chrome behave identically. */
+.key-hint {
+  position: fixed;
+  inset-block-end: var(--space-l);
+  inset-inline-start: var(--space-l);
+  z-index: 60;
+  margin: 0;
+  padding: var(--space-2xs) var(--space-s);
+  border: 1px solid var(--color-underline);
+  background-color: var(--color-bg);
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.35rem);
+  transition:
+    opacity var(--transition),
+    visibility var(--transition),
+    transform var(--transition);
+}
+
+.key-hint[data-visible] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.key-hint[hidden] {
   display: none;
 }
 
@@ -1308,7 +1426,8 @@ pre.mermaid svg foreignObject {
   }
 
   .site-header,
-  .to-top {
+  .to-top,
+  .key-hint {
     display: none;
   }
 

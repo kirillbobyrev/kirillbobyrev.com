@@ -102,6 +102,10 @@
         }).observe(anchor);
       })();
     </script>
+    {{- /* Vim-style keys (j/k, gg/G, o, ?) plus the shortcuts panel they */ -}}
+    {{- /* open. Kept in its own partial rather than inline like the three */ -}}
+    {{- /* observers above: it ships markup as well as script. */ -}}
+    {{- partialCached "keyboard-nav.html" . -}}
     {{- if .Page.Store.Get "hasMermaid" -}}
       {{- partialCached "mermaid.html" . -}}
     {{- end -}}
