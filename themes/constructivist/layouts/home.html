@@ -6,10 +6,9 @@
       {{- with .Site.Params.author.location -}}
         <div class="page-eyebrow">{{ . }}</div>
       {{- end -}}
-      {{- /* One ornament, not four: the accent-dot plus the rule beneath it, */ -}}
-      {{- /* same pair Now and Writing use for their own headings. */ -}}
+      {{- /* One ornament, not two: the trailing accent-dot, same mark Now */ -}}
+      {{- /* and Writing use for their own headings. */ -}}
       <h1 class="page-heading">About<span class="accent-dot">.</span></h1>
-      <div class="heading-rule"></div>
       {{- with .Params.tagline -}}
         <p class="lede">{{ . }}</p>
       {{- end -}}

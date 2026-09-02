@@ -1,16 +1,15 @@
 <header class="site-header">
   <div class="header-row">
-    {{- /* No "Home" entry: the mark + name already link there, same convention as typewriter. */ -}}
-    {{- /* Initials shown once the header condenses (see the scroll-sentinel */ -}}
-    {{- /* script in baseof.html) - first letter of the first and last words of */ -}}
-    {{- /* the site title, kept as real text (not an image) so it stays selectable/searchable. */ -}}
-    {{- $words := split site.Title " " -}}
-    {{- $initials := printf "%s%s" (substr (index $words 0) 0 1) (substr (index $words (sub (len $words) 1)) 0 1) -}}
+    {{- /* No "Home" entry: the name already links there, same convention as typewriter. */ -}}
+    {{- /* Condensed mark shown once the header condenses (see the scroll-sentinel */ -}}
+    {{- /* script in baseof.html) - the Cyrillic initials of the author's own name */ -}}
+    {{- /* (Кирилл Бобырев), not a Latin "KB" derived from site.Title: a deliberate */ -}}
+    {{- /* personal reference rather than a generic algorithm, kept as real text */ -}}
+    {{- /* (not an image) so it stays selectable/searchable. */ -}}
     <a href="/" class="site-title">
-      <span class="site-mark" aria-hidden="true"></span>
       <span class="site-title-text">
         <span class="site-title-full">{{ site.Title }}</span>
-        <span class="site-title-short" aria-hidden="true">{{ $initials }}</span>
+        <span class="site-title-short" aria-hidden="true">КБ</span>
       </span>
     </a>
     <nav class="site-nav" aria-label="Main">
