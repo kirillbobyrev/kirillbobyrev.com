@@ -9,6 +9,12 @@
           >
         </div>
       {{- end -}}
+      {{- /* Optional 1-2 sentence subtitle, set via `deck` in front matter - */ -}}
+      {{- /* most posts won't set one, and that's fine, it's additive to the */ -}}
+      {{- /* content contract like .Params.tagline on the About page. */ -}}
+      {{- with .Params.deck -}}
+        <p class="article-deck">{{ . }}</p>
+      {{- end -}}
     </header>
     <div class="prose post-body">{{ .Content }}</div>
     <nav class="post-nav" aria-label="Post">

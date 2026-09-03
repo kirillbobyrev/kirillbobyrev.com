@@ -6,10 +6,6 @@
   {{- partial "head.html" . -}}
   <body class="site-body">
     <a href="#content" class="skip-link">Skip to content</a>
-    {{- /* Zero-height marker the header-condense observer below watches. */ -}}
-    {{- /* The header itself is sticky (always "intersecting"), so a */ -}}
-    {{- /* separate, non-sticky sentinel is what tracks "has the page scrolled". */ -}}
-    <span class="scroll-sentinel" aria-hidden="true"></span>
     {{- partial "header.html" . -}}
     <main id="content" class="site-container">
       {{- block "main" . }}{{ end }}
@@ -67,25 +63,6 @@
         for (const frame of document.querySelectorAll(".embed-frame")) {
           frame.addEventListener("load", () => broadcastTheme(current()));
         }
-      })();
-    </script>
-    {{- /* Header condense: once the top-of-page sentinel scrolls out of view, */ -}}
-    {{- /* the sticky header switches to its compact state (shorter, name */ -}}
-    {{- /* collapsed to initials) via a plain boolean attribute - same */ -}}
-    {{- /* "observe a sentinel, toggle an attribute" idiom as .to-top below, */ -}}
-    {{- /* just watching a dedicated marker instead of the header itself since */ -}}
-    {{- /* the header is sticky and would otherwise always read as intersecting. */ -}}
-    <script>
-      (() => {
-        const sentinel = document.querySelector(".scroll-sentinel");
-        const header = document.querySelector(".site-header");
-        if (!sentinel || !header) return;
-        new IntersectionObserver(
-          ([entry]) => {
-            header.toggleAttribute("data-condensed", !entry.isIntersecting);
-          },
-          { rootMargin: "-1px 0px 0px 0px" },
-        ).observe(sentinel);
       })();
     </script>
     {{- /* Back-to-top: reveal it once the site header has scrolled off, on any page. */ -}}

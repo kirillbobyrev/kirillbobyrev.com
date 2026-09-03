@@ -1,11 +1,13 @@
 <header class="site-header">
   <div class="header-row">
     {{- /* No "Home" entry: the name already links there, same convention as typewriter. */ -}}
-    {{- /* Condensed mark shown once the header condenses (see the scroll-sentinel */ -}}
-    {{- /* script in baseof.html) - the Cyrillic initials of the author's own name */ -}}
-    {{- /* (Кирилл Бобырев), not a Latin "KB" derived from site.Title: a deliberate */ -}}
-    {{- /* personal reference rather than a generic algorithm, kept as real text */ -}}
-    {{- /* (not an image) so it stays selectable/searchable. */ -}}
+    {{- /* Condensed mark shown permanently on narrow mobile viewports (see the */ -}}
+    {{- /* max-width: 640px block in main.css) - the Cyrillic initials of the */ -}}
+    {{- /* author's own name (Кирилл Бобырев), not a Latin "KB" derived from */ -}}
+    {{- /* site.Title: a deliberate personal reference rather than a generic */ -}}
+    {{- /* algorithm, kept as real text (not an image) so it stays */ -}}
+    {{- /* selectable/searchable. Desktop always shows the full name - no */ -}}
+    {{- /* scroll-triggered condensing there, the mobile constraint doesn't apply. */ -}}
     <a href="/" class="site-title">
       <span class="site-title-text">
         <span class="site-title-full">{{ site.Title }}</span>
