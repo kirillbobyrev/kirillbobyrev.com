@@ -69,12 +69,17 @@
                              across h2, blog-index titles, and
                              pull-quotes at a bigger value) - h2,
                              blog-index titles, pull-quotes
-     --text-xl    2.75rem    fixed, independent of --text-base - h1:
+     --text-xl    3.25rem    fixed, independent of --text-base - h1:
                              About, Now, Writing, and post titles alike,
                              one size for every top-level heading
    (h3 reuses --text-base at a bolder weight rather than claiming a sixth
    size - see .prose h3. Values rounded to a clean rem for readability in
-   the source.)
+   the source.) --text-xl was bumped ~18% up from an earlier 2.75rem: at
+   that size the page's one big heading didn't read as decisively larger
+   than h2 (1.5rem) - not enough scale contrast between "headline" and
+   "section heading" for a single fixed anchor size to carry. Same
+   deliberately-oversized, base-independent role, just a more confident
+   size for it.
 
    Themes: every color is declared exactly once via light-dark(). The
    default color-scheme follows the OS; the header toggle forces one by
@@ -100,7 +105,7 @@
   --text-base: 1.0625rem;
   --text-md: 1.2rem;
   --text-lg: 1.5rem;
-  --text-xl: 2.75rem;
+  --text-xl: 3.25rem;
 
   /* Flat geometry: no soft UI rounding anywhere except the genuinely
      circular marks (the header dot and the theme toggle) - those stay
@@ -165,10 +170,23 @@
   /* Fixed, not fluid: a wider viewport doesn't earn a longer line of prose
      - past ~75-90 characters a line gets harder to track back to its own
      start, and the root font-size clamp above already grows the physical
-     measure somewhat on very large displays. --measure-wide (figures,
-     diagrams, the header) is the frame that's meant to exploit a big
-     screen; the reading column deliberately isn't. */
-  --measure: 45.5rem;
+     measure somewhat on very large displays (rem-based, so it scales in
+     lockstep with the fluid root font-size - measured at ~78 characters/line
+     at both the clamp's floor and its ceiling, not just on wide screens).
+     --measure-wide (figures, diagrams, the header) is the frame that's
+     meant to exploit a big screen; the reading column deliberately isn't.
+
+     44rem measured at ~78 characters/line on the actual site (Playwright,
+     real line-wrap points from Range.getClientRects() against real prose,
+     not a char/px estimate) - past the ~50-75 CPL modern sweet spot
+     (Butterick's Practical Typography puts the ideal at ~66, ceiling 90).
+     Tightened again to 40rem, which measures at ~68 CPL: inside that
+     range without going as tight as a 38rem/~65 CPL alternative, which
+     read as cramped against this theme's own "generous type" ethos when
+     tested. Mobile doesn't use this token (own width via --gutter) and
+     already measured a comfortable ~39 CPL, well inside its own 30-50
+     guideline - untouched. */
+  --measure: 40rem;
   /* The site's other, wider frame: figures/diagrams break out to this
      width (see .figure-block/pre.mermaid) rather than staying inside
      --measure, and the header row matches it too - the header and the
@@ -262,15 +280,6 @@ video {
   left: 0;
 }
 
-.scroll-sentinel {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1px;
-  height: 1px;
-  pointer-events: none;
-}
-
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -323,12 +332,6 @@ video {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: var(--space-xs) var(--space-l);
-  transition: padding-block 260ms var(--ease);
-}
-
-/* Condensed once the scroll-sentinel in baseof.html has scrolled off. */
-.site-header[data-condensed] .header-row {
-  padding-block: var(--space-xs);
 }
 
 .site-title {
@@ -354,14 +357,14 @@ video {
   line-height: 1.2;
 }
 
+/* Full name at rest; the short Cyrillic mark only ever appears via the
+   max-width: 640px override below - no scroll-driven toggle on desktop, the
+   name just stays put. */
 .site-title-full,
 .site-title-short {
   display: inline-block;
   overflow: hidden;
   white-space: nowrap;
-  transition:
-    max-width 300ms var(--ease),
-    opacity 220ms ease;
 }
 
 .site-title-full {
@@ -372,16 +375,6 @@ video {
 .site-title-short {
   max-width: 0;
   opacity: 0;
-}
-
-.site-header[data-condensed] .site-title-full {
-  max-width: 0;
-  opacity: 0;
-}
-
-.site-header[data-condensed] .site-title-short {
-  max-width: 3em;
-  opacity: 1;
 }
 
 .site-nav {
@@ -577,8 +570,14 @@ video {
 }
 
 /* === Article meta / post title === */
+/* Bottom margin bumped from --space-l (24px) to --space-2xl (44px): block
+   margins between .article-header and .prose collapse to their max, and
+   the old 24px lost that collapse to .prose's own ~28px first-child rhythm
+   - the on-screen gap barely read as an intentional pause. 44px wins the
+   collapse outright, landing the opening of an article in the ~48-64px
+   whitespace an editorial deck/lede deserves before body copy starts. */
 .article-header {
-  margin-block: var(--space-3xl) var(--space-l);
+  margin-block: var(--space-3xl) var(--space-2xl);
   text-align: center;
 }
 
@@ -599,6 +598,21 @@ video {
   color: var(--color-muted);
   font-family: var(--font-sans);
   font-size: var(--text-sm);
+}
+
+/* Optional 1-2 sentence deck (front matter `deck`) - a step up from body
+   size, quieter than the heading, width-capped like the h1 above it so a
+   long deck still reads as a few short balanced lines rather than a
+   full-width paragraph. */
+.article-deck {
+  max-width: 34em;
+  margin: var(--space-l) auto 0;
+  font-size: var(--text-lg);
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: -0.006em;
+  color: var(--color-text);
+  text-wrap: balance;
 }
 
 /* Editorial closure, not blog machinery: a single quiet link back to the
@@ -719,9 +733,18 @@ video {
   hanging-punctuation: first last;
 }
 
+/* hyphens: auto pairs with text-wrap: pretty rather than duplicating it -
+   pretty controls where the *last* line of a block breaks (no orphans),
+   hyphens controls the rag of every line above it. Butterick's Practical
+   Typography: hyphenation is optional on ragged-right text, but "becomes
+   essential" as lines get shorter - exactly this site's situation after
+   --measure was tightened to ~68 characters/line, and more so on mobile's
+   ~39-character column. html[lang] is "en-US" (see baseof.html), the only
+   prerequisite for the browser's hyphenation dictionary to engage. */
 .prose p,
 .prose li {
   text-wrap: pretty;
+  hyphens: auto;
 }
 
 /* Plain disc/decimal markers, muted: quieter against the text than a
@@ -813,9 +836,14 @@ video {
   color: var(--color-text);
 }
 
-/* === Tables === */
+/* === Tables ===
+   Same breakout as .figure-block/pre.mermaid: tabular data is exactly the
+   kind of content --measure-wide exists for, not the ~700px reading
+   column. overflow-x stays as a fallback for a table wider even than that. */
 .table-wrapper {
+  width: var(--measure-wide);
   margin-block: var(--rhythm); /* nearest multiple (1x) of --space-l */
+  margin-inline: calc(50% - 50vw + (100vw - var(--measure-wide)) / 2);
   overflow-x: auto;
 }
 
@@ -905,20 +933,30 @@ video {
 
 /* No separators between rows - whitespace does the grouping instead of a
    rule, so a short list of posts reads as typesetting rather than a
-   settings/list UI. Title and date share one baseline (row on desktop,
-   stacked on mobile - see the responsive block below) rather than the
-   date sitting quietly underneath: an editorial masthead-index grid,
-   not a blog-post-card layout. */
+   settings/list UI. Date leads, title follows on one baseline (row on
+   desktop, stacked on mobile - see the responsive block below): a
+   chronological grid, not a blog-post-card layout. Left-aligned rather
+   than space-between - the ISO date's fixed 10-character width (plus the
+   sitewide tabular-nums) already lines every row's date up into its own
+   column for free, so there's no need to pin it to the far edge to read
+   as a grid. Padding tightened from --space-l to --space-m: a denser,
+   more chronology-like row now that alignment does the "this is a list"
+   work the old wider spacing was doing on its own. */
 .blog-timeline-entry {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
   gap: var(--space-m);
   padding-inline: var(--space-xs);
-  padding-block: var(--space-l);
+  padding-block: var(--space-m);
   margin-inline: calc(var(--space-xs) * -1);
   text-decoration: none;
   color: inherit;
+}
+
+.blog-timeline-date {
+  flex: none;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
 }
 
 .blog-timeline-title {
@@ -934,12 +972,6 @@ video {
 
 .blog-timeline-entry:hover .blog-timeline-title {
   color: var(--color-accent);
-}
-
-.blog-timeline-date {
-  flex: none;
-  color: var(--color-muted);
-  font-size: var(--text-sm);
 }
 
 /* === Back to top === */
@@ -1155,14 +1187,11 @@ pre.mermaid svg foreignObject {
      header was static/non-sticky, full name always shown, because at this
      width title+nav wrapped to two lines at rest) - the fix isn't to give
      up stickiness to dodge the wrap, it's to avoid the wrap at all by
-     holding the header in its already-built condensed/KB shape
-     permanently on mobile, the same shape desktop only reaches after a
-     scroll. .site-header's base position: sticky is left alone here.
-     Same specificity as the base (non-condensed) rules below, declared
-     later in the cascade so it wins there; the higher-specificity
-     [data-condensed] rules elsewhere in this file still win once the
-     scroll listener sets that attribute, but they collapse to the same
-     values these do, so there's nothing to reconcile either way. */
+     holding the header in its condensed/KB shape permanently on mobile.
+     .site-header's base position: sticky is left alone here. Desktop never
+     condenses at all (no scroll-driven toggle exists any more) - this is a
+     mobile-only, viewport-triggered override, not a state two breakpoints
+     share. */
   .site-title-full {
     max-width: 0;
     opacity: 0;
@@ -1246,14 +1275,15 @@ pre.mermaid svg foreignObject {
     margin-block-start: var(--space-s); /* 12px, was 24px */
   }
 
-  /* The desktop row (title left, date right on one baseline) doesn't fit
-     a mobile column - a long title and a date would either collide or
-     force the date to wrap. Stack instead, same as the pre-#107 layout. */
+  /* The desktop row (date, then title, on one baseline) doesn't fit a
+     mobile column - a long title next to a date would either collide or
+     force a wrap. Stack instead, date above title, same source order as
+     the row markup already puts them in. */
   .blog-timeline-entry {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-2xs);
-    padding-block: var(--gutter); /* 20px, was 24px */
+    padding-block: var(--gutter); /* 20px */
   }
 
   /* Club crests: 4 * 80px images + 3 * 24px gaps (392px) don't fit a

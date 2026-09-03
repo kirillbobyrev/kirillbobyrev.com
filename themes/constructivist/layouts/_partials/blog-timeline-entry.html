@@ -1,21 +1,25 @@
 {{- /*
   Renders a single <li> entry in a .blog-timeline list.
-  Params (dict): page (Page, required). Title is the dominant interaction -
-  no summary, thumbnail, or hover-card treatment; just the title and the
-  exact publish date beneath it. See the theme's own README/comments on
-  main.css's "=== Blog timeline ===" block for the reasoning.
+  Params (dict): page (Page, required). Date leads, title follows on the
+  same baseline - a chronology first, an index of titles second (matklad's
+  own writing page is the reference point here). ISO date (not "January 2,
+  2006" - that's the article page's own, more editorial, format) so every
+  row's date is the same fixed character count and lines up down the
+  column for free via the sitewide tabular-nums. No summary, thumbnail, or
+  hover-card treatment. See the theme's own README/comments on main.css's
+  "=== Blog timeline ===" block for the reasoning.
   */
 -}}
 <li>
   <a href="{{ .page.RelPermalink }}" class="blog-timeline-entry">
-    <span class="blog-timeline-title">{{ .page.Title }}</span>
     {{- if .page.Date -}}
       <time
         class="blog-timeline-date"
         datetime="{{ .page.Date.Format "2006-01-02" }}"
-        >{{ .page.Date.Format "January 2, 2006" }}</time
+        >{{ .page.Date.Format "2006-01-02" }}</time
       >
     {{- end -}}
+    <span class="blog-timeline-title">{{ .page.Title }}</span>
   </a>
 </li>
 {{- /* keep output tight */ -}}
