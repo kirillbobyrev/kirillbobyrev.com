@@ -10,10 +10,10 @@ Space Mono appears only inside actual code. Five fixed type sizes, no
 one-off values, restrained hierarchy, no tiny uppercase-tracked metadata:
 generous reading size and quiet typography over decoration (think iA,
 Anthropic's research blog, Increment, Stripe Press, Works in Progress).
-The header condenses to initials on scroll; the theme toggle is a plain
-half-filled circle rather than a sun/moon swap; a small circle/square/
-diamond mark sits on the "About." heading's own line, straight from the
-source design.
+The header shows the full name at all times on desktop; on narrow mobile
+viewports it's permanently the author's Cyrillic initials ("КБ") instead,
+not a scroll-triggered effect. The theme toggle is a plain half-filled
+circle rather than a sun/moon swap.
 
 This theme lives in the same repo as the site that uses it
 (`themes/constructivist/`), same layered convention as its sibling theme
@@ -23,14 +23,15 @@ site's `hugo.toml`).
 ## Content contract
 
 Identical to `themes/typewriter`'s contract (see that theme's README for
-the full table), since all three themes render the same site content. Two
-purely additive, fully optional params this theme also reads, both no-ops
+the full table), since all three themes render the same site content.
+Purely additive, fully optional fields this theme also reads, all no-ops
 if left unset:
 
-| Field                      | Where       | Purpose                                                                                 |
-| -------------------------- | ----------- | --------------------------------------------------------------------------------------- |
-| `[params.author] location` | `hugo.toml` | eyebrow line above the "About." heading (e.g. `location = "Mountain View, California"`) |
-| `[params.social] email`    | `hugo.toml` | adds an "Email" entry to the arrow-link row on the About page                           |
+| Field                      | Where                | Purpose                                                                                 |
+| -------------------------- | -------------------- | ---------------------------------------------------------------------------------------- |
+| `[params.author] location` | `hugo.toml`          | eyebrow line above the "About." heading (e.g. `location = "Mountain View, California"`) |
+| `[params.social] email`    | `hugo.toml`          | adds an "Email" entry to the arrow-link row on the About page                           |
+| `deck`                     | post/page front matter | 1-2 sentence subtitle rendered between an article's date and its body                   |
 
 Deliberately different from `typewriter`: there is no sitewide footer. The
 social arrow-link row is About-page-only chrome, not repeated on every

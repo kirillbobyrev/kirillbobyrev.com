@@ -65,20 +65,6 @@
         }
       })();
     </script>
-    {{- /* Back-to-top: reveal it once the site header has scrolled off, on any page. */ -}}
-    <script>
-      (() => {
-        const link = document.querySelector(".to-top");
-        const anchor = document.querySelector(".site-header");
-        if (!link || !anchor) return;
-        link.hidden = false;
-        // Observing the header rather than listening to scroll: this fires
-        // twice per crossing instead of on every frame of every scroll.
-        new IntersectionObserver(([entry]) => {
-          link.toggleAttribute("data-visible", !entry.isIntersecting);
-        }).observe(anchor);
-      })();
-    </script>
     {{- if .Page.Store.Get "hasMermaid" -}}
       {{- partialCached "mermaid.html" . -}}
     {{- end -}}
