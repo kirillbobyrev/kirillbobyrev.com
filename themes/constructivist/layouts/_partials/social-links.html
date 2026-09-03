@@ -2,10 +2,10 @@
   Text social links ("Email →", "GitHub →" ...), the arrow-link idiom used
   throughout this theme (see .link-row on the homepage). The arrow is the
   theme's house icon (see icon.html), not a Unicode glyph - it was one
-  until the icon system replaced it, same spec as the header's to-top
-  chevron. Handles come from params.social in hugo.toml; `email` is
-  optional and, unlike the others, not rendered anywhere else in the
-  theme - add `email = "you@example.com"` under [params.social] to show it.
+  until the icon system replaced it. Handles come from params.social in
+  hugo.toml; `email` is optional and, unlike the others, not rendered
+  anywhere else in the theme - add `email = "you@example.com"` under
+  [params.social] to show it.
   */
 -}}
 {{- $arrow := partial "icon.html" (dict "name" "arrow-right" "size" 13 "class" "social-link-arrow") -}}

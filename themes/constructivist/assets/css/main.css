@@ -974,49 +974,6 @@ video {
   color: var(--color-accent);
 }
 
-/* === Back to top === */
-.to-top {
-  position: fixed;
-  inset-block-end: var(--space-l);
-  inset-inline-end: var(--space-l);
-  z-index: 60;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--space-xl);
-  height: var(--space-xl);
-  flex-shrink: 0;
-  border: 1px solid var(--color-underline);
-  background-color: var(--color-bg);
-  color: var(--color-muted);
-  text-decoration: none;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(0.35rem);
-  transition:
-    opacity var(--transition),
-    visibility var(--transition),
-    transform var(--transition),
-    color var(--transition),
-    background-color var(--transition),
-    border-color var(--transition);
-}
-
-.to-top[data-visible] {
-  opacity: 1;
-  visibility: visible;
-  transform: none;
-}
-
-.to-top:hover {
-  color: var(--color-accent);
-  border-color: var(--color-accent);
-}
-
-.to-top[hidden] {
-  display: none;
-}
-
 /* === Figures ===
    Every figure breaks out of the prose measure and re-centers on the
    viewport - a wider "figure column" than the text column, the way
@@ -1299,15 +1256,6 @@ pre.mermaid svg foreignObject {
     height: 3rem;
   }
 
-  /* The back-to-top button exists to compensate for a header that's
-     scrolled out of reach - now that the mobile header stays pinned
-     (see above), the site title is already a permanent way back to the
-     top, and this floating square is just extra chrome eating viewport
-     on a long article. */
-  .to-top {
-    display: none;
-  }
-
   /* The 2x--rhythm top margin on .prose h2 (~56px on desktop, before the
      mobile --rhythm override above shrinks the unit itself) reads as an
      oversized gap between sections at this viewport. 1.5x of the
@@ -1331,8 +1279,7 @@ pre.mermaid svg foreignObject {
     color-scheme: light;
   }
 
-  .site-header,
-  .to-top {
+  .site-header {
     display: none;
   }
 

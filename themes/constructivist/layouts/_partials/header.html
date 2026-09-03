@@ -40,12 +40,3 @@
     </nav>
   </div>
 </header>
-{{- /* A plain fixed corner button, independent of the header: no pinned-masthead
-  pairing needed here either - it floats on its own regardless of the header's
-  condensed state. "#top" rather than "#content": with no element of that id,
-  browsers resolve it to the top of the document, so the masthead comes back too. */
--}}
-<a href="#top" class="to-top" hidden>
-  {{- partial "icon.html" (dict "name" "arrow-up") -}}
-  <span class="visually-hidden">Back to top</span>
-</a>

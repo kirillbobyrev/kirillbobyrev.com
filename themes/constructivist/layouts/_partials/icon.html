@@ -7,7 +7,7 @@
   caller gets the same weight and the same free hover/theme color via
   currentColor - no per-icon color rule anywhere in main.css.
 
-  Usage: {{ partial "icon.html" (dict "name" "arrow-up") }}
+  Usage: {{ partial "icon.html" (dict "name" "arrow-left") }}
   "size" is optional and defaults to 16 (px, matching --text-base's
   reading-line scale); pass a "class" to hang extra CSS on the <svg>.
 
@@ -16,7 +16,6 @@
   rather than exposed as a per-call option.
   */ -}}
 {{- $paths := dict
-  "arrow-up" "M12 19V5M5 12l7-7 7 7"
   "arrow-right" "M5 12h14M13 6l6 6-6 6"
   "arrow-left" "M19 12H5M11 6l-6 6 6 6"
 -}}
