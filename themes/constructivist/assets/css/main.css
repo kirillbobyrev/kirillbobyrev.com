@@ -28,12 +28,88 @@
   font-display: swap;
 }
 
+/* Inter (rsms/inter, OFL, via @fontsource-variable/inter 5.3.0) sets the
+   reading text. Variable on both wght and opsz, so font-optical-sizing
+   (on by default) tightens small text and refines display sizes without
+   extra files. Split by unicode-range: only the Latin files ever load for
+   today's content; latin-ext/cyrillic are fetched only when a page uses
+   those characters. Real italic files - no synthesized obliques. */
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-latin-normal.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-latin-italic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-latin-ext-normal.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-latin-ext-italic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-cyrillic-normal.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-cyrillic-italic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
 /* ==========================================================================
    Design tokens
 
-   One voice: Space Grotesk for everything - headings, nav, body, dates,
-   captions. Space Mono is reserved for code (and the generated Open Graph
-   card, see og-image.html). No letter-spaced/uppercase "label" metadata:
+   Two faces, split by job. Space Grotesk is the display voice: headings,
+   the wordmark, nav, Writing-index titles - short, large strings where its
+   character is the point. Inter is the reading voice: body copy, lists,
+   the lede and deck, quotes, dates, captions, tables - everything read in
+   runs, where a text face with a true italic and even color matters more
+   than personality. Space Mono is reserved for code (and the generated Open
+   Graph card, see og-image.html). No letter-spaced/uppercase "label" metadata:
    secondary text is just smaller and quieter in the same typeface.
    Editorial-modernist restraint (iA, Anthropic's research blog, Increment,
    Stripe Press, Works in Progress) is the design system here, more than
@@ -42,7 +118,7 @@
    Five sizes, each with one job, loosely derived from a 1.25 modular scale
    (Bringhurst, "The Elements of Typographic Style"):
      --text-sm    1rem       nav, dates, captions, footnotes, table text
-     --text-base  1.0625rem  body copy, lists, the lede; h3 at bold weight
+     --text-base  1.125rem   body copy, lists, the lede; h3 at bold weight
      --text-md    1.2rem     the site title/wordmark only
      --text-lg    1.5rem     h2, Writing-index titles, pull-quotes, the deck
      --text-xl    3.25rem    every h1 - fixed, independent of --text-base
@@ -56,15 +132,18 @@
 :root {
   color-scheme: light dark;
 
-  --font-sans:
+  --font-display:
     "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-text:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
   --font-mono:
     "Space Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas,
     "Courier New", monospace;
 
   --text-sm: 1rem;
-  --text-base: 1.0625rem;
+  --text-base: 1.125rem;
   --text-md: 1.2rem;
   --text-lg: 1.5rem;
   --text-xl: 3.25rem;
@@ -104,9 +183,11 @@
      (light 8.4:1, dark 8.0:1). */
   --color-muted: light-dark(rgba(20, 18, 13, 0.55), rgba(235, 231, 221, 0.52));
   --color-border: light-dark(rgba(20, 18, 13, 0.25), rgba(235, 231, 221, 0.22));
+  /* Link underlines and the scrollbar: strong enough that a link is
+     findable at a glance without the accent, which stays for hover. */
   --color-underline: light-dark(
-    rgba(20, 18, 13, 0.32),
-    rgba(235, 231, 221, 0.3)
+    rgba(20, 18, 13, 0.4),
+    rgba(235, 231, 221, 0.38)
   );
   --color-panel: light-dark(rgba(20, 18, 13, 0.05), rgba(235, 231, 221, 0.04));
   --color-bg-hover: light-dark(
@@ -118,8 +199,8 @@
      contrast against --color-bg: 5.3:1; dark-mode: 5.9:1). */
   --color-accent: #d8402a;
 
-  /* The reading column: measured at ~68 characters/line on real prose
-     (Butterick's ideal is ~66). rem-based, so it grows only with the fluid
+  /* The reading column: measured at ~67 characters/line of Inter at
+     --text-base on real prose (Butterick's ideal is ~66). rem-based, so it grows only with the fluid
      root font-size, not with the viewport - a wide screen doesn't earn a
      longer line. Mobile is bounded by the viewport and --gutter instead
      (~39 CPL). */
@@ -179,10 +260,40 @@ video {
 .site-body {
   background-color: var(--color-bg);
   color: var(--color-text);
-  font-family: var(--font-sans);
+  font-family: var(--font-text);
   font-size: var(--text-base);
   line-height: 1.7;
   font-synthesis: none;
+  /* Inter's own kerning and contextual alternates (e.g. hyphens and
+     arrows centred on capitals) - on by default in most engines, stated
+     so it doesn't depend on that. */
+  font-kerning: normal;
+  font-feature-settings: "calt";
+}
+
+/* The display voice - see the token comment. Everything else inherits
+   --font-text from .site-body. */
+.site-title,
+.nav-link,
+.page-heading,
+.main-content h1,
+.prose h2,
+.prose h3,
+.blog-timeline-date,
+.blog-timeline-title,
+.post-nav-link,
+.social-link,
+.error-button {
+  font-family: var(--font-display);
+}
+
+/* Proportional figures read naturally inside running text; tabular ones
+   only where numbers are meant to line up in a column. The Writing-index
+   dates stay in Space Grotesk, whose tabular hyphens sit tighter than
+   Inter's in an ISO date. */
+.blog-timeline-date,
+.article-meta,
+.prose table {
   font-variant-numeric: tabular-nums;
 }
 
@@ -491,7 +602,6 @@ video {
   margin: var(--space-l) auto 0;
   font-size: var(--text-lg);
   line-height: 1.45;
-  letter-spacing: -0.006em;
   text-wrap: balance;
 }
 
@@ -528,9 +638,10 @@ video {
 .prose a {
   color: var(--color-text);
   text-decoration: underline;
-  text-decoration-color: var(--color-border);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.19em;
+  text-decoration-color: var(--color-underline);
+  text-decoration-thickness: max(1px, 0.06em);
+  text-underline-offset: 0.2em;
+  text-decoration-skip-ink: auto;
   transition:
     color var(--transition),
     text-decoration-color var(--transition);
@@ -631,7 +742,6 @@ video {
   border-inline-start: 2px solid var(--color-accent);
   font-size: var(--text-lg);
   line-height: 1.5;
-  letter-spacing: -0.008em;
   color: var(--color-heading);
   hanging-punctuation: first last;
 }
@@ -667,6 +777,45 @@ video {
 .prose dd {
   margin: var(--space-3xs) 0 0;
   line-height: 1.68;
+}
+
+/* Inter's 700 is heavy against 400 text; 600 marks emphasis without a
+   dark blot in the paragraph's color. em needs nothing: Inter ships a
+   real italic. */
+.prose :is(strong, b) {
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+/* Footnotes (Goldmark's [^1]): a small superscript reference that doesn't
+   open up the line spacing, and notes set a step down and quieter. */
+.prose sup,
+.prose sub {
+  font-size: 0.75em;
+  line-height: 0;
+}
+
+.prose .footnote-ref {
+  text-decoration: none;
+  font-variant-numeric: tabular-nums;
+  padding-inline: 0.1em;
+}
+
+.prose .footnotes {
+  margin-block-start: calc(var(--rhythm) * 2);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.prose .footnotes hr {
+  width: var(--space-3xl);
+  margin-inline: 0;
+}
+
+.prose .footnotes :is(p, li) {
+  font-size: inherit;
+  color: inherit;
+  margin-block: var(--space-2xs);
 }
 
 /* === Tables ===
@@ -870,6 +1019,9 @@ video {
   /* Relative, matching inline code below. */
   font-size: 0.86em;
   line-height: 1.7;
+  /* Go and Makefiles indent with literal tabs; the UA default of 8
+     columns pushes real code off the right edge of the column. */
+  tab-size: 4;
   overflow-x: auto;
 }
 
@@ -944,6 +1096,8 @@ pre.mermaid svg foreignObject {
      --text-base stay. --rhythm is pinned flat, deliberately tighter than
      the line-height formula it uses on desktop. */
   :root {
+    /* 17px: 18px would drop a phone column to ~36 characters/line. */
+    --text-base: 1.0625rem;
     --text-md: 1.125rem;
     --text-lg: 1.375rem;
     --text-xl: 2.25rem;
