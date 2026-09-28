@@ -11,18 +11,19 @@
       } catch (e) {}
     })();
   </script>
-  {{- /* Space Grotesk sets everything (one variable-weight file); Space Mono */ -}}
-  {{- /* is for code only. */ -}}
+  {{- /* Preload what every page paints above the fold: Inter (body text, */ -}}
+  {{- /* Latin subset) and Space Grotesk (headings, nav). Italic, other */ -}}
+  {{- /* subsets and Space Mono (code only) load on demand. */ -}}
   <link
     rel="preload"
-    href="/fonts/SpaceGrotesk-Variable.woff2"
+    href="/fonts/Inter-latin-normal.woff2"
     as="font"
     type="font/woff2"
     crossorigin
   />
   <link
     rel="preload"
-    href="/fonts/SpaceMono-Regular.woff2"
+    href="/fonts/SpaceGrotesk-Variable.woff2"
     as="font"
     type="font/woff2"
     crossorigin

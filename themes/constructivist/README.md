@@ -4,8 +4,10 @@ An editorial-modernist Hugo theme for
 [kirillbobyrev.com](https://kirillbobyrev.com), with a quiet constructivist
 accent: a warm paper/near-black palette (light and dark are the same
 palette inverted, not separate designs) with one brick-red accent used
-sparingly (a heading's trailing dot, a link on hover). One typeface, Space
-Grotesk, for everything; Space Mono appears only inside actual code. Five
+sparingly (a heading's trailing dot, a link on hover). Two faces split by
+job: Space Grotesk for display (headings, wordmark, nav, index titles) and
+Inter for everything read in runs (body, lists, quotes, captions, tables);
+Space Mono appears only inside actual code. Five
 fixed type sizes, restrained hierarchy, no tiny uppercase-tracked metadata
 (think iA, Anthropic's research blog, Increment, Stripe Press, Works in
 Progress). The header is static on desktop and a sticky one-line bar with
