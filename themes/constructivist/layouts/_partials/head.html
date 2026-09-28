@@ -11,8 +11,8 @@
       } catch (e) {}
     })();
   </script>
-  {{- /* Space Grotesk covers headings, body, and nav (one variable-weight file); */ -}}
-  {{- /* Space Mono covers labels, meta, and code - both preloaded regular weights. */ -}}
+  {{- /* Space Grotesk sets everything (one variable-weight file); Space Mono */ -}}
+  {{- /* is for code only. */ -}}
   <link
     rel="preload"
     href="/fonts/SpaceGrotesk-Variable.woff2"
@@ -68,11 +68,9 @@
     media="(prefers-color-scheme: dark)"
     content="#141310"
   />
-  {{- /* The bisected-disc mark: paper ground, ink/accent split tilted 60°
-    so it never reads as a plain dot. It carries its own background
-    rather than currentColor - the tab strip is the one place the mark
-    can't inherit a page color. SVG covers modern browsers; the PNGs are
-    the fallback for the rest and for bookmarks/home-screen icons. */ -}}
+  {{- /* Favicon: carries its own paper background rather than currentColor - */ -}}
+  {{- /* the tab strip is the one place the mark can't inherit a page color. */ -}}
+  {{- /* PNGs are the fallback for older browsers and bookmark/home-screen icons. */ -}}
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />

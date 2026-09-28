@@ -1,13 +1,8 @@
 <header class="site-header">
   <div class="header-row">
-    {{- /* No "Home" entry: the name already links there, same convention as typewriter. */ -}}
-    {{- /* Condensed mark shown permanently on narrow mobile viewports (see the */ -}}
-    {{- /* max-width: 640px block in main.css) - the Cyrillic initials of the */ -}}
-    {{- /* author's own name (Кирилл Бобырев), not a Latin "KB" derived from */ -}}
-    {{- /* site.Title: a deliberate personal reference rather than a generic */ -}}
-    {{- /* algorithm, kept as real text (not an image) so it stays */ -}}
-    {{- /* selectable/searchable. Desktop always shows the full name - no */ -}}
-    {{- /* scroll-triggered condensing there, the mobile constraint doesn't apply. */ -}}
+    {{- /* No "Home" entry: the name already links there. On mobile the name */ -}}
+    {{- /* is swapped for the Cyrillic initials (Кирилл Бобырев) - see the */ -}}
+    {{- /* max-width: 640px block in main.css. */ -}}
     <a href="/" class="site-title">
       <span class="site-title-text">
         <span class="site-title-full">{{ site.Title }}</span>
@@ -40,10 +35,8 @@
     </nav>
   </div>
 </header>
-{{- /* A plain fixed corner button, independent of the header: no pinned-masthead
-  pairing needed here either - it floats on its own regardless of the header's
-  condensed state. "#top" rather than "#content": with no element of that id,
-  browsers resolve it to the top of the document, so the masthead comes back too. */
+{{- /* "#top" rather than "#content": with no element of that id, browsers
+  resolve it to the top of the document, so the header comes back too. */
 -}}
 <a href="#top" class="to-top" hidden>
   {{- partial "icon.html" (dict "name" "arrow-up") -}}

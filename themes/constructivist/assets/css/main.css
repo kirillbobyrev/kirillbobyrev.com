@@ -32,65 +32,27 @@
    Design tokens
 
    One voice: Space Grotesk for everything - headings, nav, body, dates,
-   captions. Space Mono is reserved for code (inline and blocks); the only
-   other place it appears is the generated Open Graph card image (see
-   og-image.html), which isn't part of the rendered page. Nothing sets
-   letter-spacing/uppercase as a device for turning ordinary words into a
-   "label" - metadata reads
-   as quieter, smaller text in the same typeface, not a different one
-   dressed up to look official. That restraint (editorial-modernist -
-   iA, Anthropic's research blog, Increment, Stripe Press, Works in
-   Progress: generous type, restrained hierarchy, quiet sans, no tiny
-   shouting metadata) is the actual design system here, more than any one
-   color or shape.
+   captions. Space Mono is reserved for code (and the generated Open Graph
+   card, see og-image.html). No letter-spaced/uppercase "label" metadata:
+   secondary text is just smaller and quieter in the same typeface.
+   Editorial-modernist restraint (iA, Anthropic's research blog, Increment,
+   Stripe Press, Works in Progress) is the design system here, more than
+   any one color or shape.
 
-   Five sizes, each with exactly one job - a strict, small scale on
-   purpose (Ulm/Bauhaus rigor: few fixed steps, no one-off values) rather
-   than a size for every element that touches it. Originally anchored to
-   a real modular scale (Bringhurst's "The Elements of Typographic
-   Style"; the same method type-scale.com and Material Design's type
-   scale are built from): ratio 1.25 ("major third") applied to a
-   1.125rem/18px base. --text-base was since tuned down a further
-   half-step to 1.0625rem/17px - stacked across a full page, 18px read
-   slightly heavy for a body-and-hierarchy-heavy site with little else
-   competing for weight. --text-xl stays fixed rather than shrinking in
-   lockstep: h1 is the scale's one deliberately oversized, base-independent
-   anchor (About, Now, Writing, and post titles all read the same size
-   regardless of how quiet the body under them gets):
-     --text-sm    1rem       dates, captions, footnotes, table text, the
-                             eyebrow
-     --text-base  1.0625rem  body copy: paragraphs, list items, the lede
-     --text-md    1.2rem     (a deliberate exception - the wordmark reads
-                             as a quiet masthead, not a headline, at the
-                             smaller size) - the site title/wordmark
-                             only; the main nav sits one step below it,
-                             on --text-sm
-     --text-lg    1.5rem     (a deliberate exception - reads too large
-                             across h2, blog-index titles, and
-                             pull-quotes at a bigger value) - h2,
-                             blog-index titles, pull-quotes
-     --text-xl    3.25rem    fixed, independent of --text-base - h1:
-                             About, Now, Writing, and post titles alike,
-                             one size for every top-level heading
-   (h3 reuses --text-base at a bolder weight rather than claiming a sixth
-   size - see .prose h3. Values rounded to a clean rem for readability in
-   the source.) --text-xl was bumped ~18% up from an earlier 2.75rem: at
-   that size the page's one big heading didn't read as decisively larger
-   than h2 (1.5rem) - not enough scale contrast between "headline" and
-   "section heading" for a single fixed anchor size to carry. Same
-   deliberately-oversized, base-independent role, just a more confident
-   size for it.
+   Five sizes, each with one job, loosely derived from a 1.25 modular scale
+   (Bringhurst, "The Elements of Typographic Style"):
+     --text-sm    1rem       nav, dates, captions, footnotes, table text
+     --text-base  1.0625rem  body copy, lists, the lede; h3 at bold weight
+     --text-md    1.2rem     the site title/wordmark only
+     --text-lg    1.5rem     h2, Writing-index titles, pull-quotes, the deck
+     --text-xl    3.25rem    every h1 - fixed, independent of --text-base
 
    Themes: every color is declared exactly once via light-dark(). The
    default color-scheme follows the OS; the header toggle forces one by
    setting html[data-theme] (persisted in localStorage), which flips
-   color-scheme and with it every token. Both modes share one near-black/
-   near-cream pair pushed hard toward its extreme (dark: L=0.07; light:
-   L=0.94) with a single accent that does NOT itself change between
-   themes - #d8402a is used sparingly (a heading's trailing dot, the rule
-   under it, a link on hover), not as a device to draw the eye around the
-   page. Three text tiers, not four: --color-heading, --color-text,
-   --color-muted covers everything from a paragraph to a footnote: */
+   color-scheme and with it every token. One accent, #d8402a, identical in
+   both themes and used sparingly (a heading's trailing dot, a link on
+   hover). Three text tiers: --color-heading, --color-text, --color-muted. */
 :root {
   color-scheme: light dark;
 
@@ -107,19 +69,14 @@
   --text-lg: 1.5rem;
   --text-xl: 3.25rem;
 
-  /* Flat geometry: no soft UI rounding anywhere except the genuinely
-     circular marks (the header dot and the theme toggle) - those stay
-     literal circles via border-radius: 50% in place, not a token;
-     nothing else in the theme ever sets a border-radius at all. */
+  /* Flat geometry: the theme toggle's circle is the only border-radius
+     anywhere. */
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
   --transition: 0.15s var(--ease);
 
-  /* Same fluid space scale as typewriter (utopia.fyi-style T-shirt sizes)
-     - a generic, well-tuned convention, not a typewriter-specific
-     aesthetic choice, so it's reused rather than reinvented. Every
-     margin/padding/gap below should use one of these; a genuinely
-     sub-3xs hairline nudge is the only accepted exception, and should
-     say so in a comment. */
+  /* utopia.fyi-style T-shirt space scale. Every margin/padding/gap below
+     should use one of these; a genuinely sub-3xs hairline nudge is the
+     only accepted exception, and should say so in a comment. */
   --space-3xs: 0.25rem;
   --space-2xs: 0.375rem;
   --space-xs: 0.5rem;
@@ -130,19 +87,13 @@
   --space-2xl: 2.75rem;
   --space-3xl: 4rem;
 
-  /* Baseline rhythm for .prose only: .prose p's own line-height (1.64 -
-     not .site-body's 1.7, which is chrome's line-height, not reading
-     copy's) times --text-base, so a paragraph's line-box height and the
-     grid unit are the same number by construction, not by coincidence.
-     Structural gaps between prose blocks (paragraphs, h2, hr,
-     blockquote) are set in multiples of this rather than off
-     --space-*, which was tuned for chrome and was never meant to
-     double as a reading rhythm - Josef Müller-Brockmann, Grid Systems
-     in Graphic Design. Tight, same-group gaps (h3 to the paragraph
-     under it, list items, dt/dd) stay off --space-* on purpose:
-     locking every gap in prose to this unit would either bloat those
-     into full lines or round them down to touching, and grid rigor
-     isn't the point there - grouping is. */
+  /* Baseline rhythm for .prose only: .prose p's line-height (1.64) times
+     --text-base, so a paragraph's line box and the grid unit are the same
+     number. Structural gaps between prose blocks (paragraphs, lists, h2,
+     hr, blockquote, figures) are multiples of this (Müller-Brockmann, Grid
+     Systems in Graphic Design); tight same-group gaps (h3 to its
+     paragraph, list items, dt/dd) stay on --space-*, since grouping, not
+     grid rigor, is the point there. */
   --rhythm: calc(var(--text-base) * 1.64);
 
   --color-bg: light-dark(#f2efe8, #141310);
@@ -167,31 +118,15 @@
      contrast against --color-bg: 5.3:1; dark-mode: 5.9:1). */
   --color-accent: #d8402a;
 
-  /* Fixed, not fluid: a wider viewport doesn't earn a longer line of prose
-     - past ~75-90 characters a line gets harder to track back to its own
-     start, and the root font-size clamp above already grows the physical
-     measure somewhat on very large displays (rem-based, so it scales in
-     lockstep with the fluid root font-size - measured at ~78 characters/line
-     at both the clamp's floor and its ceiling, not just on wide screens).
-     --measure-wide (figures, diagrams, the header) is the frame that's
-     meant to exploit a big screen; the reading column deliberately isn't.
-
-     44rem measured at ~78 characters/line on the actual site (Playwright,
-     real line-wrap points from Range.getClientRects() against real prose,
-     not a char/px estimate) - past the ~50-75 CPL modern sweet spot
-     (Butterick's Practical Typography puts the ideal at ~66, ceiling 90).
-     Tightened again to 40rem, which measures at ~68 CPL: inside that
-     range without going as tight as a 38rem/~65 CPL alternative, which
-     read as cramped against this theme's own "generous type" ethos when
-     tested. Mobile doesn't use this token (own width via --gutter) and
-     already measured a comfortable ~39 CPL, well inside its own 30-50
-     guideline - untouched. */
+  /* The reading column: measured at ~68 characters/line on real prose
+     (Butterick's ideal is ~66). rem-based, so it grows only with the fluid
+     root font-size, not with the viewport - a wide screen doesn't earn a
+     longer line. Mobile is bounded by the viewport and --gutter instead
+     (~39 CPL). */
   --measure: 40rem;
-  /* The site's other, wider frame: figures/diagrams break out to this
-     width (see .figure-block/pre.mermaid) rather than staying inside
-     --measure, and the header row matches it too - the header and the
-     page's widest content share one outer edge, with the (narrower)
-     reading column inset within it, not the other way around. */
+  /* The wider frame: figures, diagrams, and tables break out to it, and
+     the header row matches it, so chrome and the widest content share one
+     outer edge with the reading column inset inside. */
   --measure-wide: min(92vw, 62rem);
 }
 
@@ -216,8 +151,7 @@ html {
      a reader's browser-level text-size preference still scales the whole
      clamp; solved from font-size = 0.6667em + 0.3333vw, a line that
      crosses 1em (16px) at exactly 1600px of viewport and 1.125em (18px)
-     at exactly 2200px. Same technique and breakpoints as typewriter's own
-     clamp, just re-solved for this theme's lower base size. */
+     at exactly 2200px. */
   font-size: clamp(1em, 0.6667em + 0.3333vw, 1.125em);
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
@@ -301,14 +235,8 @@ video {
   padding-block-end: var(--space-3xl);
 }
 
-/* Solid, not glass: a backdrop-filter blur used to sit here, the one
-   surface in the theme claiming any depth in a system that otherwise
-   argues everything should look exactly as flat as it is (no
-   border-radius, no shadows, no gradients elsewhere). A fully opaque
-   --color-bg plus a
-   hairline border does the same job at rest and mid-scroll, for no
-   compositing cost - Dieter Rams, "good design is honest" and "as
-   little design as possible." */
+/* Solid, not glass: no backdrop-filter blur - nothing else in the theme
+   claims depth, so an opaque --color-bg plus a hairline border does. */
 .site-header {
   position: sticky;
   top: 0;
@@ -317,11 +245,7 @@ video {
   border-block-end: 1px solid var(--color-border);
 }
 
-/* --measure-wide, not --measure: the header lines up with the site's
-   widest content (figures/diagrams, which break out to --measure-wide -
-   see .figure-block) rather than the narrower reading column, so the
-   logo and nav ("the interactive elements") sit flush with the same
-   left/right edges a wide figure's would, expanded or collapsed. */
+/* --measure-wide, not --measure: see the token's comment. */
 .header-row {
   max-width: var(--measure-wide);
   margin-inline: auto;
@@ -339,7 +263,6 @@ video {
   align-items: center;
   text-decoration: none;
   color: var(--color-heading);
-  font-family: var(--font-sans);
   font-weight: 700;
   font-size: var(--text-md);
   letter-spacing: -0.012em;
@@ -357,9 +280,9 @@ video {
   line-height: 1.2;
 }
 
-/* Full name at rest; the short Cyrillic mark only ever appears via the
-   max-width: 640px override below - no scroll-driven toggle on desktop, the
-   name just stays put. */
+/* Full name on desktop, the short mark on mobile (see the max-width: 640px
+   block). The hidden one collapses to zero width rather than display: none,
+   so the full name stays the link's accessible name either way. */
 .site-title-full,
 .site-title-short {
   display: inline-block;
@@ -369,12 +292,10 @@ video {
 
 .site-title-full {
   max-width: 16em;
-  opacity: 1;
 }
 
 .site-title-short {
   max-width: 0;
-  opacity: 0;
 }
 
 .site-nav {
@@ -395,17 +316,13 @@ video {
   white-space: nowrap;
 }
 
-/* One step below .site-title (--text-sm, not --text-md): size itself
-   now marks the nav as secondary to the wordmark, on top of the
-   existing color/weight cues. The current page still reads from color
-   and weight alone, no painted dot or underline - "typography over
-   paint" throughout the theme's chrome. */
+/* One size step below the wordmark. The current page reads from color and
+   weight alone - no painted dot or underline. */
 .nav-link {
   display: flex;
   align-items: center;
   color: var(--color-muted);
   text-decoration: none;
-  font-family: var(--font-sans);
   font-size: var(--text-sm);
   font-weight: 500;
   padding: var(--space-2xs) 0;
@@ -466,28 +383,22 @@ video {
   background-color: currentColor;
 }
 
-/* No sitewide footer chrome - see .link-row below, the one place
-   social links appear, on the About page only. */
-
-/* === Page chrome: eyebrow / heading (About, Now) === */
+/* === Page chrome: eyebrow / heading (About, Now, Writing) === */
 .page-header {
   margin-block: var(--space-xl) var(--space-m);
 }
 
 .page-eyebrow {
-  font-family: var(--font-sans);
   font-size: var(--text-sm);
   font-weight: 500;
   color: var(--color-muted);
 }
 
-/* Medium weight and tight tracking: a plain, confident display heading -
-   the trailing accent-dot is the only ornament. One signature doing one
-   job, not paired with a rule underneath repeating the same point. */
+/* Medium weight and tight tracking; the trailing accent-dot is the only
+   ornament. */
 .page-heading,
 .main-content h1 {
   margin: var(--space-m) 0 0;
-  font-family: var(--font-sans);
   font-weight: 500;
   font-size: var(--text-xl);
   line-height: 1.15;
@@ -496,52 +407,31 @@ video {
   text-wrap: balance;
 }
 
-.page-heading a,
-.main-content h1 a {
-  color: inherit;
-  text-decoration: none;
-  transition: color var(--transition);
-}
-
-.page-heading a:hover,
-.main-content h1 a:hover {
-  color: var(--color-accent);
-}
-
 .accent-dot {
   color: var(--color-accent);
 }
 
 .lede {
-  /* Now the only thing separating the heading from the lede, with the
-     heading-rule gone - a full --space-l stands in for what the rule's
-     own margin used to provide. */
   margin: var(--space-l) 0 0;
-  font-size: var(--text-base);
   line-height: 1.6;
-  color: var(--color-text);
 }
 
 .page-footnote {
   margin-block-start: var(--space-xl);
-  font-family: var(--font-sans);
   font-size: var(--text-sm);
   color: var(--color-muted);
 }
 
-/* Underlined-arrow link row - Email/GitHub/etc under the About prose, and
-   the general idiom this theme uses for "a link that is also a button." */
+/* Underlined-arrow social links under the About prose - the only place
+   they appear; there is no sitewide footer. */
 .link-row {
   margin-block-start: var(--space-2xl);
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2xs) var(--space-l);
-  font-family: var(--font-sans);
-  font-size: var(--text-base);
   font-weight: 500;
 }
 
-.link-row a,
 .social-link {
   display: inline-flex;
   align-items: center;
@@ -554,35 +444,28 @@ video {
     border-color var(--transition);
 }
 
-/* The arrow is real markup now (icon.html, via social-links.html), not a
-   generated "\2192" glyph - currentColor means the hover rule below
-   recolors it for free, no separate rule needed here. */
+/* icon.html draws in currentColor, so the hover rule below recolors it. */
 .social-link-arrow {
   flex: none;
   margin-inline-start: var(--space-2xs);
   opacity: 0.55;
 }
 
-.link-row a:hover,
 .social-link:hover {
   color: var(--color-accent);
   border-color: var(--color-accent);
 }
 
 /* === Article meta / post title === */
-/* Bottom margin bumped from --space-l (24px) to --space-2xl (44px): block
-   margins between .article-header and .prose collapse to their max, and
-   the old 24px lost that collapse to .prose's own ~28px first-child rhythm
-   - the on-screen gap barely read as an intentional pause. 44px wins the
-   collapse outright, landing the opening of an article in the ~48-64px
-   whitespace an editorial deck/lede deserves before body copy starts. */
+/* The bottom margin collapses against the first prose block's --rhythm
+   top margin; --space-2xl wins that outright, leaving a deliberate pause
+   before the body copy starts. */
 .article-header {
   margin-block: var(--space-3xl) var(--space-2xl);
   text-align: center;
 }
 
-/* Same --text-xl as every other h1 (see .page-heading above) - just
-   width-constrained and centered, not a bigger size of its own. */
+/* Same --text-xl as every other h1, just width-capped and centered. */
 .main-content .article-header h1 {
   max-width: 22em;
   margin-inline: auto;
@@ -596,7 +479,6 @@ video {
   flex-wrap: wrap;
   gap: var(--space-xs);
   color: var(--color-muted);
-  font-family: var(--font-sans);
   font-size: var(--text-sm);
 }
 
@@ -608,16 +490,13 @@ video {
   max-width: 34em;
   margin: var(--space-l) auto 0;
   font-size: var(--text-lg);
-  font-weight: 400;
   line-height: 1.45;
   letter-spacing: -0.006em;
-  color: var(--color-text);
   text-wrap: balance;
 }
 
-/* Editorial closure, not blog machinery: a single quiet link back to the
-   index after the prose ends, nothing more (no tags, no "you may also
-   like"). Same restrained idiom as .page-footnote/.social-link. */
+/* A single quiet link back to the index after the prose - no tags, no
+   "you may also like". */
 .post-nav {
   margin-block-start: var(--space-3xl);
   padding-block-start: var(--space-l);
@@ -630,7 +509,6 @@ video {
   gap: var(--space-2xs);
   color: var(--color-muted);
   text-decoration: none;
-  font-family: var(--font-sans);
   font-size: var(--text-sm);
   font-weight: 500;
   transition: color var(--transition);
@@ -663,14 +541,8 @@ video {
   text-decoration-color: var(--color-accent);
 }
 
-/* Scoped to .prose, not .main-content, on purpose: chrome headings like
-   "Recent writing" (home.html) and a blog-index year label are h2s too,
-   but aren't post/page content and shouldn't pick up this treatment. */
 .prose h2 {
-  /* 2x/1x --rhythm, not --space-3xl/--space-l - the nearest multiples of
-     the paragraph baseline unit to those original values, not a round-up. */
   margin: calc(var(--rhythm) * 2) 0 var(--rhythm);
-  font-family: var(--font-sans);
   font-size: var(--text-lg);
   font-weight: 600;
   line-height: 1.3;
@@ -679,26 +551,18 @@ video {
   text-wrap: balance;
 }
 
-/* About/Now open with .page-header (eyebrow, h1, lede) right
-   before .prose - the full 2x--rhythm gap above reads fine between two
-   paragraphs deep in an article, but between the lede and the page's first
-   section heading it makes a short page feel like isolated blocks rather
-   than one continuous read. Scoped to :first-child so every h2 after the
-   first still gets the normal article-length rhythm. */
+/* About/Now: the full 2x --rhythm gap between the lede and the first
+   section heading makes a short page read as isolated blocks, so pull
+   just that first h2 in. */
 .page-header + .prose > h2:first-child {
   margin-block-start: var(--space-2xl); /* 44px */
 }
 
-/* Reuses --text-base (the body size) rather than claiming its own size
-   step - bold weight is what marks it as a sub-heading, same idiom as
-   iA Writer's own site. Still clearly a level below h2 (smaller, and
-   h2's semibold outranks nothing here since h3 is plain bold). */
-/* Off --rhythm on purpose: h3 is a run-in label bound tight to the
-   paragraph under it, not a section break - snapping its gap to the grid
-   would either triple it or round it to touching. Grouping wins here. */
+/* Body size at bold weight rather than a size step of its own, bound
+   tight to the paragraph under it (off --rhythm - it's a label, not a
+   section break). */
 .prose h3 {
   margin: var(--space-l) 0 var(--space-xs);
-  font-family: var(--font-sans);
   font-weight: 700;
   font-size: var(--text-base);
   line-height: 1.4;
@@ -706,12 +570,8 @@ video {
   text-wrap: balance;
 }
 
-/* Adjacent margins collapse to their max, not their sum - left alone, h3's
-   8px bottom margin would collapse against the ~28px (or larger) top
-   margin on the p/ul/ol right under it, landing far looser than "bound
-   tight" implies. Pinning the following block's own top margin to the same
-   --space-xs keeps the collapsed gap at 8px instead of inheriting whatever
-   the next block's structural margin happens to be. */
+/* Margins collapse to their max: without this the next block's --rhythm
+   top margin would win over h3's tight bottom margin. */
 .prose h3 + p,
 .prose h3 + ul,
 .prose h3 + ol {
@@ -719,40 +579,32 @@ video {
 }
 
 .prose p {
-  /* --rhythm, not 1em (1.125rem): a full line-height of space between
-     paragraphs, not three-quarters of one - the classic "one blank
-     line" reading gap, and the reason this unit exists at all. */
+  /* One blank line between paragraphs. */
   margin-block: var(--rhythm);
+  /* font-size/color look inherited, but aren't redundant: they also reach
+     Mermaid's label <p>s, whose sizing the foreignObject rule below is
+     compensating for. */
   font-size: var(--text-base);
   line-height: 1.64;
   color: var(--color-text);
-  /* Robert Bringhurst, Elements of Typographic Style §2.1.5: an opening
-     quotation mark carries almost no ink, so left flush it reads as a
-     dent in the column rather than a straight edge. Safari-only today;
-     a harmless no-op everywhere else. */
+  /* Bringhurst §2.1.5: a flush opening quote reads as a dent in the
+     column. Safari-only today; a no-op elsewhere. */
   hanging-punctuation: first last;
 }
 
-/* hyphens: auto pairs with text-wrap: pretty rather than duplicating it -
-   pretty controls where the *last* line of a block breaks (no orphans),
-   hyphens controls the rag of every line above it. Butterick's Practical
-   Typography: hyphenation is optional on ragged-right text, but "becomes
-   essential" as lines get shorter - exactly this site's situation after
-   --measure was tightened to ~68 characters/line, and more so on mobile's
-   ~39-character column. html[lang] is "en-US" (see baseof.html), the only
-   prerequisite for the browser's hyphenation dictionary to engage. */
+/* pretty avoids orphans on the last line; hyphens evens the rag above it,
+   which matters at this measure and more so on mobile. Needs html[lang]
+   (set in baseof.html) for the hyphenation dictionary. */
 .prose p,
 .prose li {
   text-wrap: pretty;
   hyphens: auto;
 }
 
-/* Plain disc/decimal markers, muted: quieter against the text than a
-   heavier custom mark would be. */
+/* Plain disc/decimal markers, muted. disc is set explicitly so nested
+   lists don't switch to circles. */
 .prose ol,
 .prose ul {
-  /* --rhythm: a list sits between other prose blocks the same way a
-     paragraph does, so it takes the same structural gap. */
   margin-block: var(--rhythm);
   padding-inline-start: 1.25em;
 }
@@ -761,37 +613,22 @@ video {
   list-style: disc;
 }
 
-.prose ol {
-  list-style: decimal;
-}
-
-.prose ul > li::marker,
-.prose ol > li::marker {
+.prose li::marker {
   color: var(--color-muted);
 }
 
-/* Off --rhythm too, same reason as h3: list items group with each
-   other, they don't each open a new structural break. */
+/* Off --rhythm, like h3: list items group, they don't each open a break. */
 .prose li {
   margin-block: 0.4em;
-  font-size: var(--text-base);
   line-height: 1.68;
-  color: var(--color-text);
 }
 
 /* A quiet pull-quote: left-aligned with the rest of the prose, a thin
    accent rule, one size step up from body copy. */
 .prose blockquote {
-  /* --rhythm, not --space-2xl: the nearest multiple (1x) of the
-     paragraph unit, same reasoning as h2/hr. The quote's own line-height
-     stays 1.5, not locked to the grid - M-B locks a block's margins to
-     the rhythm, not the internal leading of display type set at a
-     different size. */
   margin: var(--rhythm) 0;
   padding-inline-start: var(--space-l);
   border-inline-start: 2px solid var(--color-accent);
-  font-family: var(--font-sans);
-  font-weight: 400;
   font-size: var(--text-lg);
   line-height: 1.5;
   letter-spacing: -0.008em;
@@ -809,31 +646,27 @@ video {
 .prose hr {
   border: 0;
   border-top: 1px solid var(--color-border);
-  margin-block: var(--rhythm); /* nearest multiple (1x) of --space-xl */
+  margin-block: var(--rhythm);
 }
 
 /* Definition lists aren't reachable from standard Markdown, but raw HTML
    passes through Goldmark unchanged, so a hand-written <dl> still gets a
    considered treatment instead of the UA default. */
 .prose dl {
-  margin-block: var(--rhythm); /* nearest multiple (1x) of --space-l */
+  margin-block: var(--rhythm);
   display: flex;
   flex-direction: column;
   gap: var(--space-m);
 }
 
 .prose dt {
-  font-family: var(--font-sans);
-  font-size: var(--text-base);
   font-weight: 700;
   color: var(--color-heading);
 }
 
 .prose dd {
   margin: var(--space-3xs) 0 0;
-  font-size: var(--text-base);
   line-height: 1.68;
-  color: var(--color-text);
 }
 
 /* === Tables ===
@@ -842,7 +675,7 @@ video {
    column. overflow-x stays as a fallback for a table wider even than that. */
 .table-wrapper {
   width: var(--measure-wide);
-  margin-block: var(--rhythm); /* nearest multiple (1x) of --space-l */
+  margin-block: var(--rhythm);
   margin-inline: calc(50% - 50vw + (100vw - var(--measure-wide)) / 2);
   overflow-x: auto;
 }
@@ -850,7 +683,6 @@ video {
 .prose table {
   width: 100%;
   border-collapse: collapse;
-  font-family: var(--font-sans);
   font-size: var(--text-sm);
   line-height: 1.5;
 }
@@ -866,7 +698,6 @@ video {
 .prose td {
   padding: var(--space-s) var(--space-l) var(--space-s) 0;
   border-block-end: 1px solid var(--color-border);
-  color: var(--color-text);
 }
 
 .prose tbody tr:hover td {
@@ -895,8 +726,7 @@ video {
   }
 }
 
-/* Club crests dropped inline into prose via the {{< crests >}} shortcode
-   (currently just /now, under "Away from the keyboard"). */
+/* Club crests, via the {{< crests >}} shortcode. */
 .badges {
   display: flex;
   align-items: center;
@@ -914,34 +744,18 @@ video {
   width: 5rem;
   height: 5rem;
   object-fit: contain;
-  display: block;
 }
 
 /* === Blog timeline === */
-/* Top margin stands in for the heading-rule that used to separate the
-   h1 from this list (see .page-heading) - without it, .page-header's
-   own bottom margin alone collapsed down to a cramped 16px gap. */
 .blog-timeline {
   list-style: none;
   margin-block: var(--space-2xl) var(--space-s);
   padding: 0;
 }
 
-.blog-timeline li {
-  margin: 0;
-}
-
-/* No separators between rows - whitespace does the grouping instead of a
-   rule, so a short list of posts reads as typesetting rather than a
-   settings/list UI. Date leads, title follows on one baseline (row on
-   desktop, stacked on mobile - see the responsive block below): a
-   chronological grid, not a blog-post-card layout. Left-aligned rather
-   than space-between - the ISO date's fixed 10-character width (plus the
-   sitewide tabular-nums) already lines every row's date up into its own
-   column for free, so there's no need to pin it to the far edge to read
-   as a grid. Padding tightened from --space-l to --space-m: a denser,
-   more chronology-like row now that alignment does the "this is a list"
-   work the old wider spacing was doing on its own. */
+/* A chronology, not post cards: date then title on one baseline (stacked
+   on mobile), no separators - whitespace groups the rows. The fixed-width
+   ISO date plus sitewide tabular-nums lines the dates up into a column. */
 .blog-timeline-entry {
   display: flex;
   align-items: baseline;
@@ -962,7 +776,6 @@ video {
 .blog-timeline-title {
   min-width: 0;
   color: var(--color-heading);
-  font-family: var(--font-sans);
   font-size: var(--text-lg);
   font-weight: 500;
   line-height: 1.3;
@@ -985,7 +798,6 @@ video {
   justify-content: center;
   width: var(--space-xl);
   height: var(--space-xl);
-  flex-shrink: 0;
   border: 1px solid var(--color-underline);
   background-color: var(--color-bg);
   color: var(--color-muted);
@@ -1018,16 +830,12 @@ video {
 }
 
 /* === Figures ===
-   Every figure breaks out of the prose measure and re-centers on the
-   viewport - a wider "figure column" than the text column, the way
-   Anthropic's research blog treats images. A figure's image still
-   displays at its natural/resized size within that wider box (small
-   screenshots don't get blown up) - an embed's iframe fills it instead
-   (see .embed-frame), since there's no "natural size" for an interactive
-   figure to default to. */
+   Every figure breaks out of the prose measure to --measure-wide,
+   re-centered on the viewport. Images keep their natural size inside it
+   (small screenshots don't get blown up); embeds fill it. */
 .figure-block {
   width: var(--measure-wide);
-  margin-block: var(--rhythm); /* nearest multiple (1x) of --space-l */
+  margin-block: var(--rhythm);
   margin-inline: calc(50% - 50vw + (100vw - var(--measure-wide)) / 2);
   text-align: center;
 }
@@ -1039,7 +847,6 @@ video {
 
 .figure-caption {
   margin-block-start: var(--space-xs);
-  font-family: var(--font-sans);
   font-size: var(--text-sm);
   color: var(--color-muted);
 }
@@ -1052,7 +859,7 @@ video {
 
 /* === Code === */
 .highlight {
-  margin-block: var(--rhythm); /* nearest multiple (1x) of --space-l */
+  margin-block: var(--rhythm);
   background-color: var(--color-panel);
 }
 
@@ -1060,12 +867,9 @@ video {
   margin: 0;
   padding: var(--space-m);
   font-family: var(--font-mono);
-  /* Relative, matching inline code's own 0.86em (see code:not(pre code)
-     below), so a code block reads a size below body text regardless of
-     what --text-sm/--text-base happen to be. */
+  /* Relative, matching inline code below. */
   font-size: 0.86em;
   line-height: 1.7;
-  background-color: transparent;
   overflow-x: auto;
 }
 
@@ -1085,15 +889,13 @@ code:not(pre code) {
   padding-block: var(--space-3xs);
 }
 
-/* Mermaid diagrams. Until (or unless) the script draws the SVG, the
-   block shows the escaped diagram source as quiet monospace text. Same
-   breakout width as .figure-block, for the same reason - a diagram is a
-   figure, and gets the wider default figure column too. */
+/* Mermaid diagrams: the escaped source shows as quiet monospace text until
+   (or unless) the script draws the SVG. Same breakout as .figure-block. */
 pre.mermaid {
   display: flex;
   justify-content: center;
   width: var(--measure-wide);
-  margin-block: var(--rhythm); /* nearest multiple (1x) of --space-l */
+  margin-block: var(--rhythm);
   margin-inline: calc(50% - 50vw + (100vw - var(--measure-wide)) / 2);
   padding: var(--space-xl) var(--space-l);
   background-color: var(--color-panel);
@@ -1104,20 +906,8 @@ pre.mermaid {
   color: var(--color-muted);
 }
 
-pre.mermaid svg {
-  max-width: 100%;
-  height: auto;
-}
-
-/* Mermaid's own edge-label sizing (the foreignObject/div box behind a
-   flowchart edge label like "yes"/"no") is computed from an internal
-   text-measurement pass that doesn't always match how the label's real
-   HTML actually lays out with this font - narrow labels then clip a
-   character or two against a box just slightly too small for them.
-   Letting the label overflow its (invisibly undersized) box rather than
-   clip it is a strictly safer default: the label reads in full, sitting
-   on the plain diagram background past a background rect too narrow to
-   fully hide it - not perfectly tidy, never broken. */
+/* Mermaid sometimes sizes an edge label's foreignObject a character or two
+   too narrow for this font; let the label overflow rather than clip. */
 pre.mermaid svg foreignObject {
   overflow: visible;
 }
@@ -1129,12 +919,8 @@ pre.mermaid svg foreignObject {
 }
 
 .error-page .error-title {
-  font-family: var(--font-sans);
-  font-size: var(--text-xl);
   font-weight: 700;
-  letter-spacing: -0.02em;
   margin-block-end: var(--space-m);
-  color: var(--color-heading);
 }
 
 .error-button {
@@ -1143,7 +929,6 @@ pre.mermaid svg foreignObject {
   background-color: var(--color-heading);
   color: var(--color-bg);
   text-decoration: none;
-  font-family: var(--font-sans);
   font-weight: 500;
   font-size: var(--text-sm);
   margin-block-start: var(--space-m);
@@ -1151,55 +936,31 @@ pre.mermaid svg foreignObject {
 
 .error-button:hover {
   background-color: var(--color-accent);
-  color: var(--color-bg);
 }
 
 /* === Responsive === */
 @media (max-width: 640px) {
-  /* Mobile type scale and rhythm: h1 (44px desktop) and h2/blog-index/
-     pull-quotes (24px desktop) still read oversized and stretched out
-     stacked on a 375-430px viewport, even after the desktop scale itself
-     came down a step (see the :root block - --text-base is already 17px
-     there, so it needs no mobile override of its own any more).
-     --text-sm (nav/dates/captions/table text) is deliberately left
-     alone, it already reads fine small. --rhythm is pinned to a flat
-     value instead of staying tied to --text-base * 1.64: the formula's
-     ~27.9px at mobile's body size is still looser than mobile prose
-     wants, so the "paragraph line-height and the grid unit are the same
-     number by construction" equivalence --rhythm's own comment above
-     describes is deliberately broken here, in favor of a tighter reading
-     rhythm than the formula would give. */
+  /* Mobile type scale: the display sizes step down; --text-sm and
+     --text-base stay. --rhythm is pinned flat, deliberately tighter than
+     the line-height formula it uses on desktop. */
   :root {
-    --text-md: 1.125rem; /* 18px, was 19.2px - the wordmark */
-    --text-lg: 1.375rem; /* 22px, a step under desktop's 24px - h2, blog-index titles, pull-quotes */
-    --text-xl: 2.25rem; /* 36px, was 44px - every h1 */
-    --rhythm: 1.5rem; /* 24px flat - see above */
+    --text-md: 1.125rem;
+    --text-lg: 1.375rem;
+    --text-xl: 2.25rem;
+    --rhythm: 1.5rem;
 
-    /* Page gutter: a hair roomier than bare --space-m (16px) reads at the
-       smaller mobile body size, short of a full --space-l (24px) step.
-       Built from two existing steps rather than a new invented rem value
-       - reused below by .header-row and .highlight so chrome and content
-       stay flush at the same edge. */
+    /* Page gutter, shared by .header-row, .site-container and .highlight
+       so chrome and content stay flush at one edge. */
     --gutter: calc(var(--space-m) + var(--space-3xs)); /* 20px */
   }
 
-  /* One-line sticky mobile header. This reverses an earlier call (mobile
-     header was static/non-sticky, full name always shown, because at this
-     width title+nav wrapped to two lines at rest) - the fix isn't to give
-     up stickiness to dodge the wrap, it's to avoid the wrap at all by
-     holding the header in its condensed/KB shape permanently on mobile.
-     .site-header's base position: sticky is left alone here. Desktop never
-     condenses at all (no scroll-driven toggle exists any more) - this is a
-     mobile-only, viewport-triggered override, not a state two breakpoints
-     share. */
+  /* The short mark keeps the sticky header on one line at this width. */
   .site-title-full {
     max-width: 0;
-    opacity: 0;
   }
 
   .site-title-short {
     max-width: 3em;
-    opacity: 1;
   }
 
   .header-row {
@@ -1216,12 +977,8 @@ pre.mermaid svg foreignObject {
     gap: var(--space-m);
   }
 
-  /* Invisible hit-area expansion, not min-height: min-height would grow
-     these back to the size the header-row rules above just trimmed away -
-     a flex row's cross-size follows its tallest item. A transparent,
-     absolutely-positioned overlay sized to at least 44px in each
-     dimension gives touch a real target without adding a visible pixel;
-     the icon/label stay their normal drawn size. */
+  /* 44px touch targets via an invisible overlay rather than min-height,
+     which would grow the header row back. */
   .site-title,
   .nav-link,
   .theme-toggle {
@@ -1248,47 +1005,34 @@ pre.mermaid svg foreignObject {
   }
 
   pre.mermaid {
-    padding-inline: var(--space-m); /* 16px, was 24px */
+    padding-inline: var(--space-m);
   }
 
-  /* About/Now open with this right below the sticky header; desktop's
-     36px top margin reads oversized at mobile's now-tighter scale. */
   .page-header {
     margin-block: var(--space-l) var(--space-m);
   }
 
-  /* Same "lede into first section heading" softening as the desktop rule
-     above, just a step tighter to match the mobile scale it now sits
-     inside. */
   .page-header + .prose > h2:first-child {
-    margin-block-start: var(--space-xl); /* 36px, was 44px */
+    margin-block-start: var(--space-xl);
   }
 
-  /* Article headers ran especially large: 64px above a 44px h1, then 24px
-     more before the date. Both numbers were sized for the desktop scale
-     this h1 no longer uses at this width. */
   .article-header {
-    margin-block: var(--space-xl) var(--gutter); /* 36px top, 20px bottom - was 64px/24px */
+    margin-block: var(--space-xl) var(--gutter);
   }
 
   .article-meta {
-    margin-block-start: var(--space-s); /* 12px, was 24px */
+    margin-block-start: var(--space-s);
   }
 
-  /* The desktop row (date, then title, on one baseline) doesn't fit a
-     mobile column - a long title next to a date would either collide or
-     force a wrap. Stack instead, date above title, same source order as
-     the row markup already puts them in. */
+  /* Date above title: a long title won't fit beside the date. */
   .blog-timeline-entry {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-2xs);
-    padding-block: var(--gutter); /* 20px */
+    padding-block: var(--gutter);
   }
 
-  /* Club crests: 4 * 80px images + 3 * 24px gaps (392px) don't fit a
-     360-ish px mobile content column - this was an actual overflow, not
-     just a density preference. Smaller crests, wrapping as a fallback. */
+  /* Four 80px crests overflow a ~350px column. */
   .badges {
     flex-wrap: wrap;
     gap: var(--space-m);
@@ -1299,22 +1043,12 @@ pre.mermaid svg foreignObject {
     height: 3rem;
   }
 
-  /* The back-to-top button exists to compensate for a header that's
-     scrolled out of reach - now that the mobile header stays pinned
-     (see above), the site title is already a permanent way back to the
-     top, and this floating square is just extra chrome eating viewport
-     on a long article. */
+  /* The sticky header's title already links back to the top. */
   .to-top {
     display: none;
   }
 
-  /* The 2x--rhythm top margin on .prose h2 (~56px on desktop, before the
-     mobile --rhythm override above shrinks the unit itself) reads as an
-     oversized gap between sections at this viewport. 1.5x of the
-     already-tightened mobile --rhythm keeps the heading clearly separated
-     without the same proportional weight. Doesn't affect the first h2
-     after a page's lede - that's already pulled in by the more specific
-     .page-header + .prose > h2:first-child rule above. */
+  /* 2x --rhythm reads as an oversized section gap at this width. */
   .prose h2 {
     margin-block-start: calc(var(--rhythm) * 1.5);
   }
@@ -1348,10 +1082,8 @@ pre.mermaid svg foreignObject {
   .prose a[href^="http"]:not([href*="kirillbobyrev.com"])::after {
     content: " (" attr(href) ")";
     font-size: 0.85em;
-    vertical-align: baseline;
     color: var(--color-muted);
     word-break: break-all;
-    opacity: 1;
   }
 
   .highlight pre {
@@ -1381,9 +1113,7 @@ pre.mermaid svg foreignObject {
    light-dark(). Backgrounds are stripped in favour of --color-panel,
    token classes that only one palette defines fall back to the other
    theme's base text colour, and dark-only bold/italic accents are
-   dropped so both themes share one typography. Identical to typewriter's
-   copy of the same generated stylesheet - the mapping is a color palette,
-   not a design choice specific to either theme. Regenerate with those
+   dropped so both themes share one typography. Regenerate with those
    commands on bumps. */
 .chroma {
   color: light-dark(#212529, #e6edf3);

@@ -4,7 +4,7 @@
       <h1>{{ .Title }}</h1>
       {{- if .Date -}}
         <div class="article-meta">
-          <time class="article-date" datetime="{{ .Date.Format "2006-01-02" }}"
+          <time datetime="{{ .Date.Format "2006-01-02" }}"
             >{{ .Date.Format "January 2, 2006" }}</time
           >
         </div>
@@ -16,7 +16,7 @@
         <p class="article-deck">{{ . }}</p>
       {{- end -}}
     </header>
-    <div class="prose post-body">{{ .Content }}</div>
+    <div class="prose">{{ .Content }}</div>
     <nav class="post-nav" aria-label="Post">
       <a href="/blog/" class="post-nav-link"
         >{{ partial "icon.html" (dict "name" "arrow-left" "size" 14) }}Writing</a
