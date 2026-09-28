@@ -1,13 +1,8 @@
 {{- /*
   Renders a single <li> entry in a .blog-timeline list.
-  Params (dict): page (Page, required). Date leads, title follows on the
-  same baseline - a chronology first, an index of titles second (matklad's
-  own writing page is the reference point here). ISO date (not "January 2,
-  2006" - that's the article page's own, more editorial, format) so every
-  row's date is the same fixed character count and lines up down the
-  column for free via the sitewide tabular-nums. No summary, thumbnail, or
-  hover-card treatment. See the theme's own README/comments on main.css's
-  "=== Blog timeline ===" block for the reasoning.
+  Params (dict): page (Page, required). ISO date (unlike the article
+  page's "January 2, 2006") so every row's date is the same width and
+  lines up in a column. See main.css's "=== Blog timeline ===" block.
   */
 -}}
 <li>
