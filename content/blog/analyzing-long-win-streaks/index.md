@@ -3,20 +3,24 @@ title = "Analyzing long win streaks in online chess"
 description = "A statistical analysis of Hikaru Nakamura's 55-game winning streak in online blitz chess."
 publishDate = 2023-11-28
 image = "top_5_blitz.jpeg"
+deck = "Vladimir Kramnik called Hikaru Nakamura’s 55‑game blitz win streak suspicious. A simple Elo model and Monte‑Carlo simulation suggest it is well within expectations."
 +++
 
 In-depth analysis of recent data suggests a high likelihood of Hikaru
 Nakamura achieving a 55-game winning streak in online blitz, based on thousands
 of his games played this year (and even more likely given that Hikaru just
-crossed 35,000 blitz games mark on Chess.com alone). Similarly, longest streaks
-by Magnus Carlsen (32 wins), Nihal Sarin (22 wins), and Daniel Naroditsky (33
-wins) align with statistical expectations. The occurrence of both short (10+
-wins) and long (15+ wins) streaks among these elite players is also found to be
-probable and not out of the ordinary. A simple explanation of Hikaru's
-performance is that he plays an enormous number of games online, is highly
-skilled and (on average) has much weaker opponents than his peers (moreover, he
-specifically [mentions](https://www.youtube.com/watch?v=wDUCMEgYKrE&t=435s)
-cherry-picking opponents in order to score many points and create good content).
+crossed 35,000 blitz games mark on Chess.com alone).
+
+Similarly, longest streaks by Magnus Carlsen (32 wins), Nihal Sarin (22 wins),
+and Daniel Naroditsky (33 wins) align with statistical expectations. The
+occurrence of both short (10+ wins) and long (15+ wins) streaks among these
+elite players is also found to be probable and not out of the ordinary.
+
+A simple explanation of Hikaru's performance is that he plays an enormous
+number of games online, is highly skilled and (on average) has much weaker
+opponents than his peers (moreover, he specifically
+[mentions](https://www.youtube.com/watch?v=wDUCMEgYKrE&t=435s) cherry-picking
+opponents in order to score many points and create good content).
 
 ---
 
@@ -83,13 +87,13 @@ and attracted a lot of interest from the chess community.
 In his [recent video](https://youtu.be/2u-DKBSzJ1s?si=IhLJu9kqChzYtHhk&t=1328)
 Kramnik points out the following findings:
 
-| Avg opponent rating |  Results  | Performance rating |
-| :-----------------: | :-------: | :----------------: |
-|        2950         | 45.5 / 46 |        3627        |
-|        2912         | 34.5 / 35 |        3589        |
-|        2737         |  55 / 55  |         ∞          |
-|        2949         |  46 / 48  |        3450        |
-|        2792         | 47.5 / 48 |        3469        |
+| Avg opponent rating |   Results | Performance rating |
+| ------------------: | --------: | -----------------: |
+|                2950 | 45.5 / 46 |               3627 |
+|                2912 | 34.5 / 35 |               3589 |
+|                2737 |   55 / 55 |                  ∞ |
+|                2949 |   46 / 48 |               3450 |
+|                2792 | 47.5 / 48 |               3469 |
 
 Vladimir believes that this performance is unusual and warrants a thorough
 investigation by Chess.com, although he explicitly mentions that he does not
@@ -138,14 +142,14 @@ Let's look at Hikaru's opponents rating distribution:
 
 Here are top 6 win streaks:
 
-| Length | Avg opponent rating | Starting rating |                  First game                   |
-| :----: | :-----------------: | :-------------: | :-------------------------------------------: |
-|   55   |       2736.64       |      3176       | <https://www.chess.com/game/live/89602740099> |
-|   45   |       2772.89       |      3231       | <https://www.chess.com/game/live/94493554773> |
-|   35   |       2864.83       |      3226       | <https://www.chess.com/game/live/89994571321> |
-|   34   |       2744.71       |      3222       | <https://www.chess.com/game/live/90353334085> |
-|   28   |       2930.96       |      3287       | <https://www.chess.com/game/live/93637696397> |
-|   26   |       2958.46       |      3256       | <https://www.chess.com/game/live/93912033813> |
+| Length | Avg opponent rating | Starting rating | First game                                    |
+| -----: | ------------------: | --------------: | :-------------------------------------------- |
+|     55 |             2736.64 |            3176 | <https://www.chess.com/game/live/89602740099> |
+|     45 |             2772.89 |            3231 | <https://www.chess.com/game/live/94493554773> |
+|     35 |             2864.83 |            3226 | <https://www.chess.com/game/live/89994571321> |
+|     34 |             2744.71 |            3222 | <https://www.chess.com/game/live/90353334085> |
+|     28 |             2930.96 |            3287 | <https://www.chess.com/game/live/93637696397> |
+|     26 |             2958.46 |            3256 | <https://www.chess.com/game/live/93912033813> |
 
 These streaks are quite impressive, and I think I have found the streak that
 Vladimir Kramnik has mentioned in his video! The longest win streak does feature
@@ -194,17 +198,17 @@ belief that ratings were on a different scale and the activity was an order of
 magnitude lower before the online chess boom in 2020. Therefore, even if I want
 to consider more data, I would probably only check last few years.
 
-|   Statistics    | Carlsen | Nakamura |  Sarin  | Naroditsky |
-| :-------------: | :-----: | :------: | :-----: | :--------: |
-|      Games      |   908   |   3032   |  2767   |    5123    |
-|     Points      |  716.5  |  2558.5  | 1970.5  |   3964.0   |
-| Scored of total |  78.9%  |  84.38%  |  71.9%  |   77.3%    |
-|   Avg rating    | 3227.60 | 3216.22  | 3142.38 |  3130.88   |
-|  Avg opponent   | 2984.50 | 2897.95  | 2976.46 |  2901.46   |
-|   10+ streaks   |   15    |    79    |   23    |     62     |
-|   15+ streaks   |    3    |    35    |    3    |     21     |
-|   20+ streaks   |    1    |    17    |    1    |     6      |
-| Longest streak  |   32    |    55    |   22    |     33     |
+| Statistics      | Carlsen | Nakamura |   Sarin | Naroditsky |
+| :-------------- | ------: | -------: | ------: | ---------: |
+| Games           |     908 |     3032 |    2767 |       5123 |
+| Points          |   716.5 |   2558.5 |  1970.5 |     3964.0 |
+| Scored of total |   78.9% |   84.38% |   71.9% |      77.3% |
+| Avg rating      | 3227.60 |  3216.22 | 3142.38 |    3130.88 |
+| Avg opponent    | 2984.50 |  2897.95 | 2976.46 |    2901.46 |
+| 10+ streaks     |      15 |       79 |      23 |         62 |
+| 15+ streaks     |       3 |       35 |       3 |         21 |
+| 20+ streaks     |       1 |       17 |       1 |          6 |
+| Longest streak  |      32 |       55 |      22 |         33 |
 
 These statistics do look surprising at the first glance, but let's look deeper
 into the data. As Hikaru mentioned, I think it's a fair assumption that
@@ -234,12 +238,12 @@ everyone else in the list. But how different is each player's opposition?
 First, what are the average rating gaps between average rating of the player and
 their opposition?
 
-|   Player   | Average rating gap |
-| :--------: | :----------------: |
-|  Carlsen   |        243         |
-|  Nakamura  |       318.3        |
-|   Sarin    |        166         |
-| Naroditsky |       229.4        |
+| Player     | Average rating gap |
+| :--------- | -----------------: |
+| Carlsen    |                243 |
+| Nakamura   |              318.3 |
+| Sarin      |                166 |
+| Naroditsky |              229.4 |
 
 Again, Hikaru is in the clear first in terms of playing much weaker opposition.
 If Naroditsky himself would be rated higher, then the gap would be similar to
@@ -252,11 +256,11 @@ In addition to averages, let's also look at the quantiles of each player's
 opponents:
 
 | Quantile | Carlsen | Nakamura | Sarin | Naroditsky |
-| :------: | :-----: | :------: | :---: | :--------: |
-|   25%    |  2967   |   2846   | 2932  |    2816    |
-|   50%    |  3019   |   2920   | 2991  |    2904    |
-|   75%    |  3054   |   2994   | 3041  |    2997    |
-|   90%    |  3088   |   3054   | 3074  |    3052    |
+| :------- | ------: | -------: | ----: | ---------: |
+| 25%      |    2967 |     2846 |  2932 |       2816 |
+| 50%      |    3019 |     2920 |  2991 |       2904 |
+| 75%      |    3054 |     2994 |  3041 |       2997 |
+| 90%      |    3088 |     3054 |  3074 |       3052 |
 
 Again, the statistics for Nakamura and Naroditsky are very similar here. Now
 that we see this data, it's much easier to understand why Hikaru has these long
@@ -352,10 +356,10 @@ And here we can also see that draws are much less likely in faster time
 controls:
 
 | Time control | Carlsen | Nakamura | Sarin | Naroditsky |
-| :----------: | :-----: | :------: | :---: | :--------: |
-|     1+0      |  11.2%  |   6.9%   | 7.6%  |    8.3%    |
-|     3+0      |  11.5%  |   7.8%   | 11.4% |   13.5%    |
-|     3+1      |  14.9%  |  13.8%   | 12.3% |   23.1%    |
+| :----------- | ------: | -------: | ----: | ---------: |
+| 1+0          |   11.2% |     6.9% |  7.6% |       8.3% |
+| 3+0          |   11.5% |     7.8% | 11.4% |      13.5% |
+| 3+1          |   14.9% |    13.8% | 12.3% |      23.1% |
 
 Note: I could probably adjust win probabilities using sampled draw probabilities
 since `expected_score = win_probability + draw_probability / 2`.
@@ -366,20 +370,20 @@ players that is enough to make a huge difference.
 Let's take a look at the projected _average_ win probabilities of each player
 throughout the year.
 
-|   Statistics    | Carlsen | Nakamura |  Sarin  | Naroditsky |
-| :-------------: | :-----: | :------: | :-----: | :--------: |
-|   Avg rating    | 3227.60 | 3216.22  | 3142.38 |  3130.88   |
-|  Avg opponent   | 2984.50 | 2897.95  | 2976.46 |  2901.46   |
-| Win probability |  80.2%  |  86.7%   |  71.9%  |   78.9%    |
+| Statistics      | Carlsen | Nakamura |   Sarin | Naroditsky |
+| :-------------- | ------: | -------: | ------: | ---------: |
+| Avg rating      | 3227.60 |  3216.22 | 3142.38 |    3130.88 |
+| Avg opponent    | 2984.50 |  2897.95 | 2976.46 |    2901.46 |
+| Win probability |   80.2% |    86.7% |   71.9% |      78.9% |
 
 Now let's turn to each player's longest winning streak:
 
-|   Statistics    | Carlsen | Nakamura | Sarin | Naroditsky |
-| :-------------: | :-----: | :------: | :---: | :--------: |
-|  Streak length  |   32    |    55    |  22   |     33     |
-|  Start rating   |  3162   |   3176   | 3148  |    3075    |
-|  Avg opponent   |  2884   |   2736   | 2906  |    2819    |
-| Win probability |   83%   |   93%    |  80%  |   81.4%    |
+| Statistics      | Carlsen | Nakamura | Sarin | Naroditsky |
+| :-------------- | ------: | -------: | ----: | ---------: |
+| Streak length   |      32 |       55 |    22 |         33 |
+| Start rating    |    3162 |     3176 |  3148 |       3075 |
+| Avg opponent    |    2884 |     2736 |  2906 |       2819 |
+| Win probability |     83% |      93% |   80% |      81.4% |
 
 There's a clear pattern here: the opposition is way weaker than the average
 opposition of each player. As a result, win probability is significantly higher.
@@ -406,13 +410,13 @@ The simulation I use is quite basic, as it essentially assumes:
 To understand what parameters to use for each simulation, let's take a look at
 [previous section](#looking-at-other-players)'s table again.
 
-|     Statistics      | Carlsen | Nakamura | Sarin | Naroditsky |
-| :-----------------: | :-----: | :------: | :---: | :--------: |
-|        Games        |   908   |   3032   | 2767  |    5123    |
-|     10+ streaks     |   15    |    79    |  23   |     62     |
-|     15+ streaks     |    3    |    35    |   3   |     21     |
-|     20+ streaks     |    1    |    17    |   1   |     6      |
-| Avg win probability |  80.2%  |  86.7%   | 71.9% |   78.9%    |
+| Statistics          | Carlsen | Nakamura | Sarin | Naroditsky |
+| :------------------ | ------: | -------: | ----: | ---------: |
+| Games               |     908 |     3032 |  2767 |       5123 |
+| 10+ streaks         |      15 |       79 |    23 |         62 |
+| 15+ streaks         |       3 |       35 |     3 |         21 |
+| 20+ streaks         |       1 |       17 |     1 |          6 |
+| Avg win probability |   80.2% |    86.7% | 71.9% |      78.9% |
 
 In the table above, the average win probability is the one for the entire year.
 
@@ -429,10 +433,10 @@ So, for each simulation the parameters are:
 - Win probability: average win probability (table above)
 
 | Probability of | Carlsen | Nakamura | Sarin | Naroditsky |
-| :------------: | :-----: | :------: | :---: | :--------: |
-|  10+ streaks   |  94.6%  |  99.9%   | 90.6% |    100%    |
-|  15+ streaks   |   97%   |  99.5%   | 91.8% |   98.3%    |
-|  20+ streaks   |   89%   |  95.5%   | 65.3% |   91.5%    |
+| :------------- | ------: | -------: | ----: | ---------: |
+| 10+ streaks    |   94.6% |    99.9% | 90.6% |       100% |
+| 15+ streaks    |     97% |    99.5% | 91.8% |      98.3% |
+| 20+ streaks    |     89% |    95.5% | 65.3% |      91.5% |
 
 Because streaks of 20+ wins are such an outlier and were scored against weaker
 field, not the average field of opponents each player has faced, the probability
@@ -447,11 +451,11 @@ results.
 Now, let's turn back to the question of whether the longest win streak is
 probable or not for each player.
 
-|   Statistics    | Carlsen | Nakamura | Sarin | Naroditsky |
-| :-------------: | :-----: | :------: | :---: | :--------: |
-|      Games      |   908   |   3032   | 2767  |    5123    |
-| Win probability |   83%   |   93%    |  80%  |   81.4%    |
-| Longest streak  |   32    |    55    |  22   |     33     |
+| Statistics      | Carlsen | Nakamura | Sarin | Naroditsky |
+| :-------------- | ------: | -------: | ----: | ---------: |
+| Games           |     908 |     3032 |  2767 |       5123 |
+| Win probability |     83% |      93% |   80% |      81.4% |
+| Longest streak  |      32 |       55 |    22 |         33 |
 
 In this table, the win probability is the one calculated against a weaker field
 of players who have been defeated in the longest win streak of each player. We
@@ -462,8 +466,8 @@ Let's calculate probability of scoring the longest winning streak for each
 player:
 
 | Probability of | Carlsen | Nakamura | Sarin | Naroditsky |
-| :------------: | :-----: | :------: | :---: | :--------: |
-| Longest streak |  32.3%  |  98.4%   | 98.5% |   65.6%    |
+| :------------- | ------: | -------: | ----: | ---------: |
+| Longest streak |   32.3% |    98.4% | 98.5% |      65.6% |
 
 These results are more interesting. I certainly did not expect Carlsen's
 probability of getting a win streak of 32+ games to be this low given relatively
