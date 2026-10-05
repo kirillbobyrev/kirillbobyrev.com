@@ -205,10 +205,22 @@
      longer line. Mobile is bounded by the viewport and --gutter instead
      (~39 CPL). */
   --measure: 40rem;
-  /* The wider frame: figures, diagrams, and tables break out to it, and
-     the header row matches it, so chrome and the widest content share one
-     outer edge with the reading column inset inside. */
-  --measure-wide: min(92vw, 62rem);
+  /* The wider frame: figures, diagrams, tables and long code break out to
+     it, and the header row matches it, so chrome and the widest content
+     share one outer edge with the reading column inset inside. Two tiers,
+     as in Distill or a research paper's figure column: prose holds its
+     measure, while the material you look at rather than read grows with
+     the screen. Fixed at 62rem (992px) up to ~1440px of viewport, then
+     tracks the viewport (64vw) to an 84rem cap (~1500px, reached at
+     ~2200px), so a large monitor spends its width on figures instead of
+     empty margin. 92vw keeps a gutter on narrow screens. Keep the `sizes`
+     attribute in responsive-img.html in step with this. */
+  --measure-wide: min(92vw, clamp(62rem, 64vw + 4rem, 84rem));
+
+  /* Clearance below the sticky header (~72px tall here, ~44px on mobile)
+     for anything that scrolls or sticks under it: fragment-link targets
+     and the table-of-contents rail. */
+  --header-offset: calc(var(--space-3xl) + var(--space-l));
 }
 
 :root[data-theme="light"] {
@@ -570,23 +582,16 @@ video {
 /* === Article meta / post title === */
 /* The bottom margin collapses against the first prose block's --rhythm
    top margin; --space-2xl wins that outright, leaving a deliberate pause
-   before the body copy starts. */
+   before the body copy starts. Flush left on the prose edge like every
+   other page heading: one alignment axis from title to last paragraph. */
 .article-header {
   margin-block: var(--space-3xl) var(--space-2xl);
-  text-align: center;
-}
-
-/* Same --text-xl as every other h1, just width-capped and centered. */
-.main-content .article-header h1 {
-  max-width: 22em;
-  margin-inline: auto;
 }
 
 .article-meta {
   margin-block-start: var(--space-l);
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-wrap: wrap;
   gap: var(--space-xs);
   color: var(--color-muted);
@@ -594,15 +599,160 @@ video {
 }
 
 /* Optional 1-2 sentence deck (front matter `deck`) - a step up from body
-   size, quieter than the heading, width-capped like the h1 above it so a
-   long deck still reads as a few short balanced lines rather than a
-   full-width paragraph. */
+   size, quieter than the heading, balanced so a long deck still reads as
+   a few even lines. */
 .article-deck {
-  max-width: 34em;
-  margin: var(--space-l) auto 0;
+  margin: var(--space-l) 0 0;
   font-size: var(--text-lg);
   line-height: 1.45;
   text-wrap: balance;
+}
+
+/* === Table of contents ===
+   Long posts only (see page.html). Narrow viewports: a collapsed
+   <details> between the header and the body. Wide ones (the media query
+   below): pinned in the empty margin left of the reading column, open,
+   with the section in view marked the same way the nav marks the current
+   page - color and weight, no painted indicator. */
+.article-body {
+  position: relative;
+}
+
+.toc {
+  margin-block-end: var(--space-xl);
+  font-size: var(--text-sm);
+  line-height: 1.4;
+}
+
+.toc-summary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: var(--color-muted);
+  list-style: none;
+  transition: color var(--transition);
+}
+
+.toc-summary::-webkit-details-marker {
+  display: none;
+}
+
+.toc-summary:hover {
+  color: var(--color-accent);
+}
+
+/* A drawn chevron, turned down while open; currentColor so hover recolors it. */
+.toc-summary::before {
+  content: "";
+  width: 0.4em;
+  height: 0.4em;
+  border-inline-end: 1.5px solid currentColor;
+  border-block-end: 1.5px solid currentColor;
+  rotate: -45deg;
+  transition: rotate var(--transition);
+}
+
+.toc[open] .toc-summary::before {
+  rotate: 45deg;
+}
+
+.toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.toc > nav > ul {
+  margin-block-start: var(--space-s);
+}
+
+.toc li {
+  margin-block: var(--space-xs);
+}
+
+/* h3 entries: indented under their h2, not a separate list style. */
+.toc li ul {
+  padding-inline-start: var(--space-s);
+}
+
+.toc a {
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.toc a:hover {
+  color: var(--color-accent);
+}
+
+.toc a[aria-current] {
+  color: var(--color-heading);
+  font-weight: 600;
+}
+
+/* Wide enough that the rail fits between the reading column and the
+   header logo's edge: --measure-wide reaches its 62rem floor at ~68rem of
+   viewport; narrower than that, the rail would get squeezed. Past ~1440px
+   the frame keeps widening, and the rail with it. */
+@media (min-width: 68rem) {
+  /* Out of flow, as tall as the article body, so the sticky child inside
+     it can travel the whole post. Its left edge lines up with the header
+     logo (.header-row's --measure-wide frame, inset by its padding); its
+     width is whatever margin is left, minus a gutter. */
+  .toc-rail {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-end: calc(100% + var(--space-l));
+    width: calc(
+      (var(--measure-wide) - 2 * var(--space-l) - 100%) / 2 - var(--space-l)
+    );
+  }
+
+  .toc {
+    position: sticky;
+    inset-block-start: var(--header-offset);
+    max-height: calc(100vh - var(--header-offset) - var(--space-l));
+    overflow-y: auto;
+    margin: 0;
+    scrollbar-width: none;
+  }
+
+  /* Always open here (the script in page.html keeps [open] in sync); the
+     summary becomes a plain label. */
+  .toc-summary {
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .toc-summary::before {
+    display: none;
+  }
+
+  /* The rail owns the left margin now, so whatever breaks out of the
+     reading column (figures, diagrams, wide tables) bleeds right only,
+     out to the same --measure-wide outer edge it reaches on both sides
+     elsewhere, and starts flush with the prose instead of centered. */
+  .has-toc :is(.figure-block, pre.mermaid) {
+    width: calc(50% + var(--measure-wide) / 2);
+    margin-inline: 0;
+  }
+
+  .has-toc .figure-block {
+    text-align: start;
+  }
+
+  .has-toc .figure-block img {
+    margin-inline: 0;
+  }
+
+  .has-toc .prose :is(.table-wrapper, .katex-display) {
+    max-width: calc(50% + var(--measure-wide) / 2);
+    margin-inline-start: 0;
+    translate: none;
+  }
 }
 
 /* A single quiet link back to the index after the prose - no tags, no
@@ -652,8 +802,12 @@ video {
   text-decoration-color: var(--color-accent);
 }
 
+/* Asymmetric on purpose: two lines of air above, well under one below, so
+   the heading reads as the start of the section under it rather than
+   floating halfway between two (gestalt proximity). The bottom gap must
+   stay visibly smaller than the gap between paragraphs, which is --rhythm. */
 .prose h2 {
-  margin: calc(var(--rhythm) * 2) 0 var(--rhythm);
+  margin: calc(var(--rhythm) * 2) 0 var(--space-s);
   font-size: var(--text-lg);
   font-weight: 600;
   line-height: 1.3;
@@ -682,10 +836,12 @@ video {
 }
 
 /* Margins collapse to their max: without this the next block's --rhythm
-   top margin would win over h3's tight bottom margin. */
-.prose h3 + p,
-.prose h3 + ul,
-.prose h3 + ol {
+   top margin would win over the heading's tight bottom margin. */
+.prose h2 + :is(p, ul, ol) {
+  margin-block-start: var(--space-s);
+}
+
+.prose h3 + :is(p, ul, ol) {
   margin-block-start: var(--space-xs);
 }
 
@@ -819,13 +975,21 @@ video {
 }
 
 /* === Tables ===
-   Same breakout as .figure-block/pre.mermaid: tabular data is exactly the
-   kind of content --measure-wide exists for, not the ~700px reading
-   column. overflow-x stays as a fallback for a table wider even than that. */
+   Sized to the content, not to a fixed frame: never narrower than the
+   reading column (so a small table's rules line up with the prose edges),
+   wider only as far as its columns actually need, capped at --measure-wide.
+   A three-column table of numbers stretched to the full wide frame puts
+   ~300px of empty rule between related values; this keeps them together.
+   Centering an element of unknown width on the column: start it at the
+   column's midpoint, then pull it back by half its own width. overflow-x
+   stays as a fallback for a table wider even than --measure-wide. */
 .table-wrapper {
-  width: var(--measure-wide);
+  width: max-content;
+  min-width: 100%;
+  max-width: var(--measure-wide);
   margin-block: var(--rhythm);
-  margin-inline: calc(50% - 50vw + (100vw - var(--measure-wide)) / 2);
+  margin-inline-start: 50%;
+  translate: -50% 0;
   overflow-x: auto;
 }
 
@@ -836,17 +1000,32 @@ video {
   line-height: 1.5;
 }
 
-.prose th {
-  padding: 0 var(--space-l) var(--space-xs) 0;
-  text-align: left;
-  font-weight: 700;
-  color: var(--color-muted);
+/* Gutters split evenly between neighbouring cells, so a right-aligned
+   number column sits as close to its left neighbour as a left-aligned one
+   does; the outer cells stay flush with the column edges. */
+.prose :is(th, td) {
+  padding-inline: var(--space-s);
   border-block-end: 1px solid var(--color-border);
 }
 
+.prose :is(th, td):first-child {
+  padding-inline-start: 0;
+}
+
+.prose :is(th, td):last-child {
+  padding-inline-end: 0;
+}
+
+.prose th {
+  padding-block: 0 var(--space-xs);
+  text-align: left;
+  font-weight: 700;
+  color: var(--color-muted);
+  vertical-align: bottom;
+}
+
 .prose td {
-  padding: var(--space-s) var(--space-l) var(--space-s) 0;
-  border-block-end: 1px solid var(--color-border);
+  padding-block: var(--space-s);
 }
 
 .prose tbody tr:hover td {
@@ -858,7 +1037,7 @@ video {
    fragment link (from elsewhere) doesn't land flush under the sticky
    header, and a brief highlight so the eye finds it. */
 .main-content :is(h2, h3, h4) {
-  scroll-margin-block-start: var(--space-xl);
+  scroll-margin-block-start: var(--header-offset);
 }
 
 .main-content :target {
@@ -1025,6 +1204,20 @@ video {
   overflow-x: auto;
 }
 
+/* Past phone widths, a block whose longest line doesn't fit the reading
+   column grows to fit it rather than scrolling: rightward only, so the
+   code's left edge stays on the prose line the eye is already following,
+   out to the --measure-wide outer edge. Blocks that fit stay column-width.
+   (Phones keep the full-bleed negative-gutter treatment instead, see the
+   max-width: 640px block.) */
+@media (min-width: 641px) {
+  .highlight {
+    width: max-content;
+    min-width: 100%;
+    max-width: calc(50% + var(--measure-wide) / 2);
+  }
+}
+
 code:not(pre code) {
   background-color: var(--color-panel);
   color: var(--color-heading);
@@ -1039,6 +1232,20 @@ code:not(pre code) {
   overflow-x: auto;
   overflow-y: hidden;
   padding-block: var(--space-3xs);
+}
+
+/* Past phone widths, an equation too long for the column grows around its
+   own center (same content-sized centering as .table-wrapper) before it
+   falls back to scrolling. .prose-scoped to outrank KaTeX's own stylesheet,
+   whose `margin: 1em 0` would otherwise reset the inline-start offset. */
+@media (min-width: 641px) {
+  .prose .katex-display {
+    width: max-content;
+    min-width: 100%;
+    max-width: var(--measure-wide);
+    margin-inline-start: 50%;
+    translate: -50% 0;
+  }
 }
 
 /* Mermaid diagrams: the escaped source shows as quiet monospace text until
@@ -1106,6 +1313,8 @@ pre.mermaid svg foreignObject {
     /* Page gutter, shared by .header-row, .site-container and .highlight
        so chrome and content stay flush at one edge. */
     --gutter: calc(var(--space-m) + var(--space-3xs)); /* 20px */
+
+    --header-offset: var(--space-3xl);
   }
 
   /* The short mark keeps the sticky header on one line at this width. */
@@ -1220,7 +1429,8 @@ pre.mermaid svg foreignObject {
   }
 
   .site-header,
-  .to-top {
+  .to-top,
+  .toc-rail {
     display: none;
   }
 

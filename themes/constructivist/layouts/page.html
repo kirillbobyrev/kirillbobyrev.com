@@ -1,4 +1,16 @@
 {{- define "main" -}}
+  {{- /* Table of contents: on by default for long posts with a few sections */ -}}
+  {{- /* to navigate; `toc = true/false` in front matter overrides either way. */ -}}
+  {{- $toc := and (ge .WordCount 1500) (ge (len .Fragments.HeadingsMap) 3) -}}
+  {{- if isset .Params "toc" -}}
+    {{- $toc = .Params.toc -}}
+  {{- end -}}
+  {{- $toc = and $toc .TableOfContents -}}
+  {{- /* has-toc: the rail takes the left margin, so breakouts bleed right. */ -}}
+  {{- $bodyClass := "article-body" -}}
+  {{- if $toc -}}
+    {{- $bodyClass = "article-body has-toc" -}}
+  {{- end -}}
   <article class="main-content">
     <header class="article-header">
       <h1>{{ .Title }}</h1>
@@ -7,6 +19,8 @@
           <time datetime="{{ .Date.Format "2006-01-02" }}"
             >{{ .Date.Format "January 2, 2006" }}</time
           >
+          <span aria-hidden="true">·</span>
+          <span>{{ .ReadingTime }} min read</span>
         </div>
       {{- end -}}
       {{- /* Optional 1-2 sentence subtitle, set via `deck` in front matter - */ -}}
@@ -16,7 +30,69 @@
         <p class="article-deck">{{ . }}</p>
       {{- end -}}
     </header>
-    <div class="prose">{{ .Content }}</div>
+    <div class="{{ $bodyClass }}">
+      {{- if $toc -}}
+        <div class="toc-rail">
+          {{- /* Ships open so it works without JS; the script right after */ -}}
+          {{- /* collapses it on narrow screens before first paint. */ -}}
+          <details class="toc" open>
+            <summary class="toc-summary">Contents</summary>
+            {{- replace .TableOfContents `<nav id="TableOfContents">` `<nav id="TableOfContents" aria-label="Contents">` | safeHTML -}}
+          </details>
+        </div>
+        <script>
+          (() => {
+            const toc = document.querySelector(".toc");
+            // Must match the min-width of the rail's media query in main.css.
+            const wide = window.matchMedia("(min-width: 68rem)");
+            const sync = () => {
+              toc.open = wide.matches;
+            };
+            sync();
+            wide.addEventListener("change", sync);
+
+            // Mark the section being read: the last heading that has
+            // scrolled above a line a third of the way down the viewport.
+            document.addEventListener("DOMContentLoaded", () => {
+              const entries = [...toc.querySelectorAll("a")]
+                .map((link) => [
+                  link,
+                  document.getElementById(
+                    decodeURIComponent(link.hash.slice(1)),
+                  ),
+                ])
+                .filter(([, heading]) => heading);
+              let current = null;
+              let queued = false;
+              const update = () => {
+                queued = false;
+                const line = window.innerHeight / 3;
+                let next = null;
+                for (const [link, heading] of entries) {
+                  if (heading.getBoundingClientRect().top > line) break;
+                  next = link;
+                }
+                if (next === current) return;
+                current?.removeAttribute("aria-current");
+                next?.setAttribute("aria-current", "location");
+                current = next;
+              };
+              window.addEventListener(
+                "scroll",
+                () => {
+                  if (queued) return;
+                  queued = true;
+                  requestAnimationFrame(update);
+                },
+                { passive: true },
+              );
+              update();
+            });
+          })();
+        </script>
+      {{- end -}}
+      <div class="prose">{{ .Content }}</div>
+    </div>
     <nav class="post-nav" aria-label="Post">
       <a href="/blog/" class="post-nav-link"
         >{{ partial "icon.html" (dict "name" "arrow-left" "size" 14) }}Writing</a
