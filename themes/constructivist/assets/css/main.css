@@ -118,9 +118,9 @@
    Five sizes, each with one job, loosely derived from a 1.25 modular scale
    (Bringhurst, "The Elements of Typographic Style"):
      --text-sm    1rem       nav, dates, captions, footnotes, table text
-     --text-base  1.125rem   body copy, lists, the lede; h3 at bold weight
+     --text-base  1.25rem    body copy, lists, the lede; h3 at bold weight
      --text-md    1.2rem     the site title/wordmark only
-     --text-lg    1.5rem     h2, Writing-index titles, pull-quotes, the deck
+     --text-lg    1.625rem   h2, Writing-index titles, pull-quotes, the deck
      --text-xl    3.25rem    every h1 - fixed, independent of --text-base
 
    Themes: every color is declared exactly once via light-dark(). The
@@ -143,9 +143,9 @@
     "Courier New", monospace;
 
   --text-sm: 1rem;
-  --text-base: 1.125rem;
+  --text-base: 1.25rem;
   --text-md: 1.2rem;
-  --text-lg: 1.5rem;
+  --text-lg: 1.625rem;
   --text-xl: 3.25rem;
 
   /* Flat geometry: the theme toggle's circle is the only border-radius
@@ -199,23 +199,31 @@
      contrast against --color-bg: 5.3:1; dark-mode: 5.9:1). */
   --color-accent: #d8402a;
 
-  /* The reading column: measured at ~67 characters/line of Inter at
-     --text-base on real prose (Butterick's ideal is ~66). rem-based, so it grows only with the fluid
-     root font-size, not with the viewport - a wide screen doesn't earn a
+  /* The reading column: measured at ~77 characters/line of Inter at
+     --text-base on real prose, where Anthropic's research and engineering
+     posts sit (the other engineering blogs measured run 82-96). Its width
+     comes from the type size as much as the line: 20px text makes a
+     ~735px column (~830px on a 2560px monitor, where the root font-size
+     has grown). rem-based, so it grows only with the fluid root
+     font-size, not with the viewport - a wide screen doesn't earn a
      longer line. Mobile is bounded by the viewport and --gutter instead
      (~39 CPL). */
-  --measure: 40rem;
-  /* The wider frame: figures, diagrams, tables and long code break out to
-     it, and the header row matches it, so chrome and the widest content
-     share one outer edge with the reading column inset inside. Two tiers,
-     as in Distill or a research paper's figure column: prose holds its
-     measure, while the material you look at rather than read grows with
-     the screen. Fixed at 62rem (992px) up to ~1440px of viewport, then
-     tracks the viewport (64vw) to an 84rem cap (~1500px, reached at
-     ~2200px), so a large monitor spends its width on figures instead of
-     empty margin. 92vw keeps a gutter on narrow screens. Keep the `sizes`
-     attribute in responsive-img.html in step with this. */
-  --measure-wide: min(92vw, clamp(62rem, 64vw + 4rem, 84rem));
+  --measure: 49rem;
+  /* The page frame: the header row spans it, and on articles a left rail
+     (date, reading time, contents) runs from the logo's edge to the
+     reading column, as on Stripe's and Anthropic's engineering blogs - a
+     wide screen goes to a metadata column instead of a longer line. 92vw
+     keeps a gutter; 84rem caps it. */
+  --frame: min(92vw, 84rem);
+  /* The wider content tier: figures, diagrams, tables and long code break
+     out to it. Two tiers, as in Distill or a research paper's figure
+     column: prose holds its measure, while the material you look at
+     rather than read grows with the screen. Fixed at 68rem (1088px) up to
+     ~1600px of viewport, then tracks the viewport (64vw) to an 84rem cap
+     (reached at ~2200px), where it meets --frame. 92vw keeps a gutter on
+     narrow screens. Keep the `sizes` attribute in responsive-img.html in
+     step with this. */
+  --measure-wide: min(92vw, clamp(68rem, 64vw + 4rem, 84rem));
 
   /* Clearance below the sticky header (~72px tall here, ~44px on mobile)
      for anything that scrolls or sticks under it: fragment-link targets
@@ -368,9 +376,9 @@ video {
   border-block-end: 1px solid var(--color-border);
 }
 
-/* --measure-wide, not --measure: see the token's comment. */
+/* --frame, not --measure: see the token's comment. */
 .header-row {
-  max-width: var(--measure-wide);
+  max-width: var(--frame);
   margin-inline: auto;
   padding-inline: var(--space-l);
   padding-block: var(--space-m);
@@ -693,22 +701,55 @@ video {
   font-weight: 600;
 }
 
-/* Wide enough that the rail fits between the reading column and the
-   header logo's edge: --measure-wide reaches its 62rem floor at ~68rem of
-   viewport; narrower than that, the rail would get squeezed. Past ~1440px
-   the frame keeps widening, and the rail with it. */
-@media (min-width: 68rem) {
+/* The left rail: article meta, then the contents. From 76rem of
+   viewport it gets ~140px between the header logo's edge and the reading
+   column; narrower than that, it would get squeezed, so both stay in the
+   flow above the prose. Past ~1460px --frame stops tracking the viewport
+   and grows only with the root font-size, and the rail with it. */
+@media (min-width: 76rem) {
+  /* Both rail parts sit in a box exactly as wide as the reading column,
+     so 100% resolves to the column's width. Left edge lines up with the
+     header logo (.header-row's --frame, inset by its padding); the width
+     is whatever margin is left, minus a gutter. */
+  .main-content {
+    --rail-width: calc(
+      (var(--frame) - 2 * var(--space-l) - 100%) / 2 - var(--space-l)
+    );
+  }
+
+  .article-header {
+    position: relative;
+  }
+
+  /* No block insets, so it keeps the spot it would take in the flow -
+     right under the title - while the deck moves up beside it: the date
+     reads as a label on the deck, as on Anthropic's posts. */
+  .article-meta {
+    position: absolute;
+    inset-inline-end: calc(100% + var(--space-l));
+    width: var(--rail-width);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3xs);
+  }
+
+  .article-meta > [aria-hidden] {
+    display: none;
+  }
+
+  /* No deck: line up with the first paragraph instead, which starts the
+     header's bottom margin below the title. */
+  .article-meta:last-child {
+    margin-block-start: var(--space-2xl);
+  }
+
   /* Out of flow, as tall as the article body, so the sticky child inside
-     it can travel the whole post. Its left edge lines up with the header
-     logo (.header-row's --measure-wide frame, inset by its padding); its
-     width is whatever margin is left, minus a gutter. */
+     it can travel the whole post. */
   .toc-rail {
     position: absolute;
     inset-block: 0;
     inset-inline-end: calc(100% + var(--space-l));
-    width: calc(
-      (var(--measure-wide) - 2 * var(--space-l) - 100%) / 2 - var(--space-l)
-    );
+    width: var(--rail-width);
   }
 
   .toc {
