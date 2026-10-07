@@ -116,12 +116,15 @@
    any one color or shape.
 
    Five sizes, each with one job, loosely derived from a 1.25 modular scale
-   (Bringhurst, "The Elements of Typographic Style"):
+   (Bringhurst, "The Elements of Typographic Style"). Headings sit close to
+   the body on purpose - h2 ~1.3x, h1 ~2.35x - a flatter hierarchy than
+   Anthropic's or OpenAI's (h1 3-3.8x), carried by weight and face more
+   than size:
      --text-sm    1rem       nav, dates, captions, footnotes, table text
-     --text-base  1.25rem    body copy, lists, the lede; h3 at bold weight
+     --text-base  1.0625rem  body copy, lists, the lede; h3 at bold weight
      --text-md    1.2rem     the site title/wordmark only
-     --text-lg    1.625rem   h2, Writing-index titles, pull-quotes, the deck
-     --text-xl    3.25rem    every h1 - fixed, independent of --text-base
+     --text-lg    1.375rem   h2, Writing-index titles, pull-quotes, the deck
+     --text-xl    2.5rem     every h1 - fixed, independent of --text-base
 
    Themes: every color is declared exactly once via light-dark(). The
    default color-scheme follows the OS; the header toggle forces one by
@@ -143,10 +146,10 @@
     "Courier New", monospace;
 
   --text-sm: 1rem;
-  --text-base: 1.25rem;
+  --text-base: 1.0625rem;
   --text-md: 1.2rem;
-  --text-lg: 1.625rem;
-  --text-xl: 3.25rem;
+  --text-lg: 1.375rem;
+  --text-xl: 2.5rem;
 
   /* Flat geometry: the theme toggle's circle is the only border-radius
      anywhere. */
@@ -202,13 +205,13 @@
   /* The reading column: measured at ~77 characters/line of Inter at
      --text-base on real prose, where Anthropic's research and engineering
      posts sit (the other engineering blogs measured run 82-96). Its width
-     comes from the type size as much as the line: 20px text makes a
-     ~735px column (~830px on a 2560px monitor, where the root font-size
-     has grown). rem-based, so it grows only with the fluid root
+     comes from the type size as much as the line: 17px text, as on
+     Anthropic's and OpenAI's blogs, makes a ~625px column (~700px on a
+     2560px monitor, where the root font-size has grown). rem-based, so it grows only with the fluid root
      font-size, not with the viewport - a wide screen doesn't earn a
      longer line. Mobile is bounded by the viewport and --gutter instead
      (~39 CPL). */
-  --measure: 49rem;
+  --measure: 42rem;
   /* The page frame: the header row spans it, and on articles a left rail
      (date, reading time, contents) runs from the logo's edge to the
      reading column, as on Stripe's and Anthropic's engineering blogs - a
@@ -702,7 +705,7 @@ video {
 }
 
 /* The left rail: article meta, then the contents. From 76rem of
-   viewport it gets ~140px between the header logo's edge and the reading
+   viewport it gets ~175px between the header logo's edge and the reading
    column; narrower than that, it would get squeezed, so both stay in the
    flow above the prose. Past ~1460px --frame stops tracking the viewport
    and grows only with the root font-size, and the rail with it. */
@@ -1340,14 +1343,11 @@ pre.mermaid svg foreignObject {
 
 /* === Responsive === */
 @media (max-width: 640px) {
-  /* Mobile type scale: the display sizes step down; --text-sm and
-     --text-base stay. --rhythm is pinned flat, deliberately tighter than
-     the line-height formula it uses on desktop. */
+  /* Mobile type scale: h1 and the wordmark step down; the text sizes
+     (17px body, as on desktop) stay. --rhythm is pinned flat, deliberately
+     tighter than the line-height formula it uses on desktop. */
   :root {
-    /* 17px: 18px would drop a phone column to ~36 characters/line. */
-    --text-base: 1.0625rem;
     --text-md: 1.125rem;
-    --text-lg: 1.375rem;
     --text-xl: 2.25rem;
     --rhythm: 1.5rem;
 
