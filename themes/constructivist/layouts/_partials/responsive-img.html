@@ -24,9 +24,9 @@
 <img
   src="{{ $fallback.RelPermalink }}"
   srcset="{{ delimit $srcset ", " }}"
-  {{- /* Mirrors main.css's --measure-wide: 92vw on narrow screens, 992px */ -}}
-  {{- /* to ~1440px, then 64vw + 4rem up to its ~1512px cap past 2200px. */ -}}
-  sizes="(max-width: 1078px) 92vw, (max-width: 1440px) 992px, (max-width: 2200px) calc(64vw + 4rem), 1512px"
+  {{- /* Mirrors main.css's --measure-wide: 92vw on narrow screens, 1088px */ -}}
+  {{- /* to ~1600px, then 64vw + 4rem up to its ~1512px cap past 2200px. */ -}}
+  sizes="(max-width: 1183px) 92vw, (max-width: 1600px) 1088px, (max-width: 2200px) calc(64vw + 4rem), 1512px"
   width="{{ $fallback.Width }}"
   height="{{ $fallback.Height }}"
   alt="{{ .alt }}"
