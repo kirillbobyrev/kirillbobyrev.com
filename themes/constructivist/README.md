@@ -4,15 +4,17 @@ An editorial-modernist Hugo theme for
 [kirillbobyrev.com](https://kirillbobyrev.com), with a quiet constructivist
 accent: a warm paper/near-black palette (light and dark are the same
 palette inverted, not separate designs) with one brick-red accent used
-sparingly (a heading's trailing dot, a link on hover). Two faces split by
-job: Space Grotesk for display (headings, wordmark, nav, index titles) and
-Inter for everything read in runs (body, lists, quotes, captions, tables);
-Space Mono appears only inside actual code. Five
-fixed type sizes, restrained hierarchy, no tiny uppercase-tracked metadata
-(think iA, Anthropic's research blog, Increment, Stripe Press, Works in
-Progress). The header is static on desktop and a sticky one-line bar with
-Cyrillic initials on mobile; the theme toggle is a plain half-filled
-circle.
+sparingly (a heading's trailing dot, hover, links inside articles). Faces
+split by job: Space Grotesk for display (headings, wordmark, nav, index
+titles), Source Serif 4 for everything read in runs (body, lists, quotes,
+the lede and deck), Inter for interface text that's scanned rather than
+read (dates, the contents rail, captions, tables), and JetBrains Mono only
+inside actual code. Six fixed type sizes, restrained hierarchy, no tiny
+uppercase-tracked metadata (think iA, Anthropic's research blog,
+Increment, Stripe Press, Works in Progress); articles borrow
+lexi-lambda's hanging section heads and colored links. The header is
+static on desktop and a sticky one-line bar with Cyrillic initials on
+mobile; the theme toggle is a plain half-filled circle.
 
 This theme lives in the same repo as the site that uses it
 (`themes/constructivist/`), same layered convention as its sibling theme
