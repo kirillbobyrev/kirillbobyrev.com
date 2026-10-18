@@ -2,7 +2,6 @@
 title = "Analyzing long win streaks in online chess"
 description = "A statistical analysis of Hikaru Nakamura's 55-game winning streak in online blitz chess."
 publishDate = 2023-11-28
-image = "top_5_blitz.jpeg"
 deck = "Vladimir Kramnik called Hikaru Nakamura’s 55‑game blitz win streak suspicious. A simple Elo model and Monte‑Carlo simulation suggest it is well within expectations."
 +++
 
