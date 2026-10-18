@@ -416,8 +416,7 @@ video {
 .blog-timeline-date,
 .blog-timeline-title,
 .post-nav-link,
-.social-link,
-.error-button {
+.social-link {
   font-family: var(--font-display);
 }
 
@@ -677,8 +676,8 @@ video {
   color: var(--color-muted);
 }
 
-/* Underlined-arrow social links under the About prose - the only place
-   they appear; there is no sitewide footer. */
+/* Underlined-arrow links: the social row under the About prose (there
+   is no sitewide footer) and the way back from the 404 page. */
 .link-row {
   margin-block-start: var(--space-2xl);
   display: flex;
@@ -1498,32 +1497,6 @@ pre.mermaid p {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
-}
-
-/* === 404 === */
-.error-page {
-  text-align: center;
-  padding-block: var(--space-3xl);
-}
-
-.error-page .error-title {
-  font-weight: 700;
-  margin-block-end: var(--space-m);
-}
-
-.error-button {
-  display: inline-block;
-  padding: var(--space-s) var(--space-l);
-  background-color: var(--color-heading);
-  color: var(--color-bg);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: var(--text-sm);
-  margin-block-start: var(--space-m);
-}
-
-.error-button:hover {
-  background-color: var(--color-accent);
 }
 
 /* === Responsive === */

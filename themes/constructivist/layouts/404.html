@@ -1,7 +1,19 @@
 {{- define "main" -}}
-  <article class="main-content error-page">
-    <h1 class="error-title">404</h1>
-    <p>This URL &notin; <code>/</code>.</p>
-    <a href="/" class="error-button">← Back to Home</a>
+  {{- /* Same page header as About, Now and Writing, and the About page's */ -}}
+  {{- /* arrow-link row for the way back - no one-off button styling. */ -}}
+  <article class="main-content">
+    <header class="page-header">
+      <h1 class="page-heading">404<span class="accent-dot">.</span></h1>
+      <p class="lede">This URL &notin; <code>/</code>.</p>
+    </header>
+    {{- $arrow := partial "icon.html" (dict "name" "arrow-right" "size" 13 "class" "social-link-arrow") -}}
+    <div class="link-row">
+      <a href="/" class="social-link">About{{ $arrow }}</a>
+      {{- with site.GetPage "/blog" -}}
+        <a href="{{ .RelPermalink }}" class="social-link"
+          >{{ .Title }}{{ $arrow }}</a
+        >
+      {{- end -}}
+    </div>
   </article>
 {{- end -}}
