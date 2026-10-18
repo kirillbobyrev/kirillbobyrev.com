@@ -78,6 +78,26 @@
   <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   {{- partialCached "css.html" . -}}
+  {{- /* Fetch a same-site page's HTML as soon as a reader shows intent */ -}}
+  {{- /* (hovers a link, or starts a tap), so it's already here on click. */ -}}
+  {{- /* Chromium only; other browsers ignore the script type. Prefetch, */ -}}
+  {{- /* not prerender: a prerendered page runs its scripts early, and */ -}}
+  {{- /* would miss a theme toggled between hover and click. */ -}}
+  <script type="speculationrules">
+    {
+      "prefetch": [
+        {
+          "where": {
+            "and": [
+              { "href_matches": "/*" },
+              { "not": { "href_matches": "/*.pdf" } }
+            ]
+          },
+          "eagerness": "moderate"
+        }
+      ]
+    }
+  </script>
   {{- if .Page.Store.Get "hasMath" -}}
     {{- partialCached "math.html" . -}}
   {{- end -}}

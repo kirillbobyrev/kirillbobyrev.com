@@ -286,6 +286,17 @@
   color-scheme: dark;
 }
 
+/* Page-to-page navigation crossfades instead of flashing, in browsers
+   with cross-document view transitions (Chromium 126+, Safari 18.2+);
+   others navigate as before. The header is identical on every page, so
+   it reads as staying put while the content changes. Top-level rather
+   than inside a prefers-reduced-motion query: Hugo's CSS minifier drops
+   the at-rule when it's nested. Reduced motion turns the animation off
+   in the prefers-reduced-motion block below instead. */
+@view-transition {
+  navigation: auto;
+}
+
 /* === Reset / base === */
 *,
 *::before,
@@ -1583,6 +1594,13 @@ pre.mermaid p {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+
+  /* The page crossfade (@view-transition above) cuts instead. */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }
 
