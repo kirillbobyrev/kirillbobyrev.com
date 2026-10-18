@@ -12,9 +12,9 @@
     })();
   </script>
   {{- /* Preload what every page paints above the fold: Source Serif 4 */ -}}
-  {{- /* (prose, Latin subset) and Space Grotesk (headings, nav). Inter */ -}}
-  {{- /* (dates, contents), italics, other subsets and JetBrains Mono */ -}}
-  {{- /* (code only) load on demand. */ -}}
+  {{- /* (prose, Latin subset) and Space Grotesk (everything else). */ -}}
+  {{- /* Italics, other subsets and JetBrains Mono (code only) load on */ -}}
+  {{- /* demand. */ -}}
   <link
     rel="preload"
     href="/fonts/SourceSerif4-latin-normal.woff2"
@@ -50,7 +50,7 @@
   {{- partial "schema.html" . -}}
   {{- /* Guard analytics so local `hugo server` sessions don't pollute stats. */ -}}
   {{- if hugo.IsProduction -}}
-    {{- partial "google_analytics.html" . -}}
+    {{- partial "analytics.html" . -}}
   {{- end -}}
   <link rel="canonical" href="{{ .Permalink }}" />
   <link
