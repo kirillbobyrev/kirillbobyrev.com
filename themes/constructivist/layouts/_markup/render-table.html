@@ -1,4 +1,13 @@
-<div class="table-wrapper">
+{{- /* A wide table scrolls inside its wrapper, so the wrapper has to take */ -}}
+{{- /* keyboard focus for keyboard users to scroll it (WCAG 2.1.1; Chrome */ -}}
+{{- /* 130+ does this natively, Safari doesn't); role and label name the */ -}}
+{{- /* stop for screen readers, numbered so each region's name is unique. */ -}}
+<div
+  class="table-wrapper"
+  tabindex="0"
+  role="region"
+  aria-label="Table {{ add .Ordinal 1 }}"
+>
   <table
     {{- range $k, $v := .Attributes -}}
       {{- if $v }}{{ printf " %s=%q" $k $v | safeHTMLAttr }}{{ end -}}

@@ -285,11 +285,12 @@
 
   --color-bg: light-dark(#f2efe8, #141310);
   --color-heading: light-dark(#14120d, #f4f1e9);
-  /* Body copy - contrast against --color-bg: light 15.9:1, dark 16.4:1. */
+  /* Body copy - contrast against --color-bg: light 13.5:1, dark 12.8:1. */
   --color-text: light-dark(rgba(20, 18, 13, 0.92), rgba(235, 231, 221, 0.92));
-  /* Everything secondary: nav, dates, captions, footnotes, table text
-     (light 8.4:1, dark 8.0:1). */
-  --color-muted: light-dark(rgba(20, 18, 13, 0.55), rgba(235, 231, 221, 0.52));
+  /* Everything secondary: nav, dates, captions, footnotes, table text.
+     AA for body-size text on the page (light 5.3:1, dark 5.7:1) and on
+     --color-panel too (4.8:1, 5.3:1). */
+  --color-muted: light-dark(rgba(20, 18, 13, 0.64), rgba(235, 231, 221, 0.58));
   --color-border: light-dark(rgba(20, 18, 13, 0.25), rgba(235, 231, 221, 0.22));
   /* Link underlines and the scrollbar: strong enough that a link is
      findable at a glance without the accent, which stays for hover. */
@@ -303,14 +304,17 @@
     rgba(235, 231, 221, 0.07)
   );
   /* The one color that does NOT flip with light-dark(): a considered ink
-     color, not a UI accent, so it stays put across modes (light-mode
-     contrast against --color-bg: 5.3:1; dark-mode: 5.9:1). */
+     color, not a UI accent, so it stays put across modes. At 3.9:1
+     (light) and 4.2:1 (dark) against --color-bg it's for marks, not
+     text: the heading dot, the blockquote rule, the focus ring, icons,
+     borders - anything WCAG holds to 3:1. */
   --color-accent: #d8402a;
-  /* The accent at text weight, for links inside articles (lexi-lambda's
-     colored links, in this site's ink): darkened in light mode and lifted
-     in dark so it holds AA on the page at body size (light 5.5:1, dark
-     6.8:1). Against body text it's under 3:1, so links keep an underline
-     as the non-color cue (WCAG 1.4.1), tinted to match. */
+  /* The accent at text weight: links inside articles (lexi-lambda's
+     colored links, in this site's ink) and every hovered text link.
+     Darkened in light mode and lifted in dark so it holds AA on the page
+     at body size (light 5.5:1, dark 6.8:1). Against body text it's under
+     3:1, so links keep an underline as the non-color cue (WCAG 1.4.1),
+     tinted to match. */
   --color-link: light-dark(#b0341d, #ef7a63);
 
   /* The reading column: measured at ~75 characters/line of Source Serif
@@ -441,8 +445,10 @@ video {
 
 ::selection {
   /* The ink color as a highlight, text flipped to the page color - the
-     one place --color-accent supplies a background instead of foreground. */
-  background-color: var(--color-accent);
+     one place it supplies a background instead of foreground. The
+     text-weight --color-link, not --color-accent, so selected text still
+     reads at AA (light 5.5:1, dark 6.8:1). */
+  background-color: var(--color-link);
   color: var(--color-bg);
 }
 
@@ -523,7 +529,7 @@ video {
 }
 
 .site-title:hover {
-  color: var(--color-accent);
+  color: var(--color-link);
 }
 
 .site-title-text {
@@ -583,7 +589,7 @@ video {
 }
 
 .nav-link:hover {
-  color: var(--color-accent);
+  color: var(--color-link);
 }
 
 .nav-link[aria-current] {
@@ -706,7 +712,7 @@ video {
 }
 
 .social-link:hover {
-  color: var(--color-accent);
+  color: var(--color-link);
   border-color: var(--color-accent);
 }
 
@@ -774,7 +780,7 @@ video {
 }
 
 .toc-summary:hover {
-  color: var(--color-accent);
+  color: var(--color-link);
 }
 
 /* A drawn chevron, turned down while open; currentColor so hover recolors it. */
@@ -818,7 +824,7 @@ video {
 }
 
 .toc a:hover {
-  color: var(--color-accent);
+  color: var(--color-link);
 }
 
 .toc a[aria-current] {
@@ -944,7 +950,7 @@ video {
 }
 
 .post-nav-link:hover {
-  color: var(--color-accent);
+  color: var(--color-link);
 }
 
 /* === Prose typography === */
@@ -953,7 +959,8 @@ video {
 }
 
 /* Quiet by default - the same color as the surrounding sentence; the
-   accent only shows up once a link is actually being interacted with. */
+   link color only shows up once a link is actually being interacted
+   with. */
 .prose a {
   color: var(--color-text);
   text-decoration: underline;
@@ -967,8 +974,8 @@ video {
 }
 
 .prose a:hover {
-  color: var(--color-accent);
-  text-decoration-color: var(--color-accent);
+  color: var(--color-link);
+  text-decoration-color: var(--color-link);
 }
 
 /* Inside articles, links take the ink color, as on lexi-lambda: a long
@@ -978,11 +985,6 @@ video {
 .article-body .prose a {
   color: var(--color-link);
   text-decoration-color: color-mix(in srgb, var(--color-link) 35%, transparent);
-}
-
-.article-body .prose a:hover {
-  color: var(--color-link);
-  text-decoration-color: var(--color-link);
 }
 
 /* Asymmetric on purpose: two lines of air above, well under one below, so
@@ -1329,7 +1331,7 @@ video {
 }
 
 .blog-timeline-entry:hover .blog-timeline-title {
-  color: var(--color-accent);
+  color: var(--color-link);
 }
 
 /* === Back to top === */
@@ -1679,8 +1681,11 @@ pre.mermaid p {
    light-dark(). Backgrounds are stripped in favour of --color-panel,
    token classes that only one palette defines fall back to the other
    theme's base text colour, and dark-only bold/italic accents are
-   dropped so both themes share one typography. Regenerate with those
-   commands on bumps. */
+   dropped so both themes share one typography. Three light-theme
+   colours are darkened from GitHub's to hold AA on --color-panel:
+   keywords/errors #cf222e -> #b31d28 (4.2 -> 5.3:1) and builtin pseudo
+   #6a737d -> #57606a. Regenerate with those commands on bumps, then
+   reapply those three. */
 .chroma {
   color: light-dark(#212529, #e6edf3);
   -webkit-text-size-adjust: none;
@@ -1722,18 +1727,18 @@ pre.mermaid p {
   display: flex;
 }
 .chroma .err {
-  color: light-dark(#cf222e, #f85149);
+  color: light-dark(#b31d28, #f85149);
 }
 .chroma .k,
 .chroma .kd,
 .chroma .kn,
 .chroma .kr,
 .chroma .kt {
-  color: light-dark(#cf222e, #ff7b72);
+  color: light-dark(#b31d28, #ff7b72);
 }
 .chroma .kc,
 .chroma .kp {
-  color: light-dark(#cf222e, #79c0ff);
+  color: light-dark(#b31d28, #79c0ff);
 }
 .chroma .na,
 .chroma .nx {
@@ -1766,7 +1771,7 @@ pre.mermaid p {
   color: light-dark(#6639ba, #e6edf3);
 }
 .chroma .bp {
-  color: light-dark(#6a737d, #e6edf3);
+  color: light-dark(#57606a, #e6edf3);
 }
 .chroma .nv,
 .chroma .vc,
