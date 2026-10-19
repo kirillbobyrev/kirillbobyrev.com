@@ -1,0 +1,12 @@
+# Shared by every lychee run: CI, the deploy, the weekly online check and
+# `npm run check-links`.
+
+exclude = [
+  # Fetched from kirillbobyrev/resume's releases at deploy time.
+  'resume\.pdf$',
+  # These answer bots with 403/999 whether or not the link works.
+  '^https://(www\.)?(linkedin|twitter|x|instagram)\.com/',
+]
+
+# Rate-limited is not broken.
+accept = ["200..=206", "429"]

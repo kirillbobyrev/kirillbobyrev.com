@@ -1,17 +1,14 @@
 name: Setup Hugo
 description: >-
-  Install the pinned Hugo extended release binary with checksum
-  verification. This is the single source of truth for the Hugo version
-  in CI; keep .devcontainer/devcontainer.json in sync when bumping.
-  The extended build ships SASS + WebP encoding, same as the old
-  `go install -tags extended` path, but installs in seconds instead of
-  compiling for minutes.
+  Install the pinned Hugo extended release binary, checksum-verified.
+  The single source of truth for the Hugo version in CI; keep
+  .devcontainer/devcontainer.json in sync when bumping.
 
 inputs:
   version:
     description: Hugo version to install (no leading v)
     required: false
-    default: '0.168.0'
+    default: "0.168.0"
 
 runs:
   using: composite

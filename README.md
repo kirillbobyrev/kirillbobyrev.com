@@ -17,25 +17,29 @@ that one config line, without touching content. The previous theme,
 
 CI: pull requests build the site, validate internal links, and check
 formatting (`.github/workflows/ci.yml`); merges to `main` build and deploy to
-GitHub Pages (`build-and-deploy.yml`); a weekly job checks external links
-online and files an issue on rot (`link-check.yml`).
+GitHub Pages (`build-and-deploy.yml`), fetching the resume PDF from
+[kirillbobyrev/resume](https://github.com/kirillbobyrev/resume)'s releases;
+a weekly job checks external links online and files an issue on rot
+(`link-check.yml`). Every link check shares `lychee.toml`.
 
 ## Develop
 
 ```sh
 hugo server -D        # live preview with drafts at http://localhost:1313
-npm run format        # format templates with Prettier
+npm run format        # format the codebase with Prettier (Node: .nvmrc)
 npm run check-links   # build and validate links with lychee
 ```
 
-HTML templates are formatted with Prettier via
-[prettier-plugin-go-template](https://github.com/NiklasPor/prettier-plugin-go-template).
-Two caveats:
+Prettier formats the codebase - CSS, JS, YAML, JSON, the READMEs, and HTML
+templates via
+[prettier-plugin-go-template](https://github.com/NiklasPor/prettier-plugin-go-template) -
+and CI checks it. Posts, archetypes and static files are left as written
+(`.prettierignore`). Two caveats for templates:
 
 - Keep Go template comments (`{{ /* ... */ }}`) on a single line: the plugin
   splits multiline comments across lines, which breaks Hugo's template parser.
-- The theme's `layouts/rss.xml` is hand-formatted and untouched by the
-  `*.html` glob above: the plugin parses input as HTML, where `<link>` is a
+- The theme's `layouts/rss.xml` is hand-formatted, since Prettier skips
+  `.xml`: the plugin parses input as HTML, where `<link>` is a
   void element, so RSS's `<link>...</link>` container breaks its parser. The
   template uses `{{- -}}` whitespace-trim markers around text content, so
   indentation never leaks into the feed.

@@ -1,16 +1,14 @@
 {
-    "name": "Blog development",
-    "image": "mcr.microsoft.com/devcontainers/base:debian",
-    "features": {
-        "ghcr.io/devcontainers/features/git:1": {},
-        "ghcr.io/devcontainers/features/github-cli:1": {},
-        "ghcr.io/devcontainers/features/hugo:1": {
-            "version": "0.168.0",
-            "extended": true
-        },
-        "ghcr.io/devcontainers/features/node:2": {}
+  "name": "Blog development",
+  "image": "mcr.microsoft.com/devcontainers/base:debian",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/hugo:1": {
+      "version": "0.168.0",
+      "extended": true
     },
-    "forwardPorts": [
-        1313
-    ]
+    "ghcr.io/devcontainers/features/node:2": {}
+  },
+  "forwardPorts": [1313]
 }

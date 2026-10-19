@@ -6,7 +6,7 @@ name: Link check
 # failing a deploy.
 on:
   schedule:
-    - cron: '0 6 * * 1' # Mondays 06:00 UTC
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
   workflow_dispatch:
 
 permissions:
@@ -27,46 +27,20 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Setup Hugo
         uses: ./.github/actions/setup-hugo
 
-      - name: Fetch resume PDF
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          mkdir -p static
-          gh release download --repo kirillbobyrev/resume \
-            --pattern "Kirill-Bobyrev-Resume.pdf" \
-            --output static/resume.pdf --clobber \
-            || printf '%%PDF-1.4\n%%%% placeholder for CI\n' > static/resume.pdf
-
       - name: Build with Hugo
-        env:
-          HUGO_ENVIRONMENT: production
-          HUGO_ENV: production
-        run: |
-          hugo --gc --minify
+        run: hugo --gc --minify
 
       - name: Check external links
         id: lychee
-        uses: lycheeverse/lychee-action@v2.9.0
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
-          # 429 is accepted: rate-limited hosts are not broken links.
-          # Big social networks are excluded because they answer bots
-          # with 403/999 regardless of whether the link works.
-          args: >-
-            --no-progress
-            --root-dir ./public
-            --accept 200..=206,429
-            --exclude linkedin\.com
-            --exclude twitter\.com
-            --exclude x\.com
-            --exclude instagram\.com
-            ./public
+          # Exclusions and accepted statuses: lychee.toml.
+          args: --no-progress --root-dir ./public ./public
           output: lychee-report.md
           fail: false
 

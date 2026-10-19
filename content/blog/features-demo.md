@@ -31,6 +31,30 @@ You can also create nested lists:
   - Recurrent Neural Networks (RNNs)
   - Transformer models and attention mechanisms
 
+## Callouts
+
+GitHub-style alerts render as titled callouts:
+
+> [!NOTE]
+> Useful context a skimming reader should still see.
+
+> [!TIP]
+> A better way to do the thing.
+
+> [!IMPORTANT]
+> Something the reader needs to know to succeed.
+
+> [!WARNING]
+> Something that needs attention before going further.
+
+> [!CAUTION] Custom title
+> A risk worth calling out, with a title of its own.
+
+## Inline formatting
+
+H~2~O and E = mc^2^ via subscript and superscript, ==highlighted text==,
+++inserted text++ and ~~deleted text~~.
+
 ## Diagrams
 
 Mermaid code blocks render as diagrams that follow the site theme:
@@ -157,24 +181,10 @@ Use `const variable = "value"` for inline code snippets. You can also use `npm i
 
 ## Figure Examples
 
-Every figure breaks out of the prose measure by default - there's no narrower
-mode to opt into, so images and diagrams always get the extra horizontal room:
+Every image breaks out of the prose measure, and its Markdown title becomes
+the caption:
 
-{{< figure src="/images/og.jpg" caption="A figure with a caption, via the figure shortcode." alt="Site Open Graph image" />}}
-
-## Interactive Embeds
-
-The `embed` shortcode drops a sandboxed iframe pointing at a self-contained
-static HTML file (own inline JS/CSS, no build dependency) for interactive
-figures a static image or Mermaid diagram can't express:
-
-{{< embed src="/embeds/demo-bars.html" height="220" caption="A minimal interactive demo, embedded via the `embed` shortcode." />}}
-
-The embedded file can pull in a charting library too - here D3 is loaded
-from a pinned CDN version inside the standalone HTML file itself, same as any
-other embed:
-
-{{< embed src="/embeds/demo-d3-scatter.html" height="320" caption="A D3 scatter plot with hover tooltips, embedded the same way." />}}
+![Site Open Graph image](/images/og.jpg "A figure with a caption, from a plain Markdown image.")
 
 ## Mathematical Expressions
 

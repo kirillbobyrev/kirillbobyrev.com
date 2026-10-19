@@ -1,2 +1,8 @@
-# prettier-plugin-go-template cannot parse dynamic tag names (<h{{ .Level }}>)
-themes/constructivist/layouts/_markup/render-heading.html
+# Prettier also skips everything in .gitignore (build output, node_modules).
+package-lock.json
+
+# Authored content and served-as-is files are left exactly as written.
+content
+archetypes
+static
+themes/*/static

@@ -1,0 +1,262 @@
+/* Site chrome and page headers: header, nav, page titles, the About
+   link row, the Writing index. */
+.site-container {
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding-inline: var(--space-l);
+  padding-block-end: var(--space-3xl);
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background-color: var(--color-bg);
+  border-block-end: 1px solid var(--color-border);
+}
+
+.header-row {
+  max-width: var(--frame);
+  margin-inline: auto;
+  padding: var(--space-m) var(--space-l);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-l);
+}
+
+.site-title {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--color-heading);
+  font-weight: 700;
+  font-size: var(--text-md);
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  white-space: nowrap;
+  transition: color var(--transition);
+}
+
+.site-title:hover {
+  color: var(--color-link);
+}
+
+/* Full name on desktop, Cyrillic initials on phones. The hidden one
+   collapses to zero width rather than display: none, so the full name
+   stays the link's accessible name either way. */
+.site-title-full,
+.site-title-short {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.site-title-full {
+  max-width: 16em;
+}
+
+.site-title-short {
+  max-width: 0;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: var(--space-l);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  color: var(--color-muted);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding: var(--space-2xs) 0;
+  transition: color var(--transition);
+}
+
+.nav-link:hover {
+  color: var(--color-link);
+}
+
+.nav-link[aria-current] {
+  color: var(--color-heading);
+  font-weight: 700;
+}
+
+/* About, Now, Writing, 404. */
+.page-header {
+  margin-block: var(--space-xl) var(--space-m);
+}
+
+.page-eyebrow {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-muted);
+}
+
+.page-heading,
+.main-content h1 {
+  margin: var(--space-m) 0 0;
+  font-weight: 500;
+  font-size: var(--text-xl);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-heading);
+  text-wrap: balance;
+}
+
+.accent-dot {
+  color: var(--color-accent);
+}
+
+.lede {
+  margin: var(--space-l) 0 0;
+  font-size: var(--text-prose);
+  line-height: 1.6;
+}
+
+.page-footnote {
+  margin-block-start: var(--space-xl);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+/* Underlined arrow links: socials on About, the way back on 404. */
+.link-row {
+  margin-block-start: var(--space-2xl);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs) var(--space-l);
+  font-weight: 500;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  color: var(--color-text);
+  border-bottom: 2px solid var(--color-border);
+  text-decoration: none;
+  transition:
+    color var(--transition),
+    border-color var(--transition);
+}
+
+.social-link:hover {
+  color: var(--color-link);
+  border-color: var(--color-accent);
+}
+
+.social-link-arrow {
+  flex: none;
+  margin-inline-start: var(--space-2xs);
+  opacity: 0.55;
+}
+
+/* The Writing index: a chronology, date then title on one baseline
+   (stacked on phones), no separators. */
+.blog-timeline {
+  list-style: none;
+  margin-block: var(--space-2xl) var(--space-s);
+  padding: 0;
+}
+
+.blog-timeline-entry {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-m);
+  padding: var(--space-m) var(--space-xs);
+  margin-inline: calc(var(--space-xs) * -1);
+  text-decoration: none;
+  color: inherit;
+}
+
+.blog-timeline-date {
+  flex: none;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.blog-timeline-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  min-width: 0;
+}
+
+.blog-timeline-title {
+  color: var(--color-heading);
+  font-size: var(--text-lg);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.008em;
+  transition: color var(--transition);
+}
+
+.blog-timeline-entry:hover .blog-timeline-title {
+  color: var(--color-link);
+}
+
+.blog-timeline-deck {
+  color: var(--color-muted);
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+@media (max-width: 640px) {
+  .site-container {
+    padding-inline: var(--gutter);
+  }
+
+  .header-row {
+    padding: var(--space-xs) var(--gutter);
+    gap: var(--space-xs) var(--space-m);
+  }
+
+  .site-title-full {
+    max-width: 0;
+  }
+
+  .site-title-short {
+    max-width: 3em;
+  }
+
+  .nav-list {
+    gap: var(--space-m);
+  }
+
+  /* 44px touch targets without growing the header row. */
+  .site-title,
+  .nav-link {
+    position: relative;
+  }
+
+  .site-title::after,
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    inset: 50%;
+    inline-size: max(100%, 2.75rem);
+    block-size: max(100%, 2.75rem);
+    translate: -50% -50%;
+  }
+
+  .page-header {
+    margin-block: var(--space-l) var(--space-m);
+  }
+
+  .blog-timeline-entry {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2xs);
+    padding-block: var(--gutter);
+  }
+}
