@@ -5,10 +5,10 @@
         "ghcr.io/devcontainers/features/git:1": {},
         "ghcr.io/devcontainers/features/github-cli:1": {},
         "ghcr.io/devcontainers/features/hugo:1": {
-            "version": "0.164.0",
+            "version": "0.168.0",
             "extended": true
         },
-        "ghcr.io/devcontainers/features/node:1": {}
+        "ghcr.io/devcontainers/features/node:2": {}
     },
     "forwardPorts": [
         1313
