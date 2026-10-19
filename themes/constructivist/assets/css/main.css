@@ -1,8 +1,13 @@
-/* JetBrains Mono (OFL, via @fontsource-variable/jetbrains-mono 5.3.0) sets
-   code only. A text mono, not a display one: tall x-height, distinct
-   0/O and 1/l/I, and it stays even at the ~15px code runs at. Variable
-   wght; no italic file, since no highlighting style here sets italic. Same
-   unicode-range split as Source Serif below. */
+/* JetBrains Mono (OFL) sets code only. A text mono, not a display one:
+   tall x-height, distinct 0/O and 1/l/I, and it stays even at the ~15px
+   code runs at. Upstream v2.304's variable font (fonts/variable/ in
+   JetBrains/JetBrainsMono; Fontsource repackages Google Fonts' older
+   2.211), cut into the same unicode ranges as Source Serif below with
+   `fonttools subset 'JetBrainsMono[wght].ttf' --unicodes=<range>
+   --flavor=woff2`, which keeps the default-on features (calt, ccmp,
+   locl, mark) and drops the opt-in variants nothing here enables.
+   Variable wght; no italic file, since no highlighting style sets
+   italic. */
 @font-face {
   font-family: "JetBrains Mono";
   src: url("/fonts/JetBrainsMono-latin-normal.woff2") format("woff2");
