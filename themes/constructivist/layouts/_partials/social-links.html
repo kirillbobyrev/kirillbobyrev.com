@@ -1,13 +1,5 @@
-{{- /*
-  Text social links ("GitHub →" ...) for the About page's .link-row.
-  Handles come from params.social in hugo.toml; `email` is optional - add
-  `email = "you@example.com"` under [params.social] to show it.
-  */
--}}
+{{- /* The About page's social links; handles from params.social. */ -}}
 {{- $arrow := partial "icon.html" (dict "name" "arrow-right" "size" 13 "class" "social-link-arrow") -}}
-{{- with .Site.Params.social.email -}}
-  <a href="mailto:{{ . }}" class="social-link">Email{{ $arrow }}</a>
-{{- end -}}
 {{- with .Site.Params.social.github -}}
   <a href="https://github.com/{{ . }}" class="social-link" rel="me noopener"
     >GitHub{{ $arrow }}</a

@@ -1,0 +1,115 @@
+/* Things you look at rather than read: figures, code, math, diagrams.
+   They grow past the reading column, up to --measure-wide. */
+
+/* Figures and diagrams always break out, re-centered on the viewport.
+   Images keep their natural size inside. */
+.figure-block,
+pre.mermaid {
+  width: var(--measure-wide);
+  margin-block: var(--rhythm);
+  margin-inline: calc(50% - 50vw + (100vw - var(--measure-wide)) / 2);
+}
+
+.figure-block {
+  text-align: center;
+}
+
+.figure-block img {
+  margin-inline: auto;
+  border: 1px solid var(--color-border);
+}
+
+.figure-caption {
+  margin-block-start: var(--space-xs);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.highlight {
+  margin-block: var(--rhythm);
+  background-color: var(--color-panel);
+}
+
+.highlight pre {
+  margin: 0;
+  padding: var(--space-m);
+  font-family: var(--font-mono);
+  /* ~15px, like inline code at 0.8em of the prose size. */
+  font-size: 0.86em;
+  line-height: 1.7;
+  tab-size: 4;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+code:not(pre code) {
+  background-color: var(--color-panel);
+  color: var(--color-heading);
+  padding: 1px 5px;
+  font-size: 0.8em;
+  font-family: var(--font-mono);
+}
+
+/* KaTeX: long display equations scroll instead of overflowing. */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: var(--space-3xs);
+}
+
+/* Past phones, a code block or equation too long for the column grows
+   to fit before it scrolls: code rightward only, keeping its left edge
+   on the prose; equations around their center, like tables. .prose
+   outranks KaTeX's own margin. */
+@media (min-width: 641px) {
+  .highlight {
+    width: max-content;
+    min-width: 100%;
+    max-width: calc(50% + var(--measure-wide) / 2);
+  }
+
+  .prose .katex-display {
+    width: max-content;
+    min-width: 100%;
+    max-width: var(--measure-wide);
+    margin-inline-start: 50%;
+    translate: -50% 0;
+  }
+}
+
+/* Mermaid: the source shows as quiet monospace until the script draws
+   the SVG. */
+pre.mermaid {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-xl) var(--space-l);
+  background-color: var(--color-panel);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+
+/* Mermaid sometimes sizes a label's box a little narrow for this font. */
+pre.mermaid svg foreignObject {
+  overflow: visible;
+}
+
+/* Labels are <p>s inside .prose; hand Mermaid back the metrics it sized
+   them with. */
+pre.mermaid p {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+@media (max-width: 640px) {
+  .highlight {
+    margin-inline: calc(var(--gutter) * -1);
+  }
+
+  pre.mermaid {
+    padding-inline: var(--space-m);
+  }
+}

@@ -1,16 +1,13 @@
-/* === Print === */
 @media print {
   @page {
     margin: 2.5cm;
   }
 
-  :root,
-  :root[data-theme="dark"] {
+  :root {
     color-scheme: light;
   }
 
   .site-header,
-  .to-top,
   .toc-rail {
     display: none;
   }

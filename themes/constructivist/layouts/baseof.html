@@ -10,11 +10,6 @@
     <main id="content" class="site-container">
       {{- block "main" . }}{{ end }}
     </main>
-    {{- /* No sitewide footer: the social-links row lives on the About */ -}}
-    {{- /* page (home.html) only, not repeated as chrome on every page. */ -}}
-    {{- /* Site behaviour (theme toggle, back-to-top, contents tracking): */ -}}
-    {{- /* assets/js/main.js. Mermaid's loader only where a diagram is. */ -}}
-    {{- partial "script.html" (dict "path" "js/main.js") -}}
     {{- if .Page.Store.Get "hasMermaid" -}}
       {{- partial "script.html" (dict "path" "js/mermaid.js" "module" true) -}}
     {{- end -}}

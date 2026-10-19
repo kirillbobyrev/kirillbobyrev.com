@@ -1,7 +1,6 @@
-{{- /* assets/css/main.css only @imports the modules; css.Build (esbuild) */ -}}
-{{- /* bundles them into one stylesheet. Targets are the first versions */ -}}
-{{- /* with light-dark(), which every color here depends on - nothing */ -}}
-{{- /* newer needs lowering. /fonts/ is static, so its url()s stay as-is. */ -}}
+{{- /* css.Build (esbuild) bundles main.css's @imports into one stylesheet. */ -}}
+{{- /* Targets: the first versions with light-dark(), which every color uses. */ -}}
+{{- /* /fonts/ is static, so its url()s stay as-is. */ -}}
 {{- $opts := dict
   "minify" hugo.IsProduction
   "externals" (slice "/fonts/*")
@@ -12,9 +11,8 @@
     {{- /* Linked, so hugo server can hot-swap CSS edits. */ -}}
     <link rel="stylesheet" href="{{ .RelPermalink }}" />
   {{- else -}}
-    {{- /* Inlined: at ~25KB (~6KB gzipped) it costs less than the round */ -}}
-    {{- /* trip it saves, which is render-blocking on every first visit; a */ -}}
-    {{- /* cached file buys little when GitHub Pages serves max-age=600. */ -}}
+    {{- /* Inlined: ~6KB gzipped costs less than a render-blocking round */ -}}
+    {{- /* trip, and GitHub Pages' max-age=600 makes caching worth little. */ -}}
     <style>
       {{ .Content | safeCSS }}
     </style>

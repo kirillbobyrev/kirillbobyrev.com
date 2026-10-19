@@ -1,12 +1,5 @@
-{{- /*
-  Renders a single <li> entry in a .blog-timeline list.
-  Params (dict): page (Page, required). ISO date (unlike the article
-  page's "January 2, 2006") so every row's date is the same width and
-  lines up in a column. The page's description, when set, runs under the
-  title so a reader can tell what a post is about before opening it. See
-  timeline.css.
-  */
--}}
+{{- /* One Writing-index row. Params (dict): page. ISO dates, so every */ -}}
+{{- /* date is the same width and they line up in a column. */ -}}
 <li>
   <a href="{{ .page.RelPermalink }}" class="blog-timeline-entry">
     {{- if .page.Date -}}

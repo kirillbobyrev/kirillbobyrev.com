@@ -18,9 +18,6 @@
           <span>{{ .ReadingTime }} min read</span>
         </div>
       {{- end -}}
-      {{- /* Optional 1-2 sentence subtitle, set via `deck` in front matter - */ -}}
-      {{- /* most posts won't set one, and that's fine, it's additive to the */ -}}
-      {{- /* content contract like .Params.tagline on the About page. */ -}}
       {{- with .Params.deck -}}
         <p class="article-deck">{{ . }}</p>
       {{- end -}}
@@ -28,15 +25,12 @@
     <div class="article-body">
       {{- if $toc -}}
         <div class="toc-rail">
-          {{- /* Ships open so it works without JS; the script right after */ -}}
-          {{- /* collapses it on narrow screens before first paint. */ -}}
           <details class="toc" open>
             <summary class="toc-summary">Contents</summary>
             {{- replace .TableOfContents `<nav id="TableOfContents">` `<nav id="TableOfContents" aria-label="Contents">` | safeHTML -}}
           </details>
         </div>
-        {{- /* Collapses the contents on narrow screens before first paint. */ -}}
-        {{- partial "script.html" (dict "path" "js/toc-init.js") -}}
+        {{- partial "script.html" (dict "path" "js/toc.js") -}}
       {{- end -}}
       <div class="prose">{{ .Content }}</div>
     </div>

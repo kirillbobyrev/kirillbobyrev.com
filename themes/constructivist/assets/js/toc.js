@@ -1,12 +1,19 @@
-// Marks the section being read in the table of contents: the last
-// heading that has scrolled above a line a third of the way down the
-// viewport. An IntersectionObserver whose root ends at that line reports
-// each heading's position as it crosses, so nothing is measured per
-// scroll frame.
-export function initToc() {
-  const toc = document.querySelector(".toc");
-  if (!toc) return;
+// Inlined right after the table of contents (page.html), so the first
+// part runs before first paint. The <details> ships open so it works
+// without JS; collapse it on screens too narrow for the rail. The query
+// must match the rail's in article.css.
+const toc = document.querySelector(".toc");
+const wide = matchMedia("(min-width: 76rem)");
+const sync = () => {
+  toc.open = wide.matches;
+};
+sync();
+wide.addEventListener("change", sync);
 
+// Mark the section being read: the last heading above a line a third of
+// the way down the viewport. The observer's root ends at that line, so
+// it reports headings as they cross it instead of measuring every frame.
+addEventListener("DOMContentLoaded", () => {
   const links = new Map();
   for (const link of toc.querySelectorAll("a")) {
     const heading = document.getElementById(
@@ -32,8 +39,7 @@ export function initToc() {
       next?.setAttribute("aria-current", "location");
       current = next;
     },
-    // Shrink the root to the top third of the viewport.
     { rootMargin: "0px 0px -67% 0px" },
   );
   for (const heading of headings) observer.observe(heading);
-}
+});

@@ -1,23 +1,19 @@
-// Draws ```mermaid blocks (see render-codeblock-mermaid.html), only on
-// pages that have one. Mermaid's own defaults - layout (ELK), look (neo)
-// and theme - with only the theme's light/dark variant chosen to follow
-// the site; diagrams are redrawn from the saved sources on every theme
-// change. Loaded from the CDN as an ES module (kept external by js.Build).
+// Draws ```mermaid blocks (render-codeblock-mermaid.html), only on pages
+// that have one. Mermaid's own defaults, with the theme's light or dark
+// variant following the OS; diagrams are redrawn from the saved sources
+// when it changes. Loaded from the CDN (kept external by js.Build).
 import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@12.2.0/dist/mermaid.esm.min.mjs";
 
 const blocks = [...document.querySelectorAll("pre.mermaid")];
 const sources = blocks.map((el) => el.textContent.trim());
-const mq = window.matchMedia("(prefers-color-scheme: dark)");
-const dark = () =>
-  (document.documentElement.dataset.theme ||
-    (mq.matches ? "dark" : "light")) === "dark";
+const dark = matchMedia("(prefers-color-scheme: dark)");
 
 let pass = 0;
 const render = async () => {
   const n = ++pass;
   mermaid.initialize({
     startOnLoad: false,
-    theme: dark() ? "redux-dark-color" : "redux-color",
+    theme: dark.matches ? "redux-dark-color" : "redux-color",
   });
   for (const [i, el] of blocks.entries()) {
     try {
@@ -30,8 +26,4 @@ const render = async () => {
 };
 
 render();
-mq.addEventListener("change", render);
-new MutationObserver(render).observe(document.documentElement, {
-  attributes: true,
-  attributeFilter: ["data-theme"],
-});
+dark.addEventListener("change", render);

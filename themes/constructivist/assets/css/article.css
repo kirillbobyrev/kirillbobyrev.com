@@ -1,8 +1,4 @@
-/* === Article meta / post title === */
-/* The bottom margin collapses against the first prose block's --rhythm
-   top margin; --space-2xl wins that outright, leaving a deliberate pause
-   before the body copy starts. Flush left on the prose edge like every
-   other page heading: one alignment axis from title to last paragraph. */
+/* Blog posts: title block, contents, the left rail, the link back. */
 .article-header {
   margin-block: var(--space-3xl) var(--space-2xl);
 }
@@ -17,10 +13,6 @@
   font-size: var(--text-sm);
 }
 
-/* Optional 1-2 sentence deck (front matter `deck`) - a step up from body
-   size, quieter than the heading, balanced so a long deck still reads as
-   a few even lines. Italic sets it apart from the body copy below it by
-   texture rather than by another size or color. */
 .article-deck {
   margin: var(--space-l) 0 0;
   font-size: var(--text-lg);
@@ -29,12 +21,9 @@
   text-wrap: balance;
 }
 
-/* === Table of contents ===
-   Long posts only (see page.html). Narrow viewports: a collapsed
-   <details> between the header and the body. Wide ones (the media query
-   below): pinned in the empty margin left of the reading column, open,
-   with the section in view marked the same way the nav marks the current
-   page - color and weight, no painted indicator. */
+/* Contents (long posts, see page.html): a collapsed <details> above the
+   prose on narrow screens, an always-open list in the left rail on wide
+   ones. The section in view is marked like the current nav page. */
 .article-body {
   position: relative;
 }
@@ -64,7 +53,6 @@
   color: var(--color-link);
 }
 
-/* A drawn chevron, turned down while open; currentColor so hover recolors it. */
 .toc-summary::before {
   content: "";
   width: 0.4em;
@@ -93,7 +81,6 @@
   margin-block: var(--space-xs);
 }
 
-/* h3 entries: indented under their h2, not a separate list style. */
 .toc li ul {
   padding-inline-start: var(--space-s);
 }
@@ -113,18 +100,12 @@
   font-weight: 600;
 }
 
-/* The left rail: article meta, then the contents. From 76rem of
-   viewport it gets ~175px between the header logo's edge and the reading
-   column; narrower than that, it would get squeezed, so both stay in the
-   flow above the prose. Past ~1460px --frame stops tracking the viewport
-   and grows only with the root font-size, and the rail with it. */
+/* The rail: date and contents in the margin left of the reading column,
+   from the header logo's edge. Below 76rem it would be too narrow, so
+   both stay in the flow. Keep the width in step with toc.js. */
 @media (min-width: 76rem) {
-  /* Both rail parts sit in a box exactly as wide as the reading column,
-     so 100% resolves to the column's width. Left edge lines up with the
-     header logo (.header-row's --frame, inset by its padding); the width
-     is whatever margin is left, minus a gutter. The gutter is wide enough
-     for an article's hanging h2 (one --space-l into the margin) to clear
-     the contents list scrolling beside it by another --space-l or so. */
+  /* 100% here is the reading column's width. The gap leaves room for the
+     hanging h2s. */
   .main-content {
     --rail-gap: var(--space-2xl);
     --rail-width: calc(
@@ -136,9 +117,7 @@
     position: relative;
   }
 
-  /* No block insets, so it keeps the spot it would take in the flow -
-     right under the title - while the deck moves up beside it: the date
-     reads as a label on the deck, as on Anthropic's posts. */
+  /* Beside the deck, or the first paragraph if there's no deck. */
   .article-meta {
     position: absolute;
     inset-inline-end: calc(100% + var(--rail-gap));
@@ -152,14 +131,11 @@
     display: none;
   }
 
-  /* No deck: line up with the first paragraph instead, which starts the
-     header's bottom margin below the title. */
   .article-meta:last-child {
     margin-block-start: var(--space-2xl);
   }
 
-  /* Out of flow, as tall as the article body, so the sticky child inside
-     it can travel the whole post. */
+  /* As tall as the article, so the sticky list can travel all of it. */
   .toc-rail {
     position: absolute;
     inset-block: 0;
@@ -176,8 +152,6 @@
     scrollbar-width: none;
   }
 
-  /* Always open here (assets/js/toc-init.js keeps [open] in sync); the
-     summary becomes a plain label. */
   .toc-summary {
     cursor: default;
     pointer-events: none;
@@ -187,10 +161,8 @@
     display: none;
   }
 
-  /* The rail owns the left margin now, so whatever breaks out of the
-     reading column (figures, diagrams, wide tables) bleeds right only,
-     out to the same --measure-wide outer edge it reaches on both sides
-     elsewhere, and starts flush with the prose instead of centered. */
+  /* The rail owns the left margin, so wide blocks start flush with the
+     prose and break out to the right only. */
   .article-body:has(.toc-rail) :is(.figure-block, pre.mermaid) {
     width: calc(50% + var(--measure-wide) / 2);
     margin-inline: 0;
@@ -211,8 +183,6 @@
   }
 }
 
-/* A single quiet link back to the index after the prose - no tags, no
-   "you may also like". */
 .post-nav {
   margin-block-start: var(--space-3xl);
   padding-block-start: var(--space-l);

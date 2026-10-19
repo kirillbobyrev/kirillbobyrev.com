@@ -2,7 +2,7 @@
   Builds an assets/js entry point with js.Build (esbuild) and inlines it.
   Every script on the site is small and page-critical, so inlining saves a
   request each, like the stylesheet (see css.html).
-  Params (dict): path (required, e.g. "js/main.js"); params (optional,
+  Params (dict): path (required, e.g. "js/toc.js"); params (optional,
   imported in the script as "@params"); module (optional bool: ES module
   output in a <script type="module">, for scripts that import from a URL).
   Target is ES2023, which every browser the CSS targets supports, so

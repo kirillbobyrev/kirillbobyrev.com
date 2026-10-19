@@ -2,16 +2,13 @@
   <div class="header-row">
     {{- /* No "Home" entry: the name already links there. On mobile the name */ -}}
     {{- /* is swapped for the Cyrillic initials (Кирилл Бобырев) - see the */ -}}
-    {{- /* max-width: 640px block in layout.css. */ -}}
+    {{- /* phone block in layout.css. */ -}}
     <a href="/" class="site-title">
-      <span class="site-title-text">
-        <span class="site-title-full">{{ site.Title }}</span>
-        <span class="site-title-short" aria-hidden="true">КБ</span>
-      </span>
+      <span class="site-title-full">{{ site.Title }}</span>
+      <span class="site-title-short" aria-hidden="true">КБ</span>
     </a>
-    <nav class="site-nav" aria-label="Main">
+    <nav aria-label="Main">
       <ul class="nav-list">
-        {{- /* Now's own menu entry (content/now.md front matter) drops out on its own while draft = true - no special-casing needed here. */ -}}
         {{- range .Site.Menus.main -}}
           {{- $current := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) -}}
           <li>
@@ -24,21 +21,6 @@
           </li>
         {{- end -}}
       </ul>
-      <button
-        type="button"
-        class="theme-toggle"
-        aria-label="Toggle dark mode"
-        hidden
-      >
-        <span class="theme-toggle-mark" aria-hidden="true"></span>
-      </button>
     </nav>
   </div>
 </header>
-{{- /* "#top" rather than "#content": with no element of that id, browsers
-  resolve it to the top of the document, so the header comes back too. */
--}}
-<a href="#top" class="to-top" hidden>
-  {{- partial "icon.html" (dict "name" "arrow-up") -}}
-  <span class="visually-hidden">Back to top</span>
-</a>

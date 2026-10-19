@@ -1,13 +1,6 @@
 {{- define "main" -}}
   <article class="main-content">
     <header class="page-header">
-      {{- /* Optional, additive to the content contract: set under [params.author] */ -}}
-      {{- /* in hugo.toml (e.g. location = "Mountain View, California") to show it. */ -}}
-      {{- with .Site.Params.author.location -}}
-        <div class="page-eyebrow">{{ . }}</div>
-      {{- end -}}
-      {{- /* One ornament, not two: the trailing accent-dot, same mark Now */ -}}
-      {{- /* and Writing use for their own headings. */ -}}
       <h1 class="page-heading">About<span class="accent-dot">.</span></h1>
       {{- with .Params.tagline -}}
         <p class="lede">{{ . }}</p>

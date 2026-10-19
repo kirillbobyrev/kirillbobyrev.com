@@ -1,8 +1,6 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  {{- /* Before first paint: a stored theme override (assets/js/theme-init.js). */ -}}
-  {{- partial "script.html" (dict "path" "js/theme-init.js") -}}
   {{- /* Preload what every page paints above the fold: Source Serif 4 */ -}}
   {{- /* (prose, Latin subset) and Space Grotesk (everything else). */ -}}
   {{- /* Italics, other subsets and JetBrains Mono (code only) load on */ -}}
@@ -74,9 +72,7 @@
   {{- partialCached "css.html" . -}}
   {{- /* Fetch a same-site page's HTML as soon as a reader shows intent */ -}}
   {{- /* (hovers a link, or starts a tap), so it's already here on click. */ -}}
-  {{- /* Chromium only; other browsers ignore the script type. Prefetch, */ -}}
-  {{- /* not prerender: a prerendered page runs its scripts early, and */ -}}
-  {{- /* would miss a theme toggled between hover and click. */ -}}
+  {{- /* Chromium only; other browsers ignore the script type. */ -}}
   <script type="speculationrules">
     {
       "prefetch": [

@@ -1,26 +1,11 @@
-/* constructivist's stylesheet: one module per concern, bundled into a
-   single file by Hugo's css.Build (esbuild) - see _partials/css.html.
-   Order is cascade order: tokens before anything that reads them,
-   components in roughly the order a page renders them, and the
-   print/motion/syntax layers last so they win ties. A component's
-   phone overrides live at the end of its own module. */
+/* Bundled into one stylesheet by css.Build (see _partials/css.html).
+   Import order is cascade order: print last, so it wins ties. */
 @import "./fonts.css";
 @import "./tokens.css";
 @import "./base.css";
 @import "./layout.css";
-@import "./page.css";
 @import "./article.css";
 @import "./prose.css";
-@import "./callouts.css";
-@import "./tables.css";
-@import "./anchors.css";
-@import "./crests.css";
-@import "./timeline.css";
-@import "./to-top.css";
-@import "./figures.css";
-@import "./code.css";
-@import "./math.css";
-@import "./diagrams.css";
-@import "./print.css";
-@import "./motion.css";
+@import "./blocks.css";
 @import "./syntax.css";
+@import "./print.css";

@@ -1,4 +1,3 @@
-/* === Reset / base === */
 *,
 *::before,
 *::after {
@@ -6,26 +5,15 @@
 }
 
 html {
-  /* Fluid, not stepped: flat at 16px up to ~1600px of viewport, then grows
-     in a straight line to 18px by ~2200px and holds there. em, not px, so
-     a reader's browser-level text-size preference still scales the whole
-     clamp; solved from font-size = 0.6667em + 0.3333vw, a line that
-     crosses 1em (16px) at exactly 1600px of viewport and 1.125em (18px)
-     at exactly 2200px. */
+  /* 16px up to a 1600px viewport, growing to 18px by 2200px. em, so the
+     reader's browser text size still scales it. */
   font-size: clamp(1em, 0.6667em + 0.3333vw, 1.125em);
   scroll-behavior: smooth;
-  /* Reserve the scrollbar's width on every page, so moving between a
-     short page and a long one (now a crossfade, see tokens.css) doesn't
-     shift the layout sideways. No-op with overlay scrollbars. */
+  /* No sideways jump between short and long pages. */
   scrollbar-gutter: stable;
+  scrollbar-color: var(--color-underline) transparent;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scrollbar-color: var(--color-underline) transparent;
-}
-
-.highlight pre,
-.table-wrapper {
-  scrollbar-width: thin;
 }
 
 body {
@@ -46,16 +34,12 @@ video {
   font-family: var(--font-sans);
   font-size: var(--text-base);
   line-height: 1.7;
-  /* No faux bold or small caps. Faux italic stays allowed: Space Grotesk
-     has no italic, so emphasis in a caption or table cell would otherwise
-     render upright; the serif and mono ship real italics and never need
-     it. */
+  /* Space Grotesk has no italic, so allow a synthesized one; no faux
+     bold. */
   font-synthesis: style;
   font-kerning: normal;
 }
 
-/* The reading voice. Everything else inherits --font-sans from
-   .site-body. */
 .prose :is(p, li, blockquote, dd),
 .lede,
 .article-deck,
@@ -63,8 +47,6 @@ video {
   font-family: var(--font-serif);
 }
 
-/* Proportional figures read naturally inside running text; tabular ones
-   only where numbers are meant to line up in a column. */
 .blog-timeline-date,
 .article-meta,
 .prose table {
@@ -72,10 +54,6 @@ video {
 }
 
 ::selection {
-  /* The ink color as a highlight, text flipped to the page color - the
-     one place it supplies a background instead of foreground. The
-     text-weight --color-link, not --color-accent, so selected text still
-     reads at AA (light 5.5:1, dark 6.8:1). */
   background-color: var(--color-link);
   color: var(--color-bg);
 }
@@ -101,15 +79,42 @@ video {
   left: 0;
 }
 
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  border: 0;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  white-space: nowrap;
+/* Fragment targets land clear of the sticky header, with a brief
+   highlight so the eye finds them. */
+.main-content :is(h2, h3, h4) {
+  scroll-margin-block-start: var(--header-offset);
+}
+
+.main-content :target {
+  animation: target-highlight 2s ease-out;
+}
+
+@keyframes target-highlight {
+  0%,
+  30% {
+    background-color: color-mix(in srgb, var(--color-accent) 22%, transparent);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }
