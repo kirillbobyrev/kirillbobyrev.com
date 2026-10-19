@@ -11,7 +11,7 @@ inputs:
   version:
     description: Hugo version to install (no leading v)
     required: false
-    default: '0.168.0'
+    default: "0.168.0"
 
 runs:
   using: composite

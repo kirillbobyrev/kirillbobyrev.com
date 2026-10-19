@@ -1,7 +1,7 @@
 name: CI
 
 # Pull-request validation: the site must build, internal links must
-# resolve, and templates must be Prettier-clean. Deploys never run here.
+# resolve, and the codebase must be Prettier-clean. Deploys never run here.
 on:
   pull_request:
 
@@ -23,7 +23,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0 # full history so enableGitInfo lastmod dates are correct
 
@@ -50,7 +50,7 @@ jobs:
           hugo --gc --minify
 
       - name: Check links
-        uses: lycheeverse/lychee-action@v2.9.0
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
           args: --offline --no-progress --root-dir ./public ./public
           fail: true
@@ -61,7 +61,13 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
 
       - name: Check Prettier formatting
         run: |

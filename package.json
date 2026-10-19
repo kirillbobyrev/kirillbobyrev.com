@@ -2,8 +2,8 @@
   "name": "kirillbobyrev.com",
   "private": true,
   "scripts": {
-    "format": "prettier --write \"themes/*/layouts/**/*.html\"",
-    "format:check": "prettier --check \"themes/*/layouts/**/*.html\"",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "check-links": "hugo --gc --minify && lychee --offline --no-progress --root-dir ./public ./public"
   },
   "devDependencies": {

@@ -6,15 +6,17 @@ on:
       - main
     # Skip deploys for changes that cannot affect the built site.
     paths-ignore:
-      - 'README.md'
-      - 'LICENSE'
-      - '.devcontainer/**'
-      - '.mcp.json'
-      - '.prettierrc'
-      - '.prettierignore'
-      - '.github/dependabot.yml'
+      - "README.md"
+      - "LICENSE"
+      - ".devcontainer/**"
+      - ".mcp.json"
+      - ".prettierrc"
+      - ".prettierignore"
+      - ".editorconfig"
+      - ".nvmrc"
+      - ".github/dependabot.yml"
   schedule:
-    - cron: '0 0 * * 0' # Weekly rebuild: refreshes the fetched resume.
+    - cron: "0 0 * * 0" # Weekly rebuild: refreshes the fetched resume.
   workflow_dispatch:
 
 permissions:
@@ -39,7 +41,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0 # full history so enableGitInfo lastmod dates are correct
 
@@ -50,7 +52,7 @@ jobs:
         # resources/ holds Hugo's processed images (OG cards, responsive
         # WebP sets). Restoring it skips re-encoding unchanged images;
         # `hugo --gc` prunes entries that no longer correspond to content.
-        uses: actions/cache@v6
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: resources
           key: hugo-resources-${{ hashFiles('themes/**/assets/**', 'themes/**/layouts/**', 'content/**') }}
@@ -59,7 +61,7 @@ jobs:
 
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v6
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
 
       - name: Fetch resume PDF
         env:
@@ -86,13 +88,13 @@ jobs:
             --baseURL "${{ steps.pages.outputs.base_url }}/"
 
       - name: Check links
-        uses: lycheeverse/lychee-action@v2.9.0
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
           args: --offline --no-progress --root-dir ./public ./public
           fail: true
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v5
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: ./public
 
@@ -106,7 +108,7 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
 
       - name: Summary
         run: |
