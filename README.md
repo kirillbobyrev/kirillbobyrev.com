@@ -11,9 +11,9 @@ Presentation lives in its own theme, `themes/constructivist/` (see its
 `theme = 'constructivist'` in `hugo.toml`. `content/`, `data/`, and
 `archetypes/` stay at the repo root and are theme-agnostic; trying a
 different look later means adding a sibling theme directory and changing
-that one config line, without touching content. `themes/typewriter/` is the
-prior theme, kept in the repo as a fallback and reference implementation
-rather than deleted.
+that one config line, without touching content. The previous theme,
+`typewriter`, was retired in favour of this one; it's in git history
+(`git show 236ca9b:themes/typewriter/README.md`).
 
 CI: pull requests build the site, validate internal links, and check
 formatting (`.github/workflows/ci.yml`); merges to `main` build and deploy to
@@ -34,7 +34,7 @@ Two caveats:
 
 - Keep Go template comments (`{{ /* ... */ }}`) on a single line: the plugin
   splits multiline comments across lines, which breaks Hugo's template parser.
-- Each theme's `layouts/rss.xml` is hand-formatted and untouched by the
+- The theme's `layouts/rss.xml` is hand-formatted and untouched by the
   `*.html` glob above: the plugin parses input as HTML, where `<link>` is a
   void element, so RSS's `<link>...</link>` container breaks its parser. The
   template uses `{{- -}}` whitespace-trim markers around text content, so

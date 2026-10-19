@@ -1,14 +1,14 @@
+{{- /* Production inlines the stylesheet: at ~25KB (~6KB gzipped) it costs */ -}}
+{{- /* less than the round trip it saves, which is render-blocking on */ -}}
+{{- /* every first visit. Caching a separate file would buy little here - */ -}}
+{{- /* GitHub Pages serves every asset with max-age=600. Development links */ -}}
+{{- /* it instead, so hugo server can hot-swap CSS edits. */ -}}
 {{- with resources.Get "css/main.css" -}}
   {{- if hugo.IsDevelopment -}}
     <link rel="stylesheet" href="{{ .RelPermalink }}" />
   {{- else -}}
-    {{- with . | fingerprint -}}
-      <link
-        rel="stylesheet"
-        href="{{ .RelPermalink }}"
-        integrity="{{ .Data.Integrity }}"
-        crossorigin="anonymous"
-      />
-    {{- end -}}
+    <style>
+      {{ (. | minify).Content | safeCSS }}
+    </style>
   {{- end -}}
 {{- end -}}

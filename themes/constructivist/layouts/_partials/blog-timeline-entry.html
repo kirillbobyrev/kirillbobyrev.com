@@ -2,7 +2,9 @@
   Renders a single <li> entry in a .blog-timeline list.
   Params (dict): page (Page, required). ISO date (unlike the article
   page's "January 2, 2006") so every row's date is the same width and
-  lines up in a column. See main.css's "=== Blog timeline ===" block.
+  lines up in a column. The page's description, when set, runs under the
+  title so a reader can tell what a post is about before opening it. See
+  main.css's "=== Blog timeline ===" block.
   */
 -}}
 <li>
@@ -14,7 +16,12 @@
         >{{ .page.Date.Format "2006-01-02" }}</time
       >
     {{- end -}}
-    <span class="blog-timeline-title">{{ .page.Title }}</span>
+    <span class="blog-timeline-text">
+      <span class="blog-timeline-title">{{ .page.Title }}</span>
+      {{- with .page.Description -}}
+        <span class="blog-timeline-deck">{{ . }}</span>
+      {{- end -}}
+    </span>
   </a>
 </li>
 {{- /* keep output tight */ -}}

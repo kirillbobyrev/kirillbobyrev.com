@@ -1,17 +1,39 @@
+/* JetBrains Mono (OFL, via @fontsource-variable/jetbrains-mono 5.3.0) sets
+   code only. A text mono, not a display one: tall x-height, distinct
+   0/O and 1/l/I, and it stays even at the ~15px code runs at. Variable
+   wght; no italic file, since no highlighting style here sets italic. Same
+   unicode-range split as Source Serif below. */
 @font-face {
-  font-family: "Space Mono";
-  src: url("/fonts/SpaceMono-Regular.woff2") format("woff2");
-  font-weight: 400;
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-latin-normal.woff2") format("woff2");
+  font-weight: 100 800;
   font-style: normal;
   font-display: swap;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
-  font-family: "Space Mono";
-  src: url("/fonts/SpaceMono-Bold.woff2") format("woff2");
-  font-weight: 700;
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-latin-ext-normal.woff2") format("woff2");
+  font-weight: 100 800;
   font-style: normal;
   font-display: swap;
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-cyrillic-normal.woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 
 /* Space Grotesk ships only as a variable font - one file covers the whole
@@ -28,16 +50,20 @@
   font-display: swap;
 }
 
-/* Inter (rsms/inter, OFL, via @fontsource-variable/inter 5.3.0) sets the
-   reading text. Variable on both wght and opsz, so font-optical-sizing
-   (on by default) tightens small text and refines display sizes without
-   extra files. Split by unicode-range: only the Latin files ever load for
-   today's content; latin-ext/cyrillic are fetched only when a page uses
-   those characters. Real italic files - no synthesized obliques. */
+/* Source Serif 4 (adobe-fonts, OFL, via @fontsource-variable/source-serif-4
+   5.3.1) sets running prose. Built from Fontsource's *-opsz-* files with
+   the optical-size axis pinned to 19 - the body size - and wght left
+   variable: `fonttools varLib.instancer <file> opsz=19`. That cut is what
+   the full opsz axis would pick for body text anyway, at 40% of the bytes
+   (52KB vs 122KB for Latin). Fontsource's own wght-only files are pinned
+   near opsz 14, a looser caption cut that resets every line. Split by
+   unicode-range: only the Latin files load for today's content;
+   latin-ext/cyrillic are fetched only when a page uses those
+   characters. Real italic files - no synthesized obliques. */
 @font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-latin-normal.woff2") format("woff2");
-  font-weight: 100 900;
+  font-family: "Source Serif 4";
+  src: url("/fonts/SourceSerif4-latin-normal.woff2") format("woff2");
+  font-weight: 200 900;
   font-style: normal;
   font-display: swap;
   unicode-range:
@@ -47,9 +73,9 @@
 }
 
 @font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-latin-italic.woff2") format("woff2");
-  font-weight: 100 900;
+  font-family: "Source Serif 4";
+  src: url("/fonts/SourceSerif4-latin-italic.woff2") format("woff2");
+  font-weight: 200 900;
   font-style: italic;
   font-display: swap;
   unicode-range:
@@ -59,9 +85,9 @@
 }
 
 @font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-latin-ext-normal.woff2") format("woff2");
-  font-weight: 100 900;
+  font-family: "Source Serif 4";
+  src: url("/fonts/SourceSerif4-latin-ext-normal.woff2") format("woff2");
+  font-weight: 200 900;
   font-style: normal;
   font-display: swap;
   unicode-range:
@@ -71,9 +97,9 @@
 }
 
 @font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-latin-ext-italic.woff2") format("woff2");
-  font-weight: 100 900;
+  font-family: "Source Serif 4";
+  src: url("/fonts/SourceSerif4-latin-ext-italic.woff2") format("woff2");
+  font-weight: 200 900;
   font-style: italic;
   font-display: swap;
   unicode-range:
@@ -83,18 +109,18 @@
 }
 
 @font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-cyrillic-normal.woff2") format("woff2");
-  font-weight: 100 900;
+  font-family: "Source Serif 4";
+  src: url("/fonts/SourceSerif4-cyrillic-normal.woff2") format("woff2");
+  font-weight: 200 900;
   font-style: normal;
   font-display: swap;
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 
 @font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-cyrillic-italic.woff2") format("woff2");
-  font-weight: 100 900;
+  font-family: "Source Serif 4";
+  src: url("/fonts/SourceSerif4-cyrillic-italic.woff2") format("woff2");
+  font-weight: 200 900;
   font-style: italic;
   font-display: swap;
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
@@ -103,52 +129,60 @@
 /* ==========================================================================
    Design tokens
 
-   Two faces, split by job. Space Grotesk is the display voice: headings,
-   the wordmark, nav, Writing-index titles - short, large strings where its
-   character is the point. Inter is the reading voice: body copy, lists,
-   the lede and deck, quotes, dates, captions, tables - everything read in
-   runs, where a text face with a true italic and even color matters more
-   than personality. Space Mono is reserved for code (and the generated Open
-   Graph card, see og-image.html). No letter-spaced/uppercase "label" metadata:
-   secondary text is just smaller and quieter in the same typeface.
-   Editorial-modernist restraint (iA, Anthropic's research blog, Increment,
-   Stripe Press, Works in Progress) is the design system here, more than
-   any one color or shape.
+   Two families split by job, the way the long-form blogs that read best
+   do it (lexi-lambda, gwern.net, matklad): a serif for what you read, a
+   sans for what you scan. Source Serif 4 is the reading voice:
+   paragraphs, lists, the lede and deck, quotes - everything read in
+   runs. Space Grotesk is everything else, the default on .site-body:
+   headings, the wordmark, nav, dates, the contents rail, captions,
+   tables (its tabular figures line up columns of numbers). JetBrains
+   Mono is reserved for code; the generated Open Graph card keeps Space
+   Mono (og-image.html).
+   No letter-spaced/uppercase "label" metadata: secondary text is just
+   smaller and quieter. Editorial-modernist restraint (iA, Anthropic's
+   research blog, Increment, Stripe Press, Works in Progress) is the
+   design system here, more than any one color or shape.
 
-   Five sizes, each with one job, loosely derived from a 1.25 modular scale
+   Six sizes, each with one job, loosely derived from a 1.25 modular scale
    (Bringhurst, "The Elements of Typographic Style"). Headings sit close to
-   the body on purpose - h2 ~1.3x, h1 ~2.35x - a flatter hierarchy than
+   the body on purpose - h2 ~1.25x, h1 ~2.1x - a flatter hierarchy than
    Anthropic's or OpenAI's (h1 3-3.8x), carried by weight and face more
    than size:
-     --text-sm    1rem       nav, dates, captions, footnotes, table text
-     --text-base  1.0625rem  body copy, lists, the lede; h3 at bold weight
-     --text-md    1.2rem     the site title/wordmark only
-     --text-lg    1.375rem   h2, Writing-index titles, pull-quotes, the deck
-     --text-xl    2.5rem     every h1 - fixed, independent of --text-base
+     --text-sm     1rem       captions, footnotes, table text, dates
+     --text-base   1.0625rem  interface text: nav, meta, contents
+     --text-prose  1.1875rem  running prose in the serif; h3 at bold weight
+     --text-md     1.2rem     the site title/wordmark only
+     --text-lg     1.5rem     h2, Writing-index titles, pull-quotes, the deck
+     --text-xl     2.5rem     every h1 - fixed, independent of the rest
+   --text-prose sits a step above --text-base because Source Serif's
+   x-height is small (0.475em): 19px of it reads at the size 17px of a
+   typical sans text face does.
 
    Themes: every color is declared exactly once via light-dark(). The
    default color-scheme follows the OS; the header toggle forces one by
    setting html[data-theme] (persisted in localStorage), which flips
    color-scheme and with it every token. One accent, #d8402a, identical in
-   both themes and used sparingly (a heading's trailing dot, a link on
-   hover). Three text tiers: --color-heading, --color-text, --color-muted. */
+   both themes and used sparingly (a heading's trailing dot, hover); its
+   text-weight sibling --color-link colors links inside articles. Three
+   text tiers: --color-heading, --color-text, --color-muted. */
 :root {
   color-scheme: light dark;
 
-  --font-display:
+  --font-sans:
     "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
-  --font-text:
-    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+  --font-serif:
+    "Source Serif 4", "Iowan Old Style", "Charter", Georgia, Cambria,
+    "Times New Roman", serif;
   --font-mono:
-    "Space Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas,
-    "Courier New", monospace;
+    "JetBrains Mono", "SF Mono", Menlo, "Cascadia Code", "Roboto Mono",
+    Consolas, monospace;
 
   --text-sm: 1rem;
   --text-base: 1.0625rem;
+  --text-prose: 1.1875rem;
   --text-md: 1.2rem;
-  --text-lg: 1.375rem;
+  --text-lg: 1.5rem;
   --text-xl: 2.5rem;
 
   /* Flat geometry: the theme toggle's circle is the only border-radius
@@ -169,22 +203,23 @@
   --space-2xl: 2.75rem;
   --space-3xl: 4rem;
 
-  /* Baseline rhythm for .prose only: .prose p's line-height (1.64) times
-     --text-base, so a paragraph's line box and the grid unit are the same
+  /* Baseline rhythm for .prose only: .prose p's line-height (1.72) times
+     --text-prose, so a paragraph's line box and the grid unit are the same
      number. Structural gaps between prose blocks (paragraphs, lists, h2,
      hr, blockquote, figures) are multiples of this (Müller-Brockmann, Grid
      Systems in Graphic Design); tight same-group gaps (h3 to its
      paragraph, list items, dt/dd) stay on --space-*, since grouping, not
      grid rigor, is the point there. */
-  --rhythm: calc(var(--text-base) * 1.64);
+  --rhythm: calc(var(--text-prose) * 1.72);
 
   --color-bg: light-dark(#f2efe8, #141310);
   --color-heading: light-dark(#14120d, #f4f1e9);
-  /* Body copy - contrast against --color-bg: light 15.9:1, dark 16.4:1. */
+  /* Body copy - contrast against --color-bg: light 13.5:1, dark 12.8:1. */
   --color-text: light-dark(rgba(20, 18, 13, 0.92), rgba(235, 231, 221, 0.92));
-  /* Everything secondary: nav, dates, captions, footnotes, table text
-     (light 8.4:1, dark 8.0:1). */
-  --color-muted: light-dark(rgba(20, 18, 13, 0.55), rgba(235, 231, 221, 0.52));
+  /* Everything secondary: nav, dates, captions, footnotes, table text.
+     AA for body-size text on the page (light 5.3:1, dark 5.7:1) and on
+     --color-panel too (4.8:1, 5.3:1). */
+  --color-muted: light-dark(rgba(20, 18, 13, 0.64), rgba(235, 231, 221, 0.58));
   --color-border: light-dark(rgba(20, 18, 13, 0.25), rgba(235, 231, 221, 0.22));
   /* Link underlines and the scrollbar: strong enough that a link is
      findable at a glance without the accent, which stays for hover. */
@@ -198,15 +233,24 @@
     rgba(235, 231, 221, 0.07)
   );
   /* The one color that does NOT flip with light-dark(): a considered ink
-     color, not a UI accent, so it stays put across modes (light-mode
-     contrast against --color-bg: 5.3:1; dark-mode: 5.9:1). */
+     color, not a UI accent, so it stays put across modes. At 3.9:1
+     (light) and 4.2:1 (dark) against --color-bg it's for marks, not
+     text: the heading dot, the blockquote rule, the focus ring, icons,
+     borders - anything WCAG holds to 3:1. */
   --color-accent: #d8402a;
+  /* The accent at text weight: links inside articles (lexi-lambda's
+     colored links, in this site's ink) and every hovered text link.
+     Darkened in light mode and lifted in dark so it holds AA on the page
+     at body size (light 5.5:1, dark 6.8:1). Against body text it's under
+     3:1, so links keep an underline as the non-color cue (WCAG 1.4.1),
+     tinted to match. */
+  --color-link: light-dark(#b0341d, #ef7a63);
 
-  /* The reading column: measured at ~77 characters/line of Inter at
-     --text-base on real prose, where Anthropic's research and engineering
-     posts sit (the other engineering blogs measured run 82-96). Its width
-     comes from the type size as much as the line: 17px text, as on
-     Anthropic's and OpenAI's blogs, makes a ~625px column (~700px on a
+  /* The reading column: measured at ~75 characters/line of Source Serif
+     at --text-prose on real prose, where Anthropic's research and
+     engineering posts sit (the other engineering blogs measured run
+     82-96). Its width comes from the type size as much as the line: 19px
+     serif text makes a ~672px column (~750px on a
      2560px monitor, where the root font-size has grown). rem-based, so it grows only with the fluid root
      font-size, not with the viewport - a wide screen doesn't earn a
      longer line. Mobile is bounded by the viewport and --gutter instead
@@ -240,6 +284,17 @@
 
 :root[data-theme="dark"] {
   color-scheme: dark;
+}
+
+/* Page-to-page navigation crossfades instead of flashing, in browsers
+   with cross-document view transitions (Chromium 126+, Safari 18.2+);
+   others navigate as before. The header is identical on every page, so
+   it reads as staying put while the content changes. Top-level rather
+   than inside a prefers-reduced-motion query: Hugo's CSS minifier drops
+   the at-rule when it's nested. Reduced motion turns the animation off
+   in the prefers-reduced-motion block below instead. */
+@view-transition {
+  navigation: auto;
 }
 
 /* === Reset / base === */
@@ -283,37 +338,28 @@ video {
 .site-body {
   background-color: var(--color-bg);
   color: var(--color-text);
-  font-family: var(--font-text);
+  font-family: var(--font-sans);
   font-size: var(--text-base);
   line-height: 1.7;
-  font-synthesis: none;
-  /* Inter's own kerning and contextual alternates (e.g. hyphens and
-     arrows centred on capitals) - on by default in most engines, stated
-     so it doesn't depend on that. */
+  /* No faux bold or small caps. Faux italic stays allowed: Space Grotesk
+     has no italic, so emphasis in a caption or table cell would otherwise
+     render upright; the serif and mono ship real italics and never need
+     it. */
+  font-synthesis: style;
   font-kerning: normal;
-  font-feature-settings: "calt";
 }
 
-/* The display voice - see the token comment. Everything else inherits
-   --font-text from .site-body. */
-.site-title,
-.nav-link,
-.page-heading,
-.main-content h1,
-.prose h2,
-.prose h3,
-.blog-timeline-date,
-.blog-timeline-title,
-.post-nav-link,
-.social-link,
-.error-button {
-  font-family: var(--font-display);
+/* The reading voice. Everything else inherits --font-sans from
+   .site-body. */
+.prose :is(p, li, blockquote, dd),
+.lede,
+.article-deck,
+.blog-timeline-deck {
+  font-family: var(--font-serif);
 }
 
 /* Proportional figures read naturally inside running text; tabular ones
-   only where numbers are meant to line up in a column. The Writing-index
-   dates stay in Space Grotesk, whose tabular hyphens sit tighter than
-   Inter's in an ISO date. */
+   only where numbers are meant to line up in a column. */
 .blog-timeline-date,
 .article-meta,
 .prose table {
@@ -322,8 +368,10 @@ video {
 
 ::selection {
   /* The ink color as a highlight, text flipped to the page color - the
-     one place --color-accent supplies a background instead of foreground. */
-  background-color: var(--color-accent);
+     one place it supplies a background instead of foreground. The
+     text-weight --color-link, not --color-accent, so selected text still
+     reads at AA (light 5.5:1, dark 6.8:1). */
+  background-color: var(--color-link);
   color: var(--color-bg);
 }
 
@@ -404,7 +452,7 @@ video {
 }
 
 .site-title:hover {
-  color: var(--color-accent);
+  color: var(--color-link);
 }
 
 .site-title-text {
@@ -464,7 +512,7 @@ video {
 }
 
 .nav-link:hover {
-  color: var(--color-accent);
+  color: var(--color-link);
 }
 
 .nav-link[aria-current] {
@@ -547,6 +595,7 @@ video {
 
 .lede {
   margin: var(--space-l) 0 0;
+  font-size: var(--text-prose);
   line-height: 1.6;
 }
 
@@ -556,8 +605,8 @@ video {
   color: var(--color-muted);
 }
 
-/* Underlined-arrow social links under the About prose - the only place
-   they appear; there is no sitewide footer. */
+/* Underlined-arrow links: the social row under the About prose (there
+   is no sitewide footer) and the way back from the 404 page. */
 .link-row {
   margin-block-start: var(--space-2xl);
   display: flex;
@@ -586,7 +635,7 @@ video {
 }
 
 .social-link:hover {
-  color: var(--color-accent);
+  color: var(--color-link);
   border-color: var(--color-accent);
 }
 
@@ -611,10 +660,12 @@ video {
 
 /* Optional 1-2 sentence deck (front matter `deck`) - a step up from body
    size, quieter than the heading, balanced so a long deck still reads as
-   a few even lines. */
+   a few even lines. Italic sets it apart from the body copy below it by
+   texture rather than by another size or color. */
 .article-deck {
   margin: var(--space-l) 0 0;
   font-size: var(--text-lg);
+  font-style: italic;
   line-height: 1.45;
   text-wrap: balance;
 }
@@ -640,7 +691,6 @@ video {
   align-items: center;
   gap: var(--space-xs);
   cursor: pointer;
-  font-family: var(--font-display);
   font-weight: 500;
   color: var(--color-muted);
   list-style: none;
@@ -652,7 +702,7 @@ video {
 }
 
 .toc-summary:hover {
-  color: var(--color-accent);
+  color: var(--color-link);
 }
 
 /* A drawn chevron, turned down while open; currentColor so hover recolors it. */
@@ -696,7 +746,7 @@ video {
 }
 
 .toc a:hover {
-  color: var(--color-accent);
+  color: var(--color-link);
 }
 
 .toc a[aria-current] {
@@ -713,10 +763,13 @@ video {
   /* Both rail parts sit in a box exactly as wide as the reading column,
      so 100% resolves to the column's width. Left edge lines up with the
      header logo (.header-row's --frame, inset by its padding); the width
-     is whatever margin is left, minus a gutter. */
+     is whatever margin is left, minus a gutter. The gutter is wide enough
+     for an article's hanging h2 (one --space-l into the margin) to clear
+     the contents list scrolling beside it by another --space-l or so. */
   .main-content {
+    --rail-gap: var(--space-2xl);
     --rail-width: calc(
-      (var(--frame) - 2 * var(--space-l) - 100%) / 2 - var(--space-l)
+      (var(--frame) - 2 * var(--space-l) - 100%) / 2 - var(--rail-gap)
     );
   }
 
@@ -729,7 +782,7 @@ video {
      reads as a label on the deck, as on Anthropic's posts. */
   .article-meta {
     position: absolute;
-    inset-inline-end: calc(100% + var(--space-l));
+    inset-inline-end: calc(100% + var(--rail-gap));
     width: var(--rail-width);
     flex-direction: column;
     align-items: flex-start;
@@ -751,7 +804,7 @@ video {
   .toc-rail {
     position: absolute;
     inset-block: 0;
-    inset-inline-end: calc(100% + var(--space-l));
+    inset-inline-end: calc(100% + var(--rail-gap));
     width: var(--rail-width);
   }
 
@@ -819,7 +872,7 @@ video {
 }
 
 .post-nav-link:hover {
-  color: var(--color-accent);
+  color: var(--color-link);
 }
 
 /* === Prose typography === */
@@ -828,7 +881,8 @@ video {
 }
 
 /* Quiet by default - the same color as the surrounding sentence; the
-   accent only shows up once a link is actually being interacted with. */
+   link color only shows up once a link is actually being interacted
+   with. */
 .prose a {
   color: var(--color-text);
   text-decoration: underline;
@@ -842,8 +896,17 @@ video {
 }
 
 .prose a:hover {
-  color: var(--color-accent);
-  text-decoration-color: var(--color-accent);
+  color: var(--color-link);
+  text-decoration-color: var(--color-link);
+}
+
+/* Inside articles, links take the ink color, as on lexi-lambda: a long
+   post's references are part of its argument, and color makes them
+   findable while skimming. About and Now are mostly links in a few short
+   lines, where color everywhere would just be noise, so they stay quiet. */
+.article-body .prose a {
+  color: var(--color-link);
+  text-decoration-color: color-mix(in srgb, var(--color-link) 35%, transparent);
 }
 
 /* Asymmetric on purpose: two lines of air above, well under one below, so
@@ -860,6 +923,18 @@ video {
   text-wrap: balance;
 }
 
+/* Hanging section heads in articles, as on lexi-lambda: the h2 starts a
+   step left of the text edge, so a post's sections can be found by
+   running an eye down the margin. Articles only - on About and Now the h1
+   sits on the text edge with no rail beside it, and a heading hanging
+   past the page title reads as a misalignment. Phones keep every edge
+   flush: there's no margin to hang into. */
+@media (min-width: 641px) {
+  .article-body .prose h2 {
+    margin-inline-start: calc(var(--space-l) * -1);
+  }
+}
+
 /* About/Now: the full 2x --rhythm gap between the lede and the first
    section heading makes a short page read as isolated blocks, so pull
    just that first h2 in. */
@@ -873,7 +948,7 @@ video {
 .prose h3 {
   margin: var(--space-l) 0 var(--space-xs);
   font-weight: 700;
-  font-size: var(--text-base);
+  font-size: var(--text-prose);
   line-height: 1.4;
   color: var(--color-heading);
   text-wrap: balance;
@@ -892,11 +967,10 @@ video {
 .prose p {
   /* One blank line between paragraphs. */
   margin-block: var(--rhythm);
-  /* font-size/color look inherited, but aren't redundant: they also reach
-     Mermaid's label <p>s, whose sizing the foreignObject rule below is
-     compensating for. */
-  font-size: var(--text-base);
-  line-height: 1.64;
+  /* color looks inherited, but isn't redundant: it also reaches
+     Mermaid's label <p>s (see pre.mermaid p below for their size). */
+  font-size: var(--text-prose);
+  line-height: 1.72;
   color: var(--color-text);
   /* Bringhurst §2.1.5: a flush opening quote reads as a dent in the
      column. Safari-only today; a no-op elsewhere. */
@@ -928,10 +1002,13 @@ video {
   color: var(--color-muted);
 }
 
-/* Off --rhythm, like h3: list items group, they don't each open a break. */
+/* Off --rhythm, like h3: list items group, they don't each open a break.
+   Sized on the item rather than the list, so footnotes (an <ol> inside
+   .footnotes) still inherit their smaller size. */
 .prose li {
   margin-block: 0.4em;
-  line-height: 1.68;
+  font-size: var(--text-prose);
+  line-height: 1.72;
 }
 
 /* A quiet pull-quote: left-aligned with the rest of the prose, a thin
@@ -976,12 +1053,13 @@ video {
 
 .prose dd {
   margin: var(--space-3xs) 0 0;
-  line-height: 1.68;
+  font-size: var(--text-prose);
+  line-height: 1.72;
 }
 
-/* Inter's 700 is heavy against 400 text; 600 marks emphasis without a
-   dark blot in the paragraph's color. em needs nothing: Inter ships a
-   real italic. */
+/* 700 is heavy against 400 text in either face; 600 marks emphasis
+   without a dark blot in the paragraph's color. em needs nothing: Source
+   Serif ships a real italic. */
 .prose :is(strong, b) {
   font-weight: 600;
   color: var(--color-heading);
@@ -1126,8 +1204,9 @@ video {
 }
 
 /* A chronology, not post cards: date then title on one baseline (stacked
-   on mobile), no separators - whitespace groups the rows. The fixed-width
-   ISO date plus sitewide tabular-nums lines the dates up into a column. */
+   on mobile), the post's description under the title, no separators -
+   whitespace groups the rows. The fixed-width ISO date plus sitewide
+   tabular-nums lines the dates up into a column. */
 .blog-timeline-entry {
   display: flex;
   align-items: baseline;
@@ -1155,8 +1234,26 @@ video {
   transition: color var(--transition);
 }
 
+/* A flex column's baseline is its first line's, so the date still sits
+   on the title's baseline. */
+.blog-timeline-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  min-width: 0;
+}
+
+/* In the reading face, one step below the prose and quieter, so the
+   titles stay what the eye runs down. */
+.blog-timeline-deck {
+  color: var(--color-muted);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
 .blog-timeline-entry:hover .blog-timeline-title {
-  color: var(--color-accent);
+  color: var(--color-link);
 }
 
 /* === Back to top === */
@@ -1239,7 +1336,8 @@ video {
   margin: 0;
   padding: var(--space-m);
   font-family: var(--font-mono);
-  /* Relative, matching inline code below. */
+  /* ~15px either way: 0.86em of the 17px interface size here, 0.8em of
+     the 19px prose size for inline code below. */
   font-size: 0.86em;
   line-height: 1.7;
   /* Go and Makefiles indent with literal tabs; the UA default of 8
@@ -1266,8 +1364,7 @@ code:not(pre code) {
   background-color: var(--color-panel);
   color: var(--color-heading);
   padding: 1px 5px;
-  font-size: 0.86em;
-  font-weight: 500;
+  font-size: 0.8em;
   font-family: var(--font-mono);
 }
 
@@ -1315,41 +1412,29 @@ pre.mermaid svg foreignObject {
   overflow: visible;
 }
 
-/* === 404 === */
-.error-page {
-  text-align: center;
-  padding-block: var(--space-3xl);
-}
-
-.error-page .error-title {
-  font-weight: 700;
-  margin-block-end: var(--space-m);
-}
-
-.error-button {
-  display: inline-block;
-  padding: var(--space-s) var(--space-l);
-  background-color: var(--color-heading);
-  color: var(--color-bg);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: var(--text-sm);
-  margin-block-start: var(--space-m);
-}
-
-.error-button:hover {
-  background-color: var(--color-accent);
+/* Labels are <p>s inside .prose, so the prose rules would otherwise
+   restyle them - serif, --text-prose, prose leading - after Mermaid has
+   already sized each label's box for its own font and 16px default, which
+   wraps a two-word label onto two lines. Hand all three back to the
+   diagram. */
+pre.mermaid p {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
 }
 
 /* === Responsive === */
 @media (max-width: 640px) {
-  /* Mobile type scale: h1 and the wordmark step down; the text sizes
-     (17px body, as on desktop) stay. --rhythm is pinned flat, deliberately
+  /* Mobile type scale: h1, h2/deck and the wordmark step down, and prose
+     drops to 18px to keep ~38 characters a line in a ~350px column;
+     interface text stays at 17px. --rhythm is pinned flat, deliberately
      tighter than the line-height formula it uses on desktop. */
   :root {
+    --text-prose: 1.125rem;
     --text-md: 1.125rem;
+    --text-lg: 1.375rem;
     --text-xl: 2.25rem;
-    --rhythm: 1.5rem;
+    --rhythm: 1.625rem;
 
     /* Page gutter, shared by .header-row, .site-container and .highlight
        so chrome and content stay flush at one edge. */
@@ -1510,6 +1595,13 @@ pre.mermaid svg foreignObject {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
   }
+
+  /* The page crossfade (@view-transition above) cuts instead. */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }
 
 /* === Syntax highlighting (Chroma classes) ===
@@ -1518,8 +1610,11 @@ pre.mermaid svg foreignObject {
    light-dark(). Backgrounds are stripped in favour of --color-panel,
    token classes that only one palette defines fall back to the other
    theme's base text colour, and dark-only bold/italic accents are
-   dropped so both themes share one typography. Regenerate with those
-   commands on bumps. */
+   dropped so both themes share one typography. Three light-theme
+   colours are darkened from GitHub's to hold AA on --color-panel:
+   keywords/errors #cf222e -> #b31d28 (4.2 -> 5.3:1) and builtin pseudo
+   #6a737d -> #57606a. Regenerate with those commands on bumps, then
+   reapply those three. */
 .chroma {
   color: light-dark(#212529, #e6edf3);
   -webkit-text-size-adjust: none;
@@ -1561,18 +1656,18 @@ pre.mermaid svg foreignObject {
   display: flex;
 }
 .chroma .err {
-  color: light-dark(#cf222e, #f85149);
+  color: light-dark(#b31d28, #f85149);
 }
 .chroma .k,
 .chroma .kd,
 .chroma .kn,
 .chroma .kr,
 .chroma .kt {
-  color: light-dark(#cf222e, #ff7b72);
+  color: light-dark(#b31d28, #ff7b72);
 }
 .chroma .kc,
 .chroma .kp {
-  color: light-dark(#cf222e, #79c0ff);
+  color: light-dark(#b31d28, #79c0ff);
 }
 .chroma .na,
 .chroma .nx {
@@ -1605,7 +1700,7 @@ pre.mermaid svg foreignObject {
   color: light-dark(#6639ba, #e6edf3);
 }
 .chroma .bp {
-  color: light-dark(#6a737d, #e6edf3);
+  color: light-dark(#57606a, #e6edf3);
 }
 .chroma .nv,
 .chroma .vc,
