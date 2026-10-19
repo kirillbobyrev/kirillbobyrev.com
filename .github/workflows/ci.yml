@@ -30,24 +30,8 @@ jobs:
       - name: Setup Hugo
         uses: ./.github/actions/setup-hugo
 
-      - name: Fetch resume PDF
-        # A placeholder keeps the /resume.pdf link satisfied for the
-        # offline link check if the release fetch fails (e.g. fork PRs).
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          mkdir -p static
-          gh release download --repo kirillbobyrev/resume \
-            --pattern "Kirill-Bobyrev-Resume.pdf" \
-            --output static/resume.pdf --clobber \
-            || printf '%%PDF-1.4\n%%%% placeholder for CI\n' > static/resume.pdf
-
       - name: Build with Hugo
-        env:
-          HUGO_ENVIRONMENT: production
-          HUGO_ENV: production
-        run: |
-          hugo --gc --minify
+        run: hugo --gc --minify
 
       - name: Check links
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0

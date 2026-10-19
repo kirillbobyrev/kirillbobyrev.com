@@ -6,6 +6,3 @@ content
 archetypes
 static
 themes/*/static
-
-# prettier-plugin-go-template cannot parse dynamic tag names (<h{{ .Level }}>)
-themes/constructivist/layouts/_markup/render-heading.html

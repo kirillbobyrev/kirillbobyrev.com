@@ -7,7 +7,6 @@
     "check-links": "hugo --gc --minify && lychee --offline --no-progress --root-dir ./public ./public"
   },
   "devDependencies": {
-    "@playwright/mcp": "^0.0.83",
     "prettier": "^3.9.10",
     "prettier-plugin-go-template": "^0.0.15"
   }

@@ -17,8 +17,10 @@ that one config line, without touching content. The previous theme,
 
 CI: pull requests build the site, validate internal links, and check
 formatting (`.github/workflows/ci.yml`); merges to `main` build and deploy to
-GitHub Pages (`build-and-deploy.yml`); a weekly job checks external links
-online and files an issue on rot (`link-check.yml`).
+GitHub Pages (`build-and-deploy.yml`), fetching the resume PDF from
+[kirillbobyrev/resume](https://github.com/kirillbobyrev/resume)'s releases;
+a weekly job checks external links online and files an issue on rot
+(`link-check.yml`). Every link check shares `lychee.toml`.
 
 ## Develop
 

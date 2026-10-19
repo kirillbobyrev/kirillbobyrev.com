@@ -10,6 +10,7 @@ on:
       - "LICENSE"
       - ".devcontainer/**"
       - ".mcp.json"
+      - "lychee.toml"
       - ".prettierrc"
       - ".prettierignore"
       - ".editorconfig"
@@ -48,17 +49,6 @@ jobs:
       - name: Setup Hugo
         uses: ./.github/actions/setup-hugo
 
-      - name: Restore generated-image cache
-        # resources/ holds Hugo's processed images (OG cards, responsive
-        # WebP sets). Restoring it skips re-encoding unchanged images;
-        # `hugo --gc` prunes entries that no longer correspond to content.
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: resources
-          key: hugo-resources-${{ hashFiles('themes/**/assets/**', 'themes/**/layouts/**', 'content/**') }}
-          restore-keys: |
-            hugo-resources-
-
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
@@ -78,14 +68,7 @@ jobs:
           test -s static/resume.pdf
 
       - name: Build with Hugo
-        env:
-          HUGO_ENVIRONMENT: production
-          HUGO_ENV: production
-        run: |
-          hugo \
-            --gc \
-            --minify \
-            --baseURL "${{ steps.pages.outputs.base_url }}/"
+        run: hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
 
       - name: Check links
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
