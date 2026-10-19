@@ -8,7 +8,7 @@
             "version": "0.168.0",
             "extended": true
         },
-        "ghcr.io/devcontainers/features/node:1": {}
+        "ghcr.io/devcontainers/features/node:2": {}
     },
     "forwardPorts": [
         1313
