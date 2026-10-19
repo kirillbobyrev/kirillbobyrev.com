@@ -1,0 +1,39 @@
+/* Mermaid diagrams: the escaped source shows as quiet monospace text until
+   (or unless) the script draws the SVG. Same breakout as .figure-block. */
+pre.mermaid {
+  display: flex;
+  justify-content: center;
+  width: var(--measure-wide);
+  margin-block: var(--rhythm);
+  margin-inline: calc(50% - 50vw + (100vw - var(--measure-wide)) / 2);
+  padding: var(--space-xl) var(--space-l);
+  background-color: var(--color-panel);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+
+/* Mermaid sometimes sizes an edge label's foreignObject a character or two
+   too narrow for this font; let the label overflow rather than clip. */
+pre.mermaid svg foreignObject {
+  overflow: visible;
+}
+
+/* Labels are <p>s inside .prose, so the prose rules would otherwise
+   restyle them - serif, --text-prose, prose leading - after Mermaid has
+   already sized each label's box for its own font and 16px default, which
+   wraps a two-word label onto two lines. Hand all three back to the
+   diagram. */
+pre.mermaid p {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+@media (max-width: 640px) {
+  pre.mermaid {
+    padding-inline: var(--space-m);
+  }
+}

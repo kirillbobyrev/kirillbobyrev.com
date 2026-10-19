@@ -1,0 +1,190 @@
+/* ==========================================================================
+   Design tokens
+
+   Two families split by job, the way the long-form blogs that read best
+   do it (lexi-lambda, gwern.net, matklad): a serif for what you read, a
+   sans for what you scan. Source Serif 4 is the reading voice:
+   paragraphs, lists, the lede and deck, quotes - everything read in
+   runs. Space Grotesk is everything else, the default on .site-body:
+   headings, the wordmark, nav, dates, the contents rail, captions,
+   tables (its tabular figures line up columns of numbers). JetBrains
+   Mono is reserved for code; the generated Open Graph card keeps Space
+   Mono (og-image.html).
+   No letter-spaced/uppercase "label" metadata: secondary text is just
+   smaller and quieter. Editorial-modernist restraint (iA, Anthropic's
+   research blog, Increment, Stripe Press, Works in Progress) is the
+   design system here, more than any one color or shape.
+
+   Six sizes, each with one job, loosely derived from a 1.25 modular scale
+   (Bringhurst, "The Elements of Typographic Style"). Headings sit close to
+   the body on purpose - h2 ~1.25x, h1 ~2.1x - a flatter hierarchy than
+   Anthropic's or OpenAI's (h1 3-3.8x), carried by weight and face more
+   than size:
+     --text-sm     1rem       captions, footnotes, table text, dates
+     --text-base   1.0625rem  interface text: nav, meta, contents
+     --text-prose  1.1875rem  running prose in the serif; h3 at bold weight
+     --text-md     1.2rem     the site title/wordmark only
+     --text-lg     1.5rem     h2, Writing-index titles, pull-quotes, the deck
+     --text-xl     2.5rem     every h1 - fixed, independent of the rest
+   --text-prose sits a step above --text-base because Source Serif's
+   x-height is small (0.475em): 19px of it reads at the size 17px of a
+   typical sans text face does.
+
+   Themes: every color is declared exactly once via light-dark(). The
+   default color-scheme follows the OS; the header toggle forces one by
+   setting html[data-theme] (persisted in localStorage), which flips
+   color-scheme and with it every token. One accent, #d8402a, identical in
+   both themes and used sparingly (a heading's trailing dot, hover); its
+   text-weight sibling --color-link colors links inside articles. Three
+   text tiers: --color-heading, --color-text, --color-muted. */
+:root {
+  color-scheme: light dark;
+
+  --font-sans:
+    "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-serif:
+    "Source Serif 4", "Iowan Old Style", "Charter", Georgia, Cambria,
+    "Times New Roman", serif;
+  --font-mono:
+    "JetBrains Mono", "SF Mono", Menlo, "Cascadia Code", "Roboto Mono",
+    Consolas, monospace;
+
+  --text-sm: 1rem;
+  --text-base: 1.0625rem;
+  --text-prose: 1.1875rem;
+  --text-md: 1.2rem;
+  --text-lg: 1.5rem;
+  --text-xl: 2.5rem;
+
+  /* Flat geometry: the theme toggle's circle is the only border-radius
+     anywhere. */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: 0.15s var(--ease);
+
+  /* utopia.fyi-style T-shirt space scale. Every margin/padding/gap below
+     should use one of these; a genuinely sub-3xs hairline nudge is the
+     only accepted exception, and should say so in a comment. */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.375rem;
+  --space-xs: 0.5rem;
+  --space-s: 0.75rem;
+  --space-m: 1rem; /* "one line" at the root font-size */
+  --space-l: 1.5rem;
+  --space-xl: 2.25rem;
+  --space-2xl: 2.75rem;
+  --space-3xl: 4rem;
+
+  /* Baseline rhythm for .prose only: .prose p's line-height (1.72) times
+     --text-prose, so a paragraph's line box and the grid unit are the same
+     number. Structural gaps between prose blocks (paragraphs, lists, h2,
+     hr, blockquote, figures) are multiples of this (Müller-Brockmann, Grid
+     Systems in Graphic Design); tight same-group gaps (h3 to its
+     paragraph, list items, dt/dd) stay on --space-*, since grouping, not
+     grid rigor, is the point there. */
+  --rhythm: calc(var(--text-prose) * 1.72);
+
+  --color-bg: light-dark(#f2efe8, #141310);
+  --color-heading: light-dark(#14120d, #f4f1e9);
+  /* Body copy - contrast against --color-bg: light 13.5:1, dark 12.8:1. */
+  --color-text: light-dark(rgba(20, 18, 13, 0.92), rgba(235, 231, 221, 0.92));
+  /* Everything secondary: nav, dates, captions, footnotes, table text.
+     AA for body-size text on the page (light 5.3:1, dark 5.7:1) and on
+     --color-panel too (4.8:1, 5.3:1). */
+  --color-muted: light-dark(rgba(20, 18, 13, 0.64), rgba(235, 231, 221, 0.58));
+  --color-border: light-dark(rgba(20, 18, 13, 0.25), rgba(235, 231, 221, 0.22));
+  /* Link underlines and the scrollbar: strong enough that a link is
+     findable at a glance without the accent, which stays for hover. */
+  --color-underline: light-dark(
+    rgba(20, 18, 13, 0.4),
+    rgba(235, 231, 221, 0.38)
+  );
+  --color-panel: light-dark(rgba(20, 18, 13, 0.05), rgba(235, 231, 221, 0.04));
+  --color-bg-hover: light-dark(
+    rgba(20, 18, 13, 0.08),
+    rgba(235, 231, 221, 0.07)
+  );
+  /* The one color that does NOT flip with light-dark(): a considered ink
+     color, not a UI accent, so it stays put across modes. At 3.9:1
+     (light) and 4.2:1 (dark) against --color-bg it's for marks, not
+     text: the heading dot, the blockquote rule, the focus ring, icons,
+     borders - anything WCAG holds to 3:1. */
+  --color-accent: #d8402a;
+  /* The accent at text weight: links inside articles (lexi-lambda's
+     colored links, in this site's ink) and every hovered text link.
+     Darkened in light mode and lifted in dark so it holds AA on the page
+     at body size (light 5.5:1, dark 6.8:1). Against body text it's under
+     3:1, so links keep an underline as the non-color cue (WCAG 1.4.1),
+     tinted to match. */
+  --color-link: light-dark(#b0341d, #ef7a63);
+
+  /* The reading column: measured at ~75 characters/line of Source Serif
+     at --text-prose on real prose, where Anthropic's research and
+     engineering posts sit (the other engineering blogs measured run
+     82-96). Its width comes from the type size as much as the line: 19px
+     serif text makes a ~672px column (~750px on a
+     2560px monitor, where the root font-size has grown). rem-based, so it grows only with the fluid root
+     font-size, not with the viewport - a wide screen doesn't earn a
+     longer line. Mobile is bounded by the viewport and --gutter instead
+     (~39 CPL). */
+  --measure: 42rem;
+  /* The page frame: the header row spans it, and on articles a left rail
+     (date, reading time, contents) runs from the logo's edge to the
+     reading column, as on Stripe's and Anthropic's engineering blogs - a
+     wide screen goes to a metadata column instead of a longer line. 92vw
+     keeps a gutter; 84rem caps it. */
+  --frame: min(92vw, 84rem);
+  /* The wider content tier: figures, diagrams, tables and long code break
+     out to it. Two tiers, as in Distill or a research paper's figure
+     column: prose holds its measure, while the material you look at
+     rather than read grows with the screen. Fixed at 68rem (1088px) up to
+     ~1600px of viewport, then tracks the viewport (64vw) to an 84rem cap
+     (reached at ~2200px), where it meets --frame. 92vw keeps a gutter on
+     narrow screens. Keep the `sizes` attribute in responsive-img.html in
+     step with this. */
+  --measure-wide: min(92vw, clamp(68rem, 64vw + 4rem, 84rem));
+
+  /* Clearance below the sticky header (~72px tall here, ~44px on mobile)
+     for anything that scrolls or sticks under it: fragment-link targets
+     and the table-of-contents rail. */
+  --header-offset: calc(var(--space-3xl) + var(--space-l));
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* Page-to-page navigation crossfades instead of flashing, in browsers
+   with cross-document view transitions (Chromium 126+, Safari 18.2+);
+   others navigate as before. The header is identical on every page, so
+   it reads as staying put while the content changes. Top-level rather
+   than inside a prefers-reduced-motion query: Hugo's CSS minifier drops
+   the at-rule when it's nested. Reduced motion turns the animation off
+   in the prefers-reduced-motion block below instead. */
+@view-transition {
+  navigation: auto;
+}
+
+@media (max-width: 640px) {
+  /* Mobile type scale: h1, h2/deck and the wordmark step down, and prose
+     drops to 18px to keep ~38 characters a line in a ~350px column;
+     interface text stays at 17px. --rhythm is pinned flat, deliberately
+     tighter than the line-height formula it uses on desktop. */
+  :root {
+    --text-prose: 1.125rem;
+    --text-md: 1.125rem;
+    --text-lg: 1.375rem;
+    --text-xl: 2.25rem;
+    --rhythm: 1.625rem;
+
+    /* Page gutter, shared by .header-row, .site-container and .highlight
+       so chrome and content stay flush at one edge. */
+    --gutter: calc(var(--space-m) + var(--space-3xs)); /* 20px */
+
+    --header-offset: var(--space-3xl);
+  }
+}

@@ -1,0 +1,38 @@
+/* === Print === */
+@media print {
+  @page {
+    margin: 2.5cm;
+  }
+
+  :root,
+  :root[data-theme="dark"] {
+    color-scheme: light;
+  }
+
+  .site-header,
+  .to-top,
+  .toc-rail {
+    display: none;
+  }
+
+  .site-container {
+    max-width: none;
+    padding: 0;
+  }
+
+  .prose a {
+    text-decoration: none;
+  }
+
+  .prose a[href^="http"]:not([href*="kirillbobyrev.com"])::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: var(--color-muted);
+    word-break: break-all;
+  }
+
+  .highlight pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}

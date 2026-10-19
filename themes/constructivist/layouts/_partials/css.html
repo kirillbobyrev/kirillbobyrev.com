@@ -1,14 +1,22 @@
-{{- /* Production inlines the stylesheet: at ~25KB (~6KB gzipped) it costs */ -}}
-{{- /* less than the round trip it saves, which is render-blocking on */ -}}
-{{- /* every first visit. Caching a separate file would buy little here - */ -}}
-{{- /* GitHub Pages serves every asset with max-age=600. Development links */ -}}
-{{- /* it instead, so hugo server can hot-swap CSS edits. */ -}}
-{{- with resources.Get "css/main.css" -}}
+{{- /* assets/css/main.css only @imports the modules; css.Build (esbuild) */ -}}
+{{- /* bundles them into one stylesheet. Targets are the first versions */ -}}
+{{- /* with light-dark(), which every color here depends on - nothing */ -}}
+{{- /* newer needs lowering. /fonts/ is static, so its url()s stay as-is. */ -}}
+{{- $opts := dict
+  "minify" hugo.IsProduction
+  "externals" (slice "/fonts/*")
+  "target" (slice "chrome123" "firefox120" "safari17.5")
+-}}
+{{- with resources.Get "css/main.css" | css.Build $opts -}}
   {{- if hugo.IsDevelopment -}}
+    {{- /* Linked, so hugo server can hot-swap CSS edits. */ -}}
     <link rel="stylesheet" href="{{ .RelPermalink }}" />
   {{- else -}}
+    {{- /* Inlined: at ~25KB (~6KB gzipped) it costs less than the round */ -}}
+    {{- /* trip it saves, which is render-blocking on every first visit; a */ -}}
+    {{- /* cached file buys little when GitHub Pages serves max-age=600. */ -}}
     <style>
-      {{ (. | minify).Content | safeCSS }}
+      {{ .Content | safeCSS }}
     </style>
   {{- end -}}
 {{- end -}}

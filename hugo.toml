@@ -41,8 +41,12 @@ theme = 'constructivist'
   url = '/resume.pdf'
   weight = 3
 
-[sitemap]
-  changefreq = 'weekly'
+# Every script is built and minified by esbuild (js.Build, see the theme's
+# _partials/script.html) before it's inlined, so `hugo --minify` must leave
+# inline JS alone: its minifier re-minifying esbuild's output hoisted a
+# destructuring above the variable it reads and broke the analytics loader.
+[minify]
+  disableJS = true
 
 # `hugo server`-only (never applies to the static `hugo` build, so
 # production is unaffected). The sandboxed embed iframes (static/embeds/)

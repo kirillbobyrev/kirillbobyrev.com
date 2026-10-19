@@ -1,0 +1,245 @@
+/* === Article meta / post title === */
+/* The bottom margin collapses against the first prose block's --rhythm
+   top margin; --space-2xl wins that outright, leaving a deliberate pause
+   before the body copy starts. Flush left on the prose edge like every
+   other page heading: one alignment axis from title to last paragraph. */
+.article-header {
+  margin-block: var(--space-3xl) var(--space-2xl);
+}
+
+.article-meta {
+  margin-block-start: var(--space-l);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+/* Optional 1-2 sentence deck (front matter `deck`) - a step up from body
+   size, quieter than the heading, balanced so a long deck still reads as
+   a few even lines. Italic sets it apart from the body copy below it by
+   texture rather than by another size or color. */
+.article-deck {
+  margin: var(--space-l) 0 0;
+  font-size: var(--text-lg);
+  font-style: italic;
+  line-height: 1.45;
+  text-wrap: balance;
+}
+
+/* === Table of contents ===
+   Long posts only (see page.html). Narrow viewports: a collapsed
+   <details> between the header and the body. Wide ones (the media query
+   below): pinned in the empty margin left of the reading column, open,
+   with the section in view marked the same way the nav marks the current
+   page - color and weight, no painted indicator. */
+.article-body {
+  position: relative;
+}
+
+.toc {
+  margin-block-end: var(--space-xl);
+  font-size: var(--text-sm);
+  line-height: 1.4;
+}
+
+.toc-summary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--color-muted);
+  list-style: none;
+  transition: color var(--transition);
+}
+
+.toc-summary::-webkit-details-marker {
+  display: none;
+}
+
+.toc-summary:hover {
+  color: var(--color-link);
+}
+
+/* A drawn chevron, turned down while open; currentColor so hover recolors it. */
+.toc-summary::before {
+  content: "";
+  width: 0.4em;
+  height: 0.4em;
+  border-inline-end: 1.5px solid currentColor;
+  border-block-end: 1.5px solid currentColor;
+  rotate: -45deg;
+  transition: rotate var(--transition);
+}
+
+.toc[open] .toc-summary::before {
+  rotate: 45deg;
+}
+
+.toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.toc > nav > ul {
+  margin-block-start: var(--space-s);
+}
+
+.toc li {
+  margin-block: var(--space-xs);
+}
+
+/* h3 entries: indented under their h2, not a separate list style. */
+.toc li ul {
+  padding-inline-start: var(--space-s);
+}
+
+.toc a {
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.toc a:hover {
+  color: var(--color-link);
+}
+
+.toc a[aria-current] {
+  color: var(--color-heading);
+  font-weight: 600;
+}
+
+/* The left rail: article meta, then the contents. From 76rem of
+   viewport it gets ~175px between the header logo's edge and the reading
+   column; narrower than that, it would get squeezed, so both stay in the
+   flow above the prose. Past ~1460px --frame stops tracking the viewport
+   and grows only with the root font-size, and the rail with it. */
+@media (min-width: 76rem) {
+  /* Both rail parts sit in a box exactly as wide as the reading column,
+     so 100% resolves to the column's width. Left edge lines up with the
+     header logo (.header-row's --frame, inset by its padding); the width
+     is whatever margin is left, minus a gutter. The gutter is wide enough
+     for an article's hanging h2 (one --space-l into the margin) to clear
+     the contents list scrolling beside it by another --space-l or so. */
+  .main-content {
+    --rail-gap: var(--space-2xl);
+    --rail-width: calc(
+      (var(--frame) - 2 * var(--space-l) - 100%) / 2 - var(--rail-gap)
+    );
+  }
+
+  .article-header {
+    position: relative;
+  }
+
+  /* No block insets, so it keeps the spot it would take in the flow -
+     right under the title - while the deck moves up beside it: the date
+     reads as a label on the deck, as on Anthropic's posts. */
+  .article-meta {
+    position: absolute;
+    inset-inline-end: calc(100% + var(--rail-gap));
+    width: var(--rail-width);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3xs);
+  }
+
+  .article-meta > [aria-hidden] {
+    display: none;
+  }
+
+  /* No deck: line up with the first paragraph instead, which starts the
+     header's bottom margin below the title. */
+  .article-meta:last-child {
+    margin-block-start: var(--space-2xl);
+  }
+
+  /* Out of flow, as tall as the article body, so the sticky child inside
+     it can travel the whole post. */
+  .toc-rail {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-end: calc(100% + var(--rail-gap));
+    width: var(--rail-width);
+  }
+
+  .toc {
+    position: sticky;
+    inset-block-start: var(--header-offset);
+    max-height: calc(100vh - var(--header-offset) - var(--space-l));
+    overflow-y: auto;
+    margin: 0;
+    scrollbar-width: none;
+  }
+
+  /* Always open here (assets/js/toc-init.js keeps [open] in sync); the
+     summary becomes a plain label. */
+  .toc-summary {
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .toc-summary::before {
+    display: none;
+  }
+
+  /* The rail owns the left margin now, so whatever breaks out of the
+     reading column (figures, diagrams, wide tables) bleeds right only,
+     out to the same --measure-wide outer edge it reaches on both sides
+     elsewhere, and starts flush with the prose instead of centered. */
+  .article-body:has(.toc-rail) :is(.figure-block, pre.mermaid) {
+    width: calc(50% + var(--measure-wide) / 2);
+    margin-inline: 0;
+  }
+
+  .article-body:has(.toc-rail) .figure-block {
+    text-align: start;
+  }
+
+  .article-body:has(.toc-rail) .figure-block img {
+    margin-inline: 0;
+  }
+
+  .article-body:has(.toc-rail) .prose :is(.table-wrapper, .katex-display) {
+    max-width: calc(50% + var(--measure-wide) / 2);
+    margin-inline-start: 0;
+    translate: none;
+  }
+}
+
+/* A single quiet link back to the index after the prose - no tags, no
+   "you may also like". */
+.post-nav {
+  margin-block-start: var(--space-3xl);
+  padding-block-start: var(--space-l);
+  border-block-start: 1px solid var(--color-border);
+}
+
+.post-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  color: var(--color-muted);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  transition: color var(--transition);
+}
+
+.post-nav-link:hover {
+  color: var(--color-link);
+}
+
+@media (max-width: 640px) {
+  .article-header {
+    margin-block: var(--space-xl) var(--gutter);
+  }
+
+  .article-meta {
+    margin-block-start: var(--space-s);
+  }
+}

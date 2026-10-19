@@ -1,0 +1,231 @@
+/* === Prose typography === */
+.main-content {
+  margin-block-start: var(--space-xs);
+}
+
+/* Quiet by default - the same color as the surrounding sentence; the
+   link color only shows up once a link is actually being interacted
+   with. */
+.prose a {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-color: var(--color-underline);
+  text-decoration-thickness: max(1px, 0.06em);
+  text-underline-offset: 0.2em;
+  text-decoration-skip-ink: auto;
+  transition:
+    color var(--transition),
+    text-decoration-color var(--transition);
+}
+
+.prose a:hover {
+  color: var(--color-link);
+  text-decoration-color: var(--color-link);
+}
+
+/* Inside articles, links take the ink color, as on lexi-lambda: a long
+   post's references are part of its argument, and color makes them
+   findable while skimming. About and Now are mostly links in a few short
+   lines, where color everywhere would just be noise, so they stay quiet. */
+.article-body .prose a {
+  color: var(--color-link);
+  text-decoration-color: color-mix(in srgb, var(--color-link) 35%, transparent);
+}
+
+/* Asymmetric on purpose: two lines of air above, well under one below, so
+   the heading reads as the start of the section under it rather than
+   floating halfway between two (gestalt proximity). The bottom gap must
+   stay visibly smaller than the gap between paragraphs, which is --rhythm. */
+.prose h2 {
+  margin: calc(var(--rhythm) * 2) 0 var(--space-s);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--color-heading);
+  text-wrap: balance;
+}
+
+/* Hanging section heads in articles, as on lexi-lambda: the h2 starts a
+   step left of the text edge, so a post's sections can be found by
+   running an eye down the margin. Articles only - on About and Now the h1
+   sits on the text edge with no rail beside it, and a heading hanging
+   past the page title reads as a misalignment. Phones keep every edge
+   flush: there's no margin to hang into. */
+@media (min-width: 641px) {
+  .article-body .prose h2 {
+    margin-inline-start: calc(var(--space-l) * -1);
+  }
+}
+
+/* About/Now: the full 2x --rhythm gap between the lede and the first
+   section heading makes a short page read as isolated blocks, so pull
+   just that first h2 in. */
+.page-header + .prose > h2:first-child {
+  margin-block-start: var(--space-2xl); /* 44px */
+}
+
+/* Body size at bold weight rather than a size step of its own, bound
+   tight to the paragraph under it (off --rhythm - it's a label, not a
+   section break). */
+.prose h3 {
+  margin: var(--space-l) 0 var(--space-xs);
+  font-weight: 700;
+  font-size: var(--text-prose);
+  line-height: 1.4;
+  color: var(--color-heading);
+  text-wrap: balance;
+}
+
+/* Margins collapse to their max: without this the next block's --rhythm
+   top margin would win over the heading's tight bottom margin. */
+.prose h2 + :is(p, ul, ol) {
+  margin-block-start: var(--space-s);
+}
+
+.prose h3 + :is(p, ul, ol) {
+  margin-block-start: var(--space-xs);
+}
+
+.prose p {
+  /* One blank line between paragraphs. */
+  margin-block: var(--rhythm);
+  /* color looks inherited, but isn't redundant: it also reaches
+     Mermaid's label <p>s (see pre.mermaid p below for their size). */
+  font-size: var(--text-prose);
+  line-height: 1.72;
+  color: var(--color-text);
+  /* Bringhurst §2.1.5: a flush opening quote reads as a dent in the
+     column. Safari-only today; a no-op elsewhere. */
+  hanging-punctuation: first last;
+}
+
+/* pretty avoids orphans on the last line; hyphens evens the rag above it,
+   which matters at this measure and more so on mobile. Needs html[lang]
+   (set in baseof.html) for the hyphenation dictionary. */
+.prose p,
+.prose li {
+  text-wrap: pretty;
+  hyphens: auto;
+}
+
+/* Plain disc/decimal markers, muted. disc is set explicitly so nested
+   lists don't switch to circles. */
+.prose ol,
+.prose ul {
+  margin-block: var(--rhythm);
+  padding-inline-start: 1.25em;
+}
+
+.prose ul {
+  list-style: disc;
+}
+
+.prose li::marker {
+  color: var(--color-muted);
+}
+
+/* Off --rhythm, like h3: list items group, they don't each open a break.
+   Sized on the item rather than the list, so footnotes (an <ol> inside
+   .footnotes) still inherit their smaller size. */
+.prose li {
+  margin-block: 0.4em;
+  font-size: var(--text-prose);
+  line-height: 1.72;
+}
+
+/* A quiet pull-quote: left-aligned with the rest of the prose, a thin
+   accent rule, one size step up from body copy. */
+.prose blockquote {
+  margin: var(--rhythm) 0;
+  padding-inline-start: var(--space-l);
+  border-inline-start: 2px solid var(--color-accent);
+  font-size: var(--text-lg);
+  line-height: 1.5;
+  color: var(--color-heading);
+  hanging-punctuation: first last;
+}
+
+.prose blockquote p {
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  margin-block: var(--rhythm);
+}
+
+/* Definition lists aren't reachable from standard Markdown, but raw HTML
+   passes through Goldmark unchanged, so a hand-written <dl> still gets a
+   considered treatment instead of the UA default. */
+.prose dl {
+  margin-block: var(--rhythm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+}
+
+.prose dt {
+  font-weight: 700;
+  color: var(--color-heading);
+}
+
+.prose dd {
+  margin: var(--space-3xs) 0 0;
+  font-size: var(--text-prose);
+  line-height: 1.72;
+}
+
+/* 700 is heavy against 400 text in either face; 600 marks emphasis
+   without a dark blot in the paragraph's color. em needs nothing: Source
+   Serif ships a real italic. */
+.prose :is(strong, b) {
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+/* Footnotes (Goldmark's [^1]): a small superscript reference that doesn't
+   open up the line spacing, and notes set a step down and quieter. */
+.prose sup,
+.prose sub {
+  font-size: 0.75em;
+  line-height: 0;
+}
+
+.prose .footnote-ref {
+  text-decoration: none;
+  font-variant-numeric: tabular-nums;
+  padding-inline: 0.1em;
+}
+
+.prose .footnotes {
+  margin-block-start: calc(var(--rhythm) * 2);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.prose .footnotes hr {
+  width: var(--space-3xl);
+  margin-inline: 0;
+}
+
+.prose .footnotes :is(p, li) {
+  font-size: inherit;
+  color: inherit;
+  margin-block: var(--space-2xs);
+}
+
+@media (max-width: 640px) {
+  .page-header + .prose > h2:first-child {
+    margin-block-start: var(--space-xl);
+  }
+
+  /* 2x --rhythm reads as an oversized section gap at this width. */
+  .prose h2 {
+    margin-block-start: calc(var(--rhythm) * 1.5);
+  }
+}

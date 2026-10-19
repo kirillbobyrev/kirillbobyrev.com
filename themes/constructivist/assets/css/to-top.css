@@ -1,0 +1,48 @@
+/* === Back to top === */
+.to-top {
+  position: fixed;
+  inset-block-end: var(--space-l);
+  inset-inline-end: var(--space-l);
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-xl);
+  height: var(--space-xl);
+  border: 1px solid var(--color-underline);
+  background-color: var(--color-bg);
+  color: var(--color-muted);
+  text-decoration: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.35rem);
+  transition:
+    opacity var(--transition),
+    visibility var(--transition),
+    transform var(--transition),
+    color var(--transition),
+    background-color var(--transition),
+    border-color var(--transition);
+}
+
+.to-top[data-visible] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.to-top:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.to-top[hidden] {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  /* The sticky header's title already links back to the top. */
+  .to-top {
+    display: none;
+  }
+}
