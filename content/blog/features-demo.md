@@ -31,6 +31,30 @@ You can also create nested lists:
   - Recurrent Neural Networks (RNNs)
   - Transformer models and attention mechanisms
 
+## Callouts
+
+GitHub-style alerts render as titled callouts:
+
+> [!NOTE]
+> Useful context a skimming reader should still see.
+
+> [!TIP]
+> A better way to do the thing.
+
+> [!IMPORTANT]
+> Something the reader needs to know to succeed.
+
+> [!WARNING]
+> Something that needs attention before going further.
+
+> [!CAUTION] Custom title
+> A risk worth calling out, with a title of its own.
+
+## Inline formatting
+
+H~2~O and E = mc^2^ via subscript and superscript, ==highlighted text==,
+++inserted text++ and ~~deleted text~~.
+
 ## Diagrams
 
 Mermaid code blocks render as diagrams that follow the site theme:

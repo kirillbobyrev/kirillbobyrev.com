@@ -12,12 +12,26 @@ JetBrains Mono only inside actual code. Six fixed type sizes, restrained
 hierarchy, no tiny uppercase-tracked metadata (think iA, Anthropic's
 research blog, Increment, Stripe Press, Works in Progress); articles
 borrow lexi-lambda's hanging section heads and colored links. The header is
-static on desktop and a sticky one-line bar with Cyrillic initials on
-mobile; the theme toggle is a plain half-filled circle.
+sticky, collapsing to a one-line bar with Cyrillic initials on mobile; the
+theme toggle is a plain half-filled circle.
 
 This theme lives in the same repo as the site that uses it
 (`themes/constructivist/`) and is wired in with `theme = "constructivist"`
 in the site's `hugo.toml`.
+
+## Structure
+
+- `assets/css/` - one module per concern (`tokens.css`, `prose.css`,
+  `code.css`, ...), each holding its own phone overrides; `main.css` only
+  `@import`s them in cascade order. `_partials/css.html` bundles them with
+  Hugo's `css.Build` (esbuild) and inlines the result in production.
+- `assets/js/` - plain ES modules: `main.js` (theme toggle, back-to-top,
+  contents tracking), `theme-init.js` and `toc-init.js` (run before first
+  paint), `analytics.js`, `mermaid.js`. `_partials/script.html` builds an
+  entry point with `js.Build` and inlines it; no template carries inline JS.
+- `layouts/_markup/` - render hooks: responsive images, wrapped tables,
+  heading anchors, KaTeX math, Mermaid code blocks, and GitHub-style alerts
+  (`> [!NOTE]`, `[!TIP]`, `[!IMPORTANT]`, `[!WARNING]`, `[!CAUTION]`).
 
 ## Content contract
 
@@ -45,6 +59,13 @@ for the theme to render it.
 | `[params.social] email`                                      | optional "Email" entry in that row                                       |
 | `params.description`, `params.images`                        | fallback meta description and OG image for pages without their own       |
 | `[services.googleAnalytics] id`                              | Google Analytics, loaded once the page is idle (production builds only)  |
+
+### Markdown
+
+Beyond CommonMark and GFM tables/footnotes: `~sub~`, `^sup^`,
+`==mark==`, `++insert++` and `~~delete~~` (Goldmark extras; single-tilde
+strikethrough is off since it collides with subscript), `\( \)` /
+`\[ \]` / `$$` math, ` ```mermaid ` diagrams, and alerts.
 
 ### Other assumptions
 

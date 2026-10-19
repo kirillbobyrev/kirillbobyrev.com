@@ -1,0 +1,24 @@
+{{- /* GitHub-style alerts (> [!NOTE], [!TIP], [!IMPORTANT], [!WARNING], */ -}}
+{{- /* [!CAUTION], optionally with a custom title after the marker) render */ -}}
+{{- /* as a titled callout; every other blockquote renders as Goldmark's */ -}}
+{{- /* default <blockquote>. */ -}}
+{{- if eq .Type "alert" -}}
+  <aside class="callout callout-{{ .AlertType }}">
+    <p class="callout-title">
+      {{- with .AlertTitle -}}
+        {{ . }}
+      {{- else -}}
+        {{ .AlertType | strings.FirstUpper }}
+      {{- end -}}
+    </p>
+    {{ .Text }}
+  </aside>
+{{- else -}}
+  <blockquote
+    {{- range $k, $v := .Attributes -}}
+      {{- printf " %s=%q" $k $v | safeHTMLAttr -}}
+    {{- end -}}
+  >
+    {{ .Text }}
+  </blockquote>
+{{- end -}}

@@ -188,6 +188,19 @@
   color: var(--color-heading);
 }
 
+/* ==mark== and ++insert++ (Goldmark extras): a tint of the ink rather
+   than the UA's yellow, so a highlight reads the same in both themes;
+   inserted text keeps its underline, in the ink. */
+.prose mark {
+  padding-inline: 0.1em;
+  background-color: color-mix(in srgb, var(--color-accent) 22%, transparent);
+  color: inherit;
+}
+
+.prose ins {
+  text-decoration-color: var(--color-accent);
+}
+
 /* Footnotes (Goldmark's [^1]): a small superscript reference that doesn't
    open up the line spacing, and notes set a step down and quieter. */
 .prose sup,

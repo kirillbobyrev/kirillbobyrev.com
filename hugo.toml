@@ -26,6 +26,21 @@ theme = 'constructivist'
     style = 'github'
   [markup.goldmark]
     [markup.goldmark.extensions]
+      # ~sub~, ^sup^, ==mark==, ++insert++ and ~~delete~~. Strikethrough
+      # is off because its single-tilde syntax collides with subscript;
+      # the extras' `delete` takes over ~~double tildes~~.
+      strikethrough = false
+      [markup.goldmark.extensions.extras]
+        [markup.goldmark.extensions.extras.delete]
+          enable = true
+        [markup.goldmark.extensions.extras.insert]
+          enable = true
+        [markup.goldmark.extensions.extras.mark]
+          enable = true
+        [markup.goldmark.extensions.extras.subscript]
+          enable = true
+        [markup.goldmark.extensions.extras.superscript]
+          enable = true
       [markup.goldmark.extensions.passthrough]
         enable = true
         [markup.goldmark.extensions.passthrough.delimiters]
