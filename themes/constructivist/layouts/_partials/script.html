@@ -1,0 +1,29 @@
+{{- /*
+  Builds an assets/js entry point with js.Build (esbuild) and inlines it.
+  Every script on the site is small and page-critical, so inlining saves a
+  request each, like the stylesheet (see css.html).
+  Params (dict): path (required, e.g. "js/toc.js"); params (optional,
+  imported in the script as "@params"); module (optional bool: ES module
+  output in a <script type="module">, for scripts that import from a URL).
+  Target is ES2023, which every browser the CSS targets supports, so
+  nothing is lowered. https:// imports stay external.
+  */
+-}}
+{{- $opts := dict
+  "minify" hugo.IsProduction
+  "target" "es2023"
+  "format" (cond (.module | default false) "esm" "iife")
+  "params" (.params | default dict)
+  "externals" (slice "https://*")
+-}}
+{{- with resources.Get .path | js.Build $opts -}}
+  {{- if $.module -}}
+    <script type="module">
+      {{ .Content | safeJS }}
+    </script>
+  {{- else -}}
+    <script>
+      {{ .Content | safeJS }}
+    </script>
+  {{- end -}}
+{{- end -}}

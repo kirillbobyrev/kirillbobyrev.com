@@ -1,0 +1,215 @@
+/* Blog posts: title block, contents, the left rail, the link back. */
+.article-header {
+  margin-block: var(--space-3xl) var(--space-2xl);
+}
+
+.article-meta {
+  margin-block-start: var(--space-l);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.article-deck {
+  margin: var(--space-l) 0 0;
+  font-size: var(--text-lg);
+  font-style: italic;
+  line-height: 1.45;
+  text-wrap: balance;
+}
+
+/* Contents (long posts, see page.html): a collapsed <details> above the
+   prose on narrow screens, an always-open list in the left rail on wide
+   ones. The section in view is marked like the current nav page. */
+.article-body {
+  position: relative;
+}
+
+.toc {
+  margin-block-end: var(--space-xl);
+  font-size: var(--text-sm);
+  line-height: 1.4;
+}
+
+.toc-summary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--color-muted);
+  list-style: none;
+  transition: color var(--transition);
+}
+
+.toc-summary::-webkit-details-marker {
+  display: none;
+}
+
+.toc-summary:hover {
+  color: var(--color-link);
+}
+
+.toc-summary::before {
+  content: "";
+  width: 0.4em;
+  height: 0.4em;
+  border-inline-end: 1.5px solid currentColor;
+  border-block-end: 1.5px solid currentColor;
+  rotate: -45deg;
+  transition: rotate var(--transition);
+}
+
+.toc[open] .toc-summary::before {
+  rotate: 45deg;
+}
+
+.toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.toc > nav > ul {
+  margin-block-start: var(--space-s);
+}
+
+.toc li {
+  margin-block: var(--space-xs);
+}
+
+.toc li ul {
+  padding-inline-start: var(--space-s);
+}
+
+.toc a {
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.toc a:hover {
+  color: var(--color-link);
+}
+
+.toc a[aria-current] {
+  color: var(--color-heading);
+  font-weight: 600;
+}
+
+/* The rail: date and contents in the margin left of the reading column,
+   from the header logo's edge. Below 76rem it would be too narrow, so
+   both stay in the flow. Keep the width in step with toc.js. */
+@media (min-width: 76rem) {
+  /* 100% here is the reading column's width. The gap leaves room for the
+     hanging h2s. */
+  .main-content {
+    --rail-gap: var(--space-2xl);
+    --rail-width: calc(
+      (var(--frame) - 2 * var(--space-l) - 100%) / 2 - var(--rail-gap)
+    );
+  }
+
+  .article-header {
+    position: relative;
+  }
+
+  /* Beside the deck, or the first paragraph if there's no deck. */
+  .article-meta {
+    position: absolute;
+    inset-inline-end: calc(100% + var(--rail-gap));
+    width: var(--rail-width);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3xs);
+  }
+
+  .article-meta > [aria-hidden] {
+    display: none;
+  }
+
+  .article-meta:last-child {
+    margin-block-start: var(--space-2xl);
+  }
+
+  /* As tall as the article, so the sticky list can travel all of it. */
+  .toc-rail {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-end: calc(100% + var(--rail-gap));
+    width: var(--rail-width);
+  }
+
+  .toc {
+    position: sticky;
+    inset-block-start: var(--header-offset);
+    max-height: calc(100vh - var(--header-offset) - var(--space-l));
+    overflow-y: auto;
+    margin: 0;
+    scrollbar-width: none;
+  }
+
+  .toc-summary {
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .toc-summary::before {
+    display: none;
+  }
+
+  /* The rail owns the left margin, so wide blocks start flush with the
+     prose and break out to the right only. */
+  .article-body:has(.toc-rail) :is(.figure-block, pre.mermaid) {
+    width: calc(50% + var(--measure-wide) / 2);
+    margin-inline: 0;
+  }
+
+  .article-body:has(.toc-rail) .figure-block {
+    text-align: start;
+  }
+
+  .article-body:has(.toc-rail) .figure-block img {
+    margin-inline: 0;
+  }
+
+  .article-body:has(.toc-rail) .prose :is(.table-wrapper, .katex-display) {
+    max-width: calc(50% + var(--measure-wide) / 2);
+    margin-inline-start: 0;
+    translate: none;
+  }
+}
+
+.post-nav {
+  margin-block-start: var(--space-3xl);
+  padding-block-start: var(--space-l);
+  border-block-start: 1px solid var(--color-border);
+}
+
+.post-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  color: var(--color-muted);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  transition: color var(--transition);
+}
+
+.post-nav-link:hover {
+  color: var(--color-link);
+}
+
+@media (max-width: 640px) {
+  .article-header {
+    margin-block: var(--space-xl) var(--gutter);
+  }
+
+  .article-meta {
+    margin-block-start: var(--space-s);
+  }
+}

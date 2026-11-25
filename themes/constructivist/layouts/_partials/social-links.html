@@ -1,0 +1,25 @@
+{{- /* The About page's social links; handles from params.social. */ -}}
+{{- $arrow := partial "icon.html" (dict "name" "arrow-right" "size" 13 "class" "social-link-arrow") -}}
+{{- with .Site.Params.social.github -}}
+  <a href="https://github.com/{{ . }}" class="social-link" rel="me noopener"
+    >GitHub{{ $arrow }}</a
+  >
+{{- end -}}
+{{- with .Site.Params.social.twitter -}}
+  <a href="https://twitter.com/{{ . }}" class="social-link" rel="me noopener"
+    >Twitter{{ $arrow }}</a
+  >
+{{- end -}}
+{{- with .Site.Params.social.linkedin -}}
+  <a
+    href="https://linkedin.com/in/{{ . }}"
+    class="social-link"
+    rel="me noopener"
+    >LinkedIn{{ $arrow }}</a
+  >
+{{- end -}}
+{{- with .Site.Params.social.instagram -}}
+  <a href="https://instagram.com/{{ . }}" class="social-link" rel="me noopener"
+    >Instagram{{ $arrow }}</a
+  >
+{{- end -}}

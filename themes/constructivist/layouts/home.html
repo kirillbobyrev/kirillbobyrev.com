@@ -1,0 +1,14 @@
+{{- define "main" -}}
+  <article class="main-content">
+    <header class="page-header">
+      <h1 class="page-heading">About<span class="accent-dot">.</span></h1>
+      {{- with .Params.tagline -}}
+        <p class="lede">{{ . }}</p>
+      {{- end -}}
+    </header>
+    <div class="prose">{{ .Content }}</div>
+    {{- with partial "social-links.html" . -}}
+      <div class="link-row">{{ . }}</div>
+    {{- end -}}
+  </article>
+{{- end -}}

@@ -1,0 +1,26 @@
+<header class="site-header">
+  <div class="header-row">
+    {{- /* No "Home" entry: the name already links there. On mobile the name */ -}}
+    {{- /* is swapped for the Cyrillic initials (Кирилл Бобырев) - see the */ -}}
+    {{- /* phone block in layout.css. */ -}}
+    <a href="/" class="site-title">
+      <span class="site-title-full">{{ site.Title }}</span>
+      <span class="site-title-short" aria-hidden="true">КБ</span>
+    </a>
+    <nav aria-label="Main">
+      <ul class="nav-list">
+        {{- range .Site.Menus.main -}}
+          {{- $current := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) -}}
+          <li>
+            <a
+              href="{{ .URL }}"
+              class="nav-link"
+              {{ if $current }}aria-current="page"{{ end }}
+              >{{ .Name }}</a
+            >
+          </li>
+        {{- end -}}
+      </ul>
+    </nav>
+  </div>
+</header>

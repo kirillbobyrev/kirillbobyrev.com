@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="{{ site.Language.Locale }}">
+  {{- /* Render content before head so render hooks can set page Store */ -}}
+  {{- /* flags (e.g. hasMath) that the head partial depends on. */ -}}
+  {{- $noop := .Content -}}
+  {{- partial "head.html" . -}}
+  <body class="site-body">
+    <a href="#content" class="skip-link">Skip to content</a>
+    {{- partial "header.html" . -}}
+    <main id="content" class="site-container">
+      {{- block "main" . }}{{ end }}
+    </main>
+    <footer class="site-footer">
+      <p>Opinions are my own, never my employer's.</p>
+    </footer>
+    {{- if .Page.Store.Get "hasMermaid" -}}
+      {{- partial "script.html" (dict "path" "js/mermaid.js" "module" true) -}}
+    {{- end -}}
+  </body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "kirillbobyrev.com",
+  "private": true,
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check-links": "hugo --gc --minify && lychee --offline --no-progress --root-dir ./public ./public"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.10",
+    "prettier-plugin-go-template": "^0.0.15"
+  }
+}

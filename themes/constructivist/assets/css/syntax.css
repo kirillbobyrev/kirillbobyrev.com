@@ -1,0 +1,197 @@
+/* === Syntax highlighting (Chroma classes) ===
+   Merged from `hugo gen chromastyles --style=github` (light) and
+   `--style=github-dark` (dark): every token declares both colours via
+   light-dark(). Backgrounds are stripped in favour of --color-panel,
+   token classes that only one palette defines fall back to the other
+   theme's base text colour, and dark-only bold/italic accents are
+   dropped so both themes share one typography. Three light-theme
+   colours are darkened from GitHub's to hold AA on --color-panel:
+   keywords/errors #cf222e -> #b31d28 (4.2 -> 5.3:1) and builtin pseudo
+   #6a737d -> #57606a. Regenerate with those commands on bumps, then
+   reapply those three. */
+.chroma {
+  color: light-dark(#212529, #e6edf3);
+  -webkit-text-size-adjust: none;
+}
+.chroma .lnlinks {
+  outline: none;
+  text-decoration: none;
+  color: inherit;
+}
+.chroma .lntd {
+  vertical-align: top;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.chroma .lntable {
+  border-spacing: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.chroma .lnt {
+  white-space: pre;
+  -webkit-user-select: none;
+  user-select: none;
+  margin-right: 0.4em;
+  padding: 0 0.4em 0 0.4em;
+  color: light-dark(#7f7f7f, #737679);
+}
+.chroma .ln {
+  white-space: pre;
+  -webkit-user-select: none;
+  user-select: none;
+  margin-right: 0.4em;
+  padding: 0 0.4em 0 0.4em;
+  color: light-dark(#7f7f7f, #6e7681);
+}
+.chroma .line {
+  display: flex;
+}
+.chroma .err {
+  color: light-dark(#b31d28, #f85149);
+}
+.chroma .k,
+.chroma .kd,
+.chroma .kn,
+.chroma .kr,
+.chroma .kt {
+  color: light-dark(#b31d28, #ff7b72);
+}
+.chroma .kc,
+.chroma .kp {
+  color: light-dark(#b31d28, #79c0ff);
+}
+.chroma .na,
+.chroma .nx {
+  color: light-dark(#1f2328, #e6edf3);
+}
+.chroma .nc,
+.chroma .ne {
+  color: light-dark(#1f2328, #f0883e);
+}
+.chroma .no {
+  color: light-dark(#0550ae, #79c0ff);
+}
+.chroma .nd {
+  color: light-dark(#0550ae, #d2a8ff);
+}
+.chroma .ni {
+  color: light-dark(#6639ba, #ffa657);
+}
+.chroma .nl {
+  color: light-dark(#990000, #79c0ff);
+  font-weight: bold;
+}
+.chroma .nn {
+  color: light-dark(#24292e, #ff7b72);
+}
+.chroma .nt {
+  color: light-dark(#0550ae, #7ee787);
+}
+.chroma .nb {
+  color: light-dark(#6639ba, #e6edf3);
+}
+.chroma .bp {
+  color: light-dark(#57606a, #e6edf3);
+}
+.chroma .nv,
+.chroma .vc,
+.chroma .vg,
+.chroma .vi,
+.chroma .vm {
+  color: light-dark(#953800, #79c0ff);
+}
+.chroma .nf,
+.chroma .fm {
+  color: light-dark(#6639ba, #d2a8ff);
+}
+.chroma .py {
+  color: light-dark(#1f2328, #79c0ff);
+}
+.chroma .l {
+  color: light-dark(#1f2328, #a5d6ff);
+}
+.chroma .ld {
+  color: light-dark(#1f2328, #79c0ff);
+}
+.chroma .s,
+.chroma .sb,
+.chroma .sc,
+.chroma .sd,
+.chroma .s2,
+.chroma .si,
+.chroma .sx,
+.chroma .s1 {
+  color: light-dark(#0a3069, #a5d6ff);
+}
+.chroma .sa,
+.chroma .dl,
+.chroma .se,
+.chroma .sh,
+.chroma .sr {
+  color: light-dark(#0a3069, #79c0ff);
+}
+.chroma .ss {
+  color: light-dark(#032f62, #a5d6ff);
+}
+.chroma .m,
+.chroma .mb,
+.chroma .mf,
+.chroma .mh,
+.chroma .mi,
+.chroma .il,
+.chroma .mo {
+  color: light-dark(#0550ae, #a5d6ff);
+}
+.chroma .o,
+.chroma .ow,
+.chroma .or {
+  color: light-dark(#0550ae, #ff7b72);
+}
+.chroma .p {
+  color: light-dark(#1f2328, #e6edf3);
+}
+.chroma .c,
+.chroma .ch,
+.chroma .cm,
+.chroma .c1,
+.chroma .cs,
+.chroma .cp,
+.chroma .cpf {
+  color: light-dark(#57606a, #8b949e);
+}
+.chroma .gd {
+  color: light-dark(#82071e, #ffa198);
+}
+.chroma .ge {
+  color: light-dark(#1f2328, #e6edf3);
+  font-style: italic;
+}
+.chroma .gr {
+  color: light-dark(#1f2328, #ffa198);
+}
+.chroma .gh,
+.chroma .gu {
+  color: light-dark(#1f2328, #79c0ff);
+}
+.chroma .gi {
+  color: light-dark(#116329, #56d364);
+}
+.chroma .go,
+.chroma .gp {
+  color: light-dark(#1f2328, #8b949e);
+}
+.chroma .gs {
+  font-weight: bold;
+}
+.chroma .gt {
+  color: light-dark(#1f2328, #ff7b72);
+}
+.chroma .gl {
+  text-decoration: underline;
+}
+.chroma .w {
+  color: light-dark(#ffffff, #6e7681);
+}

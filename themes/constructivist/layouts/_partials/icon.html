@@ -1,0 +1,33 @@
+{{- /*
+  One icon spec for the whole theme: 24x24 viewBox, 2px stroke, round
+  caps/joins, currentColor (so hover/theme colors come for free).
+
+  Usage: partial "icon.html" (dict "name" "arrow-right"). "size" is optional
+  and defaults to 16 (px); pass a "class" to hang extra CSS on the svg.
+
+  Decorative only: every caller pairs it with visible link text.
+  */
+-}}
+{{- $paths := dict
+  "arrow-right" "M5 12h14M13 6l6 6-6 6"
+  "arrow-left" "M19 12H5M11 6l-6 6 6 6"
+-}}
+{{- $d := index $paths .name -}}
+{{- if not $d -}}
+  {{- errorf "icon.html: unknown icon name %q" .name -}}
+{{- end -}}
+{{- $size := .size | default 16 -}}
+<svg
+  width="{{ $size }}"
+  height="{{ $size }}"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  {{ with .class }}class="{{ . }}"{{ end }}
+  aria-hidden="true"
+>
+  <path d="{{ $d }}" />
+</svg>

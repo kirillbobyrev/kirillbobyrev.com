@@ -1,0 +1,68 @@
+baseURL = 'https://kirillbobyrev.com/'
+enableRobotsTXT = true
+locale = 'en-US'
+title = 'Kirill Bobyrev'
+disableKinds = ['taxonomy', 'term']
+enableGitInfo = true
+theme = 'constructivist'
+
+[params]
+  description = 'software engineering blog by Kirill Bobyrev'
+  images = ['images/og.jpg']
+  [params.author]
+    name = 'kirill bobyrev'
+  [params.social]
+    twitter = 'kirillbobyrev'
+    github = 'kirillbobyrev'
+    linkedin = 'kirillbobyrev'
+    instagram = 'cybobyrev'
+
+[markup]
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = false
+    noClasses = false
+    tabWidth = 2
+    style = 'github'
+  [markup.goldmark]
+    # A standalone image renders as a <figure> (render-image.html), which
+    # can't sit inside a <p>.
+    [markup.goldmark.parser]
+      wrapStandAloneImageWithinParagraph = false
+    [markup.goldmark.extensions]
+      # ~sub~, ^sup^, ==mark==, ++insert++ and ~~delete~~. Strikethrough
+      # is off because its single-tilde syntax collides with subscript;
+      # the extras' `delete` takes over ~~double tildes~~.
+      strikethrough = false
+      [markup.goldmark.extensions.extras]
+        [markup.goldmark.extensions.extras.delete]
+          enable = true
+        [markup.goldmark.extensions.extras.insert]
+          enable = true
+        [markup.goldmark.extensions.extras.mark]
+          enable = true
+        [markup.goldmark.extensions.extras.subscript]
+          enable = true
+        [markup.goldmark.extensions.extras.superscript]
+          enable = true
+      [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+          block = [['\[', '\]'], ['$$', '$$']]
+          inline = [['\(', '\)']]
+
+[services]
+  [services.googleAnalytics]
+    id = 'G-RHCZGDQQJR'
+
+[[menus.main]]
+  name = 'Resume'
+  url = '/resume.pdf'
+  weight = 3
+
+# Every script is built and minified by esbuild (js.Build, see the theme's
+# _partials/script.html) before it's inlined, so `hugo --minify` must leave
+# inline JS alone: its minifier re-minifying esbuild's output hoisted a
+# destructuring above the variable it reads and broke the analytics loader.
+[minify]
+  disableJS = true
