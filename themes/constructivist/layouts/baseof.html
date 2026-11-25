@@ -10,9 +10,6 @@
     <main id="content" class="site-container">
       {{- block "main" . }}{{ end }}
     </main>
-    <footer class="site-footer">
-      <p>Opinions are my own, never my employer's.</p>
-    </footer>
     {{- if .Page.Store.Get "hasMermaid" -}}
       {{- partial "script.html" (dict "path" "js/mermaid.js" "module" true) -}}
     {{- end -}}
