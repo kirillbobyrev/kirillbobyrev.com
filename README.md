@@ -6,9 +6,9 @@ My personal website built with [Hugo](https://gohugo.io) (extended, pinned to
 `0.168.0` - see `.github/actions/setup-hugo/action.yml` and
 `.devcontainer/devcontainer.json`).
 
-Presentation lives in its own theme, `themes/constructivist/` (see its
-[README](themes/constructivist/README.md)), wired in via
-`theme = 'constructivist'` in `hugo.toml`. `content/`, `data/`, and
+Presentation lives in its own theme, `themes/paper/` (see its
+[README](themes/paper/README.md)), wired in via
+`theme = 'paper'` in `hugo.toml`. `content/`, `data/`, and
 `archetypes/` stay at the repo root and are theme-agnostic; trying a
 different look later means adding a sibling theme directory and changing
 that one config line, without touching content.

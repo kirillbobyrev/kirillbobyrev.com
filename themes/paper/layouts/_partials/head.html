@@ -1,0 +1,86 @@
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  {{- /* Preload the face every page paints above the fold: ET Book */ -}}
+  {{- /* roman. Italic, bold and JetBrains Mono (code only) load on demand. */ -}}
+  <link
+    rel="preload"
+    href="/fonts/ETBook-Roman.woff"
+    as="font"
+    type="font/woff"
+    crossorigin
+  />
+  <title>
+    {{- if .IsHome }}
+      {{ .Site.Title }}
+    {{ else }}
+      {{ .Title }} ·
+      {{ .Site.Title }}
+    {{ end -}}
+  </title>
+  <meta
+    name="description"
+    content="{{ with .Description }}
+      {{ . }}
+    {{ else }}
+      {{ .Site.Params.description }}
+    {{ end }}"
+  />
+  <meta name="author" content="{{ .Site.Params.author.name }}" />
+  {{- partial "social-meta.html" . -}}
+  {{- partial "schema.html" . -}}
+  {{- /* Guard analytics so local `hugo server` sessions don't pollute stats. */ -}}
+  {{- if hugo.IsProduction -}}
+    {{- with site.Config.Services.GoogleAnalytics.ID -}}
+      {{- partial "script.html" (dict "path" "js/analytics.js" "params" (dict "id" .)) -}}
+    {{- end -}}
+  {{- end -}}
+  <link rel="canonical" href="{{ .Permalink }}" />
+  <link
+    rel="alternate"
+    type="application/rss+xml"
+    href="{{ "index.xml" | absURL }}"
+    title="{{ .Site.Title }}"
+  />
+  {{- /* Kept in sync with --color-bg in tokens.css by hand - browser chrome can't read a CSS custom property. */ -}}
+  <meta
+    name="theme-color"
+    media="(prefers-color-scheme: light)"
+    content="#f8f7f3"
+  />
+  <meta
+    name="theme-color"
+    media="(prefers-color-scheme: dark)"
+    content="#161513"
+  />
+  {{- /* Favicon: carries its own paper background rather than currentColor - */ -}}
+  {{- /* the tab strip is the one place the mark can't inherit a page color. */ -}}
+  {{- /* PNGs are the fallback for older browsers and bookmark/home-screen icons. */ -}}
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  {{- partialCached "css.html" . -}}
+  {{- /* Fetch a same-site page's HTML as soon as a reader shows intent */ -}}
+  {{- /* (hovers a link, or starts a tap), so it's already here on click. */ -}}
+  {{- /* Chromium only; other browsers ignore the script type. */ -}}
+  <script type="speculationrules">
+    {
+      "prefetch": [
+        {
+          "where": {
+            "and": [
+              { "href_matches": "/*" },
+              { "not": { "href_matches": "/*.pdf" } }
+            ]
+          },
+          "eagerness": "moderate"
+        }
+      ]
+    }
+  </script>
+  {{- if .Page.Store.Get "hasMath" -}}
+    {{- partialCached "math.html" . -}}
+  {{- end -}}
+  {{ hugo.Generator }}
+</head>

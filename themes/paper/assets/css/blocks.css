@@ -1,0 +1,154 @@
+/* Things you look at rather than read: figures, code, math, diagrams.
+   They grow past the reading column, up to --measure-wide. */
+
+/* Figures take only the room their image needs: its natural width (the
+   width attribute from responsive-img.html), scaled down past
+   --measure-wide, centered on the column like tables and diagrams. At
+   least the column wide, so a caption under a small (or not yet loaded)
+   image still wraps at the text's measure. */
+.figure-block {
+  width: max-content;
+  min-width: 100%;
+  max-width: var(--measure-wide);
+  margin-block: var(--rhythm);
+  margin-inline: 0;
+  margin-inline-start: 50%;
+  translate: -50% 0;
+}
+
+/* Diagrams likewise: as wide as the drawing (sized by mermaid.js) plus
+   padding, and at least the column, so the panel lines up with the
+   text. */
+pre.mermaid {
+  width: max-content;
+  min-width: 100%;
+  max-width: var(--measure-wide);
+  margin-block: var(--rhythm);
+  margin-inline-start: 50%;
+  translate: -50% 0;
+}
+
+.figure-block {
+  text-align: center;
+}
+
+.figure-block img {
+  margin-inline: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+/* Wraps to the figure's width instead of widening it. */
+.figure-caption {
+  contain: inline-size;
+  margin-block-start: var(--space-xs);
+  font-size: var(--text-base);
+  font-style: italic;
+  color: var(--color-muted);
+}
+
+.highlight {
+  margin-block: calc(var(--rhythm) * 1.25);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background-color: var(--color-panel);
+}
+
+.highlight pre {
+  margin: 0;
+  padding: var(--space-m);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  tab-size: 4;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+/* JetBrains Mono's x-height is far larger than ET Book's, so inline
+   code is set well below the text size to sit level with it. */
+code:not(pre code) {
+  background-color: var(--color-panel);
+  color: var(--color-heading);
+  padding: 0.05em 0.3em;
+  border-radius: 3px;
+  font-size: 0.7em;
+  font-family: var(--font-mono);
+}
+
+/* KaTeX: long display equations scroll instead of overflowing. */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: var(--space-3xs);
+}
+
+/* Past phones, a code block or equation too long for the column grows
+   to fit before it scrolls: code rightward only, keeping its left edge
+   on the prose; equations around their center, like tables. .prose
+   outranks KaTeX's own margin. */
+@media (min-width: 641px) {
+  .highlight {
+    width: max-content;
+    min-width: 100%;
+    max-width: calc(50% + var(--measure-wide) / 2);
+  }
+
+  .prose .katex-display {
+    width: max-content;
+    min-width: 100%;
+    max-width: var(--measure-wide);
+    margin-inline-start: 50%;
+    translate: -50% 0;
+  }
+}
+
+/* Mermaid: the source shows as quiet monospace until the script draws
+   the SVG. */
+pre.mermaid {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-xl) var(--space-l);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background-color: var(--color-panel);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+
+/* Its natural width, shrinking to fit a narrow panel rather than
+   scrolling. */
+pre.mermaid svg {
+  min-width: 0;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Mermaid sometimes sizes a label's box a little narrow for this font. */
+pre.mermaid svg foreignObject {
+  overflow: visible;
+}
+
+/* Labels are <p>s inside .prose; hand Mermaid back the metrics it sized
+   them with. */
+pre.mermaid p {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+@media (max-width: 640px) {
+  /* Full-bleed on phones, so no side borders or corners. */
+  .highlight {
+    margin-inline: calc(var(--gutter) * -1);
+    border-inline: 0;
+    border-radius: 0;
+  }
+
+  pre.mermaid {
+    padding-inline: var(--space-m);
+  }
+}

@@ -1,0 +1,16 @@
+{{- define "main" -}}
+  {{- /* Same page header as About, Now and Writing, and the About page's */ -}}
+  {{- /* slash-separated link row for the way back. */ -}}
+  <article class="main-content">
+    <header class="page-header">
+      <h1 class="page-heading">404</h1>
+      <p class="lede">This URL &notin; <code>/</code>.</p>
+    </header>
+    <div class="link-row">
+      <a href="/" class="social-link">About</a>
+      {{- with site.GetPage "/blog" -}}
+        <a href="{{ .RelPermalink }}" class="social-link">{{ .Title }}</a>
+      {{- end -}}
+    </div>
+  </article>
+{{- end -}}

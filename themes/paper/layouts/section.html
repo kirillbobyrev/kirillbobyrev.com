@@ -1,0 +1,15 @@
+{{- define "main" -}}
+  <article class="main-content">
+    <header class="page-header">
+      <h1 class="page-heading">{{ .Title }}</h1>
+      {{- with .Description -}}
+        <p class="lede">{{ . }}</p>
+      {{- end -}}
+    </header>
+    <ul class="blog-timeline">
+      {{- range .Pages.ByDate.Reverse -}}
+        {{- partial "blog-timeline-entry.html" (dict "page" .) -}}
+      {{- end }}
+    </ul>
+  </article>
+{{- end -}}

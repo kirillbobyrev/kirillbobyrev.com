@@ -55,6 +55,19 @@ GitHub-style alerts render as titled callouts:
 H~2~O and E = mc^2^ via subscript and superscript, ==highlighted text==,
 ++inserted text++ and ~~deleted text~~.
 
+## Sidenotes
+
+Footnotes become sidenotes on wide screens, set in the margin beside the
+line that cites them,[^margin] and stay as numbered notes at the end of the
+post on narrower ones. They can hold links and `inline code`, as in the
+[Tufte CSS](https://edwardtufte.github.io/tufte-css/) original.[^tufte]
+
+[^margin]: Like this one: a short aside that would interrupt the sentence.
+
+[^tufte]: Tufte CSS hangs notes in the right margin with a negative margin
+    and a float, which is the technique used here, done at build time
+    instead of with `<label>` toggles.
+
 ## Diagrams
 
 Mermaid code blocks render as diagrams that follow the site theme:

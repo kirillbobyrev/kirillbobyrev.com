@@ -1,0 +1,34 @@
+{{- /* Turns a post's footnotes into Tufte-style sidenotes. Takes the */ -}}
+{{- /* rendered .Content; returns it with each note's text copied into a */ -}}
+{{- /* <span class="sidenote"> right after its first reference. CSS floats */ -}}
+{{- /* those into the right margin on wide screens and hides the endnote */ -}}
+{{- /* list there; narrower screens hide the sidenotes and keep the list. */ -}}
+{{- /* Goldmark numbers notes 1, 2, ... whatever their labels, so the ids */ -}}
+{{- /* are digits and safe inside a pattern. A note with block content */ -}}
+{{- /* (lists, code blocks) can't sit inside a paragraph, so if any has */ -}}
+{{- /* one the post keeps plain endnotes. */ -}}
+{{- $html := string . -}}
+{{- $out := $html -}}
+{{- $notes := findRESubmatch `(?s)<li id="fn:(\d+)">\s*(.*?)\s*</li>` $html -}}
+{{- $ok := gt (len $notes) 0 -}}
+{{- range $notes -}}
+  {{- $body := index . 2 -}}
+  {{- if findRE `<(ul|ol|pre|div|table|blockquote|figure|h[1-6])[\s>]` $body 1 -}}
+    {{- $ok = false -}}
+  {{- end -}}
+{{- end -}}
+{{- if $ok -}}
+  {{- range $notes -}}
+    {{- $n := index . 1 -}}
+    {{- $body := index . 2 -}}
+    {{- $body = replaceRE `(&#160;|\s)*<a href="#fnref\d*:\d+" class="footnote-backref"[^>]*>[^<]*</a>` "" $body -}}
+    {{- $body = replaceRE `</p>\s*<p>` "<br>" $body -}}
+    {{- $body = replaceRE `</?p>` "" $body -}}
+    {{- /* $ is special in the replacement string. */ -}}
+    {{- $body = replace $body "$" "$$" -}}
+    {{- $note := printf `<span class="sidenote" role="note"><sup class="sidenote-number">%s</sup> %s</span>` $n $body -}}
+    {{- $out = replaceRE (printf `(<sup id="fnref:%s">.*?</sup>)` $n) (printf "${1}%s" $note) $out 1 -}}
+  {{- end -}}
+  {{- $out = replace $out `<div class="footnotes" role="doc-endnotes">` `<div class="footnotes has-sidenotes" role="doc-endnotes">` -}}
+{{- end -}}
+{{- return ($out | safeHTML) -}}

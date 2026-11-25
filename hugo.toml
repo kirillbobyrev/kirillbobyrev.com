@@ -4,7 +4,7 @@ locale = 'en-US'
 title = 'Kirill Bobyrev'
 disableKinds = ['taxonomy', 'term']
 enableGitInfo = true
-theme = 'constructivist'
+theme = 'paper'
 
 [params]
   description = 'software engineering blog by Kirill Bobyrev'
@@ -54,11 +54,6 @@ theme = 'constructivist'
 [services]
   [services.googleAnalytics]
     id = 'G-RHCZGDQQJR'
-
-[[menus.main]]
-  name = 'Resume'
-  url = '/resume.pdf'
-  weight = 3
 
 # Every script is built and minified by esbuild (js.Build, see the theme's
 # _partials/script.html) before it's inlined, so `hugo --minify` must leave

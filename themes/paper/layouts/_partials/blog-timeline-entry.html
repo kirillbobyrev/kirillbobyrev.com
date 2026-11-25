@@ -1,0 +1,17 @@
+{{- /* One Writing-index row. Params (dict): page. */ -}}
+<li>
+  <a href="{{ .page.RelPermalink }}" class="blog-timeline-entry">
+    <span class="blog-timeline-title">{{ .page.Title }}</span>
+    {{- if .page.Date -}}
+      <time
+        class="blog-timeline-date"
+        datetime="{{ .page.Date.Format "2006-01-02" }}"
+        >{{ .page.Date.Format "January 2006" }}</time
+      >
+    {{- end -}}
+    {{- with .page.Description -}}
+      <span class="blog-timeline-deck">{{ . }}</span>
+    {{- end -}}
+  </a>
+</li>
+{{- /* keep output tight */ -}}
