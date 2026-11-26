@@ -1,10 +1,10 @@
-{{- /* The page's Open Graph image as (dict "url" "width" "height"): a generated */ -}}
-{{- /* 1200x630 card for blog posts, else the site image from params.images. */ -}}
+{{- /* The page's Open Graph image as (dict "url" "width" "height"): a 1200x630 card */ -}}
+{{- /* for every page built from content (home, sections, posts, Now); none for the 404. */ -}}
 {{- /* Composed at build time: the paper canvas (assets/images/og-base.png), the title in */ -}}
 {{- /* Newsreader Display and an italic site/date line. images.Text can't read woff2, so */ -}}
 {{- /* assets/fonts/ holds TTF copies of the two cuts. */ -}}
 {{- $img := dict -}}
-{{- if and .IsPage (eq .Section "blog") -}}
+{{- if .File -}}
   {{- /* Greedy-wrap the title: images.Text only breaks lines at the image edge, which would */ -}}
   {{- /* leave no right margin. Newsreader averages ~0.42em a character, so 30 runes keeps */ -}}
   {{- /* a line inside the 1040px column at size 72; lines are balanced to the same length. */ -}}
@@ -26,7 +26,10 @@
   {{- $title := delimit $lines "\n" -}}
   {{- /* Center the block around y=250: each line is ~94px tall. */ -}}
   {{- $y := sub 250 (mul (len $lines) 47) -}}
-  {{- $meta := printf "kirillbobyrev.com · %s" (.Date.Format "January 2006") -}}
+  {{- $meta := "kirillbobyrev.com" -}}
+  {{- if and .IsPage (eq .Section "blog") -}}
+    {{- $meta = printf "%s · %s" $meta (.Date.Format "January 2006") -}}
+  {{- end -}}
   {{- $base := resources.Get "images/og-base.png" -}}
   {{- $titleFont := resources.Get "fonts/Newsreader-Display.ttf" -}}
   {{- $metaFont := resources.Get "fonts/Newsreader-Text-Italic.ttf" -}}
@@ -34,11 +37,8 @@
     (images.Text $title (dict "x" 80 "y" $y "size" 72 "linespacing" 22 "color" "#111111" "font" $titleFont))
     (images.Text $meta (dict "x" 80 "y" 474 "size" 32 "color" "#666159" "font" $metaFont))
   -}}
-  {{- $card = resources.Copy (printf "og/%s.png" .File.ContentBaseName) $card -}}
+  {{- $name := replace (strings.Trim .RelPermalink "/") "/" "-" | default "home" -}}
+  {{- $card = resources.Copy (printf "og/%s.png" $name) $card -}}
   {{- $img = dict "url" $card.Permalink "width" $card.Width "height" $card.Height -}}
-{{- else -}}
-  {{- with site.Params.images -}}
-    {{- $img = dict "url" (index . 0 | absURL) -}}
-  {{- end -}}
 {{- end -}}
 {{- return $img -}}

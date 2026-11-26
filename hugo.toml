@@ -8,7 +8,6 @@ theme = 'paper'
 
 [params]
   description = 'software engineering blog by Kirill Bobyrev'
-  images = ['images/og.jpg']
   [params.author]
     name = 'kirill bobyrev'
   [params.social]

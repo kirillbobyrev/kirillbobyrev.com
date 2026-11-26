@@ -197,7 +197,7 @@ Use `const variable = "value"` for inline code snippets. You can also use `npm i
 Every image breaks out of the prose measure, and its Markdown title becomes
 the caption:
 
-![Site Open Graph image](/images/og.jpg "A figure with a caption, from a plain Markdown image.")
+![Site icon](/apple-touch-icon.png "A figure with a caption, from a plain Markdown image.")
 
 ## Mathematical Expressions
 

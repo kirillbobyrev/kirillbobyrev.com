@@ -20,8 +20,8 @@ Front matter the theme understands, beyond Hugo's standard fields:
 | `layout = "now"`         | `content/now.md`       | "Updated" line from `lastmod`         |
 | `menu = "main"`,`weight` | section or single page | adds it to the nav, in `weight` order |
 
-Site params: `[params.author]`, `[params.social]`, `params.description`,
-`params.images`, and `[services.googleAnalytics]` (production builds only).
+Site params: `[params.author]`, `[params.social]`, `params.description`, and
+`[services.googleAnalytics]` (production builds only).
 
 Markdown supports Goldmark extras (`~sub~`, `^sup^`, `==mark==`,
 `++insert++`, `~~delete~~`), `\( \)` / `\[ \]` / `$$` math, ` ```mermaid `
