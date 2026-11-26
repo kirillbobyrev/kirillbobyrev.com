@@ -34,7 +34,7 @@ video {
   font-family: var(--font-serif);
   font-size: var(--text-base);
   line-height: 1.45;
-  /* ET Book has a real italic and bold; never fake either. */
+  /* Real italic and bold faces only; never fake either. */
   font-synthesis: none;
   font-kerning: normal;
 }

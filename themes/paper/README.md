@@ -3,8 +3,9 @@
 A quiet, book-like Hugo theme for
 [kirillbobyrev.com](https://kirillbobyrev.com), after
 [Tufte CSS](https://edwardtufte.github.io/tufte-css/): ink on warm paper,
-one accent color, and [ET Book](https://github.com/edwardtufte/et-book) for
-everything but code. Footnotes become margin sidenotes on wide screens, and
+one accent color, and
+[Newsreader](https://github.com/productiontype/Newsreader) for everything but
+code. Footnotes become margin sidenotes on wide screens, and
 long articles get a table of contents.
 
 ## Content contract

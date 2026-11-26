@@ -1,7 +1,7 @@
 name = "paper"
 license = "MIT"
 licenselink = "https://github.com/kirillbobyrev/kirillbobyrev.com/blob/main/LICENSE"
-description = "A quiet, book-like Hugo theme after Tufte CSS: ink on warm paper, one dark-red accent, ET Book for everything, JetBrains Mono for code."
+description = "A quiet, book-like Hugo theme after Tufte CSS: ink on warm paper, one dark-red accent, Newsreader for text, JetBrains Mono for code."
 homepage = "https://github.com/kirillbobyrev/kirillbobyrev.com"
 
 [author]

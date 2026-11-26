@@ -1,9 +1,9 @@
 /* Design tokens.
 
-   One family, ET Book, for everything: running text, titles, nav,
-   dates. JetBrains Mono only inside code. Headings are upright and
-   regular-weight, ranked by size; italics are kept for the quiet meta
-   lines (dates, captions, footnotes), never headings.
+   Newsreader for everything: running text, nav, dates, with its display
+   cut for h1 titles. JetBrains Mono only inside code. Titles are
+   regular-weight, section headings semibold; italics are kept for the
+   quiet meta lines (dates, captions, footnotes), never headings.
 
    Sizes follow one modular scale, a major third (1.25) up and down from
    the prose size, so every step is the same visual distance from the
@@ -11,8 +11,7 @@
      --text-sm     captions, footnotes (one step down)
      --text-base   interface text: nav, dates, meta, contents, tables
                    (half a step down)
-     --text-prose  running prose, 20px. ET Book's x-height is small, so
-                   it reads like ~17px of most serifs.
+     --text-prose  running prose, 20px.
      --text-md     subheads, the lede and deck (one step up)
      --text-lg     article h2, Writing-index titles (two steps up)
      --text-xl     every h1 (four steps up on desktop; less on phones,
@@ -23,9 +22,8 @@
 :root {
   color-scheme: light dark;
 
-  --font-serif:
-    "ET Book", Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua",
-    Georgia, serif;
+  --font-serif: "Newsreader", "Newsreader Fallback", Georgia, serif;
+  --font-display: "Newsreader Display", var(--font-serif);
   --font-mono:
     "JetBrains Mono", "SF Mono", Menlo, "Cascadia Code", "Roboto Mono",
     Consolas, monospace;
@@ -79,8 +77,8 @@
      the column widens on big monitors. */
   --leading: 1.5;
 
-  /* The reading column: ~81 characters of prose a line (ET Book averages
-     0.394em a character). Big monitors get a little more, up to ~91,
+  /* The reading column: ~75 characters of prose a line (Newsreader
+     averages 0.43em a character). Big monitors get a little more,
      with looser leading (prose.css) to keep long lines easy to track.
      rem, so it also grows with the root font-size (base.css). */
   --measure: 40rem;

@@ -88,6 +88,7 @@
 .page-heading,
 .main-content h1 {
   margin: 0;
+  font-family: var(--font-display);
   font-weight: 400;
   font-size: var(--text-xl);
   line-height: 1;

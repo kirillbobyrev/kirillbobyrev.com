@@ -65,7 +65,7 @@ pre.mermaid {
   scrollbar-width: thin;
 }
 
-/* JetBrains Mono's x-height is far larger than ET Book's, so inline
+/* JetBrains Mono's x-height is far larger than Newsreader's, so inline
    code is set well below the text size to sit level with it. */
 code:not(pre code) {
   background-color: var(--color-panel);

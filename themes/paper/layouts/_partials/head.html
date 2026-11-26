@@ -1,15 +1,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  {{- /* Preload the face every page paints above the fold: ET Book */ -}}
-  {{- /* roman. Italic, bold and JetBrains Mono (code only) load on demand. */ -}}
-  <link
-    rel="preload"
-    href="/fonts/ETBook-Roman.woff"
-    as="font"
-    type="font/woff"
-    crossorigin
-  />
+  {{- /* Preload the faces every page paints above the fold: the h1's */ -}}
+  {{- /* display cut and the text roman. The rest load on demand. */ -}}
+  {{- range slice "Display" "Text" -}}
+    <link
+      rel="preload"
+      href="/fonts/Newsreader-{{ . }}-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+  {{- end -}}
   {{- /* Computed up front: Prettier would wrap inline conditionals and */ -}}
   {{- /* leak the line breaks into the output. */ -}}
   {{- $title := cond .IsHome site.Title (printf "%s · %s" .Title site.Title) -}}

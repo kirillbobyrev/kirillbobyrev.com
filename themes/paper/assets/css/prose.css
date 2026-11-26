@@ -16,14 +16,14 @@
   color: var(--color-link);
 }
 
-/* Every heading is upright and regular-weight, ranked by size alone:
-   article sections two steps above the prose, subsections and the
-   short sections of About and Now one step. More air above than below,
-   so a heading belongs to the text under it. */
+/* Headings are upright and semibold, ranked by size: article sections
+   two steps above the prose, subsections and the short sections of the
+   home page and Now one step. More air above than below, so a heading
+   belongs to the text under it. */
 .prose h2 {
   margin: calc(var(--rhythm) * 2.5) 0 var(--space-s);
   font-size: var(--text-lg);
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.1;
   color: var(--color-heading);
   text-wrap: balance;
@@ -34,7 +34,7 @@
 .page-header + .prose h2 {
   margin: calc(var(--rhythm) * 1.5) 0 var(--space-2xs);
   font-size: var(--text-md);
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.15;
   color: var(--color-heading);
   text-wrap: balance;
