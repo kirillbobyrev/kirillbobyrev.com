@@ -7,13 +7,19 @@
     {{- end -}}
     <nav aria-label="Main">
       <ul class="nav-list">
-        {{- range .Site.Menus.main -}}
-          {{- $current := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) -}}
+        {{- range site.Menus.main -}}
+          {{- /* "page" on the entry's own page, "true" anywhere under it. */ -}}
+          {{- $current := "" -}}
+          {{- if $.IsMenuCurrent "main" . -}}
+            {{- $current = "page" -}}
+          {{- else if $.HasMenuCurrent "main" . -}}
+            {{- $current = "true" -}}
+          {{- end -}}
           <li>
             <a
               href="{{ .URL }}"
               class="nav-link"
-              {{ if $current }}aria-current="page"{{ end }}
+              {{ with $current }}aria-current="{{ . }}"{{ end }}
               >{{ .Name }}</a
             >
           </li>

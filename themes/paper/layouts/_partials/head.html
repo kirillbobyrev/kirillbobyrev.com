@@ -10,23 +10,13 @@
     type="font/woff"
     crossorigin
   />
-  <title>
-    {{- if .IsHome }}
-      {{ .Site.Title }}
-    {{ else }}
-      {{ .Title }} ·
-      {{ .Site.Title }}
-    {{ end -}}
-  </title>
-  <meta
-    name="description"
-    content="{{ with .Description }}
-      {{ . }}
-    {{ else }}
-      {{ .Site.Params.description }}
-    {{ end }}"
-  />
-  <meta name="author" content="{{ .Site.Params.author.name }}" />
+  {{- /* Computed up front: Prettier would wrap inline conditionals and */ -}}
+  {{- /* leak the line breaks into the output. */ -}}
+  {{- $title := cond .IsHome site.Title (printf "%s · %s" .Title site.Title) -}}
+  {{- $desc := .Description | default site.Params.description -}}
+  <title>{{ $title }}</title>
+  <meta name="description" content="{{ $desc }}" />
+  <meta name="author" content="{{ site.Params.author.name }}" />
   {{- partial "social-meta.html" . -}}
   {{- partial "schema.html" . -}}
   {{- /* Guard analytics so local `hugo server` sessions don't pollute stats. */ -}}

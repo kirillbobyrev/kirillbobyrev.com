@@ -8,7 +8,19 @@
     </header>
     <div class="prose">{{ .Content }}</div>
     <div class="link-row">
-      {{- partial "social-links.html" . -}}
+      {{- $social := site.Params.social -}}
+      {{- range $p := slice
+        (slice "GitHub" "https://github.com/%s" $social.github)
+        (slice "Twitter" "https://twitter.com/%s" $social.twitter)
+        (slice "LinkedIn" "https://linkedin.com/in/%s" $social.linkedin)
+        (slice "Instagram" "https://instagram.com/%s" $social.instagram)
+      -}}
+        {{- with index $p 2 -}}
+          <a href="{{ printf (index $p 1) . }}" class="social-link" rel="me"
+            >{{ index $p 0 }}</a
+          >
+        {{- end -}}
+      {{- end -}}
       <a href="/resume.pdf" class="social-link">Resume</a>
     </div>
     <p class="page-footnote">Opinions are my own, never my employer's.</p>

@@ -3,12 +3,6 @@
 {{- /* BlogPosting would emit their zero dates as 0001-01-01. */ -}}
 {{- $author := .Site.Params.author.name | title -}}
 {{- if and .IsPage (eq .Section "blog") -}}
-  {{- $img := "" -}}
-  {{- with partial "og-image.html" . -}}
-    {{ $img = .Permalink }}
-  {{- else -}}
-    {{- with .Site.Params.images -}}{{ $img = (index . 0) | absURL }}{{- end -}}
-  {{- end -}}
   {{- $data := dict
     "@context" "https://schema.org"
     "@type" "BlogPosting"
@@ -23,7 +17,9 @@
   {{- with .Description | default .Summary -}}
     {{ $data = merge $data (dict "description" .) }}
   {{- end -}}
-  {{- with $img -}}{{ $data = merge $data (dict "image" .) }}{{- end -}}
+  {{- with (partialCached "og-image.html" . .RelPermalink).url -}}
+    {{- $data = merge $data (dict "image" .) -}}
+  {{- end -}}
   <script type="application/ld+json">
     {{ $data | jsonify (dict "indent" "  ") | safeJS }}
   </script>

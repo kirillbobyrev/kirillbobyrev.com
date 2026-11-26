@@ -8,8 +8,22 @@
     </header>
     <ul class="blog-timeline">
       {{- range .Pages.ByDate.Reverse -}}
-        {{- partial "blog-timeline-entry.html" (dict "page" .) -}}
-      {{- end }}
+        <li>
+          <a href="{{ .RelPermalink }}" class="blog-timeline-entry">
+            <span class="blog-timeline-title">{{ .Title }}</span>
+            {{- with .Date -}}
+              <time
+                class="blog-timeline-date"
+                datetime="{{ .Format "2006-01-02" }}"
+                >{{ .Format "January 2006" }}</time
+              >
+            {{- end -}}
+            {{- with .Description -}}
+              <span class="blog-timeline-deck">{{ . }}</span>
+            {{- end -}}
+          </a>
+        </li>
+      {{- end -}}
     </ul>
   </article>
 {{- end -}}
