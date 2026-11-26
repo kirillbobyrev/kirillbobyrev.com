@@ -55,8 +55,15 @@ jobs:
 
       - name: Fetch resume PDF
         env:
-          GH_TOKEN: ${{ github.token }}
+          # kirillbobyrev/resume is private, and the workflow's own
+          # GITHUB_TOKEN can only read this repo. RESUME_TOKEN is a
+          # fine-grained PAT scoped to that one repo: Contents read-only.
+          GH_TOKEN: ${{ secrets.RESUME_TOKEN }}
         run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::error::RESUME_TOKEN secret is missing; it is needed to download the resume from the private kirillbobyrev/resume repo."
+            exit 1
+          fi
           mkdir -p static
           for attempt in 1 2 3; do
             gh release download --repo kirillbobyrev/resume \
