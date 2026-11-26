@@ -1,6 +1,6 @@
 name: Setup Hugo
 description: >-
-  Install the pinned Hugo extended release binary, checksum-verified.
+  Install the pinned Hugo release binary, checksum-verified.
   The single source of truth for the Hugo version in CI; keep
   .devcontainer/devcontainer.json in sync when bumping.
 
@@ -21,7 +21,7 @@ runs:
         set -euo pipefail
         cd "$RUNNER_TEMP"
         base="https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}"
-        tarball="hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz"
+        tarball="hugo_${HUGO_VERSION}_linux-amd64.tar.gz"
         checksums="hugo_${HUGO_VERSION}_checksums.txt"
         curl -sSfL --retry 3 --retry-delay 2 -O "${base}/${tarball}"
         curl -sSfL --retry 3 --retry-delay 2 -O "${base}/${checksums}"

@@ -2,7 +2,7 @@
 
 [![Build and deploy](https://github.com/kirillbobyrev/kirillbobyrev.com/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/kirillbobyrev/kirillbobyrev.com/actions/workflows/build-and-deploy.yml)
 
-My personal website, built with [Hugo](https://gohugo.io) (extended) and
+My personal website, built with [Hugo](https://gohugo.io) and
 deployed to GitHub Pages by GitHub Actions.
 
 Content lives at the repo root (`content/`, `archetypes/`); presentation
