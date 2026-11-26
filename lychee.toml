@@ -6,6 +6,10 @@ exclude = [
   'resume\.pdf$',
   # These answer bots with 403/999 whether or not the link works.
   '^https://(www\.)?(linkedin|twitter|x|instagram)\.com/',
+  # Bot protection (Cloudflare and similar) answers 403 to CI runners.
+  '^https://(www\.)?2700chess\.com/',
+  '^https://papers\.ssrn\.com/',
+  '^https://statmodeling\.stat\.columbia\.edu/',
 ]
 
 # Rate-limited is not broken.

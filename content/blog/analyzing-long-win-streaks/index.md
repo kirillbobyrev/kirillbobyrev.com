@@ -303,7 +303,7 @@ played between each player and his opponents and check how often we find similar
 win streak patterns. The key here is knowing an approximate probability of each
 game outcome. We can use win probability formula based on players Elo rating or
 a machine learning model. This approach is similar to one used on
-[Pawnalyze](https://pawnalyze.com/tournament/2022/02/27/Elo-Rating-Accuracy-Is-Machine-Learning-Better.html).
+[Pawnalyze](https://web.archive.org/web/20231201074122/https://pawnalyze.com/tournament/2022/02/27/Elo-Rating-Accuracy-Is-Machine-Learning-Better.html).
 
 ### Using Elo to estimate win probabilities
 

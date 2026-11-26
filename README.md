@@ -15,10 +15,24 @@ that one config line, without touching content.
 
 CI: pull requests build the site, validate internal links, and check
 formatting (`.github/workflows/ci.yml`); merges to `main` build and deploy to
-GitHub Pages (`build-and-deploy.yml`), fetching the resume PDF from
-[kirillbobyrev/resume](https://github.com/kirillbobyrev/resume)'s releases;
-a weekly job checks external links online and files an issue on rot
-(`link-check.yml`). Every link check shares `lychee.toml`.
+GitHub Pages (`build-and-deploy.yml`), fetching the resume PDF from the
+private `kirillbobyrev/resume` repo's releases; a weekly job checks external
+links online and files an issue on rot (`link-check.yml`). Every link check
+shares `lychee.toml`.
+
+Settings that live outside the code:
+
+- **Settings → Pages → Source** must stay on **GitHub Actions**. Switching it
+  to "Deploy from a branch", even briefly, makes GitHub publish a Jekyll render
+  of this README over the site until the next deploy.
+- The `RESUME_TOKEN` secret is a fine-grained PAT with read-only Contents
+  access to `kirillbobyrev/resume`. When it expires, deploys fail at "Fetch
+  resume PDF"; regenerate it and run
+  `gh secret set RESUME_TOKEN --repo kirillbobyrev/kirillbobyrev.com`.
+- The repo stays public: Pages from a private repo needs a paid plan.
+- The "Protect main" ruleset blocks force-pushes and deletion of `main`.
+  Workflows get a read-only token by default and may only use GitHub-owned
+  actions plus `lycheeverse/lychee-action`.
 
 ## Develop
 
