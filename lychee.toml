@@ -1,12 +1,8 @@
-# Shared by every lychee run: CI, the deploy, the weekly online check and
-# `npm run check-links`.
-
 exclude = [
-  # Fetched from kirillbobyrev/resume's releases at deploy time.
+  # Fetched at deploy time.
   'resume\.pdf$',
-  # These answer bots with 403/999 whether or not the link works.
+  # Bot protection answers 403/999 whether or not the link works.
   '^https://(www\.)?(linkedin|twitter|x|instagram)\.com/',
-  # Bot protection (Cloudflare and similar) answers 403 to CI runners.
   '^https://(www\.)?2700chess\.com/',
   '^https://papers\.ssrn\.com/',
   '^https://statmodeling\.stat\.columbia\.edu/',

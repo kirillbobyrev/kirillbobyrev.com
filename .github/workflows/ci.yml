@@ -1,7 +1,5 @@
 name: CI
 
-# Pull-request validation: the site must build, internal links must
-# resolve, and the codebase must be Prettier-clean. Deploys never run here.
 on:
   pull_request:
 

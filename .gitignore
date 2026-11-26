@@ -5,9 +5,7 @@ node_modules
 .hugo_build.lock
 .playwright-mcp
 /*.png
-# Fetched at deploy time (see build-and-deploy.yml)
+# Fetched at deploy time.
 static/resume.pdf
-# Personal/machine-local Claude Code settings, not shared project config;
-# .tmp.* is the transient file its atomic writes briefly create.
 .claude/settings.local.json
 .claude/settings.local.json.tmp.*

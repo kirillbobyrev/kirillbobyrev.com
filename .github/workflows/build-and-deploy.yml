@@ -4,20 +4,8 @@ on:
   push:
     branches:
       - main
-    # Skip deploys for changes that cannot affect the built site.
-    paths-ignore:
-      - "README.md"
-      - "LICENSE"
-      - ".devcontainer/**"
-      - ".mcp.json"
-      - "lychee.toml"
-      - ".prettierrc"
-      - ".prettierignore"
-      - ".editorconfig"
-      - ".nvmrc"
-      - ".github/dependabot.yml"
   schedule:
-    - cron: "0 0 * * 0" # Weekly rebuild: refreshes the fetched resume.
+    - cron: "0 0 * * 0" # Weekly rebuild picks up the latest resume.
   workflow_dispatch:
 
 permissions:
@@ -25,9 +13,7 @@ permissions:
   pages: write
   id-token: write
 
-# Queue deploys instead of cancelling in-flight ones: with
-# cancel-in-progress a merge landing during a deploy killed it and left
-# the site on the previous build until something else triggered a run.
+# Queue rather than cancel: a cancelled deploy leaves the old build live.
 concurrency:
   group: pages
   cancel-in-progress: false
@@ -55,13 +41,11 @@ jobs:
 
       - name: Fetch resume PDF
         env:
-          # kirillbobyrev/resume is private, and the workflow's own
-          # GITHUB_TOKEN can only read this repo. RESUME_TOKEN is a
-          # fine-grained PAT scoped to that one repo: Contents read-only.
+          # The resume repo is private; GITHUB_TOKEN can't read it.
           GH_TOKEN: ${{ secrets.RESUME_TOKEN }}
         run: |
           if [ -z "$GH_TOKEN" ]; then
-            echo "::error::RESUME_TOKEN secret is missing; it is needed to download the resume from the private kirillbobyrev/resume repo."
+            echo "::error::RESUME_TOKEN secret is missing."
             exit 1
           fi
           mkdir -p static

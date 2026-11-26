@@ -55,9 +55,6 @@ theme = 'paper'
   [services.googleAnalytics]
     id = 'G-RHCZGDQQJR'
 
-# Every script is built and minified by esbuild (js.Build, see the theme's
-# _partials/script.html) before it's inlined, so `hugo --minify` must leave
-# inline JS alone: its minifier re-minifying esbuild's output hoisted a
-# destructuring above the variable it reads and broke the analytics loader.
+# Scripts are already minified by js.Build; re-minifying broke them.
 [minify]
   disableJS = true

@@ -4,14 +4,11 @@ updates:
     directory: "/"
     schedule:
       interval: monthly
-    # Bundle all Action bumps into a single monthly PR instead of one per action.
     groups:
       github-actions:
         patterns:
           - "*"
-    # Wait for a release to settle before proposing it, so freshly-published
-    # (and potentially compromised or broken) versions age first. Security
-    # updates ignore the cooldown and are still opened immediately.
+    # Let releases age before proposing them; security updates skip this.
     cooldown:
       default-days: 7
       semver-major-days: 14

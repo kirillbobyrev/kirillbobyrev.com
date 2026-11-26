@@ -1,8 +1,6 @@
 name: Link check
 
-# Weekly *online* link check: the deploy pipeline only checks links
-# offline (internal anchors and files), so external link rot would
-# otherwise go unnoticed. Failures file (or update) an issue instead of
+# External links are only checked here; rot files an issue instead of
 # failing a deploy.
 on:
   schedule:
@@ -39,7 +37,6 @@ jobs:
         id: lychee
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
-          # Exclusions and accepted statuses: lychee.toml.
           args: --no-progress --root-dir ./public ./public
           output: lychee-report.md
           fail: false
