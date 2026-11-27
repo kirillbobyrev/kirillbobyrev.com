@@ -1,42 +1,22 @@
-{{- /* Full-content RSS: adds <content:encoded> so feed readers show whole */ -}}
-{{- /* posts instead of a summary (the auto summary embeds raw KaTeX markup, */ -}}
-{{- /* which renders as garbage in readers). */ -}}
-{{- $pctx := . -}}
-{{- if .IsHome -}}
-  {{- $pctx = .Site.RegularPages -}}
-{{- else -}}
-  {{- $pctx = .RegularPages -}}
-{{- end -}}
-{{- $pages := where $pctx "Section" "blog" -}}
-{{- $limit := .Site.Config.Services.RSS.Limit -}}
-{{- if ge $limit 1 -}}
-  {{- $pages = $pages | first $limit -}}
+{{- /* Full-content RSS: <content:encoded> carries whole posts, since the */ -}}
+{{- /* auto summary embeds raw KaTeX markup that readers show as garbage. */ -}}
+{{- $pages := where (cond .IsHome site.RegularPages .RegularPages) "Section" "blog" -}}
+{{- with site.Config.Services.RSS.Limit -}}
+  {{- if ge . 1 }}{{ $pages = first . $pages }}{{ end -}}
 {{- end -}}
 {{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>
-      {{- if eq .Title .Site.Title -}}
-        {{ .Site.Title }}
-      {{- else -}}
-        {{ with .Title }}{{ . }} on {{ end }}{{ .Site.Title }}
-      {{- end -}}
-    </title>
+    <title>{{ if not .IsHome }}{{ .Title }} on {{ end }}{{ site.Title }}</title>
     <link>{{ .Permalink }}</link>
-    <description>
-      {{- "Recent content " -}}
-      {{- if ne .Title .Site.Title -}}
-        {{- with .Title }}in {{ . }} {{ end -}}
-      {{- end -}}
-      {{- printf "on %s" .Site.Title -}}
-    </description>
+    <description>Recent content {{ if not .IsHome }}in {{ .Title }} {{ end }}on {{ site.Title }}</description>
     <generator>Hugo</generator>
     {{- with site.Language.Locale }}
       <language>{{ . }}</language>
     {{- end }}
     {{- /* No managingEditor/webMaster/author: RSS 2.0 requires them to be */ -}}
     {{- /* email addresses, and publishing one is not worth spec compliance. */ -}}
-    {{- with .Site.Copyright }}
+    {{- with site.Copyright }}
       <copyright>{{ . }}</copyright>
     {{- end }}
     {{- range first 1 $pages }}

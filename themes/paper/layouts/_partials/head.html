@@ -12,8 +12,6 @@
       crossorigin
     />
   {{- end -}}
-  {{- /* Computed up front: Prettier would wrap inline conditionals and */ -}}
-  {{- /* leak the line breaks into the output. */ -}}
   {{- $title := cond .IsHome site.Title (printf "%s · %s" .Title site.Title) -}}
   {{- $desc := .Description | default site.Params.description -}}
   <title>{{ $title }}</title>
@@ -32,7 +30,7 @@
     rel="alternate"
     type="application/rss+xml"
     href="{{ "index.xml" | absURL }}"
-    title="{{ .Site.Title }}"
+    title="{{ site.Title }}"
   />
   {{- /* Kept in sync with --color-bg in tokens.css by hand - browser chrome can't read a CSS custom property. */ -}}
   <meta
@@ -54,7 +52,6 @@
   {{- partialCached "css.html" . -}}
   {{- /* Fetch a same-site page's HTML as soon as a reader shows intent */ -}}
   {{- /* (hovers a link, or starts a tap), so it's already here on click. */ -}}
-  {{- /* Chromium only; other browsers ignore the script type. */ -}}
   <script type="speculationrules">
     {
       "prefetch": [
@@ -70,7 +67,7 @@
       ]
     }
   </script>
-  {{- if .Page.Store.Get "hasMath" -}}
+  {{- if .Store.Get "hasMath" -}}
     {{- partialCached "math.html" . -}}
   {{- end -}}
   {{ hugo.Generator }}

@@ -9,7 +9,7 @@ theme = 'paper'
 [params]
   description = 'software engineering blog by Kirill Bobyrev'
   [params.author]
-    name = 'kirill bobyrev'
+    name = 'Kirill Bobyrev'
   [params.social]
     twitter = 'kirillbobyrev'
     github = 'kirillbobyrev'

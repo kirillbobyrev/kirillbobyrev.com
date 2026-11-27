@@ -1,7 +1,6 @@
-// Draws ```mermaid blocks (render-codeblock-mermaid.html), only on pages
-// that have one. Mermaid's own defaults, with the theme's light or dark
-// variant following the OS, set in the page's font; diagrams are redrawn
-// from the saved sources when the OS theme changes. Loaded from the CDN (kept external by js.Build).
+// Draws ```mermaid blocks (render-codeblock-mermaid.html) in the page's
+// font, with Mermaid's light or dark theme following the OS; diagrams are
+// redrawn from the saved sources when the OS theme changes.
 import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@12.2.0/dist/mermaid.esm.min.mjs";
 
 const blocks = [...document.querySelectorAll("pre.mermaid")];

@@ -1,13 +1,10 @@
-{{- /* The page's Open Graph image as (dict "url" "width" "height"): a 1200x630 card */ -}}
-{{- /* for every page built from content (home, sections, posts, Now); none for the 404. */ -}}
-{{- /* Composed at build time: the paper canvas (assets/images/og-base.png), the title in */ -}}
-{{- /* Newsreader Display and an italic site/date line. images.Text can't read woff2, so */ -}}
-{{- /* assets/fonts/ holds TTF copies of the two cuts. */ -}}
+{{- /* The page's Open Graph card as (dict "url" "width" "height"), for every */ -}}
+{{- /* page with a content file. images.Text can't read woff2, so assets/fonts/ */ -}}
+{{- /* holds TTF copies of the two Newsreader cuts. */ -}}
 {{- $img := dict -}}
 {{- if .File -}}
-  {{- /* Greedy-wrap the title: images.Text only breaks lines at the image edge, which would */ -}}
-  {{- /* leave no right margin. Newsreader averages ~0.42em a character, so 30 runes keeps */ -}}
-  {{- /* a line inside the 1040px column at size 72; lines are balanced to the same length. */ -}}
+  {{- /* images.Text only wraps at the image edge, so wrap the title here */ -}}
+  {{- /* into balanced lines of at most ~30 characters. */ -}}
   {{- $len := strings.RuneCount .Title -}}
   {{- $n := math.Ceil (div (float $len) 30) -}}
   {{- $max := add (math.Ceil (div (float $len) $n)) 3 -}}
@@ -24,7 +21,6 @@
   {{- end -}}
   {{- with $cur }}{{ $lines = $lines | append . }}{{ end -}}
   {{- $title := delimit $lines "\n" -}}
-  {{- /* Center the block around y=250: each line is ~94px tall. */ -}}
   {{- $y := sub 250 (mul (len $lines) 47) -}}
   {{- $meta := "kirillbobyrev.com" -}}
   {{- if and .IsPage (eq .Section "blog") -}}

@@ -1,5 +1,5 @@
-/* Site chrome and page headers: the header row, page titles, the About
-   links, the Writing index. */
+/* Site chrome and page headers: the header row, page titles, the home
+   page's links, the Writing index. */
 .site-container {
   max-width: var(--measure);
   margin-inline: auto;
@@ -73,7 +73,7 @@
   text-decoration-color: var(--color-underline);
 }
 
-/* About, Now, Writing, 404. */
+/* Home, Now, Writing, 404. */
 .page-header {
   margin-block: var(--space-3xl) var(--space-xl);
 }
@@ -111,8 +111,8 @@
   color: var(--color-muted);
 }
 
-/* Plain links separated by slashes: socials on About, the way back on
-   404. */
+/* Plain links separated by slashes: socials on the home page, the way
+   back on 404. */
 .link-row {
   margin-block-start: var(--space-2xl);
   display: flex;

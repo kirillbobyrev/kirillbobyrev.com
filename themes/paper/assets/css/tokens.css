@@ -51,8 +51,6 @@
      Tufte CSS. */
   --rhythm: 1.25rem;
 
-  /* Contrast on --color-bg: text 17.6:1 light / 14.1:1 dark; muted 5.7 /
-     6.8 (5.3 / 6.3 on --color-panel); the accent 9.3 / 6.5. */
   --color-bg: light-dark(#f8f7f3, #161513);
   --color-heading: light-dark(#111111, #efebe3);
   --color-text: light-dark(#111111, #e6e2d9);
@@ -77,9 +75,8 @@
      the column widens on big monitors. */
   --leading: 1.5;
 
-  /* The reading column: ~75 characters of prose a line (Newsreader
-     averages 0.43em a character). Big monitors get a little more,
-     with looser leading (prose.css) to keep long lines easy to track.
+  /* The reading column, about 75 characters of prose. Big monitors get a
+     little more, with looser leading to keep long lines easy to track.
      rem, so it also grows with the root font-size (base.css). */
   --measure: 40rem;
   /* Articles span this frame on wide screens: the contents rail in the
@@ -94,7 +91,7 @@
   --header-offset: var(--space-l);
 }
 
-/* Same-site navigation crossfades (Chromium, Safari 18.2+). */
+/* Same-site navigation crossfades. */
 @view-transition {
   navigation: auto;
 }

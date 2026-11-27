@@ -11,8 +11,8 @@
     {{- /* Linked, so hugo server can hot-swap CSS edits. */ -}}
     <link rel="stylesheet" href="{{ .RelPermalink }}" />
   {{- else -}}
-    {{- /* Inlined: ~6KB gzipped costs less than a render-blocking round */ -}}
-    {{- /* trip, and GitHub Pages' max-age=600 makes caching worth little. */ -}}
+    {{- /* Inlined: small enough to beat a render-blocking request, and */ -}}
+    {{- /* GitHub Pages' short cache lifetime makes caching it worth little. */ -}}
     <style>
       {{ .Content | safeCSS }}
     </style>

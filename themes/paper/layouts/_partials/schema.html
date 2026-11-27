@@ -1,7 +1,7 @@
 {{- /* JSON-LD structured data: BlogPosting on posts, WebSite + Person on home. */ -}}
 {{- /* Standalone pages like /now get neither: they are not articles, and */ -}}
 {{- /* BlogPosting would emit their zero dates as 0001-01-01. */ -}}
-{{- $author := .Site.Params.author.name | title -}}
+{{- $author := site.Params.author.name -}}
 {{- if and .IsPage (eq .Section "blog") -}}
   {{- $data := dict
     "@context" "https://schema.org"
@@ -27,9 +27,9 @@
   {{- $data := dict
     "@context" "https://schema.org"
     "@type" "WebSite"
-    "name" .Site.Title
+    "name" site.Title
     "url" site.Home.Permalink
-    "description" .Site.Params.description
+    "description" site.Params.description
     "author" (dict "@type" "Person" "name" $author "url" site.Home.Permalink)
   -}}
   <script type="application/ld+json">

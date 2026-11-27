@@ -1,8 +1,6 @@
-{{- /* KaTeX's stylesheet must match the KaTeX version Hugo embeds for */ -}}
-{{- /* transform.ToMath (internal/warpc/js/package.json in Hugo's source), */ -}}
-{{- /* not KaTeX's latest release: the CSS styles the HTML Hugo generates, */ -}}
-{{- /* and KaTeX renames classes between minors (0.18: base -> katex-base). */ -}}
-{{- /* Hugo 0.170.1 embeds KaTeX 0.18.4. Bump the two together. */ -}}
+{{- /* Pinned to the KaTeX that Hugo embeds for transform.ToMath (see */ -}}
+{{- /* internal/warpc/js/package.json in Hugo's source), not KaTeX's latest: */ -}}
+{{- /* class names change between minors. Check it on every Hugo bump. */ -}}
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 <link
   rel="stylesheet"

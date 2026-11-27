@@ -1,13 +1,12 @@
-// Google Analytics, loaded once the page is idle instead of during first
-// render: gtag.js is ~170KB and ~300ms of main-thread work on a mid-range
-// phone, which otherwise competes with fonts and layout. gtag() queues
-// into dataLayer from the start, so the page view is still sent; a visit
-// shorter than the idle delay goes uncounted.
+// Google Analytics, loaded once the page is idle so gtag.js doesn't
+// compete with first render. gtag() queues into dataLayer from the start,
+// so the page view is still sent; a visit shorter than the idle delay
+// goes uncounted.
 import params from "@params";
 
 const { id } = params;
 
-window.dataLayer = window.dataLayer || [];
+window.dataLayer ??= [];
 window.gtag = function () {
   // gtag.js reads the arguments object itself, not an array.
   window.dataLayer.push(arguments);

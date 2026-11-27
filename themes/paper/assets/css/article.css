@@ -99,8 +99,9 @@
   color: var(--color-heading);
 }
 
-/* The rail: contents in the margin left of the reading column. Below 76rem it would be too narrow, so
-   both stay in the flow. Keep the width in step with toc.js. */
+/* The rail: contents in the margin left of the reading column. Below
+   76rem it would be too narrow, so both stay in the flow. Keep the
+   breakpoint in step with toc.js. */
 @media (min-width: 76rem) {
   /* 100% here is the reading column's width. */
   .main-content {

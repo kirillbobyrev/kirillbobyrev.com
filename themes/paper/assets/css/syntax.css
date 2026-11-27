@@ -1,14 +1,9 @@
-/* === Syntax highlighting (Chroma classes) ===
-   Merged from `hugo gen chromastyles --style=github` (light) and
-   `--style=github-dark` (dark): every token declares both colours via
-   light-dark(). Backgrounds are stripped in favour of --color-panel,
-   token classes that only one palette defines fall back to the other
-   theme's base text colour, and dark-only bold/italic accents are
-   dropped so both themes share one typography. Three light-theme
-   colours are darkened from GitHub's to hold AA on --color-panel:
-   keywords/errors #cf222e -> #b31d28 (4.2 -> 5.3:1) and builtin pseudo
-   #6a737d -> #57606a. Regenerate with those commands on bumps, then
-   reapply those three. */
+/* Syntax highlighting: Chroma's `github` (light) and `github-dark` (dark)
+   styles from `hugo gen chromastyles`, merged with light-dark(), on
+   --color-panel instead of their own backgrounds, with one typography
+   for both themes. For AA on the panel, light keywords and errors are
+   #b31d28 (not #cf222e) and builtin pseudo is #57606a (not #6a737d);
+   reapply those after regenerating. */
 .chroma {
   color: light-dark(#212529, #e6edf3);
   -webkit-text-size-adjust: none;

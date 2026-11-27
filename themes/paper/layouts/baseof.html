@@ -10,7 +10,7 @@
     <main id="content" class="site-container">
       {{- block "main" . }}{{ end }}
     </main>
-    {{- if .Page.Store.Get "hasMermaid" -}}
+    {{- if .Store.Get "hasMermaid" -}}
       {{- partial "script.html" (dict "path" "js/mermaid.js" "module" true) -}}
     {{- end -}}
   </body>

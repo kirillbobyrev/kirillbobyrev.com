@@ -1,9 +1,9 @@
 {{- /* Open Graph + Twitter card metadata, in place of Hugo's embedded */ -}}
 {{- /* partials so posts can use the card from og-image.html. */ -}}
 {{- $isPost := and .IsPage (eq .Section "blog") -}}
-{{- $desc := or .Description .Site.Params.description | plainify | chomp -}}
+{{- $desc := or .Description site.Params.description | plainify | chomp -}}
 {{- $img := partialCached "og-image.html" . .RelPermalink -}}
-<meta property="og:site_name" content="{{ .Site.Title }}" />
+<meta property="og:site_name" content="{{ site.Title }}" />
 <meta property="og:title" content="{{ .Title }}" />
 <meta property="og:description" content="{{ $desc }}" />
 <meta property="og:url" content="{{ .Permalink }}" />
@@ -37,6 +37,6 @@
 {{- with $img.url }}
   <meta name="twitter:image" content="{{ . }}" />
 {{- end }}
-{{- with .Site.Params.social.twitter }}
+{{- with site.Params.social.twitter }}
   <meta name="twitter:site" content="@{{ . }}" />
 {{- end }}
